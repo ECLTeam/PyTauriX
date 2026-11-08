@@ -411,3 +411,27 @@ HTTP 服务，以真实请求命中判定，不靠"没报错"推定成功。无�
 账本据实升级：global-shortcut 5 条、notification 6 条、opener 4 条记 `bound_tested`；
 notification 的 `silent` 只验证了参数路径，实际静默效果未确认，记 `partial_tested`。
 `--check` 通过。仍未覆盖：`silent=True` 的静默效果、热键与输入法冲突、Linux 与 macOS。
+
+## 第二十六阶段（ECL 第二轮接入复核，手工迁移）
+
+用户决定弃用自动迁移脚本（`prepare_ecl.py`、`export_ecl_patch.py` 已删除），改为在隔离副本上
+逐文件手工修改，每处改动保持可读。第九阶段的隔离副本与证据停留在 10 月 2 日，其后 ECL 自身
+前进了 30 余次提交，且兼容层移除与插件落地都晚于那份证据。
+
+**手工迁移范围**：ECL 12 个 Python 文件的导入改写（`pytauri.ffi.webview` 对应 `pytaruix.webview`）、
+三处保护名称集合、插件隔离版本校验、capabilities 的 `pytauri:default` → `allow-python-command`、
+前端四个文件的 `pytauri` 全局改名、`pyproject.toml` 依赖替换。副本另须剔除开发者本机 `.env`：
+其中的 `ECL_CONFIG_TAURI_FRONTENDDIST` 把主窗口指向 Vite 开发服务器（首轮失败即为
+`Origin header is not a valid URL`，origin 实为 `http://localhost:5173`）。
+
+**驱动同步 ECL 现行管线**：冒烟驱动的旧预期已过时，逐项更新——插件清单需 `api_version: 2` 且
+不再声明旧式权限；启用前要先经 `plugin_permissions_update` 提交审阅决定；插件基类改为
+`ECL.plugin_api.Plugin` 并用 `define_command` 注册命令。三轮（custom/native/system_shadow）
+全部通过：渲染、`tauri.localhost` 生产来源、240 命令真实调用、设置持久化与事件、非法请求恢复、
+插件审阅/启用/列表、单实例移交与窗口恢复、开发者工具、真实对话框与子进程控制、干净退出。
+唯一失败为 `plugin_window`：ECL 新清单权限模型禁止旧式 UI 权限声明，而插件贡献窗口的授权检查
+仍读取旧式 `Permission`——ECL 侧待迁移项，驱动记为已知缺口，不归因框架。
+
+**未做**：ECL 打包清单（Nuitka/PyInstaller/CI 仍引用 pytauri 与自维护 runtime 分支）、
+ECL 自身测试套件（15 个文件引用 `pytauri`，其中隔离门禁测试断言的 `plugin:pytauri|pyfunc`
+协议已删除，需要 ECL 侧重新设计）、原生拖放。Linux/macOS 按用户指示继续搁置。

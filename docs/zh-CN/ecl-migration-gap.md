@@ -147,3 +147,24 @@ DialogExt.file(self._webview).blocking_save_file(
 成本大约是一次会话。
 
 按项目规范，ECL 集成要用隔离副本与专用数据，改动前需要单独授权。
+
+## 2026-11-08 第二轮复核更新
+
+隔离副本上的真实桌面复核已完成（三种窗口模式，见[实施记录](implementation-plan.md)第二十六阶段），
+以上风险清单逐项更新：
+
+1. **200 个命令的真实执行**：已验证。240 个命令经真实 Vue 前端调用，设置读写、事件、
+   非法请求恢复、单实例移交、对话框与子进程控制在三种窗口模式下全部通过。
+2. **`pytauri_plugins` 的其它插件**：不成立。排除虚拟环境后 ECL 业务只导入 dialog，
+   六个已落地插件覆盖有余。但 ECL 插件管线自身已重构（清单 v2、审阅前置、Worker API），
+   冒烟驱动按现行流程更新后审阅/启用/列表全绿；插件贡献窗口的授权检查仍读旧式权限，
+   与新清单模型冲突，属 ECL 侧待迁移项。
+3. **菜单、托盘、拖放、主题**：托盘/菜单未在 ECL 链路验证；原生拖放仍待验收。
+4. **TS 类型生成**：不变，仍缺。
+5. **打包与资源**：`context_factory` 资源解析已验证（生产 frontendDist 快照正确服务），
+   但 ECL 的 Nuitka/PyInstaller/CI 清单仍引用 pytauri 与自维护 runtime 分支，待 ECL 侧改写。
+
+新发现的迁移事实（已完成）：前端 4 个文件的 `pytauri` 全局改名；capabilities 的
+`pytauri:default` → `allow-python-command`；副本必须剔除开发者本机 `.env`（会把窗口指向
+Vite 开发服务器）；ECL 的 `webview_version`、`plugin:pytauri|pyfunc` 已无对应物，
+依赖它们的隔离门禁测试需要重新设计。

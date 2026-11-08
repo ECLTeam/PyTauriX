@@ -61,20 +61,30 @@ Windows 上游 Wry 不支持关闭/读取打开状态，close_devtools / is_devt
 
 ## 隔离迁移和验收
 
-```powershell
-uv run --no-sync python scripts/prepare_ecl.py E:/Projects/EuoraCraft-Launcher/EuoraCraft-Launcher
-```
+迁移不再使用自动脚本：从 ECL 工作区复制一份干净副本到 `artifacts/`（排除 `.git`、
+`.venv`、`node_modules`、`build`、`dist`、数据目录），然后逐文件手工修改并保留可读 diff。
+第二十六阶段记录的完整手工改动清单：
 
-脚本复制当前工作区和前端子模块，保留未提交内容，生成来源提交/摘要、迁移副本和初始补丁；目标必须为新的 artifacts 子目录。
+- ECL Python：`from pytauri*` 导入改写到 `pytaruix`（`pytauri.ffi.webview` 对应 `pytaruix.webview`）；
+  宿主保护清单、无头任务禁入清单与插件受保护导入集合改为 `pytaruix`；
+  插件隔离的固定 wheel 版本校验改为检查 `pytaruix` 存在。
+- capabilities：`"pytauri:default"` 改为 `"allow-python-command"`，`plugin.*` 模式改 `plugin:*`。
+- 前端：`src/api/transport/tauri.ts`、`tauri.test.ts`、`src/app/runtime/mode.ts`、
+  `src/types/global.d.ts` 的 `pytauri` 全局改 `pytaruix`。
+- 依赖：`pyproject.toml` 用 `pytaruix==0.1.0a1` 本地 wheel。
+- 副本必须剔除开发者本机的 `.env`（其中 `ECL_CONFIG_TAURI_FRONTENDDIST` 会把窗口指向
+  Vite 开发服务器，并含本机凭据），否则主窗口导航到 `http://localhost:5173`。
+- 打包清单（Nuitka/PyInstaller/CI）与 ECL 自身测试套件的改写仍待 ECL 侧进行。
+
 依赖与专用虚拟环境安装在副本，运行时数据和 WebView2 配置也使用独立目录，不使用原账户/游戏数据。
-副本前端执行 pnpm check 与 pnpm build，使用本次实际工作区生产产物。
+副本前端执行 pnpm build，使用本次实际工作区生产产物。
 Windows 上用隔离副本环境运行真实前后端检查：
 
 ```powershell
-artifacts/phase9-ecl/.venv/Scripts/python.exe -X utf8 scripts/ecl_desktop_smoke.py artifacts/phase9-ecl --output artifacts/ecl-new-check
+artifacts/ecl-round2/.venv/Scripts/python.exe -X utf8 scripts/ecl_desktop_smoke.py artifacts/ecl-round2 --output artifacts/ecl-round2-final
 ```
 
-默认分别验收三种窗口模式；包含正式 IPC、设置持久化/事件、插件注册/窗口/权限/停用、单实例恢复和正常退出。
+默认分别验收三种窗口模式；包含正式 IPC、设置持久化/事件、插件注册/启用、单实例恢复和正常退出。
 custom 模式还操作真实系统对话框，核对背景/皮肤文件字节，以及真实子进程日志、输入和终止。
 未把 CDP 脚本直接注入业务返回值作为成功；调用实际 Vue/Tauri/Python 链路。
 原生拖放单独通过 --native-drop 检查；本次因模拟器窗口覆盖输入位置而待验收，不能把其他桌面检查记为拖放成功。
@@ -85,12 +95,6 @@ HTTPX 可选命令行会引入 Pygments；使用 --noinclude-custom-mode=pygment
 独立程序用同一驱动的 --executable 指向 main.dist/main.exe，在源码目录以外运行。
 本次 standalone 已通过三种窗口模式的实际验收；离线插件安装、重启后的纯 Python 资源和原生扩展加载也通过。
 PyInstaller 清单也同步新包，但未执行 PyInstaller 产物验收；onefile、更新交接与正式发布另外验证。
-
-最终补丁从副本重新导出，并核对每个迁移涉及的来源摘要：
-
-```powershell
-uv run --no-sync python scripts/export_ecl_patch.py artifacts/phase9-ecl-baseline.json artifacts/phase9-ecl artifacts/phase9-ecl-migration.patch
-```
 
 原 ECL 没有主题编辑器或终端窗口的已注册内置描述符，本阶段验证通用窗口与实际插件窗口，不添加新的 ECL 业务窗口。
 真实 Minecraft 实例、登录、网络更新替换/重启需测试资源与外部条件；进程烟测不能代替这些完整业务验收。
