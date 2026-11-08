@@ -432,6 +432,20 @@ notification 的 `silent` 只验证了参数路径，实际静默效果未确认
 唯一失败为 `plugin_window`：ECL 新清单权限模型禁止旧式 UI 权限声明，而插件贡献窗口的授权检查
 仍读取旧式 `Permission`——ECL 侧待迁移项，驱动记为已知缺口，不归因框架。
 
+当晚 ECL 侧跟进（无常授权跨仓库修改）：整体移除插件权限系统（ECL `930bb34`）后，运行时迁移
+直接落到 ECL 仓库（`067ed7c`，前端子模块 `b41daff`）。修复点：
+
+1. `_plugin_window_descriptor` 改用 `get_plugin_metadata`——Worker API 插件不在宿主进程
+   实例化，贡献窗口随启用提供，能力仍由 allowedCommands/Events/Settings 与宿主命令授权约束；
+2. 恢复 label 的点号转冒号（HEAD 重构时丢失，descriptor_id 直接做 label 被 Tauri 拒绝）；
+3. 冒烟插件的命令按 v2 声明输入输出 schema（`define_command` 的 input_fields/output_fields
+   对称强校验，未声明字段的载荷会被拒）。
+
+三种窗口模式全绿，无已知缺口：窗口授权、建窗、前端就绪、插件命令往返、低信任拒绝、
+复用、边界调整、停用全部通过。ECL 定向测试（api_models 56 项、windows 4 项、
+worker_protocol）通过。ECL 侧剩余：打包清单与 CI 仍引用 pytauri 及自维护 runtime 分支，
+其余测试替身迁移另行处理。
+
 **未做**：ECL 打包清单（Nuitka/PyInstaller/CI 仍引用 pytauri 与自维护 runtime 分支）、
 ECL 自身测试套件（15 个文件引用 `pytauri`，其中隔离门禁测试断言的 `plugin:pytauri|pyfunc`
 协议已删除，需要 ECL 侧重新设计）、原生拖放。Linux/macOS 按用户指示继续搁置。
