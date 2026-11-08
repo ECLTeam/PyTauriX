@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import inspect
+import json
 from collections.abc import Callable
+from typing import cast
 
 import pytest
 from pytaruix import get_runtime_info
 from pytaruix import menu as public
 from pytaruix.ffi import menu as ffi
+from pytaruix.manager import ManagerType
 
 
 def test_menu_import_identity_and_string_event() -> None:
@@ -15,7 +18,8 @@ def test_menu_import_identity_and_string_event() -> None:
     assert public.MenuID is str and public.MenuEvent is str
     assert "menu.events" in get_runtime_info().capabilities
     assert not hasattr(public.Menu, "default")
-    assert not hasattr(public.PredefinedMenuItem, "about")
+    assert hasattr(public.PredefinedMenuItem, "about")
+    assert not hasattr(public.PredefinedMenuItem, "with_id")
     assert not hasattr(public.IconMenuItem, "with_native_icon")
 
 
@@ -73,3 +77,61 @@ def test_predefined_factory_and_context_types_without_gui() -> None:
         public.ContextMenu.popup(None, None)  # type: ignore[arg-type]
     with pytest.raises(TypeError, match="WebviewWindow"):
         public.ContextMenu.popup_at(None, None, None)  # type: ignore[arg-type]
+
+
+ROLE_KINDS = {
+    "separator": "separator",
+    "copy": "copy",
+    "cut": "cut",
+    "paste": "paste",
+    "select_all": "select_all",
+    "undo": "undo",
+    "redo": "redo",
+    "minimize": "minimize",
+    "maximize": "maximize",
+    "fullscreen": "fullscreen",
+    "close_window": "close_window",
+    "quit": "quit",
+    "hide": "hide",
+    "hide_others": "hide_others",
+    "show_all": "show_all",
+    "services": "services",
+    "bring_all_to_front": "bring_all_to_front",
+}
+
+
+def test_predefined_roles_map_to_native_kinds(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[tuple[str, str, str | None]] = []
+
+    def fake_create(
+        kind: str,
+        manager: object,
+        id: object = None,
+        text: str = "",
+        enabled: bool = True,
+        checked: bool = False,
+        accelerator: str | None = None,
+        icon: object = None,
+        metadata: public.AboutMetadata | None = None,
+    ) -> object:
+        calls.append((kind, text, None if metadata is None else metadata.to_json()))
+        return object()
+
+    monkeypatch.setattr(ffi, "_create", fake_create)
+    manager = cast(ManagerType, object())
+    for name, kind in ROLE_KINDS.items():
+        getattr(public.PredefinedMenuItem, name)(manager)
+        assert calls[-1] == (kind, "", None)
+
+    public.PredefinedMenuItem.copy(manager, "Copy")
+    assert calls[-1] == ("copy", "Copy", None)
+
+
+def test_about_metadata_serializes_only_provided_fields() -> None:
+    metadata = public.AboutMetadata(name="PytaruiX", version="0.1.0", authors=("ECL", "Contributors"))
+    assert json.loads(metadata.to_json()) == {
+        "name": "PytaruiX",
+        "version": "0.1.0",
+        "authors": ["ECL", "Contributors"],
+    }
+    assert public.AboutMetadata().to_json() == "{}"

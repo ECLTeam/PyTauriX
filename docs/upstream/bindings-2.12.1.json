@@ -7425,6 +7425,465 @@
       "tested_platforms": [],
       "evidence": [],
       "limitations": "Spawns a new process and exits immediately without Python cleanup; not exercised in automated runs"
+    },
+    {
+      "id": "PredefinedMenuItem::copy",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 28,
+        "declaration": "pub fn copy<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.copy",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::cut",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 43,
+        "declaration": "pub fn cut<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.cut",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::paste",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 58,
+        "declaration": "pub fn paste<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.paste",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::select_all",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 73,
+        "declaration": "pub fn select_all<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.select_all",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::undo",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 92,
+        "declaration": "pub fn undo<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.undo",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::redo",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 110,
+        "declaration": "pub fn redo<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.redo",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::minimize",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 129,
+        "declaration": "pub fn minimize<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.minimize",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::maximize",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 148,
+        "declaration": "pub fn maximize<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.maximize",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::fullscreen",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 167,
+        "declaration": "pub fn fullscreen<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.fullscreen",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::hide",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 186,
+        "declaration": "pub fn hide<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.hide",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": "macOS-only roles are created on Windows without visible effect"
+    },
+    {
+      "id": "PredefinedMenuItem::hide_others",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 205,
+        "declaration": "pub fn hide_others<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.hide_others",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": "macOS-only roles are created on Windows without visible effect"
+    },
+    {
+      "id": "PredefinedMenuItem::show_all",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 224,
+        "declaration": "pub fn show_all<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.show_all",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": "macOS-only roles are created on Windows without visible effect"
+    },
+    {
+      "id": "PredefinedMenuItem::close_window",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 243,
+        "declaration": "pub fn close_window<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.close_window",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::quit",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 262,
+        "declaration": "pub fn quit<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.quit",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::about",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 277,
+        "declaration": "pub fn about<M: Manager<R>>("
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.about",
+        "signature": "(cls, manager, text=None, metadata=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "PredefinedMenuItem::services",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 305,
+        "declaration": "pub fn services<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.services",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": "macOS-only roles are created on Windows without visible effect"
+    },
+    {
+      "id": "PredefinedMenuItem::bring_all_to_front",
+      "upstream": {
+        "source": "src/menu/predefined.rs",
+        "line": 324,
+        "declaration": "pub fn bring_all_to_front<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.PredefinedMenuItem.bring_all_to_front",
+        "signature": "(cls, manager, text=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": "macOS-only roles are created on Windows without visible effect"
     }
   ]
 }

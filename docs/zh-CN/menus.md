@@ -109,3 +109,34 @@ Windows muda 将菜单图像渲染成 16×16；更大图像的缩放/透明合�
 AboutMetadata、NativeIcon、其他预定义角色、Menu.default、完整 Builder、托盘及移动菜单仍未绑定。
 窗口菜单隐藏/显示入口、构建器直接附带菜单、任意 Rust 资源表和前端菜单适配不在本阶段范围。
 Linux/macOS 行为、菜单快捷键的物理键盘触发、跨应用实例和 DPI 组合外观仍需单独验收。
+
+## 预定义角色
+
+`PredefinedMenuItem` 提供 17 个平台角色，构造签名为 `(manager, text=None)`，`about` 额外接受 `AboutMetadata`：
+
+- 编辑：`copy`、`cut`、`paste`、`select_all`、`undo`、`redo`
+- 窗口：`minimize`、`maximize`、`fullscreen`、`close_window`
+- 应用：`quit`、`hide`、`hide_others`、`show_all`、`services`、`bring_all_to_front`
+- 其他：`separator`、`about`
+
+`text` 只覆盖显示文案，角色行为与快捷键仍由平台决定；`set_text` 可在构造后修改文案。
+`hide`、`hide_others`、`show_all`、`services`、`bring_all_to_front` 仅 macOS 有可见效果，
+Windows 上可以构造但不产生界面变化。`AboutMetadata` 省略空字段，图标尚未绑定。
+
+```python
+from pytaruix.menu import AboutMetadata, Menu, PredefinedMenuItem
+
+menu = Menu.with_items(
+    app_handle,
+    [
+        PredefinedMenuItem.copy(app_handle),
+        PredefinedMenuItem.paste(app_handle),
+        PredefinedMenuItem.separator(app_handle),
+        PredefinedMenuItem.about(app_handle, "About", AboutMetadata(name="PytaruiX", version="0.1.0")),
+        PredefinedMenuItem.quit(app_handle),
+    ],
+)
+app_handle.set_menu(menu)
+```
+
+菜单资源操作不能在同步 GUI 回调（如 `Ready`）内执行，应在 `setup(AppHandle)` 或运行期调用。

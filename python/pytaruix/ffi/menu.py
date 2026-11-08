@@ -3,7 +3,9 @@
 # 公开接口：Menu、Submenu、MenuItem、CheckMenuItem、IconMenuItem、PredefinedMenuItem、ContextMenu。
 from __future__ import annotations
 
+import json
 from collections.abc import Sequence
+from dataclasses import dataclass, fields
 from typing import TypeAlias, TypeVar
 
 from .. import _native
@@ -15,6 +17,39 @@ from .image import Image
 MenuID: TypeAlias = str
 MenuEvent: TypeAlias = MenuID
 _T = TypeVar("_T", bound="_MenuObject")
+
+
+@dataclass(frozen=True, slots=True)
+class AboutMetadata:
+    """
+    描述 About 预定义项的静态信息，只保留调用方提供且非空的字段。
+
+    图标不在本结构内，需通过 Image 单独提供；各字段的平台效果沿用上游。
+    """
+
+    name: str | None = None
+    version: str | None = None
+    short_version: str | None = None
+    authors: tuple[str, ...] | None = None
+    comments: str | None = None
+    copyright: str | None = None
+    license: str | None = None
+    website: str | None = None
+    website_label: str | None = None
+    credits: str | None = None
+
+    def to_json(self) -> str:
+        """
+        序列化为原生入口接收的 JSON 对象。
+
+        :return: 省略空字段的 JSON 文本
+        """
+        payload: dict[str, object] = {}
+        for field in fields(self):
+            value = getattr(self, field.name)
+            if value is not None:
+                payload[field.name] = list(value) if isinstance(value, tuple) else value
+        return json.dumps(payload, ensure_ascii=False)
 
 
 def _bool(value: bool) -> bool:
@@ -44,6 +79,7 @@ def _create(
     checked: bool = False,
     accelerator: str | None = None,
     icon: Image | None = None,
+    metadata: AboutMetadata | None = None,
 ) -> _native.MenuResource:
     if not _native.menu_available:
         raise _native.BindingError("platform_unavailable: Native menus require a desktop platform")
@@ -51,6 +87,8 @@ def _create(
         _text(accelerator)
     if icon is not None and not isinstance(icon, Image):
         raise TypeError("Expected Image or None")
+    if metadata is not None and not isinstance(metadata, AboutMetadata):
+        raise TypeError("Expected AboutMetadata or None")
     return _native.MenuResource.create(
         _handle(manager),
         kind,
@@ -60,6 +98,7 @@ def _create(
         _bool(checked),
         accelerator,
         icon,
+        None if metadata is None else metadata.to_json(),
     )
 
 
@@ -521,29 +560,159 @@ class IconMenuItem(_Accelerated):
 
 class PredefinedMenuItem(_TextItem):
     """
-    当前仅提供原生 separator，其他预定义角色未实现。
+    平台预定义菜单项：编辑、窗口、应用与 About 等固定角色。
 
-    通过 separator 工厂创建；文本显示行为沿用平台。
+    角色行为、默认文案和快捷键由平台提供；传入 text 只覆盖显示文案，
+    不改变角色行为。部分角色仅在 macOS 生效，Windows/Linux 上不显示或无效。
     """
 
     __slots__ = ()
 
     def __init__(self) -> None:
         """
-        拒绝直接构造；使用 separator(manager)。
+        拒绝直接构造；使用对应角色的类方法。
 
         本类型不在导入或构造错误时初始化 GUI。
         """
-        raise TypeError("Use PredefinedMenuItem.separator(manager)")
+        raise TypeError("Use PredefinedMenuItem.separator(manager) or another role factory")
 
     @classmethod
     def separator(cls, manager: ManagerType, /) -> PredefinedMenuItem:
         """
-        创建属于应用的原生分隔项。
-
-        桌面 setup 或运行期间释放 GIL，退出或同步回调内报错。
+        创建分隔项，显示行为沿用平台。
         """
         return cls._from_resource(_create("separator", manager))
+
+    @classmethod
+    def copy(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建复制项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("copy", manager, text=text or ""))
+
+    @classmethod
+    def cut(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建剪切项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("cut", manager, text=text or ""))
+
+    @classmethod
+    def paste(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建粘贴项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("paste", manager, text=text or ""))
+
+    @classmethod
+    def select_all(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建全选项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("select_all", manager, text=text or ""))
+
+    @classmethod
+    def undo(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建撤销项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("undo", manager, text=text or ""))
+
+    @classmethod
+    def redo(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建重做项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("redo", manager, text=text or ""))
+
+    @classmethod
+    def minimize(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建最小化窗口项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("minimize", manager, text=text or ""))
+
+    @classmethod
+    def maximize(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建最大化窗口项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("maximize", manager, text=text or ""))
+
+    @classmethod
+    def fullscreen(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建切换全屏项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("fullscreen", manager, text=text or ""))
+
+    @classmethod
+    def close_window(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建关闭窗口项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("close_window", manager, text=text or ""))
+
+    @classmethod
+    def quit(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建退出应用项；text 覆盖平台默认文案，所有桌面平台。
+        """
+        return cls._from_resource(_create("quit", manager, text=text or ""))
+
+    @classmethod
+    def hide(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建隐藏应用项；text 覆盖平台默认文案，仅 macOS 生效。
+        """
+        return cls._from_resource(_create("hide", manager, text=text or ""))
+
+    @classmethod
+    def hide_others(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建隐藏其他应用项；text 覆盖平台默认文案，仅 macOS 生效。
+        """
+        return cls._from_resource(_create("hide_others", manager, text=text or ""))
+
+    @classmethod
+    def show_all(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建显示全部应用项；text 覆盖平台默认文案，仅 macOS 生效。
+        """
+        return cls._from_resource(_create("show_all", manager, text=text or ""))
+
+    @classmethod
+    def services(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建系统服务子菜单项；text 覆盖平台默认文案，仅 macOS 生效，Windows/Linux 不显示。
+        """
+        return cls._from_resource(_create("services", manager, text=text or ""))
+
+    @classmethod
+    def bring_all_to_front(cls, manager: ManagerType, text: str | None = None, /) -> PredefinedMenuItem:
+        """
+        创建前置全部窗口项；text 覆盖平台默认文案，仅 macOS 生效。
+        """
+        return cls._from_resource(_create("bring_all_to_front", manager, text=text or ""))
+
+    @classmethod
+    def about(
+        cls,
+        manager: ManagerType,
+        text: str | None = None,
+        metadata: AboutMetadata | None = None,
+        /,
+    ) -> PredefinedMenuItem:
+        """
+        创建 About 项；metadata 提供名称、版本、版权等信息。
+
+        :param manager: 应用、应用句柄或窗口
+        :param text: 覆盖平台默认文案
+        :param metadata: 静态元数据，图标暂不支持
+        :return: 预定义菜单项
+        :raises BindingError: 应用已关闭、元数据非法或平台不支持
+        """
+        return cls._from_resource(_create("about", manager, text=text or "", metadata=metadata))
 
 
 MenuItemKind: TypeAlias = MenuItem | Submenu | PredefinedMenuItem | CheckMenuItem | IconMenuItem
@@ -591,7 +760,7 @@ def _from_item(resource: _native.MenuResource) -> MenuItemKind:
     classes = {
         "item": MenuItem,
         "submenu": Submenu,
-        "separator": PredefinedMenuItem,
+        "predefined": PredefinedMenuItem,
         "check": CheckMenuItem,
         "icon": IconMenuItem,
     }
@@ -605,6 +774,7 @@ def _from_native(resource: _native.MenuResource) -> Menu:
 
 
 __all__ = [
+    "AboutMetadata",
     "CheckMenuItem",
     "ContextMenu",
     "IconMenuItem",

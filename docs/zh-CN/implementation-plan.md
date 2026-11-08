@@ -208,3 +208,15 @@ Windows OLE 四类事件、焦点往返及窗口主题事件 9 项通过；托�
 219 已绑定验收、31 部分绑定、8 平台不可用、1 未绑定、1 已绑定未在自动化中触发。
 Ruff、Pyright、200 项 pytest、Rustfmt、Clippy（默认 features、`-D warnings`）与账本核验通过。
 本批未提交远端、未发布，ECL 正式工作区未修改。
+
+## 第十五阶段（菜单预定义角色，实现完成）
+
+本批补齐能力矩阵中「菜单」领域的预定义角色：此前只有 separator，其余 17 个角色与 About 元数据未实现。
+新增 `copy`、`cut`、`paste`、`select_all`、`undo`、`redo`、`minimize`、`maximize`、`fullscreen`、
+`hide`、`hide_others`、`show_all`、`close_window`、`quit`、`services`、`bring_all_to_front` 与 `about` 工厂。
+`AboutMetadata` 为 frozen dataclass，经 JSON 边界传入原生 `AboutMetadata`，图标未绑定。
+原生 `create` 新增 `metadata` 参数并扩展角色分支；`PredefinedMenuItem.kind()` 统一报告 `predefined`。
+`tests/test_menu_contract.py` 21 项通过（新增角色映射与元数据序列化）；`scripts/menu_roles_smoke.py`
+在真实桌面构造全部角色并挂载菜单，8 项检查全通过；macOS 专属角色在 Windows 可构造但无可见效果。
+人工审核账本新增 17 条，当前 277 条：236 已绑定验收、31 部分绑定、8 平台不可用、1 未绑定、1 未在自动化中触发。
+Ruff、Pyright、pytest、Rustfmt、Clippy 与账本核验通过；本批未提交远端、未发布。

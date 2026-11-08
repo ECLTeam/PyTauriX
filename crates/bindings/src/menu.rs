@@ -75,6 +75,52 @@ fn accelerator(value: Option<&str>) -> PyResult<()> {
     Ok(())
 }
 
+/// 预定义项的显示文本覆盖：空字符串表示使用平台默认文案。
+fn label(text: &str) -> Option<&str> {
+    if text.is_empty() {
+        None
+    } else {
+        Some(text)
+    }
+}
+
+/// 从 JSON 对象构造 About 元数据；图标仍由独立 Image 入口提供。
+fn about_metadata(raw: &str) -> PyResult<menu::AboutMetadata<'static>> {
+    let value: serde_json::Value = serde_json::from_str(raw)
+        .map_err(|_| binding_error("invalid_menu", "About metadata must be valid JSON"))?;
+    let object = value
+        .as_object()
+        .ok_or_else(|| binding_error("invalid_menu", "About metadata must be a JSON object"))?;
+    let field = |name: &str| {
+        object
+            .get(name)
+            .and_then(|item| item.as_str())
+            .map(str::to_owned)
+    };
+    let authors = object
+        .get("authors")
+        .and_then(|item| item.as_array())
+        .map(|items| {
+            items
+                .iter()
+                .filter_map(|item| item.as_str().map(str::to_owned))
+                .collect::<Vec<_>>()
+        });
+    Ok(menu::AboutMetadata {
+        name: field("name"),
+        version: field("version"),
+        short_version: field("short_version"),
+        authors,
+        comments: field("comments"),
+        copyright: field("copyright"),
+        license: field("license"),
+        website: field("website"),
+        website_label: field("website_label"),
+        credits: field("credits"),
+        icon: None,
+    })
+}
+
 /// 内部菜单句柄；公开 Python 类型按菜单种类限制操作。
 ///
 /// 资源归属应用，关闭构造它的窗口不会销毁资源；退出后拒绝操作。
@@ -185,7 +231,7 @@ impl MenuResource {
     #[staticmethod]
     // 按公开 Python 构造字段传递；共享一处线程/所有权校验而不复制六种绑定。
     #[allow(clippy::too_many_arguments)]
-    #[pyo3(signature = (handle, kind, id=None, text="", enabled=true, checked=false, accelerator=None, icon=None))]
+    #[pyo3(signature = (handle, kind, id=None, text="", enabled=true, checked=false, accelerator=None, icon=None, metadata=None))]
     fn create(
         py: Python<'_>,
         handle: &AppHandle,
@@ -196,6 +242,7 @@ impl MenuResource {
         checked: bool,
         accelerator: Option<String>,
         icon: Option<&Image>,
+        metadata: Option<String>,
     ) -> PyResult<Self> {
         string(text)?;
         if let Some(id) = &id {
@@ -205,6 +252,7 @@ impl MenuResource {
         let kind = kind.to_owned();
         let text = text.to_owned();
         let icon = icon.map(|icon| icon.inner.clone());
+        let about = metadata.as_deref().map(about_metadata).transpose()?;
         let app = handle.clone();
         execute(py, handle, None, move || {
             let manager = &app.inner;
@@ -263,6 +311,66 @@ impl MenuResource {
                 ("separator", None) => {
                     Node::Predefined(native(menu::PredefinedMenuItem::separator(manager))?)
                 }
+                ("copy", None) => Node::Predefined(native(menu::PredefinedMenuItem::copy(
+                    manager,
+                    label(&text),
+                ))?),
+                ("cut", None) => Node::Predefined(native(menu::PredefinedMenuItem::cut(
+                    manager,
+                    label(&text),
+                ))?),
+                ("paste", None) => Node::Predefined(native(menu::PredefinedMenuItem::paste(
+                    manager,
+                    label(&text),
+                ))?),
+                ("select_all", None) => Node::Predefined(native(
+                    menu::PredefinedMenuItem::select_all(manager, label(&text)),
+                )?),
+                ("undo", None) => Node::Predefined(native(menu::PredefinedMenuItem::undo(
+                    manager,
+                    label(&text),
+                ))?),
+                ("redo", None) => Node::Predefined(native(menu::PredefinedMenuItem::redo(
+                    manager,
+                    label(&text),
+                ))?),
+                ("minimize", None) => Node::Predefined(native(
+                    menu::PredefinedMenuItem::minimize(manager, label(&text)),
+                )?),
+                ("maximize", None) => Node::Predefined(native(
+                    menu::PredefinedMenuItem::maximize(manager, label(&text)),
+                )?),
+                ("fullscreen", None) => Node::Predefined(native(
+                    menu::PredefinedMenuItem::fullscreen(manager, label(&text)),
+                )?),
+                ("hide", None) => Node::Predefined(native(menu::PredefinedMenuItem::hide(
+                    manager,
+                    label(&text),
+                ))?),
+                ("hide_others", None) => Node::Predefined(native(
+                    menu::PredefinedMenuItem::hide_others(manager, label(&text)),
+                )?),
+                ("show_all", None) => Node::Predefined(native(
+                    menu::PredefinedMenuItem::show_all(manager, label(&text)),
+                )?),
+                ("close_window", None) => Node::Predefined(native(
+                    menu::PredefinedMenuItem::close_window(manager, label(&text)),
+                )?),
+                ("quit", None) => Node::Predefined(native(menu::PredefinedMenuItem::quit(
+                    manager,
+                    label(&text),
+                ))?),
+                ("services", None) => Node::Predefined(native(
+                    menu::PredefinedMenuItem::services(manager, label(&text)),
+                )?),
+                ("bring_all_to_front", None) => Node::Predefined(native(
+                    menu::PredefinedMenuItem::bring_all_to_front(manager, label(&text)),
+                )?),
+                ("about", None) => Node::Predefined(native(menu::PredefinedMenuItem::about(
+                    manager,
+                    label(&text),
+                    about,
+                ))?),
                 _ => return Err(invalid()),
             };
             Ok(Self { node, handle: app })
@@ -279,7 +387,7 @@ impl MenuResource {
             Node::Item(_) => "item",
             Node::Check(_) => "check",
             Node::Icon(_) => "icon",
-            Node::Predefined(_) => "separator",
+            Node::Predefined(_) => "predefined",
         })
     }
     /// 返回菜单字符串 ID，允许重复 ID，沿用原生检索和移除语义。

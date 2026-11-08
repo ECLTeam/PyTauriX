@@ -154,3 +154,10 @@ Windows 返回值去掉 `\?\` 扩展长度前缀；非 UTF-8 路径抛 `path_not
 新增 `pytaruix.process`：`current_pid()` 不需要应用实例；`current_binary(manager)` 返回可执行文件路径；
 `restart(manager)` 派生新进程后立即退出，不执行 Python 监听器与资源清理，需要有序退出时改用 `AppHandle.exit`。
 PyTauri 没有对应模块，这三项是本项目扩展；异步运行时仍由调用方的 AnyIO portal 承担，不转发 Tauri 的 `async_runtime`。
+
+菜单预定义项补齐 17 个角色：`copy`、`cut`、`paste`、`select_all`、`undo`、`redo`、`minimize`、`maximize`、
+`fullscreen`、`hide`、`hide_others`、`show_all`、`close_window`、`quit`、`services`、`bring_all_to_front` 与 `about`。
+每个工厂签名为 `(manager, text=None)`，`about` 额外接受 `AboutMetadata`；文本只覆盖显示文案，不改变角色行为。
+`AboutMetadata` 为 frozen dataclass，序列化时省略空字段，图标仍未绑定。
+`PredefinedMenuItem` 的 `kind()` 统一报告 `predefined`；此前 separator 报告 `separator`，属预发布期契约变更。
+macOS 专属角色在 Windows 上可以构造但不产生可见效果，能力矩阵与账本分别记录。
