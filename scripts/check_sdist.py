@@ -36,7 +36,10 @@ def main() -> None:
         for relative in expected:
             member = archive.extractfile(prefix + "/" + relative.as_posix())
             assert member is not None, relative
-            assert member.read() == (root / relative).read_bytes(), relative
+            # 行尾无关比较：Windows 检出是 CRLF，maturin 打包统一为 LF。
+            assert member.read().replace(b"\r\n", b"\n") == (root / relative).read_bytes().replace(b"\r\n", b"\n"), (
+                relative
+            )
     print(f"SDIST_CURRENT_FILES_OK {len(expected)}")
 
 

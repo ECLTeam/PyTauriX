@@ -1,0 +1,99 @@
+# 发布工作流：推送 v* 标签时构建全平台 wheel 与 sdist，发布到 PyPI 并创建 GitHub Release。
+#
+# PyPI 发布使用可信发布（Trusted Publishing / OIDC），首次使用前需要在 PyPI 上
+# 完成一次性配置：https://docs.pypi.org/trusted-publishers/
+#   Publisher: GitHub
+#   Owner / Repository: ECLTeam/PyTauriX
+#   Workflow name: release.yml
+#   Environment: pypi
+
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  wheel:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-24.04, macos-latest]
+        python: ["3.11", "3.12", "3.13", "3.14"]
+    runs-on: ${{ matrix.os }}
+    env:
+      CARGO_BUILD_JOBS: "1"
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.97.1"
+      - name: Linux desktop dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf
+      - name: Install maturin
+        run: python -m pip install "maturin>=1.9,<2"
+      - name: Build wheel
+        run: maturin build --release --locked --jobs 1 --features devtools,tray-icon --out dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheel-${{ matrix.os }}-${{ matrix.python }}
+          path: dist/*.whl
+
+  sdist:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.97.1"
+      - name: Install maturin
+        run: python -m pip install "maturin>=1.9,<2"
+      - name: Build sdist
+        run: maturin sdist --locked --out dist
+      - name: Verify source archive
+        run: |
+          python -m pip install pytest
+          python scripts/check_sdist.py "$(ls dist/*.tar.gz)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdist
+          path: dist/*.tar.gz
+
+  publish:
+    needs: [wheel, sdist]
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      # 可信发布必需：用 OIDC 向 PyPI 证明发布来源，无需长期 token。
+      id-token: write
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: List release artifacts
+        run: ls -la dist/
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$TAG" dist/* --generate-notes --title "$TAG"
