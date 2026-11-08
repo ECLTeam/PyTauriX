@@ -22,7 +22,7 @@ tauri-plugin-single-instance = { version = "=2.3.2", optional = true, default-fe
 tauri-plugin-window-state = { version = "=2.4.0", optional = true, default-features = false }
 pytaruix-bridge = { path = "../bridge" }
 # Tauri disables Specta defaults; rc.25 gates PhantomData support behind std.
-specta = { version = "=2.0.0-rc.25", optional = true, features = ["std"] }
+specta = { version = "=2.0.0-rc.27", optional = true, features = ["std"] }
 
 [target.'cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))'.dependencies]
 # 使用 Tauri 锁定的同一解析器；上游构造器会静默忽略错误快捷键。
