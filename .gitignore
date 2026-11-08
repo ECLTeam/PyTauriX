@@ -1,0 +1,13 @@
+/target/
+/.venv/
+/.venv*/
+/.ruff_cache/
+/.pytest_cache/
+/**/__pycache__/
+/*.egg-info/
+/dist/
+/artifacts/
+**/*.pyd
+**/*.pdb
+/crates/bindings/gen/
+.workbuddy-ai/

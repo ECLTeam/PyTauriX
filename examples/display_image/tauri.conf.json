@@ -1,0 +1,8 @@
+{
+  "productName": "PytaruiX Display Image",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.display-image",
+  "build": { "frontendDist": "web" },
+  "app": { "windows": [{ "label": "main", "title": "显示器与图像验收", "width": 480, "height": 300 }] },
+  "bundle": { "active": false }
+}

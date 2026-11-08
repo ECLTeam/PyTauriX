@@ -1,0 +1,18 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>对话框验收</title>
+<body><h1>文件与消息对话框</h1><pre id="output">正在验证…</pre><script>
+const tauri = window.__TAURI__;
+const invoke = tauri.pytaruix.pyInvoke;
+const label = tauri.webviewWindow.getCurrentWebviewWindow().label;
+async function run() {
+  if (label !== "main") return;
+  let denied = false;
+  try { await tauri.core.invoke("plugin:dialog|open", { options: {} }); }
+  catch (error) { denied = String(error).includes("not allowed") || String(error).includes("denied"); }
+  if (!denied) throw new Error("Dialog frontend ACL was widened");
+  const result = await invoke("exercise");
+  document.getElementById("output").textContent = JSON.stringify(result);
+  await invoke("finish", { frontend_acl_denied: denied, frontend_response: typeof result.checks === "number" });
+}
+run().catch(error => invoke("diagnostic", String(error)));
+</script></body></html>
+

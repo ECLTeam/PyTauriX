@@ -1,0 +1,10 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>重建窗口</title><body>旧 Channel 不得复活。<script>
+const invoke = window.__TAURI__.pytaruix.pyInvoke;
+(async () => {
+  const id = await invoke("cache_id");
+  let refused = false;
+  try { await window.__TAURI__.core.invoke("plugin:__TAURI_CHANNEL__|fetch", null, {headers: {"Tauri-Channel-Id": String(id)}}); }
+  catch { refused = true; }
+  await invoke("cache_report", refused);
+})().catch(error => invoke("diagnostic", String(error)));
+</script></body></html>

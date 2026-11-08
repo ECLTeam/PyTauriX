@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>PytaruiX IPC Benchmark</title>
+  </head>
+  <body>
+    <h1>PytaruiX IPC benchmark</h1>
+    <pre id="status">running…</pre>
+    <script>
+      const output = document.getElementById("status");
+      const invoke = (name, body) => window.__TAURI__.pytaruix.pyInvoke(name, body);
+      const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+      function summarize(samples) {
+        const ordered = [...samples].sort((a, b) => a - b);
+        const at = (fraction) => ordered[Math.min(ordered.length - 1, Math.ceil(fraction * ordered.length) - 1)];
+        const total = samples.reduce((sum, value) => sum + value, 0);
+        return {
+          calls: samples.length,
+          mean_ms: total / samples.length,
+          p50_ms: at(0.5),
+          p95_ms: at(0.95),
+          min_ms: ordered[0],
+          max_ms: ordered[ordered.length - 1],
+          total_ms: total,
+        };
+      }
+
+      async function sequential(name, payload, calls, warmup) {
+        for (let index = 0; index < warmup; index += 1) await invoke(name, payload);
+        const samples = [];
+        for (let index = 0; index < calls; index += 1) {
+          const start = performance.now();
+          await invoke(name, payload);
+          samples.push(performance.now() - start);
+        }
+        return summarize(samples);
+      }
+
+      async function concurrent(name, payload, calls, width, warmup) {
+        for (let index = 0; index < warmup; index += 1) await invoke(name, payload);
+        let next = 0;
+        const worker = async () => {
+          while (true) {
+            const index = next;
+            next += 1;
+            if (index >= calls) return;
+            await invoke(name, payload);
+          }
+        };
+        const start = performance.now();
+        await Promise.all(Array.from({ length: width }, worker));
+        const wall = performance.now() - start;
+        return { calls, width, wall_ms: wall, throughput_per_s: (calls * 1000) / wall };
+      }
+
+      async function start() {
+        await sleep(300);
+        const result = {};
+        result.small = await sequential("bench_small", { name: "webview", value: 1 }, 1000, 50);
+        result.model = await sequential("bench_model", { value: 7, text: "benchmark" }, 500, 30);
+        result.concurrent = await concurrent("bench_small", { name: "webview", value: 2 }, 500, 50, 20);
+        try {
+          await invoke("bench_fail");
+          result.error_recovery = false;
+        } catch (error) {
+          const recovered = await invoke("bench_small", { name: "recovered", value: 3 });
+          result.error_recovery = error.code === "command_failed" && recovered.name === "recovered";
+        }
+        output.textContent = JSON.stringify(result, null, 2);
+        await invoke("finish", { result });
+      }
+
+      start().catch(async (error) => {
+        const detail = error instanceof Error ? error.message : JSON.stringify(error);
+        output.textContent = detail;
+        try {
+          await invoke("finish", { result: { unexpected: detail } });
+        } catch (finishError) {
+          console.error(finishError);
+        }
+      });
+    </script>
+  </body>
+</html>

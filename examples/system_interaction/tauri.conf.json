@@ -1,0 +1,8 @@
+{
+  "productName": "PytaruiX System Interaction",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.interaction",
+  "build": { "frontendDist": "web" },
+  "app": { "windows": [{ "label": "main", "visible": false }], "withGlobalTauri": true },
+  "bundle": { "active": false }
+}

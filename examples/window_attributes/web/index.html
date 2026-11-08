@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Window Attributes</title>
+  </head>
+  <body>
+    <h1>PytaruiX window attributes</h1>
+    <p>Only the events window changes its document title and starts a blob download.</p>
+    <script>
+      if (location.search.includes("events=1")) {
+        setTimeout(() => {
+          document.title = "PytaruiX Title Changed";
+        }, 300);
+        setTimeout(() => {
+          const blob = new Blob(["pytaruiX download"], { type: "text/plain" });
+          const anchor = document.createElement("a");
+          anchor.href = URL.createObjectURL(blob);
+          anchor.download = "pytaruiX-sample.txt";
+          document.body.appendChild(anchor);
+          anchor.click();
+          anchor.remove();
+        }, 900);
+      }
+    </script>
+  </body>
+</html>

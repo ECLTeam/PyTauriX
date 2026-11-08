@@ -1,0 +1,11 @@
+{
+  "productName": "PytaruiX Channel",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.channel",
+  "build": { "frontendDist": "web" },
+  "app": { "windows": [
+    { "label": "main", "title": "原生 Channel 验收", "width": 480, "height": 300 },
+    { "label": "secondary", "title": "第二路 Channel", "width": 480, "height": 300, "visible": false }
+  ] },
+  "bundle": { "active": false }
+}

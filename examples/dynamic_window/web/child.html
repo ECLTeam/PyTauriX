@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><title>子窗口</title><body><h1>动态子窗口</h1>
+<script>
+const invoke = (name, body) => window.__TAURI__.pytaruix.pyInvoke(name, body);
+async function start() {
+  const legacy = await window.__TAURI__.pytauri.pyInvoke("child_ready", { initialization: window.stage3Init === "ready" });
+  const current = await invoke("child_ready", { legacy_ipc: typeof legacy === "string" });
+  if (legacy !== current) throw new Error("Origin mismatch");
+  await window.__TAURI__.event.listen("dynamic-target", async () => {
+    await invoke("child_event");
+    location.assign("blocked.html");
+    setTimeout(() => location.assign("allowed.html"), 250);
+  }, { target: { kind: "WebviewWindow", label: current } });
+}
+start().catch(error => invoke("diagnostic", String(error)));
+</script></body></html>

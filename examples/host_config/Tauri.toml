@@ -1,0 +1,18 @@
+productName = "ECL Host Acceptance"
+version = "1.2.3"
+identifier = "top.eclteam.pytaruix.host"
+
+[build]
+frontendDist = "web"
+
+[app]
+withGlobalTauri = true
+
+[[app.windows]]
+label = "main"
+title = "ECL Host Acceptance"
+width = 560
+height = 400
+
+[bundle]
+icon = ["../display_image/icons/builder.png"]

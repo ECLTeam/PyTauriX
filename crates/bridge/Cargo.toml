@@ -1,0 +1,12 @@
+[package]
+name = "pytaruix-bridge"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+links = "pytaruix-bridge"
+
+[dependencies]
+tauri = { workspace = true, features = ["wry"] }
+
+[build-dependencies]
+tauri-utils = { version = "=2.10.1", features = ["build-2"] }

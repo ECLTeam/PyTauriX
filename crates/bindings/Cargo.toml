@@ -1,0 +1,75 @@
+[package]
+name = "pytaruix-bindings"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[lib]
+name = "_native"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { workspace = true, features = ["extension-module"] }
+tauri = { workspace = true, features = ["custom-protocol"] }
+serde_json.workspace = true
+serde = { version = "1", features = ["derive"] }
+tauri-plugin-dialog = { version = "=2.8.1", optional = true, default-features = false }
+pytaruix-bridge = { path = "../bridge" }
+# Tauri disables Specta defaults; rc.25 gates PhantomData support behind std.
+specta = { version = "=2.0.0-rc.25", optional = true, features = ["std"] }
+
+[target.'cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))'.dependencies]
+# 使用 Tauri 锁定的同一解析器；上游构造器会静默忽略错误快捷键。
+muda = { version = "=0.20.0", default-features = false }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+tauri = { workspace = true, features = ["common-controls-v6"] }
+windows-sys = { version = "=0.61.2", features = ["Win32_UI_WindowsAndMessaging"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+# 保留上游 Linux 桌面运行时默认能力，与 Windows 条件无关。
+tauri = { workspace = true, features = ["x11", "dbus"] }
+
+[build-dependencies]
+tauri-build = { version = "=2.7.1" }
+
+[features]
+default = ["wry", "dynamic-acl", "plugin-dialog", "dialog-gtk3", "image-png", "image-ico"]
+plugin-dialog = ["dep:tauri-plugin-dialog"]
+dialog-gtk3 = ["plugin-dialog", "tauri-plugin-dialog/gtk3"]
+dialog-xdg-portal = ["plugin-dialog", "tauri-plugin-dialog/xdg-portal"]
+data-url = ["tauri/data-url"]
+http-range = ["tauri/http-range"]
+image = ["tauri/image"]
+tauri-runtime-wry = ["tauri/tauri-runtime-wry"]
+uuid = ["tauri/uuid"]
+webkit2gtk = ["tauri/webkit2gtk"]
+webview2-com = ["tauri/webview2-com"]
+common-controls-v6 = ["tauri/common-controls-v6"]
+compression = ["tauri/compression"]
+config-json5 = ["tauri/config-json5"]
+config-toml = ["tauri/config-toml"]
+custom-protocol = ["tauri/custom-protocol"]
+dbus = ["tauri/dbus"]
+devtools = ["tauri/devtools"]
+dynamic-acl = ["tauri/dynamic-acl"]
+image-ico = ["tauri/image-ico"]
+image-png = ["tauri/image-png"]
+isolation = ["tauri/isolation"]
+linux-libxdo = ["tauri/linux-libxdo"]
+macos-private-api = ["tauri/macos-private-api"]
+macos-proxy = ["tauri/macos-proxy"]
+native-tls = ["tauri/native-tls"]
+native-tls-vendored = ["tauri/native-tls-vendored"]
+objc-exception = ["tauri/objc-exception"]
+process-relaunch-dangerous-allow-symlink-macos = ["tauri/process-relaunch-dangerous-allow-symlink-macos"]
+protocol-asset = ["tauri/protocol-asset"]
+rustls-tls = ["tauri/rustls-tls"]
+specta = ["tauri/specta", "dep:specta"]
+test = ["tauri/test"]
+tracing = ["tauri/tracing"]
+tray-icon = ["tauri/tray-icon"]
+unstable = ["tauri/unstable"]
+webview-data-url = ["tauri/webview-data-url"]
+wry = ["tauri/wry"]
+x11 = ["tauri/x11"]

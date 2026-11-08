@@ -1,0 +1,22 @@
+{
+  "productName": "PytaruiX WebView Policy",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.policy",
+  "build": {
+    "frontendDist": "web"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "PytaruiX policy controller",
+        "visible": false,
+        "url": "controller.html"
+      }
+    ],
+    "withGlobalTauri": true
+  },
+  "bundle": {
+    "active": false
+  }
+}

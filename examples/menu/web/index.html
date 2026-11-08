@@ -1,0 +1,8 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>原生菜单验收</title>
+<body><h1>原生菜单</h1><pre id="result">正在验收…</pre><script>
+const invoke = window.__TAURI__.pytaruix.pyInvoke;
+(async () => {
+  try { await invoke("inspect"); }
+  catch(error) { await invoke("diagnostic", {body: String(error)}); }
+})();
+</script></body></html>

@@ -1,0 +1,1018 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-dialog",
+  "version": "2.8.1",
+  "scope": "Reviewed desktop dialog subset; generic/mobile/result interfaces and constructors explicitly limited; not complete coverage",
+  "dependency_notes": "tauri-plugin-fs 2.6.0 transitive for FilePath; fs plugin not registered/exposed. Plugin JS has no automatic ACL grant.",
+  "entries": [
+    {
+      "id": "init",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 203,
+        "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.init",
+        "signature": "() -> Plugin"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "DialogExt::dialog",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 99,
+        "declaration": "fn dialog(&self) -> &Dialog<R>;"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.DialogExt",
+        "signature": "file(manager) / message(manager, message)"
+      },
+      "status": "partial_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "App/AppHandle/WebviewWindow only; missing plugin checked without upstream state panic"
+    },
+    {
+      "id": "Dialog::file",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 197,
+        "declaration": "pub fn file(&self) -> FileDialogBuilder<R> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.DialogExt.file",
+        "signature": "(manager, /) -> FileDialogBuilder"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "Dialog::message",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 188,
+        "declaration": "pub fn message(&self, message: impl Into<String>) -> MessageDialogBuilder<R> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.DialogExt.message",
+        "signature": "(manager, message, /) -> MessageDialogBuilder"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "FileDialogBuilder::new",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 426,
+        "declaration": "pub fn new(dialog: Dialog<R>) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.DialogExt.file",
+        "signature": "(manager, /) -> FileDialogBuilder"
+      },
+      "status": "partial_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Manager factory; raw upstream Dialog constructor not exposed"
+    },
+    {
+      "id": "MessageDialogBuilder::new",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 260,
+        "declaration": "pub fn new(dialog: Dialog<R>, title: impl Into<String>, message: impl Into<String>) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.DialogExt.message",
+        "signature": "(manager, message, /) -> MessageDialogBuilder"
+      },
+      "status": "partial_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Manager factory; title is a show keyword instead of constructor argument"
+    },
+    {
+      "id": "FileDialogBuilder::add_filter",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 454,
+        "declaration": "pub fn add_filter(mut self, name: impl Into<String>, extensions: &[&str]) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.add_filter",
+        "signature": "tuple[str, Sequence[str]]"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Keyword operation option; filter caption observed, exclusion list not independently measured"
+    },
+    {
+      "id": "FileDialogBuilder::set_directory",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 464,
+        "declaration": "pub fn set_directory<P: AsRef<Path>>(mut self, directory: P) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_directory",
+        "signature": "Path | str"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Keyword operation option; no fluent mutation"
+    },
+    {
+      "id": "FileDialogBuilder::set_file_name",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 471,
+        "declaration": "pub fn set_file_name(mut self, file_name: impl Into<String>) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_file_name",
+        "signature": "str"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Keyword operation option; no fluent mutation"
+    },
+    {
+      "id": "FileDialogBuilder::set_parent",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 479,
+        "declaration": "pub fn set_parent<"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_parent",
+        "signature": "WebviewWindow"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Keyword operation option; no fluent mutation; explicit parent only"
+    },
+    {
+      "id": "FileDialogBuilder::set_title",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 498,
+        "declaration": "pub fn set_title(mut self, title: impl Into<String>) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_title",
+        "signature": "str"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Keyword operation option; no fluent mutation"
+    },
+    {
+      "id": "FileDialogBuilder::set_can_create_directories",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 504,
+        "declaration": "pub fn set_can_create_directories(mut self, can: bool) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_can_create_directories",
+        "signature": "bool"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "macOS-only upstream effect; forwarded but Windows evidence cannot validate it"
+    },
+    {
+      "id": "FileDialogBuilder::pick_file",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 546,
+        "declaration": "pub fn pick_file<F: FnOnce(Option<FilePath>) + Send + 'static>(self, f: F) {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.pick_file",
+        "signature": "(handler: Callable[[Path | None], object], /, **kwargs) -> None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Desktop paths only; synchronous callback; cancellation and rfd backend failure can both return None"
+    },
+    {
+      "id": "FileDialogBuilder::blocking_pick_file",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 693,
+        "declaration": "pub fn blocking_pick_file(self) -> Option<FilePath> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.blocking_pick_file",
+        "signature": "(self, /, **kwargs) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Own cancellable wait using upstream nonblocking selector; GUI/callback would_block; owner close wakes wait"
+    },
+    {
+      "id": "FileDialogBuilder::pick_files",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 594,
+        "declaration": "pub fn pick_files<F: FnOnce(Option<Vec<FilePath>>) + Send + 'static>(self, f: F) {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.pick_files",
+        "signature": "(handler: Callable[[list[Path] | None], object], /, **kwargs) -> None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Desktop paths only; synchronous callback; cancellation and rfd backend failure can both return None"
+    },
+    {
+      "id": "FileDialogBuilder::blocking_pick_files",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 715,
+        "declaration": "pub fn blocking_pick_files(self) -> Option<Vec<FilePath>> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.blocking_pick_files",
+        "signature": "(self, /, **kwargs) -> list[Path] | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Own cancellable wait using upstream nonblocking selector; GUI/callback would_block; owner close wakes wait"
+    },
+    {
+      "id": "FileDialogBuilder::pick_folder",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 619,
+        "declaration": "pub fn pick_folder<F: FnOnce(Option<FilePath>) + Send + 'static>(self, f: F) {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.pick_folder",
+        "signature": "(handler: Callable[[Path | None], object], /, **kwargs) -> None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Desktop paths only; synchronous callback; cancellation and rfd backend failure can both return None"
+    },
+    {
+      "id": "FileDialogBuilder::blocking_pick_folder",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 738,
+        "declaration": "pub fn blocking_pick_folder(self) -> Option<FilePath> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.blocking_pick_folder",
+        "signature": "(self, /, **kwargs) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Own cancellable wait using upstream nonblocking selector; GUI/callback would_block; owner close wakes wait"
+    },
+    {
+      "id": "FileDialogBuilder::pick_folders",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 644,
+        "declaration": "pub fn pick_folders<F: FnOnce(Option<Vec<FilePath>>) + Send + 'static>(self, f: F) {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.pick_folders",
+        "signature": "(handler: Callable[[list[Path] | None], object], /, **kwargs) -> None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Desktop paths only; synchronous callback; cancellation and rfd backend failure can both return None"
+    },
+    {
+      "id": "FileDialogBuilder::blocking_pick_folders",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 761,
+        "declaration": "pub fn blocking_pick_folders(self) -> Option<Vec<FilePath>> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.blocking_pick_folders",
+        "signature": "(self, /, **kwargs) -> list[Path] | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Own cancellable wait using upstream nonblocking selector; GUI/callback would_block; owner close wakes wait"
+    },
+    {
+      "id": "FileDialogBuilder::save_file",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 668,
+        "declaration": "pub fn save_file<F: FnOnce(Option<FilePath>) + Send + 'static>(self, f: F) {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.save_file",
+        "signature": "(handler: Callable[[Path | None], object], /, **kwargs) -> None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Desktop paths only; synchronous callback; cancellation and rfd backend failure can both return None"
+    },
+    {
+      "id": "FileDialogBuilder::blocking_save_file",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 783,
+        "declaration": "pub fn blocking_save_file(self) -> Option<FilePath> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.blocking_save_file",
+        "signature": "(self, /, **kwargs) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Own cancellable wait using upstream nonblocking selector; GUI/callback would_block; owner close wakes wait"
+    },
+    {
+      "id": "MessageDialogBuilder::title",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 298,
+        "declaration": "pub fn title(mut self, title: impl Into<String>) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogBuilderArgs.title",
+        "signature": "str"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Keyword operation option; no fluent mutation"
+    },
+    {
+      "id": "MessageDialogBuilder::parent",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 305,
+        "declaration": "pub fn parent<W: raw_window_handle::HasWindowHandle + raw_window_handle::HasDisplayHandle>("
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogBuilderArgs.parent",
+        "signature": "WebviewWindow"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Keyword operation option; no fluent mutation"
+    },
+    {
+      "id": "MessageDialogBuilder::buttons",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 321,
+        "declaration": "pub fn buttons(mut self, buttons: MessageDialogButtons) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogBuilderArgs.buttons",
+        "signature": "MessageDialogButtonsType"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Keyword operation option; no fluent mutation"
+    },
+    {
+      "id": "MessageDialogBuilder::kind",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 330,
+        "declaration": "pub fn kind(mut self, kind: MessageDialogKind) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogBuilderArgs.kind",
+        "signature": "MessageDialogKind"
+      },
+      "status": "partial_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "All three kinds opened; exact icon artwork not independently measured"
+    },
+    {
+      "id": "MessageDialogBuilder::show",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 338,
+        "declaration": "pub fn show<F: FnOnce(bool) + Send + 'static>(self, f: F) {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogBuilder.show",
+        "signature": "(handler: Callable[[bool], object], /, **kwargs) -> None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Positive=True; other buttons=False; cannot distinguish No/Cancel in bool form"
+    },
+    {
+      "id": "MessageDialogBuilder::blocking_show",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 372,
+        "declaration": "pub fn blocking_show(self) -> bool {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogBuilder.blocking_show",
+        "signature": "(self, /, **kwargs) -> bool"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Positive=True; other buttons=False; cannot distinguish No/Cancel in bool form"
+    },
+    {
+      "id": "MessageDialogBuilder::show_with_result",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 362,
+        "declaration": "pub fn show_with_result<F: FnOnce(MessageDialogResult) + Send + 'static>(self, f: F) {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogBuilder.show_with_result",
+        "signature": "Not implemented"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "Structured result API deferred; unknown options rejected"
+    },
+    {
+      "id": "MessageDialogBuilder::blocking_show_with_result",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 382,
+        "declaration": "pub fn blocking_show_with_result(self) -> MessageDialogResult {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogBuilder.blocking_show_with_result",
+        "signature": "Not implemented"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "Structured result API deferred; unknown options rejected"
+    },
+    {
+      "id": "FileDialogBuilder::set_picker_mode",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 513,
+        "declaration": "pub fn set_picker_mode(mut self, mode: PickerMode) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_picker_mode",
+        "signature": "Not implemented"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "Mobile-only effect; desktop must reject unknown keyword instead of pretending support"
+    },
+    {
+      "id": "FileDialogBuilder::set_file_access_mode",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 521,
+        "declaration": "pub fn set_file_access_mode(mut self, mode: FileAccessMode) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_file_access_mode",
+        "signature": "Not implemented"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "Mobile-only effect; desktop must reject unknown keyword instead of pretending support"
+    },
+    {
+      "id": "MessageDialogKind",
+      "upstream": {
+        "source": "src/models.rs",
+        "line": 10,
+        "declaration": "pub enum MessageDialogKind {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogKind",
+        "signature": "Enum variants"
+      },
+      "status": "partial_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Three variants opened; icon appearance unmeasured"
+    },
+    {
+      "id": "MessageDialogButtons",
+      "upstream": {
+        "source": "src/models.rs",
+        "line": 51,
+        "declaration": "pub enum MessageDialogButtons {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogButtons",
+        "signature": "Enum variants"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_dialog.py",
+        "scripts/dialog_smoke.py",
+        "scripts/dialog_windows.py",
+        "examples/dialog/main.py",
+        "examples/dialog/web/index.html"
+      ],
+      "limitations": "Seven variants and each visible choice tested; tuple custom labels retain _0/_1/_2"
+    },
+    {
+      "id": "MessageDialogResult",
+      "upstream": {
+        "source": "src/models.rs",
+        "line": 71,
+        "declaration": "pub enum MessageDialogResult {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.MessageDialogResult",
+        "signature": "Not implemented"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "Structured result not exposed"
+    },
+    {
+      "id": "PickerMode",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 56,
+        "declaration": "pub enum PickerMode {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.PickerMode",
+        "signature": "Not implemented"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "Mobile-only selectors deferred"
+    },
+    {
+      "id": "FileAccessMode",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 70,
+        "declaration": "pub enum FileAccessMode {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.dialog.FileAccessMode",
+        "signature": "Not implemented"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "plugin-dialog compiled for desktop Wry",
+        "Dialog registered once during Builder.build",
+        "Python 3.11+; blocking on running worker only"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "iOS access mode deferred"
+    }
+  ]
+}

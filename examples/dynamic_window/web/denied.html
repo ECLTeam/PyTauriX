@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><title>来源权限验收</title><body>来源权限验收</body>
+<script>
+async function start() {
+  const params = new URL(location.href).searchParams;
+  const report = {};
+  for (const [kind, command, body, options] of [
+    ["json", "python_command", { command: "forbidden", payload: {} }, undefined],
+    ["legacy", "plugin:pytauri|pyfunc", {}, { headers: { pyfunc: "forbidden" } }]
+  ]) {
+    try { await window.__TAURI_INTERNALS__.invoke(command, body, options); report[kind] = false; }
+    catch (error) { report[kind] = /not allowed|not permitted|denied/i.test(String(error)); }
+  }
+  await fetch((params.get("server") || location.origin) + "/" + params.get("kind"), {
+    method: "POST", body: JSON.stringify(report)
+  });
+}
+start();
+</script></html>

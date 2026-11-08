@@ -1,0 +1,14 @@
+{
+  "productName": "PytaruiX Tray",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.tray",
+  "build": { "frontendDist": "web" },
+  "app": { "windows": [
+    { "label": "main", "title": "PytaruiX 托盘验收", "width": 480, "height": 300 },
+    { "label": "probe", "title": "PytaruiX 托盘资源窗口", "width": 280, "height": 180 }
+  ], "security": { "capabilities": [{
+    "identifier": "tray-example", "windows": ["main", "probe"],
+    "permissions": ["core:default", "allow-python-command"]
+  }] } },
+  "bundle": { "active": false }
+}

@@ -1,0 +1,11 @@
+{
+  "productName": "PytaruiX Lifecycle",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.lifecycle",
+  "build": { "frontendDist": "web" },
+  "app": { "windows": [
+    { "label": "main", "title": "PytaruiX 主窗口", "width": 560, "height": 360 },
+    { "label": "secondary", "title": "PytaruiX 第二窗口", "width": 560, "height": 360 }
+  ] },
+  "bundle": { "active": false }
+}

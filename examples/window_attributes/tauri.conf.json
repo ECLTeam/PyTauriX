@@ -1,0 +1,11 @@
+{
+  "productName": "PytaruiX Window Attributes",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.attributes",
+  "build": { "frontendDist": "web" },
+  "app": {
+    "windows": [{ "label": "main", "title": "Window Attributes", "width": 420, "height": 300, "visible": true }],
+    "withGlobalTauri": true
+  },
+  "bundle": { "active": false }
+}

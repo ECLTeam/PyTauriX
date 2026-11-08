@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><title>动态窗口验收</title>
+<body><h1>动态窗口验收</h1><pre id="output">正在创建子窗口…</pre>
+<script>
+const invoke = (name, body) => window.__TAURI__.pytaruix.pyInvoke(name, body);
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+async function until(predicate) {
+  for (let i = 0; i < 160; i++) {
+    if (predicate(await invoke("status"))) return;
+    await sleep(100);
+  }
+  throw new Error("State transition timed out");
+}
+async function start() {
+  let mainEvents = 0;
+  await window.__TAURI__.event.listen("dynamic-target", () => mainEvents++, { target: { kind: "WebviewWindow", label: "main" } });
+  await invoke("create");
+  await until(state => state.ready && state.reports === 2);
+  await sleep(400);
+  for (const step of ["geometry", "hidden", "logical", "maximized", "restored", "minimized",
+                     "unminimized", "fullscreen", "flags", "flags_check"]) {
+    await invoke("control", step);
+    await sleep(250);
+  }
+  await until(state => state.target_seen && state.navigated);
+  await sleep(250);
+  await invoke("control", "close");
+  await until(state => state.closes === 1);
+  await invoke("control", "expired_close");
+  await until(state => state.destroyed && state.gone);
+  await invoke("retire");
+  document.getElementById("output").textContent = "窗口生命周期验收完成";
+  await invoke("finish", mainEvents === 0);
+}
+start().catch(error => invoke("diagnostic", String(error)));
+</script></body></html>

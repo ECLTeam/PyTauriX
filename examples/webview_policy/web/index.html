@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<title>PytaruiX WebView 策略验收</title>
+<body>WebView 策略回调原生验收
+<script>
+async function run() {
+  const invoke = window.__TAURI__.pytaruix.pyInvoke;
+  try {
+    const original = await fetch('original.html');
+    const replaced = await fetch('replaced.html');
+    const replacedBody = await replaced.text();
+    await invoke('debug', {status: replaced.status, body: replacedBody, headers: [...replaced.headers], secure: isSecureContext, permission: Notification.permission});
+    const checks = {
+      original_response: (await original.text()).trim() === 'original body',
+      resource_replaced: replaced.status === 201 && replacedBody === 'native replacement',
+      repeated_headers: replaced.headers.get('x-pytaruix') === 'one, two'
+    };
+    const popup = window.open('popup.html?deny=1', '_blank', 'width=310,height=230');
+    await new Promise(resolve => setTimeout(resolve, 400));
+    checks.popup_denied = popup === null || popup.closed;
+    // 原生策略拒绝定位请求，不返回任何位置数据。
+    checks.permission_denied = await new Promise(resolve => navigator.geolocation.getCurrentPosition(
+      () => resolve(false), error => resolve(error.code === 1), {timeout: 3000}
+    ));
+    await invoke('report', checks);
+  } catch (error) {
+    await invoke('report', {page_error: String(error)});
+  }
+}
+addEventListener('DOMContentLoaded', () => setTimeout(run, 600));
+</script>
+</body>
+</html>

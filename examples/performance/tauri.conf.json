@@ -1,0 +1,11 @@
+{
+  "productName": "PytaruiX IPC Benchmark",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.benchmark",
+  "build": { "frontendDist": "web" },
+  "app": {
+    "windows": [{ "label": "main", "title": "IPC Benchmark", "width": 520, "height": 360, "visible": true }],
+    "withGlobalTauri": true
+  },
+  "bundle": { "active": false }
+}

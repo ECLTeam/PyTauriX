@@ -1,0 +1,588 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-dialog",
+  "version": "2.8.1",
+  "rust_version": "1.90",
+  "scope": "Declaration candidates only; excludes cfg, macro expansion, trait methods and enum variants",
+  "features": {
+    "default": {
+      "dependencies": [
+        "gtk3"
+      ],
+      "status": "build_mapped"
+    },
+    "gtk3": {
+      "dependencies": [
+        "rfd/gtk3"
+      ],
+      "status": "build_mapped"
+    },
+    "xdg-portal": {
+      "dependencies": [
+        "rfd/xdg-portal",
+        "rfd/tokio",
+        "rfd/wayland"
+      ],
+      "status": "build_mapped"
+    }
+  },
+  "sources": [
+    {
+      "path": "src/commands.rs",
+      "sha256": "a82e0f4b66f84cc773b1470cac19357f0f2566e9c4727b0c140ff4546097c9cc"
+    },
+    {
+      "path": "src/desktop.rs",
+      "sha256": "a6cbe8dd5ff87b4f8952ee52e20507309eb12d60e310e170765f96b815804f69"
+    },
+    {
+      "path": "src/error.rs",
+      "sha256": "05fe056c365bac0b8386f2d021f9d07bd3c749f0ec2017d1ac9365eba175aa80"
+    },
+    {
+      "path": "src/lib.rs",
+      "sha256": "c29a3141a0416f0cae9f5624ee41ab4893d42726801c3db453ebb100bf5f891c"
+    },
+    {
+      "path": "src/mobile.rs",
+      "sha256": "7b43b8608acafbb0353748deac5af4be9b0b205e45ad3591d5508122451bd02f"
+    },
+    {
+      "path": "src/models.rs",
+      "sha256": "3b1923ad7f0b840999c2fd176335e45ca771920a8bd88d29b8bff64c0aab4028"
+    }
+  ],
+  "declarations": [
+    {
+      "id": "src/commands.rs:18:enum:OpenResponse",
+      "source": "src/commands.rs",
+      "line": 18,
+      "kind": "enum",
+      "name": "OpenResponse",
+      "declaration": "pub enum OpenResponse {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:30:struct:DialogFilter",
+      "source": "src/commands.rs",
+      "line": 30,
+      "kind": "struct",
+      "name": "DialogFilter",
+      "declaration": "pub struct DialogFilter {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:38:struct:OpenDialogOptions",
+      "source": "src/commands.rs",
+      "line": 38,
+      "kind": "struct",
+      "name": "OpenDialogOptions",
+      "declaration": "pub struct OpenDialogOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:76:struct:SaveDialogOptions",
+      "source": "src/commands.rs",
+      "line": 76,
+      "kind": "struct",
+      "name": "SaveDialogOptions",
+      "declaration": "pub struct SaveDialogOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:18:fn:init",
+      "source": "src/desktop.rs",
+      "line": 18,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime, C: DeserializeOwned>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:27:struct:Dialog",
+      "source": "src/desktop.rs",
+      "line": 27,
+      "kind": "struct",
+      "name": "Dialog",
+      "declaration": "pub struct Dialog<R: Runtime>(AppHandle<R>);",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:142:fn:pick_file",
+      "source": "src/desktop.rs",
+      "line": 142,
+      "kind": "fn",
+      "name": "pick_file",
+      "declaration": "pub fn pick_file<R: Runtime, F: FnOnce(Option<FilePath>) + Send + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:154:fn:pick_files",
+      "source": "src/desktop.rs",
+      "line": 154,
+      "kind": "fn",
+      "name": "pick_files",
+      "declaration": "pub fn pick_files<R: Runtime, F: FnOnce(Option<Vec<FilePath>>) + Send + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:172:fn:pick_folder",
+      "source": "src/desktop.rs",
+      "line": 172,
+      "kind": "fn",
+      "name": "pick_folder",
+      "declaration": "pub fn pick_folder<R: Runtime, F: FnOnce(Option<FilePath>) + Send + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:184:fn:pick_folders",
+      "source": "src/desktop.rs",
+      "line": 184,
+      "kind": "fn",
+      "name": "pick_folders",
+      "declaration": "pub fn pick_folders<R: Runtime, F: FnOnce(Option<Vec<FilePath>>) + Send + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:202:fn:save_file",
+      "source": "src/desktop.rs",
+      "line": 202,
+      "kind": "fn",
+      "name": "save_file",
+      "declaration": "pub fn save_file<R: Runtime, F: FnOnce(Option<FilePath>) + Send + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:215:fn:show_message_dialog",
+      "source": "src/desktop.rs",
+      "line": 215,
+      "kind": "fn",
+      "name": "show_message_dialog",
+      "declaration": "pub fn show_message_dialog<R: Runtime, F: FnOnce(MessageDialogResult) + Send + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/error.rs:8:type:Result",
+      "source": "src/error.rs",
+      "line": 8,
+      "kind": "type",
+      "name": "Result",
+      "declaration": "pub type Result<T> = std::result::Result<T, Error>;",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/error.rs:13:enum:Error",
+      "source": "src/error.rs",
+      "line": 13,
+      "kind": "enum",
+      "name": "Error",
+      "declaration": "pub enum Error {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:56:enum:PickerMode",
+      "source": "src/lib.rs",
+      "line": 56,
+      "kind": "enum",
+      "name": "PickerMode",
+      "declaration": "pub enum PickerMode {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:70:enum:FileAccessMode",
+      "source": "src/lib.rs",
+      "line": 70,
+      "kind": "enum",
+      "name": "FileAccessMode",
+      "declaration": "pub enum FileAccessMode {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:97:trait:DialogExt",
+      "source": "src/lib.rs",
+      "line": 97,
+      "kind": "trait",
+      "name": "DialogExt",
+      "declaration": "pub trait DialogExt<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:188:fn:message",
+      "source": "src/lib.rs",
+      "line": 188,
+      "kind": "fn",
+      "name": "message",
+      "declaration": "pub fn message(&self, message: impl Into<String>) -> MessageDialogBuilder<R> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:197:fn:file",
+      "source": "src/lib.rs",
+      "line": 197,
+      "kind": "fn",
+      "name": "file",
+      "declaration": "pub fn file(&self) -> FileDialogBuilder<R> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:203:fn:init",
+      "source": "src/lib.rs",
+      "line": 203,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:231:struct:MessageDialogBuilder",
+      "source": "src/lib.rs",
+      "line": 231,
+      "kind": "struct",
+      "name": "MessageDialogBuilder",
+      "declaration": "pub struct MessageDialogBuilder<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:260:fn:new",
+      "source": "src/lib.rs",
+      "line": 260,
+      "kind": "fn",
+      "name": "new",
+      "declaration": "pub fn new(dialog: Dialog<R>, title: impl Into<String>, message: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:298:fn:title",
+      "source": "src/lib.rs",
+      "line": 298,
+      "kind": "fn",
+      "name": "title",
+      "declaration": "pub fn title(mut self, title: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:305:fn:parent",
+      "source": "src/lib.rs",
+      "line": 305,
+      "kind": "fn",
+      "name": "parent",
+      "declaration": "pub fn parent<W: raw_window_handle::HasWindowHandle + raw_window_handle::HasDisplayHandle>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:321:fn:buttons",
+      "source": "src/lib.rs",
+      "line": 321,
+      "kind": "fn",
+      "name": "buttons",
+      "declaration": "pub fn buttons(mut self, buttons: MessageDialogButtons) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:330:fn:kind",
+      "source": "src/lib.rs",
+      "line": 330,
+      "kind": "fn",
+      "name": "kind",
+      "declaration": "pub fn kind(mut self, kind: MessageDialogKind) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:338:fn:show",
+      "source": "src/lib.rs",
+      "line": 338,
+      "kind": "fn",
+      "name": "show",
+      "declaration": "pub fn show<F: FnOnce(bool) + Send + 'static>(self, f: F) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:362:fn:show_with_result",
+      "source": "src/lib.rs",
+      "line": 362,
+      "kind": "fn",
+      "name": "show_with_result",
+      "declaration": "pub fn show_with_result<F: FnOnce(MessageDialogResult) + Send + 'static>(self, f: F) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:372:fn:blocking_show",
+      "source": "src/lib.rs",
+      "line": 372,
+      "kind": "fn",
+      "name": "blocking_show",
+      "declaration": "pub fn blocking_show(self) -> bool {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:382:fn:blocking_show_with_result",
+      "source": "src/lib.rs",
+      "line": 382,
+      "kind": "fn",
+      "name": "blocking_show_with_result",
+      "declaration": "pub fn blocking_show_with_result(self) -> MessageDialogResult {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:396:struct:FileDialogBuilder",
+      "source": "src/lib.rs",
+      "line": 396,
+      "kind": "struct",
+      "name": "FileDialogBuilder",
+      "declaration": "pub struct FileDialogBuilder<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:426:fn:new",
+      "source": "src/lib.rs",
+      "line": 426,
+      "kind": "fn",
+      "name": "new",
+      "declaration": "pub fn new(dialog: Dialog<R>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:454:fn:add_filter",
+      "source": "src/lib.rs",
+      "line": 454,
+      "kind": "fn",
+      "name": "add_filter",
+      "declaration": "pub fn add_filter(mut self, name: impl Into<String>, extensions: &[&str]) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:464:fn:set_directory",
+      "source": "src/lib.rs",
+      "line": 464,
+      "kind": "fn",
+      "name": "set_directory",
+      "declaration": "pub fn set_directory<P: AsRef<Path>>(mut self, directory: P) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:471:fn:set_file_name",
+      "source": "src/lib.rs",
+      "line": 471,
+      "kind": "fn",
+      "name": "set_file_name",
+      "declaration": "pub fn set_file_name(mut self, file_name: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:479:fn:set_parent",
+      "source": "src/lib.rs",
+      "line": 479,
+      "kind": "fn",
+      "name": "set_parent",
+      "declaration": "pub fn set_parent<",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:498:fn:set_title",
+      "source": "src/lib.rs",
+      "line": 498,
+      "kind": "fn",
+      "name": "set_title",
+      "declaration": "pub fn set_title(mut self, title: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:504:fn:set_can_create_directories",
+      "source": "src/lib.rs",
+      "line": 504,
+      "kind": "fn",
+      "name": "set_can_create_directories",
+      "declaration": "pub fn set_can_create_directories(mut self, can: bool) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:513:fn:set_picker_mode",
+      "source": "src/lib.rs",
+      "line": 513,
+      "kind": "fn",
+      "name": "set_picker_mode",
+      "declaration": "pub fn set_picker_mode(mut self, mode: PickerMode) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:521:fn:set_file_access_mode",
+      "source": "src/lib.rs",
+      "line": 521,
+      "kind": "fn",
+      "name": "set_file_access_mode",
+      "declaration": "pub fn set_file_access_mode(mut self, mode: FileAccessMode) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:546:fn:pick_file",
+      "source": "src/lib.rs",
+      "line": 546,
+      "kind": "fn",
+      "name": "pick_file",
+      "declaration": "pub fn pick_file<F: FnOnce(Option<FilePath>) + Send + 'static>(self, f: F) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:594:fn:pick_files",
+      "source": "src/lib.rs",
+      "line": 594,
+      "kind": "fn",
+      "name": "pick_files",
+      "declaration": "pub fn pick_files<F: FnOnce(Option<Vec<FilePath>>) + Send + 'static>(self, f: F) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:619:fn:pick_folder",
+      "source": "src/lib.rs",
+      "line": 619,
+      "kind": "fn",
+      "name": "pick_folder",
+      "declaration": "pub fn pick_folder<F: FnOnce(Option<FilePath>) + Send + 'static>(self, f: F) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:644:fn:pick_folders",
+      "source": "src/lib.rs",
+      "line": 644,
+      "kind": "fn",
+      "name": "pick_folders",
+      "declaration": "pub fn pick_folders<F: FnOnce(Option<Vec<FilePath>>) + Send + 'static>(self, f: F) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:668:fn:save_file",
+      "source": "src/lib.rs",
+      "line": 668,
+      "kind": "fn",
+      "name": "save_file",
+      "declaration": "pub fn save_file<F: FnOnce(Option<FilePath>) + Send + 'static>(self, f: F) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:693:fn:blocking_pick_file",
+      "source": "src/lib.rs",
+      "line": 693,
+      "kind": "fn",
+      "name": "blocking_pick_file",
+      "declaration": "pub fn blocking_pick_file(self) -> Option<FilePath> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:715:fn:blocking_pick_files",
+      "source": "src/lib.rs",
+      "line": 715,
+      "kind": "fn",
+      "name": "blocking_pick_files",
+      "declaration": "pub fn blocking_pick_files(self) -> Option<Vec<FilePath>> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:738:fn:blocking_pick_folder",
+      "source": "src/lib.rs",
+      "line": 738,
+      "kind": "fn",
+      "name": "blocking_pick_folder",
+      "declaration": "pub fn blocking_pick_folder(self) -> Option<FilePath> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:761:fn:blocking_pick_folders",
+      "source": "src/lib.rs",
+      "line": 761,
+      "kind": "fn",
+      "name": "blocking_pick_folders",
+      "declaration": "pub fn blocking_pick_folders(self) -> Option<Vec<FilePath>> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:783:fn:blocking_save_file",
+      "source": "src/lib.rs",
+      "line": 783,
+      "kind": "fn",
+      "name": "blocking_save_file",
+      "declaration": "pub fn blocking_save_file(self) -> Option<FilePath> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:20:fn:init",
+      "source": "src/mobile.rs",
+      "line": 20,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime, C: DeserializeOwned>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:33:struct:Dialog",
+      "source": "src/mobile.rs",
+      "line": 33,
+      "kind": "struct",
+      "name": "Dialog",
+      "declaration": "pub struct Dialog<R: Runtime>(PluginHandle<R>);",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:57:fn:pick_file",
+      "source": "src/mobile.rs",
+      "line": 57,
+      "kind": "fn",
+      "name": "pick_file",
+      "declaration": "pub fn pick_file<R: Runtime, F: FnOnce(Option<FilePath>) + Send + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:74:fn:pick_files",
+      "source": "src/mobile.rs",
+      "line": 74,
+      "kind": "fn",
+      "name": "pick_files",
+      "declaration": "pub fn pick_files<R: Runtime, F: FnOnce(Option<Vec<FilePath>>) + Send + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:91:fn:save_file",
+      "source": "src/mobile.rs",
+      "line": 91,
+      "kind": "fn",
+      "name": "save_file",
+      "declaration": "pub fn save_file<R: Runtime, F: FnOnce(Option<FilePath>) + Send + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:114:fn:show_message_dialog",
+      "source": "src/mobile.rs",
+      "line": 114,
+      "kind": "fn",
+      "name": "show_message_dialog",
+      "declaration": "pub fn show_message_dialog<R: Runtime, F: FnOnce(MessageDialogResult) + Send + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:10:enum:MessageDialogKind",
+      "source": "src/models.rs",
+      "line": 10,
+      "kind": "enum",
+      "name": "MessageDialogKind",
+      "declaration": "pub enum MessageDialogKind {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:51:enum:MessageDialogButtons",
+      "source": "src/models.rs",
+      "line": 51,
+      "kind": "enum",
+      "name": "MessageDialogButtons",
+      "declaration": "pub enum MessageDialogButtons {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:71:enum:MessageDialogResult",
+      "source": "src/models.rs",
+      "line": 71,
+      "kind": "enum",
+      "name": "MessageDialogResult",
+      "declaration": "pub enum MessageDialogResult {",
+      "status": "unreviewed"
+    }
+  ]
+}

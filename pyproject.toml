@@ -1,0 +1,59 @@
+[build-system]
+requires = ["maturin>=1.9,<2"]
+build-backend = "maturin"
+
+[project]
+name = "pytaruix"
+version = "0.1.0a1"
+description = "Independent Python bindings for Tauri through PyO3"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["anyio>=4,<5", "pydantic>=2,<3"]
+
+[dependency-groups]
+dev = ["maturin>=1.9,<2", "pytest>=8,<10", "ruff>=0.12", "pyright>=1.1"]
+
+[tool.maturin]
+manifest-path = "crates/bindings/Cargo.toml"
+python-source = "python"
+module-name = "pytaruix._native"
+include = [
+    { path = "frontend/bridge.js", format = "sdist" },
+    { path = "docs/**/*", format = "sdist" },
+    { path = "examples/**/*.py", format = "sdist" },
+    { path = "examples/**/*.json", format = "sdist" },
+    { path = "examples/**/*.toml", format = "sdist" },
+    { path = "examples/**/*.html", format = "sdist" },
+    { path = "examples/**/*.png", format = "sdist" },
+    { path = "examples/**/*.ico", format = "sdist" },
+    { path = "scripts/*.py", format = "sdist" },
+    { path = "scripts/*.ps1", format = "sdist" },
+    { path = ".github/workflows/*.yml", format = "sdist" },
+    { path = "tests/*.py", format = "sdist" },
+    { path = "AGENTS.md", format = "sdist" },
+    { path = "uv.lock", format = "sdist" },
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.pyright]
+include = ["python", "tests", "examples"]
+pythonVersion = "3.11"
+typeCheckingMode = "standard"
+reportMissingModuleSource = false
+extraPaths = ["python", "scripts"]
+venvPath = "."
+venv = ".venv"

@@ -1,0 +1,6 @@
+{
+  "identifier": "minimal-desktop",
+  "description": "Core APIs and legacy Python IPC for the desktop examples",
+  "windows": ["main", "secondary"],
+  "permissions": ["core:default", "pytauri:allow-pyfunc", "allow-python-command"]
+}

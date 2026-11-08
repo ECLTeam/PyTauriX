@@ -1,0 +1,42 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>事件验收</title>
+<body><h1>三窗口事件与调度</h1><pre id="output">正在验证…</pre><script>
+const tauri = window.__TAURI__;
+const label = tauri.webviewWindow.getCurrentWebviewWindow().label;
+const invoke = tauri.pytaruix.pyInvoke;
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+async function until(predicate) {
+  for (let i = 0; i < 150; i++) {
+    if (predicate(await invoke("status"))) return;
+    await sleep(100);
+  }
+  throw new Error("Event state timed out");
+}
+async function run() {
+  const routes = { Any: [], Window: [], Webview: [], WebviewWindow: [] };
+  if (label === "main") routes.App = [];
+  for (const kind of Object.keys(routes)) {
+    const target = ["Any", "App"].includes(kind) ? { kind } : { kind, label };
+    await tauri.event.listen("matrix", event => routes[kind].push(event.payload.case), { target });
+  }
+  const payloads = [];
+  await tauri.event.listen("payload", event => payloads.push(event.payload), { target: { kind: "WebviewWindow", label } });
+  await invoke("ready");
+  if (label === "main") {
+    await until(state => state.ready === 3);
+    await invoke("exercise");
+  }
+  await until(state => state.sent);
+  await sleep(350);
+  await invoke("report", { routes, payloads });
+  if (label === "main") {
+    await until(state => state.reports === 3);
+    await invoke("evaluate");
+    await invoke("retire");
+    await until(state => state.gone);
+    await invoke("rebuild");
+    await invoke("finish");
+    document.getElementById("output").textContent = "验收完成";
+  }
+}
+run().catch(error => invoke("diagnostic", String(error)));
+</script></body></html>

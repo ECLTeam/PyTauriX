@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PytaruiX</title>
+  <style>
+    body { margin: 0; padding: 48px; background: #f3f5f7; color: #1b2632; font: 16px system-ui, sans-serif; }
+    main { max-width: 640px; margin: auto; }
+    h1 { margin-bottom: 8px; }
+    p { line-height: 1.6; }
+    input, button { font: inherit; padding: 12px 16px; border-radius: 8px; border: 1px solid #c4cdd7; }
+    button { background: #266996; color: white; cursor: pointer; }
+    pre { white-space: pre-wrap; padding: 20px; background: white; border-radius: 12px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>PytaruiX</h1>
+  <p>从前端调用 Python，接收事件并更新原生窗口标题。</p>
+  <input id="name" value="Python" aria-label="姓名">
+  <button id="greet">发送问候</button>
+  <pre id="result">正在连接 Python…</pre>
+</main>
+<script>
+  const output = document.getElementById("result");
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const invoke = (name, body) => window.__TAURI__.pytaruix.pyInvoke(name, body);
+  let receivedEvent = null;
+  async function start() {
+    const unlisten = await window.__TAURI__.event.listen("python-greeting", event => {
+      receivedEvent = event.payload;
+    });
+    window.addEventListener("beforeunload", unlisten, { once: true });
+    document.getElementById("greet").onclick = async () => {
+      try { output.textContent = JSON.stringify(await invoke("greet", { name: document.getElementById("name").value }), null, 2); }
+      catch (error) { output.textContent = JSON.stringify(error); }
+    };
+    output.textContent = "Python 已就绪。";
+    if (!(await invoke("status")).is_smoke) return;
+    const checks = {};
+    try {
+      await sleep(160);
+      const response = await invoke("greet", { name: "WebView" });
+      checks.async_model = response.message === "Hello, WebView! From Python.";
+      checks.background_thread = response.ticks > 3;
+      await sleep(100);
+      checks.event = receivedEvent?.name === "WebView";
+      try { await invoke("fail"); checks.error = false; }
+      catch (error) { checks.error = error.code === "command_failed"; }
+      try { await invoke("greet", {}); checks.validation = false; }
+      catch (error) { checks.validation = error.code === "invalid_payload"; }
+      try { await invoke("unregistered"); checks.unknown = false; }
+      catch (error) { checks.unknown = error.code === "unknown_command"; }
+      const recovered = await window.__TAURI__.pytauri.pyInvoke("greet", { name: "Recovered" });
+      checks.recovered = recovered.message === "Hello, Recovered! From Python.";
+      checks.window_title = (await window.__TAURI__.window.getCurrentWindow().title()) === "Hello, Recovered";
+      output.textContent = JSON.stringify(checks, null, 2);
+    } catch (error) {
+      checks.unexpected = false;
+      output.textContent = JSON.stringify(error);
+    }
+    await invoke("finish", checks);
+  }
+  start().catch(async error => {
+    output.textContent = String(error);
+    console.error(error);
+    await window.__TAURI_INTERNALS__.invoke("python_command", {
+      command: "diagnostic", payload: { message: String(error) }
+    });
+  });
+</script>
+</body>
+</html>

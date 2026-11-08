@@ -1,0 +1,104 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>原生 Channel 验收</title>
+<body><h1>原生流式消息</h1><pre id="output">正在验收…</pre><script>
+const tauri = window.__TAURI__;
+const label = tauri.webviewWindow.getCurrentWebviewWindow().label;
+const invoke = tauri.pytaruix.pyInvoke;
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const fetchCommand = "plugin:__TAURI_CHANNEL__|fetch";
+const channelUrl = window.__TAURI_INTERNALS__.convertFileSrc(fetchCommand, "ipc");
+const nativeFetch = window.fetch.bind(window);
+const pending = [];
+let hold = true;
+// 只延迟真实 IPC fetch，不替换 SDK Channel、原生队列或任何返回载荷。
+window.fetch = (url, options) => {
+  if (hold && String(url) === channelUrl) {
+    return new Promise((resolve, reject) => pending.push({url, options, resolve, reject}));
+  }
+  return nativeFetch(url, options);
+};
+async function until(predicate) {
+  for (let i = 0; i < 200; i++) {
+    if (await predicate()) return;
+    await sleep(50);
+  }
+  throw new Error("Channel state timed out");
+}
+async function refuses(operation) {
+  try { await operation(); return false; } catch { return true; }
+}
+async function run() {
+  const values = {}, ended = new Set(), channels = {}, checks = {};
+  for (const name of ["serial", "threaded", "late", "gc", "retained", "raw"]) {
+    values[name] = [];
+    const channel = new tauri.core.Channel(value => values[name].push(value));
+    const cleanup = channel.cleanupCallback.bind(channel);
+    channel.cleanupCallback = () => { ended.add(name); cleanup(); };
+    channels[name] = channel;
+  }
+  const ids = await invoke("stream", channels);
+  checks.ids = Object.entries(ids).every(([key, id]) => channels[key].id === id);
+  await until(() => pending.length === 6);
+  // 每个 Webview 的 data id 都从 0 开始；同编号只能拉到本窗口所有者的消息。
+  const first = pending[0];
+  const dataId = new Headers(first.options.headers).get("Tauri-Channel-Id");
+  const response = await nativeFetch(first.url, first.options);
+  const fetched = await response.clone().json();
+  hold = false;
+  checks.cache_owner = dataId === "0" && fetched.owner === label && fetched.large === "界".repeat(9000);
+  checks.cache_once = await refuses(() => tauri.core.invoke(fetchCommand, null, {headers: {"Tauri-Channel-Id": dataId}}));
+  checks.invalid_fetch = await refuses(() => tauri.core.invoke(fetchCommand, null, {headers: {"Tauri-Channel-Id": "bad"}}));
+  checks.missing_fetch_header = await refuses(() => tauri.core.invoke(fetchCommand, null));
+  checks.invalid_id = await refuses(() => invoke("stream", {...channels, serial: "bad"}));
+  checks.dialog_acl = await refuses(() => tauri.core.invoke("plugin:dialog|open", {}));
+  first.resolve(response);
+  for (const entry of pending.slice(1)) nativeFetch(entry.url, entry.options).then(entry.resolve, entry.reject);
+  await until(() => ended.has("serial") && ended.has("threaded") && ended.has("gc") && ended.has("raw"));
+  const data = values.serial;
+  checks.serial_json = data.length === 19 && JSON.stringify(data.slice(0, 7)) === JSON.stringify([
+    {completed: 1, total: 3}, "中文🌟", null, true, 42, [1, "界", {nested: false}], {log: "原文", owner: label}
+  ]);
+  const binary = (value, length) => value instanceof ArrayBuffer && value.byteLength === length &&
+    Array.from(new Uint8Array(value)).every((byte, index) => byte === index % 256);
+  checks.binary_empty = binary(data[7], 0);
+  checks.binary_small = binary(data[8], 256);
+  checks.large_json = data[9].large === "界".repeat(9000) && data[9].owner === label;
+  checks.binary_large = binary(data[10], 131072);
+  checks.mixed_order = data[11] === "after-large" && Object.is(data[12], -0);
+  checks.json_thresholds = [8191, 8192, 8193].every((length, index) => data[13 + index] === "x".repeat(length - 2));
+  checks.binary_thresholds = [1023, 1024, 1025].every((length, index) => binary(data[16 + index], length));
+  checks.concurrent = values.threaded.length === 80 && new Set(values.threaded.map(v => `${v.producer}:${v.index}`)).size === 80 &&
+    values.threaded.every(v => v.owner === label && v.producer >= 0 && v.producer < 4 && v.index >= 0 && v.index < 20);
+  checks.producer_order = [0, 1, 2, 3].every(p => values.threaded.filter(v => v.producer === p).every((v, i) => v.index === i));
+  checks.gc_end = JSON.stringify(values.gc) === '["gc"]' && !window.__TAURI_INTERNALS__.callbacks.has(channels.gc.id);
+  checks.close_end = !window.__TAURI_INTERNALS__.callbacks.has(channels.serial.id);
+  checks.ffi = JSON.stringify(values.raw) === '["ffi"]';
+  checks.retained_active = !ended.has("retained") && JSON.stringify(values.retained) === '["alive"]';
+  checks.after_return = values.late.length === 0;
+  await invoke("resume");
+  await until(() => ended.has("late"));
+  checks.after_return &&= JSON.stringify(values.late) === '[{"completed":3,"total":3}]';
+  const legacyValues = [];
+  const legacy = new tauri.core.Channel(value => legacyValues.push(value));
+  await tauri.pytauri.pyInvoke("legacy", legacy);
+  await until(() => !window.__TAURI_INTERNALS__.callbacks.has(legacy.id));
+  checks.legacy_root = JSON.stringify(legacyValues) === '[{"completed":2,"total":3}]';
+  await invoke("report", checks);
+  if (label === "secondary") {
+    pending.length = 0;
+    hold = true;
+    await invoke("abandon");
+    await until(() => pending.length === 1);
+    await invoke("abandoned", Number(new Headers(pending[0].options.headers).get("Tauri-Channel-Id")));
+  }
+  if (label === "main") {
+    await until(async () => { const state = await invoke("status"); return state.reports === 2 && state.abandoned; });
+    await invoke("retire");
+    await until(async () => (await invoke("status")).gone);
+    await invoke("rebuild");
+    await until(async () => (await invoke("status")).cache_checked);
+    await invoke("finish");
+  }
+  document.getElementById("output").textContent = JSON.stringify(checks, null, 2);
+}
+run().catch(error => invoke("diagnostic", String(error)));
+</script></body></html>

@@ -1,0 +1,8 @@
+{
+  "productName": "PytaruiX Menu",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.menu",
+  "build": { "frontendDist": "web" },
+  "app": { "windows": [{ "label": "main", "title": "原生菜单验收", "width": 480, "height": 300 }] },
+  "bundle": { "active": false }
+}
