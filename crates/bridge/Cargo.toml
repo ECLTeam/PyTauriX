@@ -9,4 +9,4 @@ links = "pytaruix-bridge"
 tauri = { workspace = true, features = ["wry"] }
 
 [build-dependencies]
-tauri-utils = { version = "=2.10.1", features = ["build-2"] }
+tauri-utils = { version = "=2.10.2", features = ["build-2"] }
