@@ -3,7 +3,7 @@
 # PyPI 发布使用可信发布（Trusted Publishing / OIDC），首次使用前需要在 PyPI 上
 # 完成一次性配置：https://docs.pypi.org/trusted-publishers/
 #   Publisher: GitHub
-#   Owner / Repository: ECLTeam/PyTauriX
+#   Owner / Repository: ECLTeam/PyTaruiX
 #   Workflow name: release.yml
 #   Environment: pypi
 

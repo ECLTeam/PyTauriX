@@ -4,7 +4,7 @@
 
 **用 Python 写桌面应用，底层是 Tauri 2**
 
-[![CI](https://github.com/ECLTeam/PyTauriX/actions/workflows/ci.yml/badge.svg)](https://github.com/ECLTeam/PyTauriX/actions/workflows/ci.yml)
+[![CI](https://github.com/ECLTeam/PyTaruiX/actions/workflows/ci.yml/badge.svg)](https://github.com/ECLTeam/PyTaruiX/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/pytaruix)](https://pypi.org/project/pytaruix/)
 [![Python](https://img.shields.io/pypi/pyversions/pytaruix)](https://pypi.org/project/pytaruix/)
 [![License](https://img.shields.io/pypi/l/pytaruix)](LICENSE)
@@ -58,8 +58,8 @@ pip install --pre pytaruix
 **从源码构建**（备选，仅当需要修改绑定本身；需要 Rust 1.90+）：
 
 ```bash
-git clone https://github.com/ECLTeam/PyTauriX
-cd PyTauriX
+git clone https://github.com/ECLTeam/PyTaruiX
+cd PyTaruiX
 uv sync --locked --no-install-project
 uv run --no-sync maturin develop --locked --jobs 1
 ```
@@ -122,7 +122,7 @@ uv run --no-sync python examples/minimal/main.py
 
 ## 反馈与贡献
 
-遇到问题请提交 [Issue](https://github.com/ECLTeam/PyTauriX/issues)；
+遇到问题请提交 [Issue](https://github.com/ECLTeam/PyTaruiX/issues)；
 安全漏洞请参考 [安全策略](SECURITY.md) 私下报告。
 欢迎按 [贡献指南](CONTRIBUTING.md) 参与开发。
 

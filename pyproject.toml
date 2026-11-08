@@ -25,10 +25,10 @@ classifiers = [
 dependencies = ["anyio>=4,<5", "pydantic>=2,<3"]
 
 [project.urls]
-Homepage = "https://github.com/ECLTeam/PyTauriX"
-Repository = "https://github.com/ECLTeam/PyTauriX"
-Issues = "https://github.com/ECLTeam/PyTauriX/issues"
-Changelog = "https://github.com/ECLTeam/PyTauriX/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/ECLTeam/PyTaruiX"
+Repository = "https://github.com/ECLTeam/PyTaruiX"
+Issues = "https://github.com/ECLTeam/PyTaruiX/issues"
+Changelog = "https://github.com/ECLTeam/PyTaruiX/blob/main/CHANGELOG.md"
 
 [dependency-groups]
 dev = ["maturin>=1.9,<2", "pytest>=8,<10", "ruff>=0.12", "pyright>=1.1"]

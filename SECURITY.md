@@ -6,7 +6,7 @@ PytaruiX 处于预发布阶段，仅对最新的预发布版本提供安全修�
 
 ## 报告漏洞
 
-请通过 GitHub 的 [Private vulnerability reporting](https://github.com/ECLTeam/PyTauriX/security/advisories/new)
+请通过 GitHub 的 [Private vulnerability reporting](https://github.com/ECLTeam/PyTaruiX/security/advisories/new)
 私下报告，不要在公开 Issue 中描述可被利用的细节。
 
 报告中请包含：受影响版本与平台、复现步骤、实际与预期结果、影响范围评估。

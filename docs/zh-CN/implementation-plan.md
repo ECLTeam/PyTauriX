@@ -360,7 +360,7 @@ global-shortcut、notification、opener 与未覆盖路径仍为 `bound_unverifi
 
 ## 第二十四阶段（移除 PyTauri 兼容层与工程标准化）
 
-用户决定不再提供 PyTauri 运行时兼容，并接入远端 `https://github.com/ECLTeam/PyTauriX`。
+用户决定不再提供 PyTauri 运行时兼容，并接入远端 `https://github.com/ECLTeam/PyTaruiX`。
 
 **远端与分支**：远端仅有 Apache-2.0 `LICENSE` 的初始提交。本地提交链 rebase 到该提交之上，
 保持线性历史后改名为 `main` 并推送，未使用强推。许可证由此确定，不再是待定项。

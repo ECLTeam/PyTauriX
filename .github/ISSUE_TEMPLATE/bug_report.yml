@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        有安全影响的问题请走 [Private vulnerability reporting](https://github.com/ECLTeam/PyTauriX/security/advisories/new)，
+        有安全影响的问题请走 [Private vulnerability reporting](https://github.com/ECLTeam/PyTaruiX/security/advisories/new)，
         不要在这里提交。
   - type: textarea
     id: summary
