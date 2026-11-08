@@ -463,3 +463,13 @@ UI 隔离路径自切换 pytaurix 起实际不可用。本次按契约改为 fai
 `PLUGIN_UI_ISOLATION_UNAVAILABLE`，不退回无隔离窗口；消息协议与窗口形态文档保留为目标契约，
 等 pytaurix 提供顶层导航锁定与消息 URI 拦截原语后重新实现并验收。ECL 全量 pytest 2734 项通过、
 52 项跳过；Ruff 与格式检查通过。本批 ECL 侧本地提交，未推送。
+
+## 第二十七阶段（资源快照规模基线，测量完成，维持现状）
+
+工作包 3 的资源部分按路线"测量后选择方案"执行。新增 `scripts/measure_resource_snapshot.py`，
+生成 xs–xl 五档合成前端测量 `context_factory` 的时间与内存曲线：约 1.35 ms/MiB，
+提交内存增量约为目录字节的 0.75–0.80 倍；懒加载单请求成本估算约 0.07–0.1 ms。
+当前主要消费方 ECL 前端 92 个文件、6.0 MiB，快照成本约 11 ms、常驻约 5 MiB，不构成瓶颈。
+结论为维持启动快照方案，懒加载列为待需求候选（前端 ≥100 MiB 或启动超预算时另写方案），
+规模预算表见 [资源快照基线](resource-snapshot-baseline.md)。IPC 协议优化维持
+[release 参数实验](release-profile-experiment.md)的既有基线，未有测量到的瓶颈前不做协议改造。
