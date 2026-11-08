@@ -60,6 +60,7 @@ Channel 标识在 JSON 中是 `__CHANNEL__:<u32>`，Pydantic 支持字符串输�
 
 原生 JSON 与字节直传阈值分别为小于 8192 和 1024 字节；阈值及其附近均通过 Windows 真实 WebView2 验收。
 `id()` 返回前端回调编号，关闭后仍可读取。
+`capacity > 0` 时发送按配额推进，配额由前端 `pytaruix.createChannel` 归还；详见 [IPC 指南](ipc.md)。
 
 ## 所有权与结束
 
@@ -82,7 +83,8 @@ Webview 仅提供 label/app_handle，不能创建独立或嵌入 Webview，不�
 
 编号不证明 JS 回调存在，也不是授权凭证；典型命令使用注入的来源窗口，不接受正文伪造来源。
 from_str 只能验证格式，send 成功只表示原生接受提交，不确认前端业务处理完成。
-不提供自动背压、接收确认、重连、业务任务取消或任意 Python 回调构造原生 Channel。
+接收确认仍由前端业务负责；配额流控、命令取消与 ack 边界见 [IPC 指南](ipc.md)。
+不提供重连、分片重传或任意 Python 回调构造原生 Channel。
 
 内部 `plugin:__TAURI_CHANNEL__|fetch` 在上游绕过普通命令 ACL；它用调用 Webview 标签及 Tauri-Channel-Id 查找一次性数据。
 每个 Webview 有独立编号序列，窗口销毁由原生清理。该内部机制不授予 python_command、旧 pyfunc 或 dialog JS 权限。

@@ -64,7 +64,19 @@
 - Channel 采用官方原生传输，send(str) 保留有效 JSON 原文，send(bytes) 对应 ArrayBuffer；send_model 编码一次。
 - channel_on 接受所属窗口的 Webview 引用，支持工作线程和命令返回后持续发送；窗口/应用失效清掉原生句柄。
 - close 幂等，GC 可结束流，closed 查询状态；共享同一个 FFI 句柄的包装也共享关闭状态。同一 JS 编号只建立一个发送句柄。
-- 编号不是授权凭证，不能证明 JS 回调存在；不承诺接收确认、背压或业务任务取消。详细约束见 channels.md。
+- 编号不是授权凭证，不能证明 JS 回调存在；不承诺接收确认，重连与分片重传不在范围内。详细约束见 channels.md。
+- `channel_on(webview, capacity=N)` 在 `N > 0` 时启用配额流控，配额由前端 `pytaruix.createChannel` 归还；
+  `send(data, timeout=秒)` 到期返回 `channel_backpressure`，省略 timeout 时等到配额或关闭。直接构造 Channel 的前端不得启用配额。
+- 声明 `Request` 参数的命令获得请求句柄：`id`、`cancelled`、`cancel()`。取消为协作式，只保证应答与标志，
+  不中断同步 Python 代码；取消与完成共用应答所有权，先取走者应答。见 [IPC 指南](ipc.md)。
+- `create_protocol(name, handler)` 生成一次性协议描述符，经 `Builder.build(protocols=)` 在构建期登记；
+  只提供异步响应版本，处理器在工作线程同步执行。异常、非 `ProtocolResponse` 返回值或非法状态/头字段归还空 500，
+  初始化未完成归还 503；名称非法或保留为 `invalid_protocol_name`，重复为 `duplicate_protocol`。见 [协议指南](protocols.md)。
+- 插件描述符内部改为「名称 + 装载闭包」，Python 侧形状不变；带不同 `Config` 的上游插件因此可共用 `Plugin`。
+- `pytaruix.plugins.fs` 提供 `init()` 与 `Fs(handle)`，锁定 2.6.0，需要 `plugin-fs` feature。上游 Rust API 不经过 capability scope，本绑定不宣称受限访问；目录遍历/删除/重命名不在绑定范围。见 [fs 插件](plugins-fs.md)。
+- `pytaruix.plugins.single_instance.init(handler)`、`global_shortcut.GlobalShortcut`、`notification.Notification`、
+  `opener.Opener` 各自需要独立 feature；未启用时 `init()` 报 `unsupported_capability`，未注册插件时包装类报 `plugin_missing`。
+  用户插件现在先于桥接插件登记，以支持 single-instance 的尽早注册要求。见 [系统集成插件](plugins-extensions.md)。
 - 显示查询返回独立 Monitor 快照，工作线程释放 GIL；同步 GUI 回调返回 blocking_callback，旧窗口代次查询拒绝，快照仍可读取。
 - Image 的编码加载是本项目扩展；默认 PNG/ICO、显式 feature 与 RuntimeInfo.image_formats 一致，Path/bytes 严格类型和稳定错误见 displays-images.md。
 - 菜单保留常用构造的对应位置参数/默认值及批量项目顺序；aliases set_as_app_menu/set_as_window_menu 返回 None，句柄 set_menu 返回前一个菜单。
@@ -77,10 +89,13 @@
 ## 前端协议
 
 新入口 `pytaruix.pyInvoke(name, payload, options)` 使用 python_command JSON 请求，失败拒绝 `{code, message}`。
+`options.signal` 为 `AbortSignal` 时桥生成请求编号并支持取消；取消后本地立即以 `AbortError` 拒绝并通知原生。
+`pytaruix.createChannel(onmessage)` 在处理完消息后调用 `pytaruix_channel_ack` 归还配额，供 `capacity > 0` 的通道使用。
 兼容全局入口使用旧插件请求：`plugin:pytauri|pyfunc`，请求头 `pyfunc` 为命令名，普通值先 JSON 编码为 UTF-8 字节；ArrayBuffer/Uint8Array 保持原始字节。
+旧协议没有请求编号，不支持取消与配额。
 旧客户端省略正文时，Tauri 将 undefined 转换成空对象；桥把该情况视为无正文。JSON 模型和标量按类型校验；`body: bytes` 保留请求原文。
 返回 bytes 形成 ArrayBuffer，其他结果序列化为 JSON。旧协议失败保持字符串拒绝，格式为 `code: message`，不泄露原始异常内容；未声称错误文字与 PyTauri 完全一致。
-自定义 InvokeHandler 的内部签名已扩展为六个参数；第一阶段内部三参数回调需要调整。Commands.generate_handler 的公开调用形状保持。
+自定义 InvokeHandler 的内部签名已扩展为七个参数（新增 `request`，旧协议传 `None`）；第一阶段内部三参数回调需要调整。Commands.generate_handler 的公开调用形状保持。
 
 ## 验收与剩余迁移
 

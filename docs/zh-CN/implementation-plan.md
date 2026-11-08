@@ -231,3 +231,68 @@ Windows/Linux 可设置但无可见效果，账本逐条标注该限制。
 `scripts/menu_roles_smoke.py` 扩展为 12 项检查（新增默认菜单、图标构造、清除与非法名称拒绝），全部通过。
 人工审核账本新增 4 条，当前 281 条：240 已绑定验收、31 部分绑定、8 平台不可用、1 未绑定、1 未在自动化中触发。
 Ruff、Pyright、pytest、Rustfmt、Clippy 与账本核验通过；未提交远端、未发布。
+
+## 第十七阶段（IPC 取消与背压，实现完成，桌面证据待补）
+
+2026-11-08 用户要求实现 IPC 取消/背压、自定义协议与官方插件；首批插件定为「通用骨架 + fs 样板」。
+本批只含 IPC 取消与背压，方案见 [第十七阶段方案](ipc-cancel-backpressure-stage-plan.md)。
+上游事实：`InvokeResolver` 可 Clone 且共享 `Arc<Mutex<Option<responder>>>`，
+`return_result` 对已消费 resolver 直接 panic，因此取消必须与完成竞争同一份所有权。
+新增 `PendingInvocation`、按 `(窗口标签, request_id)` 的 `Requests` 登记表、
+`pytaruix_cancel` 与 `pytaruix_channel_ack` 两个原生分发入口，以及注入用的 `Request` 句柄。
+窗口销毁以 `window_closed`、应用退出以 `app_closed` 归还该窗口全部待应答项。
+通道新增 `capacity` 与 `send(timeout=)`：`capacity > 0` 时按配额发送，配额由前端
+`pytaruix.createChannel` 归还，超时报 `channel_backpressure`，提交失败回滚配额。
+前端桥新增 `AbortSignal` 取消与 `createChannel`；旧 `pyfunc` 协议不参与取消与配额。
+`tests/test_request_cancel.py` 5 项契约通过，全量 pytest 208 项通过、1 项跳过；
+Ruff、Ruff format、Pyright、Rustfmt 与默认 features Clippy（`-D warnings`）通过。
+真实 Windows 桌面取消与配额证据、最小 feature 组合构建仍待补；未提交远端、未发布。
+
+## 第十八阶段（自定义协议，实现完成，WebView 往返证据待补）
+
+与第十七阶段同批推进，方案见 [第十八阶段方案](custom-protocol-stage-plan.md)。
+只提供异步响应版本：上游同步版本在调用线程执行回调，Python 回调可能卡住 GUI 线程，故不暴露。
+新增 `crates/bindings/src/protocol.rs`（`Protocol`、`protocol_create`、异步登记与响应转换），
+`Builder.build(protocols=)` 在构建期校验名称唯一性并消费描述符。
+Python 侧新增 `pytaruix.protocol`：`ProtocolRequest`/`ProtocolResponse` 不可变快照与 `create_protocol`；
+处理器异常、非响应返回值、非法状态或头字段归还空 500，未就绪归还 503。
+scheme 规则为 ASCII 小写开头、仅小写字母/数字/`-+.`、≤32 字符，排除 `tauri`/`asset`/`http`/`https`/`ipc`/`channel`。
+`tests/test_protocol_contract.py` 覆盖名称规则、请求快照、返回值类型与默认响应，全量 pytest 231 项通过、1 项跳过。
+Ruff、Ruff format、Pyright 通过；真实 Windows WebView `fetch` 往返、CORS 与 Linux/macOS 行为仍待补。
+本批未提交远端、未发布。
+
+## 第十九阶段（插件骨架与 fs 样板，实现完成，桌面证据待补）
+
+方案见 [第十九阶段方案](plugin-fs-stage-plan.md)。插件描述符改为「名称 + 装载闭包」：
+`Plugin` 保存 `Box<dyn FnOnce(Builder) -> Builder + Send>`，擦除上游插件的 `Config` 类型，
+使 `TauriPlugin<Wry>` 与 `TauriPlugin<Wry, Option<Config>>` 共用同一 Python 类型。
+新增 `plugin-fs` feature 与 `tauri-plugin-fs = "=2.6.0"`（上游声明 `tauri` 时已 `default-features = false`，
+未重新启用默认能力），默认 wheel 不含 fs。
+`crates/bindings/src/fs.rs` 只绑定上游真正提供的 Rust API：`read_text`、`read_bytes`、`write_text`、`write_bytes`；
+目录遍历、删除与重命名在上游只存在于命令层，Python 侧已由 `pathlib` 覆盖，不重复实现。
+`Fs` 先用 `try_fs_scope()` 判断插件是否注册，避免上游 `fs()` 直接 panic。
+Python 侧新增 `pytaruix.plugins.fs`（`init`、`Fs`、路径归一），`get_runtime_info()` 新增 `fs_version`
+与 `plugin.fs` 能力项；`plugin_fs_available` 随构建变化。
+`tests/test_plugin_fs_contract.py` 10 项契约通过（路径归一、类型拒绝、`Fs` 构造、能力报告、缺 feature 拒绝）；
+全量 pytest 240 项通过、2 项跳过。默认、`plugin-fs`、最小 `wry` 三组 Clippy（`-D warnings`）与 Rustfmt 通过，
+Ruff、Ruff format、Pyright 通过。
+**未验证**：Windows 真实读写场景、Linux/macOS 与移动平台；上游 Rust API 不经过 capability scope，
+本绑定不宣称受限访问。本批未提交远端、未发布。
+
+## 第二十阶段（系统集成插件，实现完成，桌面行为待补）
+
+方案见 [第二十阶段方案](plugin-extensions-stage-plan.md)。按用户指定顺序补齐四个 Python 侧做不到的能力：
+single-instance 2.3.2、global-shortcut 2.3.0、notification 2.3.0、opener 2.5.0，各自独立 feature，
+默认 wheel 不变。四个上游 crate 均声明 `tauri` 时 `default-features = false`，未重新启用默认能力。
+`single_instance` 回调桥接 `(AppHandle, argv, cwd)`；`GlobalShortcut` 只在 `ShortcutState::Pressed` 时回调；
+`Notification` 归还权限状态文本并按 `silent`/`id` 构造通知；`Opener` 提供 `open_url`/`open_path`/`reveal_item_in_dir`。
+包装类先检查 `RuntimeState.plugins` 登记表，未注册时返回 `plugin_missing`，避免上游 `state()` panic。
+构建器把**用户插件排在桥接插件之前**，满足 single-instance 尽早登记的要求；桥接脚本为构建期注入，
+`pytauri` 只注册 `pyfunc`，顺序调整不影响既有行为。
+同时启用多个插件时，Windows 依赖在并行 codegen 下会触发 rustc `STATUS_STACK_BUFFER_OVERRUN`，
+构建需 `CARGO_BUILD_JOBS=1`；该限制只写在指南，不改变仓库默认命令。
+`tests/test_plugin_extensions_contract.py` 覆盖可用性标志、能力报告一致性、缺 feature 拒绝、参数校验与包装类类型检查；
+全量 pytest 251 项通过、3 项跳过。默认、全插件、最小 `wry` 三组 Clippy（`-D warnings`）、Rustfmt、
+Ruff、Ruff format、Pyright 通过。
+**未验证**：第二实例唤醒、热键冲突、通知显示、默认程序启动的真实系统行为，以及 Linux/macOS 与移动平台。
+本批未提交远端、未发布。
