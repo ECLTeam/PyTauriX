@@ -449,3 +449,17 @@ worker_protocol）通过。ECL 侧剩余：打包清单与 CI 仍引用 pytauri 
 **未做**：ECL 打包清单（Nuitka/PyInstaller/CI 仍引用 pytauri 与自维护 runtime 分支）、
 ECL 自身测试套件（15 个文件引用 `pytauri`，其中隔离门禁测试断言的 `plugin:pytauri|pyfunc`
 协议已删除，需要 ECL 侧重新设计）、原生拖放。Linux/macOS 按用户指示继续搁置。
+
+### 2026-11-09 迁移闭环收尾（ECL 侧）
+
+打包与 CI 已全部切换 `pytaurix==0.1.0a1`：PyInstaller spec 收集 `pytaurix` 与 `pytaurix._native`，
+Nuitka 与 build.yml 两组构建参数同步，`native/pytauri-runtime/` 自维护运行时目录与
+`plugin-native-platforms.yml` 工作流整体退役。测试套件同步迁移：导入守卫与保护名单改守
+`pytaurix`，UI host 改用 `window.__TAURI__.pytaurix.pyInvoke`，废弃的旧 wheel 隔离门禁
+（webview/native-isolation/custom-ui gate host 及 build-inputs、native-debugging 测试）删除。
+
+复核发现 `custom_ui.py` 仍调用 pytaurix 从未提供的 `install_plugin_isolation`——插件原生独立
+UI 隔离路径自切换 pytaurix 起实际不可用。本次按契约改为 fail-closed：`ui.windows.open` 显式返回
+`PLUGIN_UI_ISOLATION_UNAVAILABLE`，不退回无隔离窗口；消息协议与窗口形态文档保留为目标契约，
+等 pytaurix 提供顶层导航锁定与消息 URI 拦截原语后重新实现并验收。ECL 全量 pytest 2734 项通过、
+52 项跳过；Ruff 与格式检查通过。本批 ECL 侧本地提交，未推送。
