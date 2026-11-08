@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 from collections.abc import Sequence
 from dataclasses import dataclass, fields
+from enum import StrEnum
 from typing import TypeAlias, TypeVar
 
 from .. import _native
@@ -17,6 +18,71 @@ from .image import Image
 MenuID: TypeAlias = str
 MenuEvent: TypeAlias = MenuID
 _T = TypeVar("_T", bound="_MenuObject")
+
+
+class NativeIcon(StrEnum):
+    """
+    上游 macOS 原生菜单图标名称，取值为上游变体名。
+
+    Windows/Linux 接受这些名称但不产生可见效果；未知名称抛 invalid_native_icon。
+    """
+
+    ADD = "Add"
+    ADVANCED = "Advanced"
+    BLUETOOTH = "Bluetooth"
+    BOOKMARKS = "Bookmarks"
+    CAUTION = "Caution"
+    COLOR_PANEL = "ColorPanel"
+    COLUMN_VIEW = "ColumnView"
+    COMPUTER = "Computer"
+    ENTER_FULL_SCREEN = "EnterFullScreen"
+    EVERYONE = "Everyone"
+    EXIT_FULL_SCREEN = "ExitFullScreen"
+    FLOW_VIEW = "FlowView"
+    FOLDER = "Folder"
+    FOLDER_BURNABLE = "FolderBurnable"
+    FOLDER_SMART = "FolderSmart"
+    FOLLOW_LINK_FREESTANDING = "FollowLinkFreestanding"
+    FONT_PANEL = "FontPanel"
+    GO_LEFT = "GoLeft"
+    GO_RIGHT = "GoRight"
+    HOME = "Home"
+    I_CHAT_THEATER = "IChatTheater"
+    ICON_VIEW = "IconView"
+    INFO = "Info"
+    INVALID_DATA_FREESTANDING = "InvalidDataFreestanding"
+    LEFT_FACING_TRIANGLE = "LeftFacingTriangle"
+    LIST_VIEW = "ListView"
+    LOCK_LOCKED = "LockLocked"
+    LOCK_UNLOCKED = "LockUnlocked"
+    MENU_MIXED_STATE = "MenuMixedState"
+    MENU_ON_STATE = "MenuOnState"
+    MOBILE_ME = "MobileMe"
+    MULTIPLE_DOCUMENTS = "MultipleDocuments"
+    NETWORK = "Network"
+    PATH = "Path"
+    PREFERENCES_GENERAL = "PreferencesGeneral"
+    QUICK_LOOK = "QuickLook"
+    REFRESH_FREESTANDING = "RefreshFreestanding"
+    REFRESH = "Refresh"
+    REMOVE = "Remove"
+    REVEAL_FREESTANDING = "RevealFreestanding"
+    RIGHT_FACING_TRIANGLE = "RightFacingTriangle"
+    SHARE = "Share"
+    SLIDESHOW = "Slideshow"
+    SMART_BADGE = "SmartBadge"
+    STATUS_AVAILABLE = "StatusAvailable"
+    STATUS_NONE = "StatusNone"
+    STATUS_PARTIALLY_AVAILABLE = "StatusPartiallyAvailable"
+    STATUS_UNAVAILABLE = "StatusUnavailable"
+    STOP_PROGRESS_FREESTANDING = "StopProgressFreestanding"
+    STOP_PROGRESS = "StopProgress"
+    TRASH_EMPTY = "TrashEmpty"
+    TRASH_FULL = "TrashFull"
+    USER = "User"
+    USER_ACCOUNTS = "UserAccounts"
+    USER_GROUP = "UserGroup"
+    USER_GUEST = "UserGuest"
 
 
 @dataclass(frozen=True, slots=True)
@@ -80,6 +146,7 @@ def _create(
     accelerator: str | None = None,
     icon: Image | None = None,
     metadata: AboutMetadata | None = None,
+    native_icon: NativeIcon | str | None = None,
 ) -> _native.MenuResource:
     if not _native.menu_available:
         raise _native.BindingError("platform_unavailable: Native menus require a desktop platform")
@@ -89,6 +156,8 @@ def _create(
         raise TypeError("Expected Image or None")
     if metadata is not None and not isinstance(metadata, AboutMetadata):
         raise TypeError("Expected AboutMetadata or None")
+    if native_icon is not None and not isinstance(native_icon, (NativeIcon, str)):
+        raise TypeError("Expected NativeIcon, str or None")
     return _native.MenuResource.create(
         _handle(manager),
         kind,
@@ -99,6 +168,7 @@ def _create(
         accelerator,
         icon,
         None if metadata is None else metadata.to_json(),
+        None if native_icon is None else str(native_icon),
     )
 
 
@@ -290,6 +360,15 @@ class Menu(_Container):
         桌面 setup 或运行期间释放 GIL，禁止同步 GUI 回调重入。
         """
         self._native_menu = _create("menu", manager)
+
+    @classmethod
+    def default(cls, manager: ManagerType, /) -> Menu:
+        """
+        创建上游默认应用菜单，结构与可用角色由平台决定。
+
+        桌面 setup 或运行期间执行，释放 GIL，禁止同步回调重入。
+        """
+        return cls._from_resource(_native.MenuResource.default_menu(_handle(manager)))
 
     @classmethod
     def with_id(cls, manager: ManagerType, id: MenuID, /) -> Menu:
@@ -557,6 +636,68 @@ class IconMenuItem(_Accelerated):
             raise TypeError("Expected Image or None")
         self._native_menu.set_icon(icon)
 
+    @classmethod
+    def with_native_icon(
+        cls,
+        manager: ManagerType,
+        text: str,
+        enabled: bool,
+        native_icon: NativeIcon | str | None,
+        accelerator: str | None = None,
+        /,
+    ) -> IconMenuItem:
+        """
+        创建使用 macOS 原生图标的菜单项；Windows/Linux 上不显示图标。
+
+        :param manager: 应用、应用句柄或窗口
+        :param text: 显示文本
+        :param enabled: 是否可点击
+        :param native_icon: NativeIcon 成员或上游变体名
+        :param accelerator: 快捷键字符串
+        :return: 图标菜单项
+        :raises BindingError: 名称非法、应用已关闭或平台拒绝
+        """
+        return cls._from_resource(
+            _create(
+                "icon_native", manager, text=text, enabled=enabled, accelerator=accelerator, native_icon=native_icon
+            )
+        )
+
+    @classmethod
+    def with_id_and_native_icon(
+        cls,
+        manager: ManagerType,
+        id: MenuID,
+        text: str,
+        enabled: bool,
+        native_icon: NativeIcon | str | None,
+        accelerator: str | None = None,
+        /,
+    ) -> IconMenuItem:
+        """
+        创建带字符串 ID 的原生图标菜单项，重复 ID 由原生语义决定。
+        """
+        return cls._from_resource(
+            _create(
+                "icon_native",
+                manager,
+                _text(id),
+                text,
+                enabled,
+                accelerator=accelerator,
+                native_icon=native_icon,
+            )
+        )
+
+    def set_native_icon(self, native_icon: NativeIcon | str | None, /) -> None:
+        """
+        设置或清除 macOS 原生图标；Windows/Linux 接受调用但不产生可见效果。
+
+        :param native_icon: NativeIcon 成员、上游变体名或 None
+        :raises BindingError: 名称非法、非图标项、应用已关闭或同步回调内调用
+        """
+        self._native_menu.set_native_icon(None if native_icon is None else str(native_icon))
+
 
 class PredefinedMenuItem(_TextItem):
     """
@@ -784,6 +925,7 @@ __all__ = [
     "MenuID",
     "MenuItem",
     "MenuItemKind",
+    "NativeIcon",
     "PredefinedMenuItem",
     "Submenu",
 ]

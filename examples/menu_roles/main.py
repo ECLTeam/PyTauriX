@@ -6,8 +6,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from pytaruix import AppHandle, Commands, builder_factory, context_factory
-from pytaruix.menu import AboutMetadata, Menu, PredefinedMenuItem
+from pytaruix import AppHandle, BindingError, Commands, builder_factory, context_factory
+from pytaruix.menu import AboutMetadata, IconMenuItem, Menu, NativeIcon, PredefinedMenuItem
 
 ROLES = (
     "separator",
@@ -61,6 +61,18 @@ def main() -> int:
         checks["items_are_predefined"] = all(isinstance(item, PredefinedMenuItem) for item in listed)
         app_handle.set_menu(menu)
         checks["menu_attached"] = app_handle.menu() is not None
+        default_menu = Menu.default(app_handle)
+        checks["default_menu"] = len(default_menu.items()) > 0
+        native = IconMenuItem.with_native_icon(app_handle, "Native", True, NativeIcon.FOLDER)
+        checks["native_icon_text"] = native.text() == "Native"
+        native.set_native_icon(None)
+        checks["native_icon_cleared"] = native.text() == "Native"
+        try:
+            IconMenuItem.with_native_icon(app_handle, "Bad", True, "NotAnIcon")
+        except BindingError as error:
+            checks["invalid_native_icon"] = str(error).startswith("invalid_native_icon:")
+        else:
+            checks["invalid_native_icon"] = False
         print("MENU_ROLES_RESULT " + json.dumps(checks, sort_keys=True), flush=True)
         app_handle.exit(0 if all(checks.values()) else 1)
 

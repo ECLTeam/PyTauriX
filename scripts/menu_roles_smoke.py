@@ -23,6 +23,10 @@ def main() -> None:
         "text_override",
         "menu_size",
         "menu_attached",
+        "default_menu",
+        "native_icon_text",
+        "native_icon_cleared",
+        "invalid_native_icon",
     }
     if not expected <= set(checks) or not all(checks.values()):
         raise RuntimeError(f"Menu role evidence incomplete: {checks}")

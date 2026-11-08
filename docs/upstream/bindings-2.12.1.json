@@ -7884,6 +7884,114 @@
         "examples/menu_roles/main.py"
       ],
       "limitations": "macOS-only roles are created on Windows without visible effect"
+    },
+    {
+      "id": "Menu::default",
+      "upstream": {
+        "source": "src/menu/menu.rs",
+        "line": 142,
+        "declaration": "pub fn default(app_handle: &AppHandle<R>) -> crate::Result<Self> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.Menu.default",
+        "signature": "(cls, manager)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": "Default menu structure and available roles are decided by the platform"
+    },
+    {
+      "id": "IconMenuItem::with_native_icon",
+      "upstream": {
+        "source": "src/menu/icon.rs",
+        "line": 92,
+        "declaration": "pub fn with_native_icon<M, T, A>("
+      },
+      "python": {
+        "entry": "pytaruix.menu.IconMenuItem.with_native_icon",
+        "signature": "(cls, manager, text, enabled, native_icon, accelerator=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": "Native icons have no visible effect on Windows/Linux"
+    },
+    {
+      "id": "IconMenuItem::with_id_and_native_icon",
+      "upstream": {
+        "source": "src/menu/icon.rs",
+        "line": 126,
+        "declaration": "pub fn with_id_and_native_icon<M, I, T, A>("
+      },
+      "python": {
+        "entry": "pytaruix.menu.IconMenuItem.with_id_and_native_icon",
+        "signature": "(cls, manager, id, text, enabled, native_icon, accelerator=None)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": "Native icons have no visible effect on Windows/Linux"
+    },
+    {
+      "id": "IconMenuItem::set_native_icon",
+      "upstream": {
+        "source": "src/menu/icon.rs",
+        "line": 212,
+        "declaration": "pub fn set_native_icon(&self, _icon: Option<NativeIcon>) -> crate::Result<()> {"
+      },
+      "python": {
+        "entry": "pytaruix.menu.IconMenuItem.set_native_icon",
+        "signature": "(self, native_icon)"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_menu_contract.py",
+        "scripts/menu_roles_smoke.py",
+        "examples/menu_roles/main.py"
+      ],
+      "limitations": "Native icons have no visible effect on Windows/Linux"
     }
   ]
 }

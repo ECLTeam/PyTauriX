@@ -161,3 +161,8 @@ PyTauri 没有对应模块，这三项是本项目扩展；异步运行时仍由
 `AboutMetadata` 为 frozen dataclass，序列化时省略空字段，图标仍未绑定。
 `PredefinedMenuItem` 的 `kind()` 统一报告 `predefined`；此前 separator 报告 `separator`，属预发布期契约变更。
 macOS 专属角色在 Windows 上可以构造但不产生可见效果，能力矩阵与账本分别记录。
+
+菜单补齐 `Menu.default(manager)`、`IconMenuItem.with_native_icon`、`with_id_and_native_icon` 与 `set_native_icon`。
+`NativeIcon` 为 56 项 `StrEnum`，取值等于上游变体名；未知名称抛 `invalid_native_icon`。
+原生图标在 Windows/Linux 上可以设置但不产生可见效果，macOS 才有实际显示。
+默认菜单的结构与可用角色由 Tauri 决定，本项目不复制其内容，也不保证跨平台一致。

@@ -220,3 +220,14 @@ Ruff、Pyright、200 项 pytest、Rustfmt、Clippy（默认 features、`-D warni
 在真实桌面构造全部角色并挂载菜单，8 项检查全通过；macOS 专属角色在 Windows 可构造但无可见效果。
 人工审核账本新增 17 条，当前 277 条：236 已绑定验收、31 部分绑定、8 平台不可用、1 未绑定、1 未在自动化中触发。
 Ruff、Pyright、pytest、Rustfmt、Clippy 与账本核验通过；本批未提交远端、未发布。
+
+## 第十六阶段（默认菜单与 NativeIcon，实现完成）
+
+补齐「菜单」领域剩余的两个具名缺口：`Menu.default(manager)` 与 `IconMenuItem` 的原生图标入口。
+`NativeIcon` 以 56 项 `StrEnum` 暴露，取值等于上游变体名，原生侧用 serde 反序列化，
+不复制变体表；未知名称返回 `invalid_native_icon`。
+`IconMenuItem.with_native_icon`、`with_id_and_native_icon`、`set_native_icon` 已绑定；
+Windows/Linux 可设置但无可见效果，账本逐条标注该限制。
+`scripts/menu_roles_smoke.py` 扩展为 12 项检查（新增默认菜单、图标构造、清除与非法名称拒绝），全部通过。
+人工审核账本新增 4 条，当前 281 条：240 已绑定验收、31 部分绑定、8 平台不可用、1 未绑定、1 未在自动化中触发。
+Ruff、Pyright、pytest、Rustfmt、Clippy 与账本核验通过；未提交远端、未发布。

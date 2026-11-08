@@ -84,6 +84,16 @@ fn label(text: &str) -> Option<&str> {
     }
 }
 
+/// 按上游变体名解析 macOS 原生图标；Windows/Linux 接受但不产生可见效果。
+fn parse_native_icon(name: &str) -> PyResult<menu::NativeIcon> {
+    serde_json::from_value(serde_json::Value::String(name.to_owned())).map_err(|_| {
+        binding_error(
+            "invalid_native_icon",
+            format!("Unknown native icon: {name}"),
+        )
+    })
+}
+
 /// 从 JSON 对象构造 About 元数据；图标仍由独立 Image 入口提供。
 fn about_metadata(raw: &str) -> PyResult<menu::AboutMetadata<'static>> {
     let value: serde_json::Value = serde_json::from_str(raw)
@@ -231,7 +241,7 @@ impl MenuResource {
     #[staticmethod]
     // 按公开 Python 构造字段传递；共享一处线程/所有权校验而不复制六种绑定。
     #[allow(clippy::too_many_arguments)]
-    #[pyo3(signature = (handle, kind, id=None, text="", enabled=true, checked=false, accelerator=None, icon=None, metadata=None))]
+    #[pyo3(signature = (handle, kind, id=None, text="", enabled=true, checked=false, accelerator=None, icon=None, metadata=None, native_icon=None))]
     fn create(
         py: Python<'_>,
         handle: &AppHandle,
@@ -243,6 +253,7 @@ impl MenuResource {
         accelerator: Option<String>,
         icon: Option<&Image>,
         metadata: Option<String>,
+        native_icon: Option<String>,
     ) -> PyResult<Self> {
         string(text)?;
         if let Some(id) = &id {
@@ -253,6 +264,7 @@ impl MenuResource {
         let text = text.to_owned();
         let icon = icon.map(|icon| icon.inner.clone());
         let about = metadata.as_deref().map(about_metadata).transpose()?;
+        let native_icon = native_icon.as_deref().map(parse_native_icon).transpose()?;
         let app = handle.clone();
         execute(py, handle, None, move || {
             let manager = &app.inner;
@@ -306,6 +318,23 @@ impl MenuResource {
                     text,
                     enabled,
                     icon,
+                    accelerator,
+                ))?),
+                ("icon_native", Some(id)) => {
+                    Node::Icon(native(menu::IconMenuItem::with_id_and_native_icon(
+                        manager,
+                        id,
+                        text,
+                        enabled,
+                        native_icon,
+                        accelerator,
+                    ))?)
+                }
+                ("icon_native", None) => Node::Icon(native(menu::IconMenuItem::with_native_icon(
+                    manager,
+                    text,
+                    enabled,
+                    native_icon,
                     accelerator,
                 ))?),
                 ("separator", None) => {
@@ -374,6 +403,33 @@ impl MenuResource {
                 _ => return Err(invalid()),
             };
             Ok(Self { node, handle: app })
+        })
+    }
+    /// 创建上游默认应用菜单；结构与可用角色由平台决定。
+    ///
+    /// 桌面 setup 或运行期间执行，释放 GIL，禁止同步回调重入。
+    #[staticmethod]
+    #[pyo3(signature = (handle, /))]
+    fn default_menu(py: Python<'_>, handle: &AppHandle) -> PyResult<Self> {
+        let app = handle.clone();
+        execute(py, handle, None, move || {
+            let menu = native(menu::Menu::default(&app.inner))?;
+            Ok(Self {
+                node: Node::Menu(menu),
+                handle: app,
+            })
+        })
+    }
+    /// 设置 macOS 原生图标；传入 None 清除。
+    ///
+    /// Windows/Linux 接受调用但不产生可见效果，非图标项明确拒绝。
+    #[pyo3(signature = (native_icon, /))]
+    fn set_native_icon(&self, py: Python<'_>, native_icon: Option<&str>) -> PyResult<()> {
+        let icon = native_icon.map(parse_native_icon).transpose()?;
+        let node = self.node.clone();
+        execute(py, &self.handle, None, move || match node {
+            Node::Icon(item) => native(item.set_native_icon(icon)),
+            _ => Err(invalid()),
         })
     }
     /// 返回菜单种类；读取内部元数据，不调用 GUI。

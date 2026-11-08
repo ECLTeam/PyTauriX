@@ -12,6 +12,7 @@ from .ffi.menu import (
     MenuID,
     MenuItem,
     MenuItemKind,
+    NativeIcon,
     PredefinedMenuItem,
     Submenu,
 )
@@ -27,6 +28,7 @@ __all__ = [
     "MenuID",
     "MenuItem",
     "MenuItemKind",
+    "NativeIcon",
     "PredefinedMenuItem",
     "Submenu",
 ]

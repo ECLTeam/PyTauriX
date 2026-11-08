@@ -140,3 +140,21 @@ app_handle.set_menu(menu)
 ```
 
 菜单资源操作不能在同步 GUI 回调（如 `Ready`）内执行，应在 `setup(AppHandle)` 或运行期调用。
+
+## 默认菜单与原生图标
+
+`Menu.default(manager)` 返回上游默认应用菜单，结构与可用角色由 Tauri 按平台决定，本项目不复制其内容。
+`IconMenuItem` 支持 `with_native_icon`、`with_id_and_native_icon` 与 `set_native_icon`，
+图标取自 56 项 `NativeIcon` 枚举，取值等于上游变体名：
+
+```python
+from pytaruix.menu import IconMenuItem, Menu, NativeIcon
+
+default = Menu.default(app_handle)
+folder = IconMenuItem.with_native_icon(app_handle, "Open Folder", True, NativeIcon.FOLDER)
+folder.set_native_icon(NativeIcon.FOLDER_SMART)
+folder.set_native_icon(None)
+```
+
+原生图标只在 macOS 显示；Windows/Linux 接受设置但不产生可见效果。未知名称抛 `invalid_native_icon`，
+不会静默退化为无图标。

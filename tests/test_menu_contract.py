@@ -17,10 +17,10 @@ def test_menu_import_identity_and_string_event() -> None:
     assert all(getattr(public, name) is getattr(ffi, name) for name in public.__all__)
     assert public.MenuID is str and public.MenuEvent is str
     assert "menu.events" in get_runtime_info().capabilities
-    assert not hasattr(public.Menu, "default")
+    assert hasattr(public.Menu, "default")
+    assert hasattr(public.IconMenuItem, "set_native_icon")
     assert hasattr(public.PredefinedMenuItem, "about")
     assert not hasattr(public.PredefinedMenuItem, "with_id")
-    assert not hasattr(public.IconMenuItem, "with_native_icon")
 
 
 @pytest.mark.parametrize(
@@ -135,3 +135,10 @@ def test_about_metadata_serializes_only_provided_fields() -> None:
         "authors": ["ECL", "Contributors"],
     }
     assert public.AboutMetadata().to_json() == "{}"
+
+
+def test_native_icon_enum_matches_upstream_variant_names() -> None:
+    assert len(public.NativeIcon) == 56
+    assert str(public.NativeIcon.FOLDER) == "Folder"
+    assert str(public.NativeIcon.I_CHAT_THEATER) == "IChatTheater"
+    assert str(public.NativeIcon.STATUS_PARTIALLY_AVAILABLE) == "StatusPartiallyAvailable"
