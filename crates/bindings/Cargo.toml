@@ -28,7 +28,7 @@ specta = { version = "=2.0.0-rc.25", optional = true, features = ["std"] }
 
 [target.'cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))'.dependencies]
 # 使用 Tauri 锁定的同一解析器；上游构造器会静默忽略错误快捷键。
-muda = { version = "=0.20.0", default-features = false }
+muda = { version = "=0.21.2", default-features = false }
 
 [target.'cfg(target_os = "windows")'.dependencies]
 tauri = { workspace = true, features = ["common-controls-v6"] }
