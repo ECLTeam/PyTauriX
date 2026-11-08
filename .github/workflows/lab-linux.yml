@@ -1,0 +1,56 @@
+# 实验工作流：验证 Linux xvfb 下桌面冒烟场景的真实可行性。
+# 仅用于 lab 分支，取得数据后写正式方案并移除。
+
+name: Linux acceptance lab
+
+on:
+  push:
+    branches:
+      - "lab/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [desktop, dynamic_window, event_dispatch, channel, menu, host_config, webview_policy, window_attributes, display_image, path, tray, dialog, system_interaction]
+    runs-on: ubuntu-24.04
+    env:
+      CARGO_BUILD_JOBS: "1"
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.14"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.97.1"
+      - name: Linux desktop dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf xvfb
+      - run: uv sync --locked --no-install-project
+      - run: uv run --no-sync maturin develop --locked --jobs 1 --features devtools,tray-icon
+      - name: Smoke ${{ matrix.suite }}
+        id: smoke
+        continue-on-error: true
+        run: |
+          xvfb-run -a -s "-screen 0 1280x800x24" uv run --no-sync python scripts/${{ matrix.suite }}_smoke.py > smoke.log 2>&1
+          code=$?
+          echo "exit=$code" >> "$GITHUB_OUTPUT"
+          tail -30 smoke.log
+          exit $code
+      - name: Upload smoke log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-${{ matrix.suite }}
+          path: smoke.log
+      - name: Report
+        if: always()
+        run: echo "suite=${{ matrix.suite }} exit=${{ steps.smoke.outputs.exit }}"
