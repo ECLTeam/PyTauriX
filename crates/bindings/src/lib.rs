@@ -10,16 +10,26 @@ mod dialog;
 mod dispatch;
 mod dpi;
 mod events;
+#[cfg(feature = "plugin-fs")]
+mod fs;
+#[cfg(feature = "plugin-global-shortcut")]
+mod global_shortcut;
 mod image;
 mod ipc;
 #[cfg(desktop)]
 mod menu;
 mod monitor;
+#[cfg(feature = "plugin-notification")]
+mod notification;
+#[cfg(feature = "plugin-opener")]
+mod opener;
 mod paths;
 mod plugin;
 mod protocol;
 mod resources;
 mod runtime;
+#[cfg(all(desktop, feature = "plugin-single-instance"))]
+mod single_instance;
 #[cfg(all(desktop, feature = "tray-icon"))]
 mod tray;
 mod webview_requests;
@@ -63,6 +73,42 @@ fn _native(module: &Bound<'_, PyModule>) -> PyResult<()> {
     module.add_class::<plugin::Plugin>()?;
     module.add_class::<protocol::Protocol>()?;
     module.add_function(wrap_pyfunction!(protocol::protocol_create, module)?)?;
+    module.add("plugin_fs_available", cfg!(feature = "plugin-fs"))?;
+    module.add(
+        "plugin_global_shortcut_available",
+        cfg!(feature = "plugin-global-shortcut"),
+    )?;
+    module.add(
+        "plugin_notification_available",
+        cfg!(feature = "plugin-notification"),
+    )?;
+    module.add("plugin_opener_available", cfg!(feature = "plugin-opener"))?;
+    module.add(
+        "plugin_single_instance_available",
+        cfg!(all(desktop, feature = "plugin-single-instance")),
+    )?;
+    #[cfg(feature = "plugin-global-shortcut")]
+    {
+        module.add_function(wrap_pyfunction!(plugin::global_shortcut_init, module)?)?;
+        module.add_class::<global_shortcut::GlobalShortcutApi>()?;
+    }
+    #[cfg(feature = "plugin-notification")]
+    {
+        module.add_function(wrap_pyfunction!(plugin::notification_init, module)?)?;
+        module.add_class::<notification::NotificationApi>()?;
+    }
+    #[cfg(feature = "plugin-opener")]
+    {
+        module.add_function(wrap_pyfunction!(plugin::opener_init, module)?)?;
+        module.add_class::<opener::OpenerApi>()?;
+    }
+    #[cfg(all(desktop, feature = "plugin-single-instance"))]
+    module.add_function(wrap_pyfunction!(plugin::single_instance_init, module)?)?;
+    #[cfg(feature = "plugin-fs")]
+    {
+        module.add_function(wrap_pyfunction!(plugin::fs_init, module)?)?;
+        module.add_class::<fs::Fs>()?;
+    }
     module.add(
         "plugin_dialog_available",
         cfg!(all(feature = "plugin-dialog", desktop)),

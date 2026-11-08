@@ -199,12 +199,6 @@ impl Builder {
                 .manage(PythonCommands(invoke_handler))
                 .manage(Arc::clone(&runtime))
                 .invoke_handler(crate::ipc::invoke_handler)
-                .plugin(pytaruix_bridge::init())
-                .plugin(
-                    tauri::plugin::Builder::<tauri::Wry>::new("pytauri")
-                        .invoke_handler(crate::ipc::legacy_handler)
-                        .build(),
-                )
                 .on_window_event(move |window, event| {
                     crate::window_state::window_event(
                         &event_runtime,
@@ -241,9 +235,15 @@ impl Builder {
                     setup_runtime.finish_setup();
                     Ok(())
                 });
-            for plugin in plugins {
-                builder = builder.plugin(plugin);
+            // 用户插件先登记：single-instance 要求自身尽量靠前，内置桥接插件随后再挂。
+            for apply in plugins {
+                builder = apply(builder);
             }
+            builder = builder.plugin(pytaruix_bridge::init()).plugin(
+                tauri::plugin::Builder::<tauri::Wry>::new("pytauri")
+                    .invoke_handler(crate::ipc::legacy_handler)
+                    .build(),
+            );
             for (name, handler) in protocols {
                 builder = crate::protocol::register(builder, name, handler);
             }
