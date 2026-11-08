@@ -31,6 +31,7 @@ class InvokeHandler(Protocol):
         webview_window: _native.WebviewWindow | None = None,
         headers: list[tuple[bytes, bytes]] | None = None,
         legacy: bool = False,
+        request: _native.Request | None = None,
     ) -> str | bytes: ...
 
 

@@ -269,7 +269,7 @@ pub fn window_event(
         crate::menu::detach_closing_window(&state);
     }
     if destroyed {
-        runtime.remove_window(&state, handle);
+        runtime.remove_window(label, &state, handle);
     }
 }
 

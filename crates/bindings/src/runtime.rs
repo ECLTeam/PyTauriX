@@ -19,6 +19,7 @@ pub struct RuntimeState {
     pub active: AtomicBool,
     pub error: Mutex<Option<PyErr>>,
     pub resources: crate::resources::Resources,
+    pub requests: crate::ipc::Requests,
     pub states: Py<PyDict>,
     pub running: AtomicBool,
     windows: Mutex<HashMap<String, Arc<WindowState>>>,
@@ -36,6 +37,7 @@ impl RuntimeState {
             active: AtomicBool::new(true),
             error: Mutex::new(None),
             resources: crate::resources::Resources::default(),
+            requests: crate::ipc::Requests::default(),
             states: PyDict::new(py).unbind(),
             running: AtomicBool::new(false),
             windows: Mutex::new(HashMap::new()),
@@ -83,9 +85,10 @@ impl RuntimeState {
         windows.insert(label.to_owned(), Arc::clone(&state));
         Ok(state)
     }
-    pub fn remove_window(&self, state: &Arc<WindowState>, handle: &tauri::AppHandle) {
+    pub fn remove_window(&self, label: &str, state: &Arc<WindowState>, handle: &tauri::AppHandle) {
         // 保留无回调的失效代次，避免 Tauri 移除原生窗口前的查询重新激活旧句柄。
         // 同名创建仅在原生窗口已移除后才能用 reserve_window 替换；退出清空注册表。
+        self.requests.cancel_window(label);
         state.clear();
         self.resources.clear(handle, Some(state));
     }
@@ -129,6 +132,8 @@ impl RuntimeState {
         handle.exit(1);
     }
     pub fn cleanup(&self, handle: &tauri::AppHandle) {
+        // 先归还待应答请求，避免前端 Promise 在退出后悬空。
+        self.requests.cancel_all();
         self.active.store(false, Ordering::SeqCst);
         self.running.store(false, Ordering::SeqCst);
         self.finish_setup();

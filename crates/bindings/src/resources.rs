@@ -118,6 +118,20 @@ impl Resources {
         registry.channels.push(Arc::downgrade(state));
         Ok(())
     }
+    /// 按编号与来源窗口查找通道；归属不符时不归还其他窗口的配额。
+    pub fn channel(
+        &self,
+        id: u32,
+        owner: &Arc<WindowState>,
+    ) -> Option<Arc<crate::channel::ChannelState>> {
+        let mut registry = self.registry.lock().ok()?;
+        registry.channels.retain(|entry| entry.strong_count() > 0);
+        registry
+            .channels
+            .iter()
+            .filter_map(Weak::upgrade)
+            .find(|state| state.id == id && state.belongs_to(owner))
+    }
     #[cfg(all(feature = "plugin-dialog", desktop))]
     // 保持 MSRV 1.90：替代方法 try_update 需要 1.95，升级 MSRV 后再切换。
     #[allow(deprecated)]

@@ -314,7 +314,9 @@ pub fn build_window(
             })
         })();
         if result.is_err() {
-            handle.runtime.remove_window(&state, &handle.inner);
+            handle
+                .runtime
+                .remove_window(&config.label, &state, &handle.inner);
         }
         result
     })

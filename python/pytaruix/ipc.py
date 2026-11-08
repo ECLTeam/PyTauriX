@@ -1,7 +1,7 @@
 # ============================================================
 # PytaruiX
 # 文件作用：注册命令、注入受信上下文并提供 JSON/字节协议及原生通道。
-# 公开接口：Commands、State、Headers、WebviewWindow、JsonValue、JavaScriptChannelId、Channel。
+# 公开接口：Commands、State、Headers、Request、WebviewWindow、JsonValue、JavaScriptChannelId、Channel。
 # ============================================================
 from __future__ import annotations
 
@@ -29,8 +29,9 @@ from .errors import BindingError, CommandError
 from .ffi import AppHandle, Webview, WebviewWindow
 from .ffi.ipc import Channel as FfiChannel
 from .ffi.ipc import JavaScriptChannelId as FfiJavaScriptChannelId
+from .ffi.ipc import Request as FfiRequest
 
-__all__ = ["Channel", "Commands", "Headers", "JavaScriptChannelId", "JsonValue", "State", "WebviewWindow"]
+__all__ = ["Channel", "Commands", "Headers", "JavaScriptChannelId", "JsonValue", "Request", "State", "WebviewWindow"]
 
 ModelType = TypeVar("ModelType", bound=BaseModel)
 
@@ -68,18 +69,63 @@ class JavaScriptChannelId(RootModel[ChannelIdValue], Generic[ModelType]):
         """
         return cls(FfiJavaScriptChannelId.from_str(value))
 
-    def channel_on(self, webview: Webview, /) -> Channel[ModelType]:
+    def channel_on(self, webview: Webview, /, *, capacity: int = 0) -> Channel[ModelType]:
         """
         绑定指定活跃 Webview 代次，可在工作线程调用，销毁后返回 window_closed。
+
+        :param webview: 现有窗口引用
+        :param capacity: 流控容量；0 表示不限制，大于 0 时要求前端用
+            ``pytaruix.createChannel`` 归还配额
+        :raises ValueError: capacity 为负数
         """
-        return Channel(self.root.channel_on(webview))
+        if capacity < 0:
+            raise ValueError("capacity must not be negative")
+        return Channel(self.root.channel_on(webview, capacity=capacity))
+
+
+class Request:
+    """
+    命令可注入的请求句柄，用于协作式取消。
+
+    取消只拒绝前端 Promise 并把 ``cancelled`` 置为真；同步 Python 代码无法被中断，
+    命令需自行检查标志并在安全点返回。句柄不证明调用方已获授权。
+    """
+
+    def __init__(self, ffi_request: FfiRequest, /) -> None:
+        self._ffi_request = ffi_request
+
+    @property
+    def id(self) -> str:
+        """
+        取得前端提交的请求编号；取消后仍可读取。
+        """
+        return self._ffi_request.id
+
+    @property
+    def cancelled(self) -> bool:
+        """
+        查询是否已取消；可在工作线程读取。
+        """
+        return self._ffi_request.cancelled
+
+    def cancel(self) -> bool:
+        """
+        主动取消并立即拒绝前端 Promise；已应答时返回 False。
+
+        可在工作线程调用；不中断正在执行的同步命令。
+        """
+        return self._ffi_request.cancel()
+
+    def __repr__(self) -> str:
+        return f"Request(id={self.id!r}, cancelled={self.cancelled!r})"
 
 
 class Channel(Generic[ModelType]):
     """
     原生发送句柄的类型化包装，支持工作线程、显式关闭和最后引用释放。
 
-    发送成功只表示原生接受提交，不确认前端处理，也不自动取消后台任务或提供背压。
+    发送成功只表示原生接受提交，不确认前端处理。``capacity > 0`` 的通道按配额发送，
+    配额由前端 ``pytaruix.createChannel`` 归还；直接构造 ``Channel`` 的前端不得启用配额。
     """
 
     def __init__(self, ffi_channel: FfiChannel, /) -> None:
@@ -93,14 +139,18 @@ class Channel(Generic[ModelType]):
         """
         return self._ffi_channel.id()
 
-    def send(self, data: str | bytes, /) -> None:
+    def send(self, data: str | bytes, /, *, timeout: float | None = None) -> None:
         """
         发送有效原始 JSON 文本或 ArrayBuffer 字节；原生发送释放 GIL。
 
-        :raises BindingError: invalid_json、channel_closed、window_closed、app_closed 或 channel_failed
+        :param data: JSON 文本或二进制载荷
+        :param timeout: 启用流控时的等待秒数；省略表示等到配额或通道关闭
+        :raises BindingError: invalid_json、channel_closed、window_closed、app_closed、
+            channel_backpressure 或 channel_failed
         :raises TypeError: 载荷不是 str/bytes
+        :raises ValueError: timeout 为负数或非有限值
         """
-        self._ffi_channel.send(data)
+        self._ffi_channel.send(data, timeout=timeout)
 
     def send_model(self, model: ModelType, /) -> None:
         """
@@ -122,6 +172,13 @@ class Channel(Generic[ModelType]):
         查询显式关闭或所属窗口/应用失效状态。
         """
         return self._ffi_channel.closed
+
+    @property
+    def pending(self) -> int:
+        """
+        查询尚未归还的流控配额；未启用流控时恒为 0。
+        """
+        return self._ffi_channel.pending
 
 
 JsonValue: TypeAlias = bool | int | float | str | list["JsonValue"] | dict[str, "JsonValue"] | None
@@ -230,6 +287,8 @@ class Commands:
                     injections[parameter_name] = "app_handle"
                 elif annotation is WebviewWindow:
                     injections[parameter_name] = "webview_window"
+                elif annotation is Request:
+                    injections[parameter_name] = "request"
                 elif get_origin(annotation) is Annotated and any(
                     isinstance(marker, _HeadersMarker) for marker in get_args(annotation)[1:]
                 ):
@@ -252,6 +311,7 @@ class Commands:
 
         参数来源和注入值由原生 Tauri 提供；portal 需在应用运行期间保持开放。
         bytes body 保留请求原文，bytes 返回值形成 ArrayBuffer；其他结果进行 JSON 序列化。
+        声明 ``Request`` 参数的命令拿到请求句柄，没有前端编号时返回 request_unavailable。
 
         :param portal: 异步命令后台入口
         :return: 固定注册快照的处理器
@@ -265,6 +325,7 @@ class Commands:
             webview_window: WebviewWindow | None = None,
             headers: Headers | None = None,
             legacy: bool = False,
+            request: FfiRequest | None = None,
         ) -> str | bytes:
             command = commands.get(command_name)
             if command is None:
@@ -275,6 +336,13 @@ class Commands:
                     arguments[name] = app_handle
                 elif injection == "headers":
                     arguments[name] = list(headers or [])
+                elif injection == "request":
+                    if request is None:
+                        raise CommandError(
+                            "request_unavailable",
+                            "Cancellable commands require a request identifier",
+                        )
+                    arguments[name] = Request(request)
                 else:
                     if webview_window is None:
                         raise CommandError("invalid_window", "Originating WebviewWindow is unavailable")

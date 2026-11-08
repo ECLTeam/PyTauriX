@@ -78,6 +78,7 @@ fn _native(module: &Bound<'_, PyModule>) -> PyResult<()> {
     module.add_class::<channel::Webview>()?;
     module.add_class::<channel::JavaScriptChannelId>()?;
     module.add_class::<channel::Channel>()?;
+    module.add_class::<ipc::Request>()?;
     module.add_class::<window_state::CloseRequestApi>()?;
     module.add_class::<image::Image>()?;
     module.add("image_decode_formats", image::formats())?;

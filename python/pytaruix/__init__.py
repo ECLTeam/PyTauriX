@@ -22,7 +22,7 @@ from .events import (
     WindowEventType,
 )
 from .ffi import AppHandle, Context, Webview, WebviewWindow
-from .ipc import Commands, Headers, State
+from .ipc import Commands, Headers, Request, State
 from .manager import Emitter, Listener, Manager
 from .path import BaseDirectory, PathResolver
 from .runtime import RuntimeInfo, get_runtime_info
@@ -62,6 +62,7 @@ __all__ = [
     "PermissionKind",
     "PermissionResponse",
     "Rect",
+    "Request",
     "RunEvent",
     "RunEventType",
     "RuntimeInfo",
