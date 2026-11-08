@@ -384,4 +384,9 @@ global-shortcut、notification、opener 与未覆盖路径仍为 `bound_unverifi
 Issue/PR 模板、`CODEOWNERS` 与 Dependabot 配置；`pyproject.toml` 补 SPDX 许可证、仓库链接、
 分类器与 sdist 内容。README 重写为项目介绍，工程细节移入 `docs/` 与贡献指南。
 
-**未验证**：移除兼容层后的桌面回归（双窗口、动态窗口、通道三组）尚未执行；Linux/macOS 仍无运行证据。
+**桌面回归**（Windows x86_64，Python 3.14）：双窗口 16 项、动态窗口 44 项、通道全部判据、
+八项桌面验收均通过，过程中修掉三处契约测试照不出的回归：
+配置窗口的本地自动授权范围过宽（已收窄为 capability windows 模式命中才授权）、
+bytes 正文在 JSON 协议下多一对引号（改为 JSON 文本取字符串内容、非 JSON 按原文直通）、
+已关闭通道先报 invalid_json 而非 channel_closed（关闭检查提到解析之前）。
+Linux/macOS 仍无运行证据。
