@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-notification",
+  "version": "2.3.0",
+  "scope": "Reviewed subset of public Rust API bound by this project; other declarations stay unreviewed",
+  "dependency_notes": "上游 windows7-compat 与 win7-notifications 未转发；日程与通道类接口未绑定。",
+  "entries": [
+    {
+      "id": "init",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 222,
+        "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.notification.init",
+        "signature": "() -> Plugin"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-notification compiled",
+        "desktop permission is reported as granted",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "builder",
+      "upstream": {
+        "source": "src/desktop.rs",
+        "line": 54,
+        "declaration": "pub fn builder(&self) -> NotificationBuilder<R> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.notification.Notification.send",
+        "signature": "(title: str, body: str, /, *, silent: bool = False, id: int | None = None) -> None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-notification compiled",
+        "desktop permission is reported as granted",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "show",
+      "upstream": {
+        "source": "src/desktop.rs",
+        "line": 167,
+        "declaration": "pub fn show(self) -> crate::Result<()> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.notification.Notification.send",
+        "signature": "send 的提交动作"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-notification compiled",
+        "desktop permission is reported as granted",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "silent",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 204,
+        "declaration": "pub fn silent(mut self) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.notification.Notification.send",
+        "signature": "silent: bool = False"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-notification compiled",
+        "desktop permission is reported as granted",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "id",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 69,
+        "declaration": "pub fn id(mut self, id: i32) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.notification.Notification.send",
+        "signature": "id: int | None = None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-notification compiled",
+        "desktop permission is reported as granted",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "permission_state",
+      "upstream": {
+        "source": "src/desktop.rs",
+        "line": 62,
+        "declaration": "pub fn permission_state(&self) -> crate::Result<PermissionState> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.notification.Notification.permission_state",
+        "signature": "() -> str"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-notification compiled",
+        "desktop permission is reported as granted",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "request_permission",
+      "upstream": {
+        "source": "src/desktop.rs",
+        "line": 58,
+        "declaration": "pub fn request_permission(&self) -> crate::Result<PermissionState> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.notification.Notification.request_permission",
+        "signature": "() -> str"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-notification compiled",
+        "desktop permission is reported as granted",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "schedule",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 96,
+        "declaration": "pub fn schedule(mut self, schedule: Schedule) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.notification（未提供）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在需要定时通知时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": ""
+    },
+    {
+      "id": "channel_id",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 78,
+        "declaration": "pub fn channel_id(mut self, id: impl Into<String>) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.notification（未提供）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在 Android 通道场景适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": ""
+    },
+    {
+      "id": "attachment",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 174,
+        "declaration": "pub fn attachment(mut self, attachment: Attachment) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.notification（未提供）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在需要附件时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": ""
+    }
+  ]
+}

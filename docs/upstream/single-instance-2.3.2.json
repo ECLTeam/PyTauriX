@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-single-instance",
+  "version": "2.3.2",
+  "rust_version": "1.77.2",
+  "scope": "Declaration candidates only; excludes cfg, macro expansion, trait methods and enum variants",
+  "features": {
+    "deep-link": {
+      "dependencies": [
+        "dep:tauri-plugin-deep-link"
+      ],
+      "status": "build_mapped"
+    },
+    "semver": {
+      "dependencies": [
+        "dep:semver"
+      ],
+      "status": "build_mapped"
+    }
+  },
+  "sources": [
+    {
+      "path": "src/lib.rs",
+      "sha256": "d0b835908815e77472d9b95b23360f63d8e37ca8cff064512b4c294c86523fa2"
+    },
+    {
+      "path": "src/platform_impl/linux.rs",
+      "sha256": "a76e7386c65f614d8d73548b230baf6d49c57a0f68b836eb252a20ee650b8313"
+    },
+    {
+      "path": "src/platform_impl/macos.rs",
+      "sha256": "aa5af11494de24a3feafabd6ae29c070f2f56149a9ebcc08aae32351ec56c4e3"
+    },
+    {
+      "path": "src/platform_impl/windows.rs",
+      "sha256": "dabfca4f65f7caf8644994216f292ede2504533480bb82e9b64853387211d7e2"
+    },
+    {
+      "path": "src/semver_compat.rs",
+      "sha256": "7b2691f864cc76f3acb025d516ae8e402bc318e2b228e588968e462ee094ad23"
+    }
+  ],
+  "declarations": [
+    {
+      "id": "src/lib.rs:31:fn:init",
+      "source": "src/lib.rs",
+      "line": 31,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime, F: FnMut(&AppHandle<R>, Vec<String>, String) + Send + Sync + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:43:fn:destroy",
+      "source": "src/lib.rs",
+      "line": 43,
+      "kind": "fn",
+      "name": "destroy",
+      "declaration": "pub fn destroy<R: Runtime, M: Manager<R>>(manager: &M) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/platform_impl/linux.rs:45:fn:init",
+      "source": "src/platform_impl/linux.rs",
+      "line": 45,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime>(f: Box<SingleInstanceCallback<R>>) -> TauriPlugin<R> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/platform_impl/linux.rs:105:fn:destroy",
+      "source": "src/platform_impl/linux.rs",
+      "line": 105,
+      "kind": "fn",
+      "name": "destroy",
+      "declaration": "pub fn destroy<R: Runtime, M: Manager<R>>(manager: &M) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/platform_impl/macos.rs:19:fn:init",
+      "source": "src/platform_impl/macos.rs",
+      "line": 19,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime>(cb: Box<SingleInstanceCallback<R>>) -> TauriPlugin<R> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/platform_impl/macos.rs:55:fn:destroy",
+      "source": "src/platform_impl/macos.rs",
+      "line": 55,
+      "kind": "fn",
+      "name": "destroy",
+      "declaration": "pub fn destroy<R: Runtime, M: Manager<R>>(manager: &M) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/platform_impl/windows.rs:54:fn:init",
+      "source": "src/platform_impl/windows.rs",
+      "line": 54,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime>(callback: Box<SingleInstanceCallback<R>>) -> TauriPlugin<R> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/platform_impl/windows.rs:119:fn:destroy",
+      "source": "src/platform_impl/windows.rs",
+      "line": 119,
+      "kind": "fn",
+      "name": "destroy",
+      "declaration": "pub fn destroy<R: Runtime, M: Manager<R>>(manager: &M) {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/platform_impl/windows.rs:228:fn:encode_wide",
+      "source": "src/platform_impl/windows.rs",
+      "line": 228,
+      "kind": "fn",
+      "name": "encode_wide",
+      "declaration": "pub fn encode_wide(string: impl AsRef<std::ffi::OsStr>) -> Vec<u16> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/semver_compat.rs:7:fn:semver_compat_string",
+      "source": "src/semver_compat.rs",
+      "line": 7,
+      "kind": "fn",
+      "name": "semver_compat_string",
+      "declaration": "pub fn semver_compat_string(version: semver::Version) -> String {",
+      "status": "unreviewed"
+    }
+  ]
+}

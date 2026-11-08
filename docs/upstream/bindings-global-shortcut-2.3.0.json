@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-global-shortcut",
+  "version": "2.3.0",
+  "scope": "Reviewed subset of public Rust API bound by this project; other declarations stay unreviewed",
+  "dependency_notes": "上游无可选 feature；不支持多快捷键批量注册与 Builder 预注册。",
+  "entries": [
+    {
+      "id": "builder_build",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 388,
+        "declaration": "pub fn build(self) -> TauriPlugin<R> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.global_shortcut.init",
+        "signature": "() -> Plugin"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-global-shortcut compiled",
+        "plugin registered before shortcuts are used",
+        "handler runs only on pressed state"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "on_shortcut",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 143,
+        "declaration": "pub fn on_shortcut<S, F>(&self, shortcut: S, handler: F) -> Result<()>"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.register",
+        "signature": "(accelerator: str, handler: ShortcutHandler, /) -> None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-global-shortcut compiled",
+        "plugin registered before shortcuts are used",
+        "handler runs only on pressed state"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": "处理器只在 ShortcutState::Pressed 时回调"
+    },
+    {
+      "id": "unregister",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 182,
+        "declaration": "pub fn unregister<S: TryInto<ShortcutWrapper>>(&self, shortcut: S) -> Result<()>"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.unregister",
+        "signature": "(accelerator: str, /) -> None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-global-shortcut compiled",
+        "plugin registered before shortcuts are used",
+        "handler runs only on pressed state"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "unregister_all",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 220,
+        "declaration": "pub fn unregister_all(&self) -> Result<()> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.unregister_all",
+        "signature": "() -> None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-global-shortcut compiled",
+        "plugin registered before shortcuts are used",
+        "handler runs only on pressed state"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "is_registered",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 232,
+        "declaration": "pub fn is_registered<S: TryInto<ShortcutWrapper>>(&self, shortcut: S) -> bool"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.is_registered",
+        "signature": "(accelerator: str, /) -> bool"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-global-shortcut compiled",
+        "plugin registered before shortcuts are used",
+        "handler runs only on pressed state"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "register_multiple",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 153,
+        "declaration": "pub fn register_multiple<S, T>(&self, shortcuts: S) -> Result<()>"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.global_shortcut（未提供）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在需要批量注册时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "单条注册循环即可覆盖"
+    },
+    {
+      "id": "on_shortcuts",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 167,
+        "declaration": "pub fn on_shortcuts<S, T, F>(&self, shortcuts: S, handler: F) -> Result<()>"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.global_shortcut（未提供）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在需要共享处理器时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": ""
+    }
+  ]
+}

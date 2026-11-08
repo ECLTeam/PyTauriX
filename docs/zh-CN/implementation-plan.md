@@ -296,3 +296,15 @@ single-instance 2.3.2、global-shortcut 2.3.0、notification 2.3.0、opener 2.5.
 Ruff、Ruff format、Pyright 通过。
 **未验证**：第二实例唤醒、热键冲突、通知显示、默认程序启动的真实系统行为，以及 Linux/macOS 与移动平台。
 本批未提交远端、未发布。
+
+## 第二十一阶段（插件上游审核账本补齐）
+
+第二批工作提交后补记。`scripts/update_coverage.py` 原先把 dialog 拆分核验写死在函数里，
+现改为 `PluginSpec` 清单驱动，五个插件按同一口径核验版本、源码哈希、feature 与审核账本。
+可选插件依赖默认不在解析图中，`cargo metadata` 改用 `--all-features`，否则取不到插件源码路径。
+新增 `docs/upstream/{fs,global-shortcut,notification,opener,single-instance}-<版本>.json` 快照与对应
+`bindings-*.json` 账本：fs 9 条、global-shortcut 7 条、notification 10 条、opener 6 条、single-instance 2 条。
+已绑定条目统一记为 `bound_unverified`——Python 契约测试覆盖参数与对象行为，但没有真实桌面调用证据；
+上游命令层的目录、删除、重命名等接口记为 `unimplemented`，并在账本注明由 pathlib 覆盖，不重复实现。
+未转发的可选 feature（fs 的 watch、notification 的 windows7-compat、single-instance 的 deep-link 与 semver）
+在 `dependency_notes` 中显式说明。`--check` 通过，审查输出改为逐插件列出条目状态计数。

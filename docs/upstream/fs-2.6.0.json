@@ -1,0 +1,823 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-fs",
+  "version": "2.6.0",
+  "rust_version": "1.90",
+  "scope": "Declaration candidates only; excludes cfg, macro expansion, trait methods and enum variants",
+  "features": {
+    "notify": {
+      "dependencies": [
+        "dep:notify"
+      ],
+      "status": "build_mapped"
+    },
+    "notify-debouncer-full": {
+      "dependencies": [
+        "dep:notify-debouncer-full"
+      ],
+      "status": "build_mapped"
+    },
+    "watch": {
+      "dependencies": [
+        "notify",
+        "notify-debouncer-full"
+      ],
+      "status": "build_mapped"
+    }
+  },
+  "sources": [
+    {
+      "path": "src/android.rs",
+      "sha256": "f7dc07713e956ba519a6f189df64d8a9f08df10fb1a910435d24c55f0572405b"
+    },
+    {
+      "path": "src/commands.rs",
+      "sha256": "b913abe6ef2a2f04270b85e1cf0fa9e9baa260961abf849ea5f03ea3fc90d76d"
+    },
+    {
+      "path": "src/config.rs",
+      "sha256": "2f2f33d88a5c4c8e5dedc1eca0bb91aa9b2a6276609751a0c673036bec69e072"
+    },
+    {
+      "path": "src/desktop.rs",
+      "sha256": "0411b0f59074c2f415cc127c73937b778edd1f786f0afec0ea2dfc8cc907b0fd"
+    },
+    {
+      "path": "src/error.rs",
+      "sha256": "e28367b1c8e42f4b16e3f54485d7e04f2851147c4d68e077fb75bb19de95a574"
+    },
+    {
+      "path": "src/file_path.rs",
+      "sha256": "b4b96995cc045398b4867e3e0631d3a1c3071f80e2a0ffa81869a54f727781a9"
+    },
+    {
+      "path": "src/ios.rs",
+      "sha256": "f492afab8153cd0824092c6ecf07b634546a0cecb9275bdb5c54ba0445e47869"
+    },
+    {
+      "path": "src/lib.rs",
+      "sha256": "449ccc8cd16e5dbf67bae1131615b1788302580c3a9831b0d73bc96efd02aea2"
+    },
+    {
+      "path": "src/models.rs",
+      "sha256": "30eaa6b2fff1cd37da750714c1a0d579d26b009bf1f0dc14760b9d4b3e8f025f"
+    },
+    {
+      "path": "src/scope.rs",
+      "sha256": "39d9d5ba2cd0d7a7a464a3a78e13e514ab07b66d70c1af93c6445069fe54d71d"
+    },
+    {
+      "path": "src/watcher.rs",
+      "sha256": "096d37ba48080a62402cbfe650f65dc84c62ec8cca65f1be71db8040b4d94d05"
+    }
+  ],
+  "declarations": [
+    {
+      "id": "src/android.rs:18:struct:Fs",
+      "source": "src/android.rs",
+      "line": 18,
+      "kind": "struct",
+      "name": "Fs",
+      "declaration": "pub struct Fs<R: Runtime>(tauri::plugin::PluginHandle<R>);",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/android.rs:20:fn:init",
+      "source": "src/android.rs",
+      "line": 20,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime, C: DeserializeOwned>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/android.rs:37:fn:open",
+      "source": "src/android.rs",
+      "line": 37,
+      "kind": "fn",
+      "name": "open",
+      "declaration": "pub fn open<P: Into<FilePath>>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:29:enum:CommandError",
+      "source": "src/commands.rs",
+      "line": 29,
+      "kind": "enum",
+      "name": "CommandError",
+      "declaration": "pub enum CommandError {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:72:type:CommandResult",
+      "source": "src/commands.rs",
+      "line": 72,
+      "kind": "type",
+      "name": "CommandResult",
+      "declaration": "pub type CommandResult<T> = std::result::Result<T, CommandError>;",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:75:enum:PathKind",
+      "source": "src/commands.rs",
+      "line": 75,
+      "kind": "enum",
+      "name": "PathKind",
+      "declaration": "pub enum PathKind<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:85:fn:as_path",
+      "source": "src/commands.rs",
+      "line": 85,
+      "kind": "fn",
+      "name": "as_path",
+      "declaration": "pub fn as_path(&self) -> &Path {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:94:fn:as_path_buf",
+      "source": "src/commands.rs",
+      "line": 94,
+      "kind": "fn",
+      "name": "as_path_buf",
+      "declaration": "pub fn as_path_buf(&self) -> &PathBuf {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:116:struct:FileHandle",
+      "source": "src/commands.rs",
+      "line": 116,
+      "kind": "struct",
+      "name": "FileHandle",
+      "declaration": "pub struct FileHandle<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:127:fn:path",
+      "source": "src/commands.rs",
+      "line": 127,
+      "kind": "fn",
+      "name": "path",
+      "declaration": "pub fn path(&self) -> &Path {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:189:struct:PathHandle",
+      "source": "src/commands.rs",
+      "line": 189,
+      "kind": "struct",
+      "name": "PathHandle",
+      "declaration": "pub struct PathHandle<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:265:struct:BaseOptions",
+      "source": "src/commands.rs",
+      "line": 265,
+      "kind": "struct",
+      "name": "BaseOptions",
+      "declaration": "pub struct BaseOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:270:fn:create",
+      "source": "src/commands.rs",
+      "line": 270,
+      "kind": "fn",
+      "name": "create",
+      "declaration": "pub fn create<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:311:struct:OpenOptions",
+      "source": "src/commands.rs",
+      "line": 311,
+      "kind": "struct",
+      "name": "OpenOptions",
+      "declaration": "pub struct OpenOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:319:fn:open",
+      "source": "src/commands.rs",
+      "line": 319,
+      "kind": "fn",
+      "name": "open",
+      "declaration": "pub fn open<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:363:struct:CopyFileOptions",
+      "source": "src/commands.rs",
+      "line": 363,
+      "kind": "struct",
+      "name": "CopyFileOptions",
+      "declaration": "pub struct CopyFileOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:369:fn:copy_file",
+      "source": "src/commands.rs",
+      "line": 369,
+      "kind": "fn",
+      "name": "copy_file",
+      "declaration": "pub async fn copy_file<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:404:struct:MkdirOptions",
+      "source": "src/commands.rs",
+      "line": 404,
+      "kind": "struct",
+      "name": "MkdirOptions",
+      "declaration": "pub struct MkdirOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:413:fn:mkdir",
+      "source": "src/commands.rs",
+      "line": 413,
+      "kind": "fn",
+      "name": "mkdir",
+      "declaration": "pub fn mkdir<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:453:struct:DirEntry",
+      "source": "src/commands.rs",
+      "line": 453,
+      "kind": "struct",
+      "name": "DirEntry",
+      "declaration": "pub struct DirEntry {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:461:fn:read_dir",
+      "source": "src/commands.rs",
+      "line": 461,
+      "kind": "fn",
+      "name": "read_dir",
+      "declaration": "pub async fn read_dir<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:511:fn:read",
+      "source": "src/commands.rs",
+      "line": 511,
+      "kind": "fn",
+      "name": "read",
+      "declaration": "pub async fn read<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:584:fn:read_file",
+      "source": "src/commands.rs",
+      "line": 584,
+      "kind": "fn",
+      "name": "read_file",
+      "declaration": "pub async fn read_file<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:604:struct:ReadTextFileOptions",
+      "source": "src/commands.rs",
+      "line": 604,
+      "kind": "struct",
+      "name": "ReadTextFileOptions",
+      "declaration": "pub struct ReadTextFileOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:612:fn:read_text_file",
+      "source": "src/commands.rs",
+      "line": 612,
+      "kind": "fn",
+      "name": "read_text_file",
+      "declaration": "pub async fn read_text_file<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:631:fn:read_text_file_lines",
+      "source": "src/commands.rs",
+      "line": 631,
+      "kind": "fn",
+      "name": "read_text_file_lines",
+      "declaration": "pub fn read_text_file_lines<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:692:fn:read_text_file_lines_next",
+      "source": "src/commands.rs",
+      "line": 692,
+      "kind": "fn",
+      "name": "read_text_file_lines_next",
+      "declaration": "pub async fn read_text_file_lines_next<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:725:struct:RemoveOptions",
+      "source": "src/commands.rs",
+      "line": 725,
+      "kind": "struct",
+      "name": "RemoveOptions",
+      "declaration": "pub struct RemoveOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:732:fn:remove",
+      "source": "src/commands.rs",
+      "line": 732,
+      "kind": "fn",
+      "name": "remove",
+      "declaration": "pub fn remove<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:795:struct:RenameOptions",
+      "source": "src/commands.rs",
+      "line": 795,
+      "kind": "struct",
+      "name": "RenameOptions",
+      "declaration": "pub struct RenameOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:801:fn:rename",
+      "source": "src/commands.rs",
+      "line": 801,
+      "kind": "fn",
+      "name": "rename",
+      "declaration": "pub fn rename<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:838:enum:SeekMode",
+      "source": "src/commands.rs",
+      "line": 838,
+      "kind": "enum",
+      "name": "SeekMode",
+      "declaration": "pub enum SeekMode {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:845:fn:seek",
+      "source": "src/commands.rs",
+      "line": 845,
+      "kind": "fn",
+      "name": "seek",
+      "declaration": "pub async fn seek<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:958:fn:stat",
+      "source": "src/commands.rs",
+      "line": 958,
+      "kind": "fn",
+      "name": "stat",
+      "declaration": "pub fn stat<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:979:fn:lstat",
+      "source": "src/commands.rs",
+      "line": 979,
+      "kind": "fn",
+      "name": "lstat",
+      "declaration": "pub fn lstat<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:999:fn:fstat",
+      "source": "src/commands.rs",
+      "line": 999,
+      "kind": "fn",
+      "name": "fstat",
+      "declaration": "pub fn fstat<R: Runtime>(webview: Webview<R>, rid: ResourceId) -> CommandResult<FileInfo> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1007:fn:truncate",
+      "source": "src/commands.rs",
+      "line": 1007,
+      "kind": "fn",
+      "name": "truncate",
+      "declaration": "pub async fn truncate<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1043:fn:ftruncate",
+      "source": "src/commands.rs",
+      "line": 1043,
+      "kind": "fn",
+      "name": "ftruncate",
+      "declaration": "pub async fn ftruncate<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1055:fn:write",
+      "source": "src/commands.rs",
+      "line": 1055,
+      "kind": "fn",
+      "name": "write",
+      "declaration": "pub async fn write<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1068:struct:WriteFileOptions",
+      "source": "src/commands.rs",
+      "line": 1068,
+      "kind": "struct",
+      "name": "WriteFileOptions",
+      "declaration": "pub struct WriteFileOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1187:fn:write_file",
+      "source": "src/commands.rs",
+      "line": 1187,
+      "kind": "fn",
+      "name": "write_file",
+      "declaration": "pub async fn write_file<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1198:fn:write_text_file",
+      "source": "src/commands.rs",
+      "line": 1198,
+      "kind": "fn",
+      "name": "write_text_file",
+      "declaration": "pub async fn write_text_file<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1215:fn:exists",
+      "source": "src/commands.rs",
+      "line": 1215,
+      "kind": "fn",
+      "name": "exists",
+      "declaration": "pub fn exists<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1234:fn:size",
+      "source": "src/commands.rs",
+      "line": 1234,
+      "kind": "fn",
+      "name": "size",
+      "declaration": "pub async fn size<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1267:fn:start_accessing_security_scoped_resource",
+      "source": "src/commands.rs",
+      "line": 1267,
+      "kind": "fn",
+      "name": "start_accessing_security_scoped_resource",
+      "declaration": "pub fn start_accessing_security_scoped_resource<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1338:fn:stop_accessing_security_scoped_resource",
+      "source": "src/commands.rs",
+      "line": 1338,
+      "kind": "fn",
+      "name": "stop_accessing_security_scoped_resource",
+      "declaration": "pub fn stop_accessing_security_scoped_resource<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1407:fn:resolve_file",
+      "source": "src/commands.rs",
+      "line": 1407,
+      "kind": "fn",
+      "name": "resolve_file",
+      "declaration": "pub fn resolve_file<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1466:fn:resolve_file",
+      "source": "src/commands.rs",
+      "line": 1466,
+      "kind": "fn",
+      "name": "resolve_file",
+      "declaration": "pub fn resolve_file<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1506:fn:resolve_path",
+      "source": "src/commands.rs",
+      "line": 1506,
+      "kind": "fn",
+      "name": "resolve_path",
+      "declaration": "pub fn resolve_path<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:1768:struct:FileInfo",
+      "source": "src/commands.rs",
+      "line": 1768,
+      "kind": "struct",
+      "name": "FileInfo",
+      "declaration": "pub struct FileInfo {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/config.rs:9:struct:Config",
+      "source": "src/config.rs",
+      "line": 9,
+      "kind": "struct",
+      "name": "Config",
+      "declaration": "pub struct Config {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:14:struct:Fs",
+      "source": "src/desktop.rs",
+      "line": 14,
+      "kind": "struct",
+      "name": "Fs",
+      "declaration": "pub struct Fs<R: Runtime>(pub(crate) AppHandle<R>);",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:36:fn:open",
+      "source": "src/desktop.rs",
+      "line": 36,
+      "kind": "fn",
+      "name": "open",
+      "declaration": "pub fn open<P: Into<FilePath>>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/error.rs:12:enum:Error",
+      "source": "src/error.rs",
+      "line": 12,
+      "kind": "enum",
+      "name": "Error",
+      "declaration": "pub enum Error {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/file_path.rs:20:enum:FilePath",
+      "source": "src/file_path.rs",
+      "line": 20,
+      "kind": "enum",
+      "name": "FilePath",
+      "declaration": "pub enum FilePath {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/file_path.rs:30:enum:SafeFilePath",
+      "source": "src/file_path.rs",
+      "line": 30,
+      "kind": "enum",
+      "name": "SafeFilePath",
+      "declaration": "pub enum SafeFilePath {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/file_path.rs:42:fn:as_path",
+      "source": "src/file_path.rs",
+      "line": 42,
+      "kind": "fn",
+      "name": "as_path",
+      "declaration": "pub fn as_path(&self) -> Option<&Path> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/file_path.rs:54:fn:into_path",
+      "source": "src/file_path.rs",
+      "line": 54,
+      "kind": "fn",
+      "name": "into_path",
+      "declaration": "pub fn into_path(self) -> Result<PathBuf> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/file_path.rs:64:fn:simplified",
+      "source": "src/file_path.rs",
+      "line": 64,
+      "kind": "fn",
+      "name": "simplified",
+      "declaration": "pub fn simplified(self) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/file_path.rs:77:fn:as_path",
+      "source": "src/file_path.rs",
+      "line": 77,
+      "kind": "fn",
+      "name": "as_path",
+      "declaration": "pub fn as_path(&self) -> Option<&Path> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/file_path.rs:89:fn:into_path",
+      "source": "src/file_path.rs",
+      "line": 89,
+      "kind": "fn",
+      "name": "into_path",
+      "declaration": "pub fn into_path(self) -> Result<PathBuf> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/file_path.rs:99:fn:simplified",
+      "source": "src/file_path.rs",
+      "line": 99,
+      "kind": "fn",
+      "name": "simplified",
+      "declaration": "pub fn simplified(self) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/ios.rs:15:struct:Fs",
+      "source": "src/ios.rs",
+      "line": 15,
+      "kind": "struct",
+      "name": "Fs",
+      "declaration": "pub struct Fs<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/ios.rs:19:fn:init",
+      "source": "src/ios.rs",
+      "line": 19,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime, C: DeserializeOwned>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/ios.rs:35:fn:open",
+      "source": "src/ios.rs",
+      "line": 35,
+      "kind": "fn",
+      "name": "open",
+      "declaration": "pub fn open<P: Into<FilePath>>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/ios.rs:106:fn:stop_accessing_security_scoped_resource",
+      "source": "src/ios.rs",
+      "line": 106,
+      "kind": "fn",
+      "name": "stop_accessing_security_scoped_resource",
+      "declaration": "pub fn stop_accessing_security_scoped_resource<P: Into<FilePath>>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:70:struct:OpenOptions",
+      "source": "src/lib.rs",
+      "line": 70,
+      "kind": "struct",
+      "name": "OpenOptions",
+      "declaration": "pub struct OpenOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:141:fn:new",
+      "source": "src/lib.rs",
+      "line": 141,
+      "kind": "fn",
+      "name": "new",
+      "declaration": "pub fn new() -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:164:fn:read",
+      "source": "src/lib.rs",
+      "line": 164,
+      "kind": "fn",
+      "name": "read",
+      "declaration": "pub fn read(&mut self, read: bool) -> &mut Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:191:fn:write",
+      "source": "src/lib.rs",
+      "line": 191,
+      "kind": "fn",
+      "name": "write",
+      "declaration": "pub fn write(&mut self, write: bool) -> &mut Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:252:fn:append",
+      "source": "src/lib.rs",
+      "line": 252,
+      "kind": "fn",
+      "name": "append",
+      "declaration": "pub fn append(&mut self, append: bool) -> &mut Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:278:fn:truncate",
+      "source": "src/lib.rs",
+      "line": 278,
+      "kind": "fn",
+      "name": "truncate",
+      "declaration": "pub fn truncate(&mut self, truncate: bool) -> &mut Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:303:fn:create",
+      "source": "src/lib.rs",
+      "line": 303,
+      "kind": "fn",
+      "name": "create",
+      "declaration": "pub fn create(&mut self, create: bool) -> &mut Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:344:fn:create_new",
+      "source": "src/lib.rs",
+      "line": 344,
+      "kind": "fn",
+      "name": "create_new",
+      "declaration": "pub fn create_new(&mut self, create_new: bool) -> &mut Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:393:fn:read_to_string",
+      "source": "src/lib.rs",
+      "line": 393,
+      "kind": "fn",
+      "name": "read_to_string",
+      "declaration": "pub fn read_to_string<P: Into<FilePath>>(&self, path: P) -> std::io::Result<String> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:413:fn:read",
+      "source": "src/lib.rs",
+      "line": 413,
+      "kind": "fn",
+      "name": "read",
+      "declaration": "pub fn read<P: Into<FilePath>>(&self, path: P) -> std::io::Result<Vec<u8>> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:524:trait:FsExt",
+      "source": "src/lib.rs",
+      "line": 524,
+      "kind": "trait",
+      "name": "FsExt",
+      "declaration": "pub trait FsExt<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:556:fn:init",
+      "source": "src/lib.rs",
+      "line": 556,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R, Option<config::Config>> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:9:struct:GetFileDescriptorPayload",
+      "source": "src/models.rs",
+      "line": 9,
+      "kind": "struct",
+      "name": "GetFileDescriptorPayload",
+      "declaration": "pub struct GetFileDescriptorPayload {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:16:struct:GetFileDescriptorResponse",
+      "source": "src/models.rs",
+      "line": 16,
+      "kind": "struct",
+      "name": "GetFileDescriptorResponse",
+      "declaration": "pub struct GetFileDescriptorResponse {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/scope.rs:10:struct:Entry",
+      "source": "src/scope.rs",
+      "line": 10,
+      "kind": "struct",
+      "name": "Entry",
+      "declaration": "pub struct Entry {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/watcher.rs:32:struct:WatchOptions",
+      "source": "src/watcher.rs",
+      "line": 32,
+      "kind": "struct",
+      "name": "WatchOptions",
+      "declaration": "pub struct WatchOptions {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/watcher.rs:40:fn:watch",
+      "source": "src/watcher.rs",
+      "line": 40,
+      "kind": "fn",
+      "name": "watch",
+      "declaration": "pub fn watch<R: Runtime>(",
+      "status": "unreviewed"
+    }
+  ]
+}

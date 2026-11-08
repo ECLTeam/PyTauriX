@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-opener",
+  "version": "2.5.0",
+  "rust_version": null,
+  "scope": "Declaration candidates only; excludes cfg, macro expansion, trait methods and enum variants",
+  "features": {},
+  "sources": [
+    {
+      "path": "src/commands.rs",
+      "sha256": "054e9d6da60976daf64b44b3342bc9fa5da708285855ba53cb0ebf5bfdaed7db"
+    },
+    {
+      "path": "src/config.rs",
+      "sha256": "2f2f33d88a5c4c8e5dedc1eca0bb91aa9b2a6276609751a0c673036bec69e072"
+    },
+    {
+      "path": "src/error.rs",
+      "sha256": "cd23c9744dc5dfc8c6df45c19ded8f851c676f0823f94721757a82762cf08d9f"
+    },
+    {
+      "path": "src/lib.rs",
+      "sha256": "be4873f0bfa866b86606e389fffc675f164a031660e0cef400ee8da437e83efe"
+    },
+    {
+      "path": "src/open.rs",
+      "sha256": "847426f99a3ca11c2bce458c3368f678ec05f41fb65331fc384067e0e978d939"
+    },
+    {
+      "path": "src/reveal_item_in_dir.rs",
+      "sha256": "ba48ca19090aa0c853d6b4b414c937a95888a8e79ed3ceb76ec62eab0e0a4562"
+    },
+    {
+      "path": "src/scope.rs",
+      "sha256": "160054df79fbba2d40a4d78d6b39c2d081afd788a91d5fb0355b26bf2e581ee1"
+    },
+    {
+      "path": "src/scope_entry.rs",
+      "sha256": "6c18456b891a4abcc39edbcf5d5f8380750ae4bce654f258a637004d5660114d"
+    }
+  ],
+  "declarations": [
+    {
+      "id": "src/commands.rs:15:fn:open_url",
+      "source": "src/commands.rs",
+      "line": 15,
+      "kind": "fn",
+      "name": "open_url",
+      "declaration": "pub async fn open_url<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:44:fn:open_path",
+      "source": "src/commands.rs",
+      "line": 44,
+      "kind": "fn",
+      "name": "open_path",
+      "declaration": "pub async fn open_path<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/commands.rs:74:fn:reveal_item_in_dir",
+      "source": "src/commands.rs",
+      "line": 74,
+      "kind": "fn",
+      "name": "reveal_item_in_dir",
+      "declaration": "pub async fn reveal_item_in_dir(paths: Vec<PathBuf>) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/config.rs:9:struct:Config",
+      "source": "src/config.rs",
+      "line": 9,
+      "kind": "struct",
+      "name": "Config",
+      "declaration": "pub struct Config {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/error.rs:11:enum:Error",
+      "source": "src/error.rs",
+      "line": 11,
+      "kind": "enum",
+      "name": "Error",
+      "declaration": "pub enum Error {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:30:struct:Opener",
+      "source": "src/lib.rs",
+      "line": 30,
+      "kind": "struct",
+      "name": "Opener",
+      "declaration": "pub struct Opener<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:60:fn:open_url",
+      "source": "src/lib.rs",
+      "line": 60,
+      "kind": "fn",
+      "name": "open_url",
+      "declaration": "pub fn open_url(&self, url: impl Into<String>, with: Option<impl Into<String>>) -> Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:83:fn:open_url",
+      "source": "src/lib.rs",
+      "line": 83,
+      "kind": "fn",
+      "name": "open_url",
+      "declaration": "pub fn open_url(&self, url: impl Into<String>, with: Option<impl Into<String>>) -> Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:111:fn:open_path",
+      "source": "src/lib.rs",
+      "line": 111,
+      "kind": "fn",
+      "name": "open_path",
+      "declaration": "pub fn open_path(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:138:fn:open_path",
+      "source": "src/lib.rs",
+      "line": 138,
+      "kind": "fn",
+      "name": "open_path",
+      "declaration": "pub fn open_path(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:148:fn:reveal_item_in_dir",
+      "source": "src/lib.rs",
+      "line": 148,
+      "kind": "fn",
+      "name": "reveal_item_in_dir",
+      "declaration": "pub fn reveal_item_in_dir<P: AsRef<Path>>(&self, p: P) -> Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:152:fn:reveal_items_in_dir",
+      "source": "src/lib.rs",
+      "line": 152,
+      "kind": "fn",
+      "name": "reveal_items_in_dir",
+      "declaration": "pub fn reveal_items_in_dir<I, P>(&self, paths: I) -> Result<()>",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:162:trait:OpenerExt",
+      "source": "src/lib.rs",
+      "line": 162,
+      "kind": "trait",
+      "name": "OpenerExt",
+      "declaration": "pub trait OpenerExt<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:173:struct:Builder",
+      "source": "src/lib.rs",
+      "line": 173,
+      "kind": "struct",
+      "name": "Builder",
+      "declaration": "pub struct Builder {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:187:fn:new",
+      "source": "src/lib.rs",
+      "line": 187,
+      "kind": "fn",
+      "name": "new",
+      "declaration": "pub fn new() -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:195:fn:open_js_links_on_click",
+      "source": "src/lib.rs",
+      "line": 195,
+      "kind": "fn",
+      "name": "open_js_links_on_click",
+      "declaration": "pub fn open_js_links_on_click(mut self, open: bool) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:201:fn:build",
+      "source": "src/lib.rs",
+      "line": 201,
+      "kind": "fn",
+      "name": "build",
+      "declaration": "pub fn build<R: Runtime>(self) -> TauriPlugin<R, Option<config::Config>> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:236:fn:init",
+      "source": "src/lib.rs",
+      "line": 236,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R, Option<config::Config>> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/open.rs:33:fn:open_url",
+      "source": "src/open.rs",
+      "line": 33,
+      "kind": "fn",
+      "name": "open_url",
+      "declaration": "pub fn open_url<P: AsRef<str>, S: AsRef<str>>(url: P, with: Option<S>) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/open.rs:54:fn:open_path",
+      "source": "src/open.rs",
+      "line": 54,
+      "kind": "fn",
+      "name": "open_path",
+      "declaration": "pub fn open_path<P: AsRef<Path>, S: AsRef<str>>(path: P, with: Option<S>) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/reveal_item_in_dir.rs:12:fn:reveal_item_in_dir",
+      "source": "src/reveal_item_in_dir.rs",
+      "line": 12,
+      "kind": "fn",
+      "name": "reveal_item_in_dir",
+      "declaration": "pub fn reveal_item_in_dir<P: AsRef<Path>>(path: P) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/reveal_item_in_dir.rs:43:fn:reveal_items_in_dir",
+      "source": "src/reveal_item_in_dir.rs",
+      "line": 43,
+      "kind": "fn",
+      "name": "reveal_items_in_dir",
+      "declaration": "pub fn reveal_items_in_dir<I, P>(paths: I) -> crate::Result<()>",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/reveal_item_in_dir.rs:99:fn:reveal_items_in_dir",
+      "source": "src/reveal_item_in_dir.rs",
+      "line": 99,
+      "kind": "fn",
+      "name": "reveal_items_in_dir",
+      "declaration": "pub fn reveal_items_in_dir(paths: &[PathBuf]) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/reveal_item_in_dir.rs:205:fn:reveal_items_in_dir",
+      "source": "src/reveal_item_in_dir.rs",
+      "line": 205,
+      "kind": "fn",
+      "name": "reveal_items_in_dir",
+      "declaration": "pub fn reveal_items_in_dir(paths: &[PathBuf]) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/reveal_item_in_dir.rs:279:fn:reveal_items_in_dir",
+      "source": "src/reveal_item_in_dir.rs",
+      "line": 279,
+      "kind": "fn",
+      "name": "reveal_items_in_dir",
+      "declaration": "pub fn reveal_items_in_dir(paths: &[PathBuf]) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/scope.rs:18:enum:Entry",
+      "source": "src/scope.rs",
+      "line": 18,
+      "kind": "enum",
+      "name": "Entry",
+      "declaration": "pub enum Entry {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/scope.rs:96:struct:Scope",
+      "source": "src/scope.rs",
+      "line": 96,
+      "kind": "struct",
+      "name": "Scope",
+      "declaration": "pub struct Scope<'a, R: Runtime, M: Manager<R>> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/scope.rs:117:fn:is_url_allowed",
+      "source": "src/scope.rs",
+      "line": 117,
+      "kind": "fn",
+      "name": "is_url_allowed",
+      "declaration": "pub fn is_url_allowed(&self, url: &str, with: Option<&str>) -> bool {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/scope.rs:126:fn:is_path_allowed",
+      "source": "src/scope.rs",
+      "line": 126,
+      "kind": "fn",
+      "name": "is_path_allowed",
+      "declaration": "pub fn is_path_allowed(&self, path: &Path, with: Option<&str>) -> crate::Result<bool> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/scope_entry.rs:11:enum:Application",
+      "source": "src/scope_entry.rs",
+      "line": 11,
+      "kind": "enum",
+      "name": "Application",
+      "declaration": "pub enum Application {",
+      "status": "unreviewed"
+    }
+  ]
+}

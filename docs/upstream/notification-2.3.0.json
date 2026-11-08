@@ -1,0 +1,983 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-notification",
+  "version": "2.3.0",
+  "rust_version": "1.77.2",
+  "scope": "Declaration candidates only; excludes cfg, macro expansion, trait methods and enum variants",
+  "features": {
+    "win7-notifications": {
+      "dependencies": [
+        "dep:win7-notifications"
+      ],
+      "status": "build_mapped"
+    },
+    "windows-version": {
+      "dependencies": [
+        "dep:windows-version"
+      ],
+      "status": "build_mapped"
+    },
+    "windows7-compat": {
+      "dependencies": [
+        "win7-notifications",
+        "windows-version"
+      ],
+      "status": "build_mapped"
+    }
+  },
+  "sources": [
+    {
+      "path": "src/commands.rs",
+      "sha256": "5b83f8f55ecd506e62fbe7dc1fb7caf9afee9b35e6f0ce37f152d551326db81c"
+    },
+    {
+      "path": "src/desktop.rs",
+      "sha256": "5473935d0d259d1fc89514b2801b2edebe6b73955cccd37e5d2558895b410f80"
+    },
+    {
+      "path": "src/error.rs",
+      "sha256": "e314f581e68206a37b323880cb00c050408bcedf3de44706de8a478f1c66d89b"
+    },
+    {
+      "path": "src/lib.rs",
+      "sha256": "87829bead842b41d9db81d9c25a3cc53426fc307a6ef1b65c366e38eb8d1e0d6"
+    },
+    {
+      "path": "src/mobile.rs",
+      "sha256": "58b330e214c47435b574819f77f40f67891252c807bee056e4f29fdb84d45d9c"
+    },
+    {
+      "path": "src/models.rs",
+      "sha256": "eabdbc936c596265cd4130f1d6d8787499dc364e0f62990fab9de627e53df66f"
+    }
+  ],
+  "declarations": [
+    {
+      "id": "src/desktop.rs:13:fn:init",
+      "source": "src/desktop.rs",
+      "line": 13,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime, C: DeserializeOwned>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:23:struct:Notification",
+      "source": "src/desktop.rs",
+      "line": 23,
+      "kind": "struct",
+      "name": "Notification",
+      "declaration": "pub struct Notification<R: Runtime>(AppHandle<R>);",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:26:fn:show",
+      "source": "src/desktop.rs",
+      "line": 26,
+      "kind": "fn",
+      "name": "show",
+      "declaration": "pub fn show(self) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:54:fn:builder",
+      "source": "src/desktop.rs",
+      "line": 54,
+      "kind": "fn",
+      "name": "builder",
+      "declaration": "pub fn builder(&self) -> NotificationBuilder<R> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:58:fn:request_permission",
+      "source": "src/desktop.rs",
+      "line": 58,
+      "kind": "fn",
+      "name": "request_permission",
+      "declaration": "pub fn request_permission(&self) -> crate::Result<PermissionState> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:62:fn:permission_state",
+      "source": "src/desktop.rs",
+      "line": 62,
+      "kind": "fn",
+      "name": "permission_state",
+      "declaration": "pub fn permission_state(&self) -> crate::Result<PermissionState> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:98:struct:Notification",
+      "source": "src/desktop.rs",
+      "line": 98,
+      "kind": "struct",
+      "name": "Notification",
+      "declaration": "pub struct Notification {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:111:fn:new",
+      "source": "src/desktop.rs",
+      "line": 111,
+      "kind": "fn",
+      "name": "new",
+      "declaration": "pub fn new(identifier: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:120:fn:body",
+      "source": "src/desktop.rs",
+      "line": 120,
+      "kind": "fn",
+      "name": "body",
+      "declaration": "pub fn body(mut self, body: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:127:fn:title",
+      "source": "src/desktop.rs",
+      "line": 127,
+      "kind": "fn",
+      "name": "title",
+      "declaration": "pub fn title(mut self, title: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:134:fn:icon",
+      "source": "src/desktop.rs",
+      "line": 134,
+      "kind": "fn",
+      "name": "icon",
+      "declaration": "pub fn icon(mut self, icon: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:167:fn:show",
+      "source": "src/desktop.rs",
+      "line": 167,
+      "kind": "fn",
+      "name": "show",
+      "declaration": "pub fn show(self) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/desktop.rs:230:fn:notify",
+      "source": "src/desktop.rs",
+      "line": 230,
+      "kind": "fn",
+      "name": "notify",
+      "declaration": "pub fn notify<R: tauri::Runtime>(self, app: &tauri::AppHandle<R>) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/error.rs:7:type:Result",
+      "source": "src/error.rs",
+      "line": 7,
+      "kind": "type",
+      "name": "Result",
+      "declaration": "pub type Result<T> = std::result::Result<T, Error>;",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/error.rs:10:enum:Error",
+      "source": "src/error.rs",
+      "line": 10,
+      "kind": "enum",
+      "name": "Error",
+      "declaration": "pub enum Error {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:43:struct:NotificationBuilder",
+      "source": "src/lib.rs",
+      "line": 43,
+      "kind": "struct",
+      "name": "NotificationBuilder",
+      "declaration": "pub struct NotificationBuilder<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:69:fn:id",
+      "source": "src/lib.rs",
+      "line": 69,
+      "kind": "fn",
+      "name": "id",
+      "declaration": "pub fn id(mut self, id: i32) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:78:fn:channel_id",
+      "source": "src/lib.rs",
+      "line": 78,
+      "kind": "fn",
+      "name": "channel_id",
+      "declaration": "pub fn channel_id(mut self, id: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:84:fn:title",
+      "source": "src/lib.rs",
+      "line": 84,
+      "kind": "fn",
+      "name": "title",
+      "declaration": "pub fn title(mut self, title: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:90:fn:body",
+      "source": "src/lib.rs",
+      "line": 90,
+      "kind": "fn",
+      "name": "body",
+      "declaration": "pub fn body(mut self, body: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:96:fn:schedule",
+      "source": "src/lib.rs",
+      "line": 96,
+      "kind": "fn",
+      "name": "schedule",
+      "declaration": "pub fn schedule(mut self, schedule: Schedule) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:104:fn:large_body",
+      "source": "src/lib.rs",
+      "line": 104,
+      "kind": "fn",
+      "name": "large_body",
+      "declaration": "pub fn large_body(mut self, large_body: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:110:fn:summary",
+      "source": "src/lib.rs",
+      "line": 110,
+      "kind": "fn",
+      "name": "summary",
+      "declaration": "pub fn summary(mut self, summary: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:116:fn:action_type_id",
+      "source": "src/lib.rs",
+      "line": 116,
+      "kind": "fn",
+      "name": "action_type_id",
+      "declaration": "pub fn action_type_id(mut self, action_type_id: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:124:fn:group",
+      "source": "src/lib.rs",
+      "line": 124,
+      "kind": "fn",
+      "name": "group",
+      "declaration": "pub fn group(mut self, group: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:130:fn:group_summary",
+      "source": "src/lib.rs",
+      "line": 130,
+      "kind": "fn",
+      "name": "group_summary",
+      "declaration": "pub fn group_summary(mut self) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:136:fn:sound",
+      "source": "src/lib.rs",
+      "line": 136,
+      "kind": "fn",
+      "name": "sound",
+      "declaration": "pub fn sound(mut self, sound: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:146:fn:inbox_line",
+      "source": "src/lib.rs",
+      "line": 146,
+      "kind": "fn",
+      "name": "inbox_line",
+      "declaration": "pub fn inbox_line(mut self, line: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:154:fn:icon",
+      "source": "src/lib.rs",
+      "line": 154,
+      "kind": "fn",
+      "name": "icon",
+      "declaration": "pub fn icon(mut self, icon: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:162:fn:large_icon",
+      "source": "src/lib.rs",
+      "line": 162,
+      "kind": "fn",
+      "name": "large_icon",
+      "declaration": "pub fn large_icon(mut self, large_icon: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:168:fn:icon_color",
+      "source": "src/lib.rs",
+      "line": 168,
+      "kind": "fn",
+      "name": "icon_color",
+      "declaration": "pub fn icon_color(mut self, icon_color: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:174:fn:attachment",
+      "source": "src/lib.rs",
+      "line": 174,
+      "kind": "fn",
+      "name": "attachment",
+      "declaration": "pub fn attachment(mut self, attachment: Attachment) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:180:fn:extra",
+      "source": "src/lib.rs",
+      "line": 180,
+      "kind": "fn",
+      "name": "extra",
+      "declaration": "pub fn extra(mut self, key: impl Into<String>, value: impl Serialize) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:192:fn:ongoing",
+      "source": "src/lib.rs",
+      "line": 192,
+      "kind": "fn",
+      "name": "ongoing",
+      "declaration": "pub fn ongoing(mut self) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:198:fn:auto_cancel",
+      "source": "src/lib.rs",
+      "line": 198,
+      "kind": "fn",
+      "name": "auto_cancel",
+      "declaration": "pub fn auto_cancel(mut self) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:204:fn:silent",
+      "source": "src/lib.rs",
+      "line": 204,
+      "kind": "fn",
+      "name": "silent",
+      "declaration": "pub fn silent(mut self) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:211:trait:NotificationExt",
+      "source": "src/lib.rs",
+      "line": 211,
+      "kind": "trait",
+      "name": "NotificationExt",
+      "declaration": "pub trait NotificationExt<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:222:fn:init",
+      "source": "src/lib.rs",
+      "line": 222,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:22:fn:init",
+      "source": "src/mobile.rs",
+      "line": 22,
+      "kind": "fn",
+      "name": "init",
+      "declaration": "pub fn init<R: Runtime, C: DeserializeOwned>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:34:fn:show",
+      "source": "src/mobile.rs",
+      "line": 34,
+      "kind": "fn",
+      "name": "show",
+      "declaration": "pub fn show(self) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:45:struct:Notification",
+      "source": "src/mobile.rs",
+      "line": 45,
+      "kind": "struct",
+      "name": "Notification",
+      "declaration": "pub struct Notification<R: Runtime>(PluginHandle<R>);",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:48:fn:builder",
+      "source": "src/mobile.rs",
+      "line": 48,
+      "kind": "fn",
+      "name": "builder",
+      "declaration": "pub fn builder(&self) -> crate::NotificationBuilder<R> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:52:fn:request_permission",
+      "source": "src/mobile.rs",
+      "line": 52,
+      "kind": "fn",
+      "name": "request_permission",
+      "declaration": "pub fn request_permission(&self) -> crate::Result<PermissionState> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:59:fn:permission_state",
+      "source": "src/mobile.rs",
+      "line": 59,
+      "kind": "fn",
+      "name": "permission_state",
+      "declaration": "pub fn permission_state(&self) -> crate::Result<PermissionState> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:66:fn:register_action_types",
+      "source": "src/mobile.rs",
+      "line": 66,
+      "kind": "fn",
+      "name": "register_action_types",
+      "declaration": "pub fn register_action_types(&self, types: Vec<ActionType>) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:74:fn:remove_active",
+      "source": "src/mobile.rs",
+      "line": 74,
+      "kind": "fn",
+      "name": "remove_active",
+      "declaration": "pub fn remove_active(&self, notifications: Vec<i32>) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:92:fn:active",
+      "source": "src/mobile.rs",
+      "line": 92,
+      "kind": "fn",
+      "name": "active",
+      "declaration": "pub fn active(&self) -> crate::Result<Vec<ActiveNotification>> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:98:fn:remove_all_active",
+      "source": "src/mobile.rs",
+      "line": 98,
+      "kind": "fn",
+      "name": "remove_all_active",
+      "declaration": "pub fn remove_all_active(&self) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:104:fn:pending",
+      "source": "src/mobile.rs",
+      "line": 104,
+      "kind": "fn",
+      "name": "pending",
+      "declaration": "pub fn pending(&self) -> crate::Result<Vec<PendingNotification>> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:111:fn:cancel",
+      "source": "src/mobile.rs",
+      "line": 111,
+      "kind": "fn",
+      "name": "cancel",
+      "declaration": "pub fn cancel(&self, notifications: Vec<i32>) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:118:fn:cancel_all",
+      "source": "src/mobile.rs",
+      "line": 118,
+      "kind": "fn",
+      "name": "cancel_all",
+      "declaration": "pub fn cancel_all(&self) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:123:fn:create_channel",
+      "source": "src/mobile.rs",
+      "line": 123,
+      "kind": "fn",
+      "name": "create_channel",
+      "declaration": "pub fn create_channel(&self, channel: Channel) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:130:fn:delete_channel",
+      "source": "src/mobile.rs",
+      "line": 130,
+      "kind": "fn",
+      "name": "delete_channel",
+      "declaration": "pub fn delete_channel(&self, id: impl Into<String>) -> crate::Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/mobile.rs:139:fn:list_channels",
+      "source": "src/mobile.rs",
+      "line": 139,
+      "kind": "fn",
+      "name": "list_channels",
+      "declaration": "pub fn list_channels(&self) -> crate::Result<Vec<Channel>> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:13:struct:Attachment",
+      "source": "src/models.rs",
+      "line": 13,
+      "kind": "struct",
+      "name": "Attachment",
+      "declaration": "pub struct Attachment {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:19:fn:new",
+      "source": "src/models.rs",
+      "line": 19,
+      "kind": "fn",
+      "name": "new",
+      "declaration": "pub fn new(id: impl Into<String>, url: Url) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:26:struct:ScheduleInterval",
+      "source": "src/models.rs",
+      "line": 26,
+      "kind": "struct",
+      "name": "ScheduleInterval",
+      "declaration": "pub struct ScheduleInterval {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:37:enum:ScheduleEvery",
+      "source": "src/models.rs",
+      "line": 37,
+      "kind": "enum",
+      "name": "ScheduleEvery",
+      "declaration": "pub enum ScheduleEvery {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:98:enum:Schedule",
+      "source": "src/models.rs",
+      "line": 98,
+      "kind": "enum",
+      "name": "Schedule",
+      "declaration": "pub enum Schedule {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:137:fn:serialize",
+      "source": "src/models.rs",
+      "line": 137,
+      "kind": "fn",
+      "name": "serialize",
+      "declaration": "pub fn serialize<S: Serializer>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:150:struct:NotificationData",
+      "source": "src/models.rs",
+      "line": 150,
+      "kind": "struct",
+      "name": "NotificationData",
+      "declaration": "pub struct NotificationData {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:214:struct:PendingNotification",
+      "source": "src/models.rs",
+      "line": 214,
+      "kind": "struct",
+      "name": "PendingNotification",
+      "declaration": "pub struct PendingNotification {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:222:fn:id",
+      "source": "src/models.rs",
+      "line": 222,
+      "kind": "fn",
+      "name": "id",
+      "declaration": "pub fn id(&self) -> i32 {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:226:fn:title",
+      "source": "src/models.rs",
+      "line": 226,
+      "kind": "fn",
+      "name": "title",
+      "declaration": "pub fn title(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:230:fn:body",
+      "source": "src/models.rs",
+      "line": 230,
+      "kind": "fn",
+      "name": "body",
+      "declaration": "pub fn body(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:234:fn:schedule",
+      "source": "src/models.rs",
+      "line": 234,
+      "kind": "fn",
+      "name": "schedule",
+      "declaration": "pub fn schedule(&self) -> &Schedule {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:241:struct:ActiveNotification",
+      "source": "src/models.rs",
+      "line": 241,
+      "kind": "struct",
+      "name": "ActiveNotification",
+      "declaration": "pub struct ActiveNotification {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:261:fn:id",
+      "source": "src/models.rs",
+      "line": 261,
+      "kind": "fn",
+      "name": "id",
+      "declaration": "pub fn id(&self) -> i32 {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:265:fn:tag",
+      "source": "src/models.rs",
+      "line": 265,
+      "kind": "fn",
+      "name": "tag",
+      "declaration": "pub fn tag(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:269:fn:title",
+      "source": "src/models.rs",
+      "line": 269,
+      "kind": "fn",
+      "name": "title",
+      "declaration": "pub fn title(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:273:fn:body",
+      "source": "src/models.rs",
+      "line": 273,
+      "kind": "fn",
+      "name": "body",
+      "declaration": "pub fn body(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:277:fn:group",
+      "source": "src/models.rs",
+      "line": 277,
+      "kind": "fn",
+      "name": "group",
+      "declaration": "pub fn group(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:281:fn:group_summary",
+      "source": "src/models.rs",
+      "line": 281,
+      "kind": "fn",
+      "name": "group_summary",
+      "declaration": "pub fn group_summary(&self) -> bool {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:285:fn:data",
+      "source": "src/models.rs",
+      "line": 285,
+      "kind": "fn",
+      "name": "data",
+      "declaration": "pub fn data(&self) -> &HashMap<String, String> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:289:fn:extra",
+      "source": "src/models.rs",
+      "line": 289,
+      "kind": "fn",
+      "name": "extra",
+      "declaration": "pub fn extra(&self) -> &HashMap<String, serde_json::Value> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:293:fn:attachments",
+      "source": "src/models.rs",
+      "line": 293,
+      "kind": "fn",
+      "name": "attachments",
+      "declaration": "pub fn attachments(&self) -> &[Attachment] {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:297:fn:action_type_id",
+      "source": "src/models.rs",
+      "line": 297,
+      "kind": "fn",
+      "name": "action_type_id",
+      "declaration": "pub fn action_type_id(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:301:fn:schedule",
+      "source": "src/models.rs",
+      "line": 301,
+      "kind": "fn",
+      "name": "schedule",
+      "declaration": "pub fn schedule(&self) -> Option<&Schedule> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:305:fn:sound",
+      "source": "src/models.rs",
+      "line": 305,
+      "kind": "fn",
+      "name": "sound",
+      "declaration": "pub fn sound(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:313:struct:ActionType",
+      "source": "src/models.rs",
+      "line": 313,
+      "kind": "struct",
+      "name": "ActionType",
+      "declaration": "pub struct ActionType {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:326:struct:Action",
+      "source": "src/models.rs",
+      "line": 326,
+      "kind": "struct",
+      "name": "Action",
+      "declaration": "pub struct Action {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:347:enum:Importance",
+      "source": "src/models.rs",
+      "line": 347,
+      "kind": "enum",
+      "name": "Importance",
+      "declaration": "pub enum Importance {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:363:enum:Visibility",
+      "source": "src/models.rs",
+      "line": 363,
+      "kind": "enum",
+      "name": "Visibility",
+      "declaration": "pub enum Visibility {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:371:struct:Channel",
+      "source": "src/models.rs",
+      "line": 371,
+      "kind": "struct",
+      "name": "Channel",
+      "declaration": "pub struct Channel {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:384:struct:ChannelBuilder",
+      "source": "src/models.rs",
+      "line": 384,
+      "kind": "struct",
+      "name": "ChannelBuilder",
+      "declaration": "pub struct ChannelBuilder(Channel);",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:387:fn:builder",
+      "source": "src/models.rs",
+      "line": 387,
+      "kind": "fn",
+      "name": "builder",
+      "declaration": "pub fn builder(id: impl Into<String>, name: impl Into<String>) -> ChannelBuilder {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:401:fn:id",
+      "source": "src/models.rs",
+      "line": 401,
+      "kind": "fn",
+      "name": "id",
+      "declaration": "pub fn id(&self) -> &str {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:405:fn:name",
+      "source": "src/models.rs",
+      "line": 405,
+      "kind": "fn",
+      "name": "name",
+      "declaration": "pub fn name(&self) -> &str {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:409:fn:description",
+      "source": "src/models.rs",
+      "line": 409,
+      "kind": "fn",
+      "name": "description",
+      "declaration": "pub fn description(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:413:fn:sound",
+      "source": "src/models.rs",
+      "line": 413,
+      "kind": "fn",
+      "name": "sound",
+      "declaration": "pub fn sound(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:417:fn:lights",
+      "source": "src/models.rs",
+      "line": 417,
+      "kind": "fn",
+      "name": "lights",
+      "declaration": "pub fn lights(&self) -> bool {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:421:fn:light_color",
+      "source": "src/models.rs",
+      "line": 421,
+      "kind": "fn",
+      "name": "light_color",
+      "declaration": "pub fn light_color(&self) -> Option<&str> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:425:fn:vibration",
+      "source": "src/models.rs",
+      "line": 425,
+      "kind": "fn",
+      "name": "vibration",
+      "declaration": "pub fn vibration(&self) -> bool {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:429:fn:importance",
+      "source": "src/models.rs",
+      "line": 429,
+      "kind": "fn",
+      "name": "importance",
+      "declaration": "pub fn importance(&self) -> Importance {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:433:fn:visibility",
+      "source": "src/models.rs",
+      "line": 433,
+      "kind": "fn",
+      "name": "visibility",
+      "declaration": "pub fn visibility(&self) -> Option<Visibility> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:439:fn:description",
+      "source": "src/models.rs",
+      "line": 439,
+      "kind": "fn",
+      "name": "description",
+      "declaration": "pub fn description(mut self, description: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:444:fn:sound",
+      "source": "src/models.rs",
+      "line": 444,
+      "kind": "fn",
+      "name": "sound",
+      "declaration": "pub fn sound(mut self, sound: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:449:fn:lights",
+      "source": "src/models.rs",
+      "line": 449,
+      "kind": "fn",
+      "name": "lights",
+      "declaration": "pub fn lights(mut self, lights: bool) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:454:fn:light_color",
+      "source": "src/models.rs",
+      "line": 454,
+      "kind": "fn",
+      "name": "light_color",
+      "declaration": "pub fn light_color(mut self, color: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:459:fn:vibration",
+      "source": "src/models.rs",
+      "line": 459,
+      "kind": "fn",
+      "name": "vibration",
+      "declaration": "pub fn vibration(mut self, vibration: bool) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:464:fn:importance",
+      "source": "src/models.rs",
+      "line": 464,
+      "kind": "fn",
+      "name": "importance",
+      "declaration": "pub fn importance(mut self, importance: Importance) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:469:fn:visibility",
+      "source": "src/models.rs",
+      "line": 469,
+      "kind": "fn",
+      "name": "visibility",
+      "declaration": "pub fn visibility(mut self, visibility: Visibility) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/models.rs:474:fn:build",
+      "source": "src/models.rs",
+      "line": 474,
+      "kind": "fn",
+      "name": "build",
+      "declaration": "pub fn build(self) -> Channel {",
+      "status": "unreviewed"
+    }
+  ]
+}

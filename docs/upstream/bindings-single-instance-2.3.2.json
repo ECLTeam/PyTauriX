@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-single-instance",
+  "version": "2.3.2",
+  "scope": "Reviewed subset of public Rust API bound by this project; other declarations stay unreviewed",
+  "dependency_notes": "上游 deep-link 与 semver feature 未转发；destroy 未绑定，仅桌面平台。",
+  "entries": [
+    {
+      "id": "init",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 31,
+        "declaration": "pub fn init<R: Runtime, F: FnMut(&AppHandle<R>, Vec<String>, String) + Send + Sync + 'static>("
+      },
+      "python": {
+        "entry": "pytaruix.plugins.single_instance.init",
+        "signature": "(handler: SingleInstanceHandler) -> Plugin"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-single-instance compiled for desktop",
+        "plugin registered before bridge plugins",
+        "callback receives argv and cwd of the second launch"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "destroy",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 43,
+        "declaration": "pub fn destroy<R: Runtime, M: Manager<R>>(manager: &M) {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.single_instance（未提供）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在需要主动释放单实例锁时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "应用退出时由插件自身清理"
+    }
+  ]
+}

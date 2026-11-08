@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-fs",
+  "version": "2.6.0",
+  "scope": "Reviewed subset of public Rust API bound by this project; other declarations stay unreviewed",
+  "dependency_notes": "上游 watch feature 未转发；上游 Rust API 不经过 capability scope，本绑定不宣称受限访问。",
+  "entries": [
+    {
+      "id": "init",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 556,
+        "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R, Option<config::Config>> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.fs.init",
+        "signature": "() -> Plugin"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-fs compiled for desktop Wry",
+        "Fs plugin registered once during Builder.build",
+        "Plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_fs_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "fs_ext",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 524,
+        "declaration": "pub trait FsExt<R: Runtime> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.fs.Fs",
+        "signature": "(handle: AppHandle) -> Fs"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-fs compiled for desktop Wry",
+        "Fs plugin registered once during Builder.build",
+        "Plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_fs_contract.py"
+      ],
+      "limitations": "只用于探测插件是否注册，不暴露 trait 本身"
+    },
+    {
+      "id": "read_to_string",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 393,
+        "declaration": "pub fn read_to_string<P: Into<FilePath>>(&self, path: P) -> std::io::Result<String> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.fs.Fs.read_text",
+        "signature": "(path: str | Path, /) -> str"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-fs compiled for desktop Wry",
+        "Fs plugin registered once during Builder.build",
+        "Plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_fs_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "read",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 413,
+        "declaration": "pub fn read<P: Into<FilePath>>(&self, path: P) -> std::io::Result<Vec<u8>> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.fs.Fs.read_bytes",
+        "signature": "(path: str | Path, /) -> bytes"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-fs compiled for desktop Wry",
+        "Fs plugin registered once during Builder.build",
+        "Plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_fs_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "open",
+      "upstream": {
+        "source": "src/desktop.rs",
+        "line": 36,
+        "declaration": "pub fn open<P: Into<FilePath>>("
+      },
+      "python": {
+        "entry": "pytaruix.plugins.fs.Fs.write_text",
+        "signature": "(path: str | Path, contents: str, /) -> None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-fs compiled for desktop Wry",
+        "Fs plugin registered once during Builder.build",
+        "Plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_fs_contract.py"
+      ],
+      "limitations": "写模式 + 创建 + 截断；write_bytes 复用同一入口"
+    },
+    {
+      "id": "read_text_file_cmd",
+      "upstream": {
+        "source": "src/commands.rs",
+        "line": 612,
+        "declaration": "pub async fn read_text_file<R: Runtime>("
+      },
+      "python": {
+        "entry": "pytaruix.plugins.fs（命令层未绑定）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在决定暴露命令层时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "Python 侧由 pathlib 覆盖，不重复实现"
+    },
+    {
+      "id": "read_dir_cmd",
+      "upstream": {
+        "source": "src/commands.rs",
+        "line": 461,
+        "declaration": "pub async fn read_dir<R: Runtime>("
+      },
+      "python": {
+        "entry": "pytaruix.plugins.fs（命令层未绑定）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在决定暴露命令层时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "目录遍历由 pathlib 覆盖"
+    },
+    {
+      "id": "remove_cmd",
+      "upstream": {
+        "source": "src/commands.rs",
+        "line": 732,
+        "declaration": "pub fn remove<R: Runtime>("
+      },
+      "python": {
+        "entry": "pytaruix.plugins.fs（命令层未绑定）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在决定暴露命令层时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "删除由 pathlib 覆盖"
+    },
+    {
+      "id": "rename_cmd",
+      "upstream": {
+        "source": "src/commands.rs",
+        "line": 801,
+        "declaration": "pub fn rename<R: Runtime>("
+      },
+      "python": {
+        "entry": "pytaruix.plugins.fs（命令层未绑定）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在决定暴露命令层时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "重命名由 pathlib 覆盖"
+    }
+  ]
+}

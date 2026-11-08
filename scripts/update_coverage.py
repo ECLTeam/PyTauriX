@@ -12,7 +12,70 @@ import re
 import subprocess
 import tomllib
 from collections import Counter
+from dataclasses import dataclass
 from pathlib import Path
+
+
+@dataclass(frozen=True)
+class PluginSpec:
+    """单个插件的核验口径：crate 名、快照前缀、本项目 feature 与转发要求。"""
+
+    crate: str
+    key: str
+    feature: str
+    in_default: bool
+    required: tuple[str, ...]
+
+
+# 上游 feature 转发要求：dialog 需要显式选择 Linux 后端，其余插件只用最小绑定。
+PLUGIN_SPECS = (
+    PluginSpec(
+        crate="tauri-plugin-dialog",
+        key="dialog",
+        feature="plugin-dialog",
+        in_default=True,
+        required=("gtk3", "xdg-portal"),
+    ),
+    PluginSpec(
+        crate="tauri-plugin-fs",
+        key="fs",
+        feature="plugin-fs",
+        in_default=False,
+        required=(),
+    ),
+    PluginSpec(
+        crate="tauri-plugin-global-shortcut",
+        key="global-shortcut",
+        feature="plugin-global-shortcut",
+        in_default=False,
+        required=(),
+    ),
+    PluginSpec(
+        crate="tauri-plugin-notification",
+        key="notification",
+        feature="plugin-notification",
+        in_default=False,
+        required=(),
+    ),
+    PluginSpec(
+        crate="tauri-plugin-opener",
+        key="opener",
+        feature="plugin-opener",
+        in_default=False,
+        required=(),
+    ),
+    PluginSpec(
+        crate="tauri-plugin-single-instance",
+        key="single-instance",
+        feature="plugin-single-instance",
+        in_default=False,
+        required=(),
+    ),
+)
+
+DECLARATION_PATTERN = re.compile(
+    r"^\s*pub\s+(?:(?:async|unsafe|const)\s+)*(fn|struct|enum|trait|type|const|static|mod)\s+(\w+)"
+)
 
 
 def main() -> None:
@@ -26,7 +89,8 @@ def main() -> None:
     arguments = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     result = subprocess.run(
-        ["cargo", "metadata", "--locked", "--format-version", "1"],
+        # 可选插件依赖默认不在解析图中，需启用全部 feature 才能列出其源码与版本。
+        ["cargo", "metadata", "--locked", "--format-version", "1", "--all-features"],
         cwd=root,
         capture_output=True,
         text=True,
@@ -47,16 +111,13 @@ def main() -> None:
             raise SystemExit(f"Missing Tauri feature forwarding: {name}")
     declarations = []
     sources = []
-    declaration_pattern = re.compile(
-        r"^\s*pub\s+(?:(?:async|unsafe|const)\s+)*(fn|struct|enum|trait|type|const|static|mod)\s+(\w+)"
-    )
     crate_root = manifest_path.parent
     for source_path in sorted((crate_root / "src").rglob("*.rs")):
         relative = source_path.relative_to(crate_root).as_posix()
         source_bytes = source_path.read_bytes()
         sources.append({"path": relative, "sha256": hashlib.sha256(source_bytes).hexdigest()})
         for number, line in enumerate(source_bytes.decode("utf-8").splitlines(), 1):
-            match = declaration_pattern.match(line)
+            match = DECLARATION_PATTERN.match(line)
             if match:
                 declarations.append(
                     {
@@ -91,7 +152,10 @@ def main() -> None:
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(content, encoding="utf-8", newline="\n")
     _validate_ledger(root, package, root / "docs" / "upstream" / f"bindings-{package['version']}.json")
-    _dialog_coverage(root, packages, binding_manifest, arguments.check)
+    for spec in PLUGIN_SPECS:
+        _plugin_coverage(root, packages, binding_manifest, arguments.check, spec)
+    for spec in PLUGIN_SPECS:
+        _plugin_ledger(root, packages, spec)
     print(
         f"Tauri {package['version']}: {len(upstream_features)} feature mappings, "
         f"{len(declarations)} declaration candidates"
@@ -102,7 +166,7 @@ def _validate_ledger(root: Path, package: dict[str, object], ledger_path: Path) 
     crate_root = Path(str(package["manifest_path"])).parent
     ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
     if ledger["version"] != package["version"]:
-        raise SystemExit("Reviewed ledger version does not match locked Tauri")
+        raise SystemExit("Reviewed ledger version does not match locked upstream crate")
     ids: set[str] = set()
     statuses = {"bound_tested", "partial_tested", "bound_unverified", "unimplemented", "platform_unavailable"}
     for entry in ledger["entries"]:
@@ -125,14 +189,21 @@ def _validate_ledger(root: Path, package: dict[str, object], ledger_path: Path) 
             path = (root / evidence).resolve()
             if not path.is_relative_to(root) or not path.is_file():
                 raise SystemExit(f"Reviewed evidence missing: {evidence}")
-    print(f"Reviewed API subset: {len(ids)} entries, {dict(Counter(entry['status'] for entry in ledger['entries']))}")
+    counts = dict(Counter(entry["status"] for entry in ledger["entries"]))
+    print(f"Reviewed {package['name']} {package['version']}: {len(ids)} entries, {counts}")
 
 
-def _dialog_coverage(root: Path, packages: list[dict[str, object]], manifest: dict[str, object], check: bool) -> None:
+def _plugin_coverage(
+    root: Path,
+    packages: list[dict[str, object]],
+    manifest: dict[str, object],
+    check: bool,
+    spec: PluginSpec,
+) -> None:
     """
-    单独核验 dialog 版本、源码、feature 和审核账本，不并入核心覆盖统计。
+    核验单个插件的版本、源码、feature 与审核账本，不并入核心覆盖统计。
     """
-    package = next(package for package in packages if package["name"] == "tauri-plugin-dialog")
+    package = next(package for package in packages if package["name"] == spec.crate)
     crate_root = Path(str(package["manifest_path"])).parent
     features = package["features"]
     assert isinstance(features, dict)
@@ -140,21 +211,22 @@ def _dialog_coverage(root: Path, packages: list[dict[str, object]], manifest: di
     assert isinstance(binding_features, dict)
     for name in features:
         if name == "default":
-            assert "plugin-dialog" in binding_features["default"]
-            assert all("dialog-" + feature in binding_features["default"] for feature in features[name])
-        elif "tauri-plugin-dialog/" + name not in binding_features.get("dialog-" + name, []):
-            raise SystemExit(f"Missing dialog feature mapping: {name}")
+            if spec.in_default:
+                assert spec.feature in binding_features["default"]
+                assert all(f"{spec.key}-{feature}" in binding_features["default"] for feature in features[name])
+            else:
+                assert spec.feature not in binding_features["default"]
+        elif name in spec.required:
+            if f"{spec.crate}/{name}" not in binding_features.get(f"{spec.key}-{name}", []):
+                raise SystemExit(f"Missing {spec.key} feature mapping: {name}")
     sources = []
     declarations = []
-    pattern = re.compile(
-        r"^\s*pub\s+(?:(?:async|unsafe|const)\s+)*(fn|struct|enum|trait|type|const|static|mod)\s+(\w+)"
-    )
     for path in sorted((crate_root / "src").rglob("*.rs")):
         relative = path.relative_to(crate_root).as_posix()
         content = path.read_bytes()
         sources.append({"path": relative, "sha256": hashlib.sha256(content).hexdigest()})
         for number, line in enumerate(content.decode("utf-8").splitlines(), 1):
-            match = pattern.match(line)
+            match = DECLARATION_PATTERN.match(line)
             if match:
                 declarations.append(
                     {
@@ -177,15 +249,27 @@ def _dialog_coverage(root: Path, packages: list[dict[str, object]], manifest: di
         "sources": sources,
         "declarations": declarations,
     }
-    destination = root / "docs/upstream" / f"dialog-{package['version']}.json"
+    destination = root / "docs/upstream" / f"{spec.key}-{package['version']}.json"
     content = json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n"
     if check:
         if not destination.is_file() or destination.read_text(encoding="utf-8") != content:
-            raise SystemExit("Dialog source snapshot changed; regenerate and review")
+            raise SystemExit(f"{spec.crate} source snapshot changed; regenerate and review")
     else:
+        destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(content, encoding="utf-8", newline="\n")
-    _validate_ledger(root, package, root / "docs/upstream" / f"bindings-dialog-{package['version']}.json")
-    print(f"Dialog {package['version']}: {len(features)} feature mappings, {len(declarations)} declaration candidates")
+    print(
+        f"{policy_label(spec)} {package['version']}: {len(features)} feature mappings, "
+        f"{len(declarations)} declaration candidates"
+    )
+
+
+def _plugin_ledger(root: Path, packages: list[dict[str, object]], spec: PluginSpec) -> None:
+    package = next(package for package in packages if package["name"] == spec.crate)
+    _validate_ledger(root, package, root / "docs" / "upstream" / f"bindings-{spec.key}-{package['version']}.json")
+
+
+def policy_label(spec: PluginSpec) -> str:
+    return spec.crate.removeprefix("tauri-plugin-").replace("-", " ").title()
 
 
 if __name__ == "__main__":

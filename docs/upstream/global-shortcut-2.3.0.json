@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-global-shortcut",
+  "version": "2.3.0",
+  "rust_version": "1.77.2",
+  "scope": "Declaration candidates only; excludes cfg, macro expansion, trait methods and enum variants",
+  "features": {},
+  "sources": [
+    {
+      "path": "src/error.rs",
+      "sha256": "9e6d54a980d3b295b688312fb046986466454a41a0d21232f31343448cd1a39e"
+    },
+    {
+      "path": "src/lib.rs",
+      "sha256": "0760e1e7e9a6fe7567adcc80b0fe2579adb9f93b7d09ae319a1313509f69107d"
+    }
+  ],
+  "declarations": [
+    {
+      "id": "src/error.rs:9:enum:Error",
+      "source": "src/error.rs",
+      "line": 9,
+      "kind": "enum",
+      "name": "Error",
+      "declaration": "pub enum Error {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:41:struct:ShortcutWrapper",
+      "source": "src/lib.rs",
+      "line": 41,
+      "kind": "struct",
+      "name": "ShortcutWrapper",
+      "declaration": "pub struct ShortcutWrapper(Shortcut);",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:68:struct:GlobalShortcut",
+      "source": "src/lib.rs",
+      "line": 68,
+      "kind": "struct",
+      "name": "GlobalShortcut",
+      "declaration": "pub struct GlobalShortcut<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:131:fn:register",
+      "source": "src/lib.rs",
+      "line": 131,
+      "kind": "fn",
+      "name": "register",
+      "declaration": "pub fn register<S>(&self, shortcut: S) -> Result<()>",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:143:fn:on_shortcut",
+      "source": "src/lib.rs",
+      "line": 143,
+      "kind": "fn",
+      "name": "on_shortcut",
+      "declaration": "pub fn on_shortcut<S, F>(&self, shortcut: S, handler: F) -> Result<()>",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:153:fn:register_multiple",
+      "source": "src/lib.rs",
+      "line": 153,
+      "kind": "fn",
+      "name": "register_multiple",
+      "declaration": "pub fn register_multiple<S, T>(&self, shortcuts: S) -> Result<()>",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:167:fn:on_shortcuts",
+      "source": "src/lib.rs",
+      "line": 167,
+      "kind": "fn",
+      "name": "on_shortcuts",
+      "declaration": "pub fn on_shortcuts<S, T, F>(&self, shortcuts: S, handler: F) -> Result<()>",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:182:fn:unregister",
+      "source": "src/lib.rs",
+      "line": 182,
+      "kind": "fn",
+      "name": "unregister",
+      "declaration": "pub fn unregister<S: TryInto<ShortcutWrapper>>(&self, shortcut: S) -> Result<()>",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:193:fn:unregister_multiple",
+      "source": "src/lib.rs",
+      "line": 193,
+      "kind": "fn",
+      "name": "unregister_multiple",
+      "declaration": "pub fn unregister_multiple<T: TryInto<ShortcutWrapper>, S: IntoIterator<Item = T>>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:220:fn:unregister_all",
+      "source": "src/lib.rs",
+      "line": 220,
+      "kind": "fn",
+      "name": "unregister_all",
+      "declaration": "pub fn unregister_all(&self) -> Result<()> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:232:fn:is_registered",
+      "source": "src/lib.rs",
+      "line": 232,
+      "kind": "fn",
+      "name": "is_registered",
+      "declaration": "pub fn is_registered<S: TryInto<ShortcutWrapper>>(&self, shortcut: S) -> bool",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:244:trait:GlobalShortcutExt",
+      "source": "src/lib.rs",
+      "line": 244,
+      "kind": "trait",
+      "name": "GlobalShortcutExt",
+      "declaration": "pub trait GlobalShortcutExt<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:336:struct:Builder",
+      "source": "src/lib.rs",
+      "line": 336,
+      "kind": "struct",
+      "name": "Builder",
+      "declaration": "pub struct Builder<R: Runtime> {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:351:fn:new",
+      "source": "src/lib.rs",
+      "line": 351,
+      "kind": "fn",
+      "name": "new",
+      "declaration": "pub fn new() -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:356:fn:with_shortcut",
+      "source": "src/lib.rs",
+      "line": 356,
+      "kind": "fn",
+      "name": "with_shortcut",
+      "declaration": "pub fn with_shortcut<T>(mut self, shortcut: T) -> Result<Self>",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:366:fn:with_shortcuts",
+      "source": "src/lib.rs",
+      "line": 366,
+      "kind": "fn",
+      "name": "with_shortcuts",
+      "declaration": "pub fn with_shortcuts<S, T>(mut self, shortcuts: S) -> Result<Self>",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:380:fn:with_handler",
+      "source": "src/lib.rs",
+      "line": 380,
+      "kind": "fn",
+      "name": "with_handler",
+      "declaration": "pub fn with_handler<F: Fn(&AppHandle<R>, &Shortcut, ShortcutEvent) + Send + Sync + 'static>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:388:fn:build",
+      "source": "src/lib.rs",
+      "line": 388,
+      "kind": "fn",
+      "name": "build",
+      "declaration": "pub fn build(self) -> TauriPlugin<R> {",
+      "status": "unreviewed"
+    }
+  ]
+}

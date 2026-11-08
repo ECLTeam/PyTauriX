@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-opener",
+  "version": "2.5.0",
+  "scope": "Reviewed subset of public Rust API bound by this project; other declarations stay unreviewed",
+  "dependency_notes": "上游无可选 feature；Builder 的 JS 链接拦截与批量定位未绑定。",
+  "entries": [
+    {
+      "id": "init",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 236,
+        "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R, Option<config::Config>> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.opener.init",
+        "signature": "() -> Plugin"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-opener compiled",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "open_url",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 60,
+        "declaration": "pub fn open_url(&self, url: impl Into<String>, with: Option<impl Into<String>>) -> Result<()> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.opener.Opener.open_url",
+        "signature": "(url: str, /, *, with_app: str | None = None) -> None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-opener compiled",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "open_path",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 111,
+        "declaration": "pub fn open_path("
+      },
+      "python": {
+        "entry": "pytaruix.plugins.opener.Opener.open_path",
+        "signature": "(path: str | Path, /, *, with_app: str | None = None) -> None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-opener compiled",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "reveal_item_in_dir",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 148,
+        "declaration": "pub fn reveal_item_in_dir<P: AsRef<Path>>(&self, p: P) -> Result<()> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.opener.Opener.reveal_item_in_dir",
+        "signature": "(path: str | Path, /) -> None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-opener compiled",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_extensions_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "open_js_links_on_click",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 195,
+        "declaration": "pub fn open_js_links_on_click(mut self, open: bool) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.opener（未提供）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在需要拦截页面链接时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": ""
+    },
+    {
+      "id": "reveal_items_in_dir",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 152,
+        "declaration": "pub fn reveal_items_in_dir<I, P>(&self, paths: I) -> Result<()>"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.opener（未提供）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "仅在需要批量定位时适用"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": ""
+    }
+  ]
+}
