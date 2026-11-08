@@ -64,7 +64,7 @@ jobs:
           import pathlib, subprocess
           archive = next(pathlib.Path("dist").glob("*.tar.gz"))
           subprocess.run(["uv", "run", "--no-sync", "python", "scripts/check_sdist.py", str(archive)], check=True)
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: pytaruix-${{ matrix.os }}-${{ matrix.python }}
           path: dist/
