@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-window-state",
+  "version": "2.4.0",
+  "scope": "Reviewed subset of public Rust API bound by this project; other declarations stay unreviewed",
+  "dependency_notes": "上游无可选 feature；trait 方法本身不带 pub，故以 trait 声明作为条目锚点。",
+  "entries": [
+    {
+      "id": "builder_build",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 385,
+        "declaration": "pub fn build<R: Runtime>(self) -> TauriPlugin<R> {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.window_state.init",
+        "signature": "(*, filename=None, flags=None, denylist=None, skip_initial=None) -> Plugin"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-window-state compiled for desktop Wry",
+        "plugin registered once during Builder.build",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_window_state_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "with_state_flags",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 340,
+        "declaration": "pub fn with_state_flags(mut self, flags: StateFlags) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.window_state.init",
+        "signature": "flags=('size'|'position'|'maximized'|'visible'|'decorations'|'fullscreen')"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-window-state compiled for desktop Wry",
+        "plugin registered once during Builder.build",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_window_state_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "with_filename",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 346,
+        "declaration": "pub fn with_filename(mut self, filename: impl Into<String>) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.window_state.init",
+        "signature": "filename: str | None = None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-window-state compiled for desktop Wry",
+        "plugin registered once during Builder.build",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_window_state_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "with_denylist",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 353,
+        "declaration": "pub fn with_denylist(mut self, denylist: &[&str]) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.window_state.init",
+        "signature": "denylist: Iterable[str] = ()"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-window-state compiled for desktop Wry",
+        "plugin registered once during Builder.build",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_window_state_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "skip_initial_state",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 369,
+        "declaration": "pub fn skip_initial_state(mut self, label: &str) -> Self {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.window_state.init",
+        "signature": "skip_initial: Iterable[str] = ()"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-window-state compiled for desktop Wry",
+        "plugin registered once during Builder.build",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_window_state_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "app_handle_ext",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 113,
+        "declaration": "pub trait AppHandleExt {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.window_state.WindowState.save",
+        "signature": "(*, flags=None) -> None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-window-state compiled for desktop Wry",
+        "plugin registered once during Builder.build",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_window_state_contract.py"
+      ],
+      "limitations": "trait 含 save_window_state 与 filename，均通过包装类暴露"
+    },
+    {
+      "id": "window_ext",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 154,
+        "declaration": "pub trait WindowExt {"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.window_state.WindowState.restore",
+        "signature": "(window, *, flags=None) -> None"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "plugin-window-state compiled for desktop Wry",
+        "plugin registered once during Builder.build",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_plugin_window_state_contract.py"
+      ],
+      "limitations": ""
+    },
+    {
+      "id": "with_filter",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 360,
+        "declaration": "pub fn with_filter<F>(mut self, filter_callback: F) -> Self"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.window_state（未提供）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "plugin-window-state compiled for desktop Wry",
+        "plugin registered once during Builder.build",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "按窗口过滤需要在构建期传入 Python 回调"
+    },
+    {
+      "id": "map_label",
+      "upstream": {
+        "source": "src/lib.rs",
+        "line": 377,
+        "declaration": "pub fn map_label<F>(mut self, map_fn: F) -> Self"
+      },
+      "python": {
+        "entry": "pytaruix.plugins.window_state（未提供）",
+        "signature": "—"
+      },
+      "status": "unimplemented",
+      "conditions": [
+        "plugin-window-state compiled for desktop Wry",
+        "plugin registered once during Builder.build",
+        "plugin missing yields plugin_missing"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "标签映射属构建期闭包，未暴露"
+    }
+  ]
+}

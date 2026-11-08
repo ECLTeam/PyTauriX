@@ -308,3 +308,20 @@ Ruff、Ruff format、Pyright 通过。
 上游命令层的目录、删除、重命名等接口记为 `unimplemented`，并在账本注明由 pathlib 覆盖，不重复实现。
 未转发的可选 feature（fs 的 watch、notification 的 windows7-compat、single-instance 的 deep-link 与 semver）
 在 `dependency_notes` 中显式说明。`--check` 通过，审查输出改为逐插件列出条目状态计数。
+
+## 第二十二阶段（窗口状态插件，实现完成，桌面恢复待补）
+
+按需继续铺插件，方案并入本记录。新增 `plugin-window-state` feature 与
+`tauri-plugin-window-state = "=2.4.0"`（上游已声明 `tauri` 使用 `default-features = false`），
+默认 wheel 不变。`crates/bindings/src/window_state_plugin.rs` 命名避开了既有的
+`window_state.rs`（窗口代次管理）。
+注册侧只接受静态参数：`filename`、`flags`、`denylist`、`skip_initial`；
+`with_filter` 与 `map_label` 需要在构建期传入 Python 回调，未绑定并记入账本。
+运行期 `WindowState.save()/restore()/filename` 都先查运行态插件登记表，未注册报 `plugin_missing`，
+避免上游 `state::<PluginState>()` panic；恢复只面向已存在窗口，新窗口仍由插件在创建时完成。
+标志名与上游 `StateFlags` 一一映射，未知名称报 `ValueError`，不静默降级。
+`tests/test_plugin_window_state_contract.py` 13 项契约通过；全量 pytest 262 项通过、4 项跳过；
+Pyright 0 错误，Ruff 与 Ruff format 通过；Rustfmt 与默认、全插件、最小 `wry` 三组 Clippy（`-D warnings`）通过。
+账本新增 `bindings-window-state-2.4.0.json` 9 条（7 条 bound_unverified、2 条 unimplemented），
+`update_coverage.py` 的插件清单同步扩到六项，`--check` 通过。
+**未验证**：跨会话恢复、多显示器变化下的位置修正、denylist 与 skip_initial 的真实效果。

@@ -71,6 +71,13 @@ PLUGIN_SPECS = (
         in_default=False,
         required=(),
     ),
+    PluginSpec(
+        crate="tauri-plugin-window-state",
+        key="window-state",
+        feature="plugin-window-state",
+        in_default=False,
+        required=(),
+    ),
 )
 
 DECLARATION_PATTERN = re.compile(

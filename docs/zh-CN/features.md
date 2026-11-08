@@ -47,6 +47,8 @@
 - single-instance 2.3.2 第二实例参数唤醒、global-shortcut 2.3.0 系统级热键、
   notification 2.3.0 通知发送与权限查询、opener 2.5.0 默认程序打开与定位；
   均按需构建，见 [系统集成插件](plugins-extensions.md)。
+- window-state 2.4.0 窗口几何跨会话持久化与手动保存/恢复；按需构建，
+  见 [窗口状态插件](plugins-window-state.md)。
 - 路径解析：`BaseDirectory` 变量、`PathResolver.resolve/parse` 与 21 个目录属性。
 - 进程查询：当前 PID、当前可执行文件路径与重启入口。
 

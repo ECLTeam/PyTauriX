@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "crate": "tauri-plugin-window-state",
+  "version": "2.4.0",
+  "rust_version": "1.77.2",
+  "scope": "Declaration candidates only; excludes cfg, macro expansion, trait methods and enum variants",
+  "features": {},
+  "sources": [
+    {
+      "path": "src/cmd.rs",
+      "sha256": "f4692d7b69adae06c4733a4bfd2926e44b9fbf2c03890377c8026de750277a64"
+    },
+    {
+      "path": "src/lib.rs",
+      "sha256": "3b12943f42e162c47077a4def6df1fa8fe57c10bee264cda089cbcc872b97e17"
+    }
+  ],
+  "declarations": [
+    {
+      "id": "src/cmd.rs:22:fn:save_window_state",
+      "source": "src/cmd.rs",
+      "line": 22,
+      "kind": "fn",
+      "name": "save_window_state",
+      "declaration": "pub async fn save_window_state<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/cmd.rs:32:fn:restore_state",
+      "source": "src/cmd.rs",
+      "line": 32,
+      "kind": "fn",
+      "name": "restore_state",
+      "declaration": "pub async fn restore_state<R: Runtime>(",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/cmd.rs:46:fn:filename",
+      "source": "src/cmd.rs",
+      "line": 46,
+      "kind": "fn",
+      "name": "filename",
+      "declaration": "pub fn filename<R: Runtime>(app: AppHandle<R>) -> String {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:36:const:DEFAULT_FILENAME",
+      "source": "src/lib.rs",
+      "line": 36,
+      "kind": "const",
+      "name": "DEFAULT_FILENAME",
+      "declaration": "pub const DEFAULT_FILENAME: &str = \".window-state.json\";",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:39:enum:Error",
+      "source": "src/lib.rs",
+      "line": 39,
+      "kind": "enum",
+      "name": "Error",
+      "declaration": "pub enum Error {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:48:type:Result",
+      "source": "src/lib.rs",
+      "line": 48,
+      "kind": "type",
+      "name": "Result",
+      "declaration": "pub type Result<T> = std::result::Result<T, Error>;",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:52:struct:StateFlags",
+      "source": "src/lib.rs",
+      "line": 52,
+      "kind": "struct",
+      "name": "StateFlags",
+      "declaration": "pub struct StateFlags: u32 {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:113:trait:AppHandleExt",
+      "source": "src/lib.rs",
+      "line": 113,
+      "kind": "trait",
+      "name": "AppHandleExt",
+      "declaration": "pub trait AppHandleExt {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:154:trait:WindowExt",
+      "source": "src/lib.rs",
+      "line": 154,
+      "kind": "trait",
+      "name": "WindowExt",
+      "declaration": "pub trait WindowExt {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:325:struct:Builder",
+      "source": "src/lib.rs",
+      "line": 325,
+      "kind": "struct",
+      "name": "Builder",
+      "declaration": "pub struct Builder {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:335:fn:new",
+      "source": "src/lib.rs",
+      "line": 335,
+      "kind": "fn",
+      "name": "new",
+      "declaration": "pub fn new() -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:340:fn:with_state_flags",
+      "source": "src/lib.rs",
+      "line": 340,
+      "kind": "fn",
+      "name": "with_state_flags",
+      "declaration": "pub fn with_state_flags(mut self, flags: StateFlags) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:346:fn:with_filename",
+      "source": "src/lib.rs",
+      "line": 346,
+      "kind": "fn",
+      "name": "with_filename",
+      "declaration": "pub fn with_filename(mut self, filename: impl Into<String>) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:353:fn:with_denylist",
+      "source": "src/lib.rs",
+      "line": 353,
+      "kind": "fn",
+      "name": "with_denylist",
+      "declaration": "pub fn with_denylist(mut self, denylist: &[&str]) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:360:fn:with_filter",
+      "source": "src/lib.rs",
+      "line": 360,
+      "kind": "fn",
+      "name": "with_filter",
+      "declaration": "pub fn with_filter<F>(mut self, filter_callback: F) -> Self",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:369:fn:skip_initial_state",
+      "source": "src/lib.rs",
+      "line": 369,
+      "kind": "fn",
+      "name": "skip_initial_state",
+      "declaration": "pub fn skip_initial_state(mut self, label: &str) -> Self {",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:377:fn:map_label",
+      "source": "src/lib.rs",
+      "line": 377,
+      "kind": "fn",
+      "name": "map_label",
+      "declaration": "pub fn map_label<F>(mut self, map_fn: F) -> Self",
+      "status": "unreviewed"
+    },
+    {
+      "id": "src/lib.rs:385:fn:build",
+      "source": "src/lib.rs",
+      "line": 385,
+      "kind": "fn",
+      "name": "build",
+      "declaration": "pub fn build<R: Runtime>(self) -> TauriPlugin<R> {",
+      "status": "unreviewed"
+    }
+  ]
+}

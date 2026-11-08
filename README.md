@@ -47,7 +47,7 @@ app.run_return()
 应用与生命周期、命令与状态注入、原生 IPC Channel、事件与主线程调度、动态窗口与 WebView
 策略回调、显示器与图像、菜单、托盘、对话框插件、宿主配置与权限、路径与进程查询均已绑定。
 命令支持前端 `AbortSignal` 与注入 `Request` 的协作式取消，通道支持 `capacity` 配额流控；
-支持构建期注册自定义 URI scheme，官方插件已接入 dialog、fs、single-instance、global-shortcut、notification 与 opener。
+支持构建期注册自定义 URI scheme，官方插件已接入 dialog、fs、single-instance、global-shortcut、notification、opener 与 window-state。
 完整清单见[功能清单](docs/zh-CN/features.md)，各领域缺口与平台限制见能力矩阵。
 
 ## 文档
@@ -59,7 +59,7 @@ app.run_return()
 | 能力覆盖与缺口 | [capability-matrix.md](docs/zh-CN/capability-matrix.md) |
 | 迁移与兼容契约 | [migration-contract.md](docs/zh-CN/migration-contract.md) |
 | 工程规范与验收命令 | [AGENTS.md](AGENTS.md) |
-| 功能指南 | [窗口](docs/zh-CN/windows.md) · [事件](docs/zh-CN/events.md) · [IPC 取消与背压](docs/zh-CN/ipc.md) · [IPC Channel](docs/zh-CN/channels.md) · [自定义协议](docs/zh-CN/protocols.md) · [菜单](docs/zh-CN/menus.md) · [托盘](docs/zh-CN/tray.md) · [对话框](docs/zh-CN/plugins-dialog.md) · [fs 插件](docs/zh-CN/plugins-fs.md) · [系统集成插件](docs/zh-CN/plugins-extensions.md) · [显示器与图像](docs/zh-CN/displays-images.md) · [WebView 策略](docs/zh-CN/webview-policies.md) · [路径与进程](docs/zh-CN/paths-process.md) |
+| 功能指南 | [窗口](docs/zh-CN/windows.md) · [事件](docs/zh-CN/events.md) · [IPC 取消与背压](docs/zh-CN/ipc.md) · [IPC Channel](docs/zh-CN/channels.md) · [自定义协议](docs/zh-CN/protocols.md) · [菜单](docs/zh-CN/menus.md) · [托盘](docs/zh-CN/tray.md) · [对话框](docs/zh-CN/plugins-dialog.md) · [fs 插件](docs/zh-CN/plugins-fs.md) · [系统集成插件](docs/zh-CN/plugins-extensions.md) · [窗口状态插件](docs/zh-CN/plugins-window-state.md) · [显示器与图像](docs/zh-CN/displays-images.md) · [WebView 策略](docs/zh-CN/webview-policies.md) · [路径与进程](docs/zh-CN/paths-process.md) |
 
 ## 目录结构
 

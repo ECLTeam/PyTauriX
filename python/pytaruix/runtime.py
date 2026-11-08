@@ -28,6 +28,7 @@ class RuntimeInfo:
     platform: str
     dialog_version: str | None = None
     fs_version: str | None = None
+    window_state_version: str | None = None
     capabilities: tuple[str, ...] = (
         (
             "app.run_return",
@@ -104,6 +105,7 @@ class RuntimeInfo:
         + (("plugin.notification",) if _native.plugin_notification_available else ())
         + (("plugin.opener",) if _native.plugin_opener_available else ())
         + (("plugin.single_instance",) if _native.plugin_single_instance_available else ())
+        + (("plugin.window_state",) if _native.plugin_window_state_available else ())
         + (("tray.icon", "tray.builder", "tray.events", "tray.close") if _native.tray_available else ())
         + (("webview.devtools.open",) if _native.devtools_available else ())
         + (
@@ -135,4 +137,5 @@ def get_runtime_info() -> RuntimeInfo:
         platform=sys.platform,
         dialog_version="2.8.1" if _native.plugin_dialog_available else None,
         fs_version="2.6.0" if _native.plugin_fs_available else None,
+        window_state_version=("2.4.0" if _native.plugin_window_state_available else None),
     )

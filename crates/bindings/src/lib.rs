@@ -36,6 +36,8 @@ mod webview_requests;
 mod window;
 mod window_builder;
 mod window_state;
+#[cfg(feature = "plugin-window-state")]
+mod window_state_plugin;
 
 use pyo3::{exceptions::PyRuntimeError, prelude::*};
 
@@ -84,6 +86,10 @@ fn _native(module: &Bound<'_, PyModule>) -> PyResult<()> {
     )?;
     module.add("plugin_opener_available", cfg!(feature = "plugin-opener"))?;
     module.add(
+        "plugin_window_state_available",
+        cfg!(feature = "plugin-window-state"),
+    )?;
+    module.add(
         "plugin_single_instance_available",
         cfg!(all(desktop, feature = "plugin-single-instance")),
     )?;
@@ -108,6 +114,11 @@ fn _native(module: &Bound<'_, PyModule>) -> PyResult<()> {
     {
         module.add_function(wrap_pyfunction!(plugin::fs_init, module)?)?;
         module.add_class::<fs::Fs>()?;
+    }
+    #[cfg(feature = "plugin-window-state")]
+    {
+        module.add_function(wrap_pyfunction!(plugin::window_state_init, module)?)?;
+        module.add_class::<window_state_plugin::WindowStateApi>()?;
     }
     module.add(
         "plugin_dialog_available",

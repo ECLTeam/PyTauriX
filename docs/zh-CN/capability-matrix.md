@@ -82,6 +82,9 @@ dialog 锁定 2.8.1；`../upstream/dialog-2.8.1.json` 有 3 个 feature 映射�
 回调/阻塞文件与消息接口、七种按钮和资源清理已在 Windows 验证；移动模式和结构化消息结果未绑定。
 过滤器排除列表和消息图标外观仍待独立测量；注册不会扩大前端 ACL，也不开放 fs 传递依赖。
 
+window-state 锁定 2.4.0，只暴露静态注册参数与运行期保存/恢复；`with_filter`、`map_label`
+需要构建期 Python 回调，未绑定；窗口几何跨会话恢复尚无桌面证据。
+
 single-instance 锁定 2.3.2、global-shortcut 2.3.0、notification 2.3.0、opener 2.5.0，
 均以独立 feature 提供、默认 wheel 不包含；第二实例唤醒、热键冲突、通知显示与默认程序启动
 尚无真实桌面证据，Linux/macOS 另行验收。构建器已把用户插件排在桥接插件之前，

@@ -19,6 +19,7 @@ tauri-plugin-global-shortcut = { version = "=2.3.0", optional = true, default-fe
 tauri-plugin-notification = { version = "=2.3.0", optional = true, default-features = false }
 tauri-plugin-opener = { version = "=2.5.0", optional = true, default-features = false }
 tauri-plugin-single-instance = { version = "=2.3.2", optional = true, default-features = false }
+tauri-plugin-window-state = { version = "=2.4.0", optional = true, default-features = false }
 pytaruix-bridge = { path = "../bridge" }
 # Tauri disables Specta defaults; rc.25 gates PhantomData support behind std.
 specta = { version = "=2.0.0-rc.25", optional = true, features = ["std"] }
@@ -46,6 +47,7 @@ plugin-global-shortcut = ["dep:tauri-plugin-global-shortcut"]
 plugin-notification = ["dep:tauri-plugin-notification"]
 plugin-opener = ["dep:tauri-plugin-opener"]
 plugin-single-instance = ["dep:tauri-plugin-single-instance"]
+plugin-window-state = ["dep:tauri-plugin-window-state"]
 dialog-gtk3 = ["plugin-dialog", "tauri-plugin-dialog/gtk3"]
 dialog-xdg-portal = ["plugin-dialog", "tauri-plugin-dialog/xdg-portal"]
 data-url = ["tauri/data-url"]

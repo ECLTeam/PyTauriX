@@ -77,6 +77,9 @@
 - `pytaruix.plugins.single_instance.init(handler)`、`global_shortcut.GlobalShortcut`、`notification.Notification`、
   `opener.Opener` 各自需要独立 feature；未启用时 `init()` 报 `unsupported_capability`，未注册插件时包装类报 `plugin_missing`。
   用户插件现在先于桥接插件登记，以支持 single-instance 的尽早注册要求。见 [系统集成插件](plugins-extensions.md)。
+- `pytaruix.plugins.window_state` 提供 `init(filename, flags, denylist, skip_initial)` 与
+  `WindowState(handle).save()/.restore()/.filename`，需要 `plugin-window-state` feature。
+  标志名非法报 `ValueError`，未注册插件报 `plugin_missing`。见 [窗口状态插件](plugins-window-state.md)。
 - 显示查询返回独立 Monitor 快照，工作线程释放 GIL；同步 GUI 回调返回 blocking_callback，旧窗口代次查询拒绝，快照仍可读取。
 - Image 的编码加载是本项目扩展；默认 PNG/ICO、显式 feature 与 RuntimeInfo.image_formats 一致，Path/bytes 严格类型和稳定错误见 displays-images.md。
 - 菜单保留常用构造的对应位置参数/默认值及批量项目顺序；aliases set_as_app_menu/set_as_window_menu 返回 None，句柄 set_menu 返回前一个菜单。
