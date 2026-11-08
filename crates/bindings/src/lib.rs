@@ -17,6 +17,7 @@ mod menu;
 mod monitor;
 mod paths;
 mod plugin;
+mod protocol;
 mod resources;
 mod runtime;
 #[cfg(all(desktop, feature = "tray-icon"))]
@@ -60,6 +61,8 @@ fn _native(module: &Bound<'_, PyModule>) -> PyResult<()> {
     module.add_class::<application::Context>()?;
     module.add_class::<application::Builder>()?;
     module.add_class::<plugin::Plugin>()?;
+    module.add_class::<protocol::Protocol>()?;
+    module.add_function(wrap_pyfunction!(protocol::protocol_create, module)?)?;
     module.add(
         "plugin_dialog_available",
         cfg!(all(feature = "plugin-dialog", desktop)),

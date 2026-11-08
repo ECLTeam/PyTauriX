@@ -25,6 +25,7 @@ from .ffi import AppHandle, Context, Webview, WebviewWindow
 from .ipc import Commands, Headers, Request, State
 from .manager import Emitter, Listener, Manager
 from .path import BaseDirectory, PathResolver
+from .protocol import Protocol, ProtocolRequest, ProtocolResponse, create_protocol
 from .runtime import RuntimeInfo, get_runtime_info
 from .url import WebviewUrl, WebviewUrlType
 from .webview_requests import (
@@ -61,6 +62,9 @@ __all__ = [
     "PathResolver",
     "PermissionKind",
     "PermissionResponse",
+    "Protocol",
+    "ProtocolRequest",
+    "ProtocolResponse",
     "Rect",
     "Request",
     "RunEvent",
@@ -77,6 +81,7 @@ __all__ = [
     "WindowEventType",
     "builder_factory",
     "context_factory",
+    "create_protocol",
     "get_runtime_info",
     "process",
 ]

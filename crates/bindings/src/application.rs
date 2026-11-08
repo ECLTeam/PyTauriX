@@ -7,6 +7,7 @@ use crate::{
 use pyo3::prelude::*;
 use std::{
     cell::RefCell,
+    collections::HashSet,
     path::PathBuf,
     sync::{
         atomic::{AtomicBool, Ordering},
@@ -104,7 +105,7 @@ pub fn context_factory(
 
 #[pymethods]
 impl Builder {
-    #[pyo3(signature = (*, context, invoke_handler, setup=None, plugins=None))]
+    #[pyo3(signature = (*, context, invoke_handler, setup=None, plugins=None, protocols=None))]
     fn build(
         &self,
         py: Python<'_>,
@@ -112,6 +113,7 @@ impl Builder {
         invoke_handler: Py<PyAny>,
         setup: Option<Py<PyAny>>,
         plugins: Option<Vec<Py<crate::plugin::Plugin>>>,
+        protocols: Option<Vec<Py<crate::protocol::Protocol>>>,
     ) -> PyResult<App> {
         require_main_thread(py)?;
         if !invoke_handler.bind(py).is_callable() {
@@ -128,6 +130,17 @@ impl Builder {
         }
         let plugins = plugins.unwrap_or_default();
         let names = crate::plugin::validate(py, &plugins)?;
+        let protocols = protocols.unwrap_or_default();
+        let mut scheme_names = HashSet::new();
+        // 先校验名称唯一性；消费所有权放在运行时唯一性检查之后。
+        for protocol in &protocols {
+            if !scheme_names.insert(protocol.borrow(py).name().to_owned()) {
+                return Err(binding_error(
+                    "duplicate_protocol",
+                    "Protocol names must be unique",
+                ));
+            }
+        }
         let authority = crate::capabilities::authority(&context.capabilities, &names)?;
         if RUNTIME_STARTED.swap(true, Ordering::SeqCst) {
             return Err(binding_error(
@@ -137,6 +150,13 @@ impl Builder {
         }
         // 主线程检查和进程唯一运行时检查通过后，才消费插件所有权。
         let plugins = crate::plugin::consume(py, &plugins)?;
+        let protocols = protocols
+            .iter()
+            .map(|protocol| {
+                let protocol = protocol.borrow(py);
+                Ok((protocol.name().to_owned(), protocol.take(py)?))
+            })
+            .collect::<PyResult<Vec<_>>>()?;
         let context = context.clone();
         let runtime = RuntimeState::new(py, names, !context.host_capabilities);
         let setup_runtime = Arc::clone(&runtime);
@@ -223,6 +243,9 @@ impl Builder {
                 });
             for plugin in plugins {
                 builder = builder.plugin(plugin);
+            }
+            for (name, handler) in protocols {
+                builder = crate::protocol::register(builder, name, handler);
             }
             let app = builder
                 .build(native_context)

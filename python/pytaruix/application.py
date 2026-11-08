@@ -104,6 +104,7 @@ class Builder:
         invoke_handler: InvokeHandler,
         setup: SetupCallback | None = None,
         plugins: Sequence[Plugin] = (),
+        protocols: Sequence[_native.Protocol] = (),
         on_tray_icon_event: Callable[[AppHandle, TrayIconEventType], None] | None = None,
     ) -> App:
         """
@@ -113,9 +114,10 @@ class Builder:
         :param invoke_handler: Commands.generate_handler 生成的处理器
         :param setup: 同步初始化回调，异常会退出并由 run_return 重抛
         :param plugins: 原生插件序列；不修改输入，插件不能重复消费
+        :param protocols: create_protocol 生成的协议描述符；构建时消费
         :param on_tray_icon_event: 应用级同步托盘事件回调，需 tray-icon feature
         :return: 尚未启动的应用
-        :raises BindingError: 线程错误或处理器不可调用
+        :raises BindingError: 线程错误、处理器不可调用或协议名称重复
         """
         _require_main_thread()
         if on_tray_icon_event is not None:
@@ -138,9 +140,19 @@ class Builder:
             raise BindingError("invalid_plugin: Expected a sequence of native plugins") from error
         if any(not isinstance(plugin, Plugin) for plugin in prepared):
             raise BindingError("invalid_plugin: Expected native Plugin descriptors")
+        try:
+            schemes = list(protocols)
+        except TypeError as error:
+            raise BindingError("invalid_protocol: Expected a sequence of protocols") from error
+        if any(not isinstance(protocol, _native.Protocol) for protocol in schemes):
+            raise BindingError("invalid_protocol: Expected create_protocol descriptors")
         return App(
             _native.builder_factory().build(
-                context=context, invoke_handler=invoke_handler, setup=setup, plugins=prepared
+                context=context,
+                invoke_handler=invoke_handler,
+                setup=setup,
+                plugins=prepared,
+                protocols=schemes,
             )
         )
 
