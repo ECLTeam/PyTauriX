@@ -1,5 +1,5 @@
 # PytaruiX
-# 文件作用：发送已序列化 JSON，兼容 ffi.Emitter 调用且避免重复编码。
+# 文件作用：发送已序列化 JSON，避免重复编码。
 # 公开接口：Emitter。
 from __future__ import annotations
 

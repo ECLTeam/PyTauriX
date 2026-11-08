@@ -56,7 +56,6 @@ def main() -> None:
                 "ffi",
                 "retained_active",
                 "after_return",
-                "legacy_root",
             )
         )
     if set(checks) != expected or not all(checks.values()) or "CHANNEL_RESOURCES_RELEASED" not in output:

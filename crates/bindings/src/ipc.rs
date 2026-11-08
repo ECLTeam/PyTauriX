@@ -1,6 +1,6 @@
-//! 新 JSON 协议与旧 PyTauri 字节协议共用一个 Python 工作线程分发器。
+//! JSON 命令协议的唯一分发器。
 //!
-//! 新协议按 `(窗口标签, request_id)` 登记待应答项：取消与完成竞争同一份 resolver，
+//! 请求按 `(窗口标签, request_id)` 登记待应答项：取消与完成竞争同一份 resolver，
 //! 先取走者应答。上游 `return_result` 对已消费的 resolver 直接 panic，因此这里不重复应答。
 
 use crate::{
@@ -178,19 +178,11 @@ impl Request {
 
 pub fn invoke_handler(invoke: Invoke) -> bool {
     match invoke.message.command() {
-        "python_command" => dispatch(invoke, false),
+        "python_command" => dispatch(invoke),
         "pytaruix_cancel" => cancel(invoke),
         "pytaruix_channel_ack" => acknowledge(invoke),
         _ => return false,
     }
-    true
-}
-
-pub fn legacy_handler(invoke: Invoke) -> bool {
-    if invoke.message.command() != "pyfunc" {
-        return false;
-    }
-    dispatch(invoke, true);
     true
 }
 
@@ -248,20 +240,11 @@ fn acknowledge(invoke: Invoke) {
     invoke.resolver.resolve(released);
 }
 
-fn dispatch(invoke: Invoke, legacy: bool) {
-    let (command, body, request_id) = match prepare(&invoke, legacy) {
+fn dispatch(invoke: Invoke) {
+    let (command, body, request_id) = match prepare(&invoke) {
         Ok(prepared) => prepared,
         Err(error) => {
-            invoke.resolver.reject(if legacy {
-                Value::String(
-                    error["code"]
-                        .as_str()
-                        .unwrap_or("invalid_request")
-                        .to_owned(),
-                )
-            } else {
-                error
-            });
+            invoke.resolver.reject(error);
             return;
         }
     };
@@ -269,11 +252,10 @@ fn dispatch(invoke: Invoke, legacy: bool) {
     let label = webview.label().to_owned();
     let app = webview.app_handle();
     let Some(window) = app.get_webview_window(&label) else {
-        invoke.resolver.reject(if legacy {
-            json!("invalid_window")
-        } else {
-            json!({"code":"invalid_window", "message":"Origin is not a WebviewWindow"})
-        });
+        invoke.resolver.reject(json!({
+            "code": "invalid_window",
+            "message": "Origin is not a WebviewWindow"
+        }));
         return;
     };
     let runtime = Arc::clone(app.state::<Arc<RuntimeState>>().inner());
@@ -281,11 +263,10 @@ fn dispatch(invoke: Invoke, legacy: bool) {
     let window_state = match runtime.window_state(&label) {
         Ok(state) => state,
         Err(_) => {
-            invoke.resolver.reject(if legacy {
-                json!("window_closed")
-            } else {
-                json!({"code":"window_closed", "message":"Originating window unavailable"})
-            });
+            invoke.resolver.reject(json!({
+                "code": "window_closed",
+                "message": "Originating window unavailable"
+            }));
             return;
         }
     };
@@ -322,7 +303,6 @@ fn dispatch(invoke: Invoke, legacy: bool) {
         command,
         body,
         headers,
-        legacy,
         request_handle,
     );
     match request {
@@ -349,7 +329,6 @@ async fn execute(
     command: String,
     body: Vec<u8>,
     headers: Vec<(Vec<u8>, Vec<u8>)>,
-    legacy: bool,
     request: Option<(String, Arc<PendingInvocation>)>,
 ) -> Result<InvokeResponseBody, InvokeError> {
     let result = tauri::async_runtime::spawn_blocking(move || {
@@ -375,7 +354,7 @@ async fn execute(
             };
             let py_headers: Vec<(Py<PyBytes>, Py<PyBytes>)> = headers.iter().map(|(name,value)|
                 (PyBytes::new(py, name).unbind(), PyBytes::new(py, value).unbind())).collect();
-            let response = handler.call1(py, (command, PyBytes::new(py, &body), handle, window, py_headers, legacy, request));
+            let response = handler.call1(py, (command, PyBytes::new(py, &body), handle, window, py_headers, request));
             match response {
                 Ok(response) => {
                     if let Ok(bytes) = response.bind(py).cast::<PyBytes>() {
@@ -395,65 +374,37 @@ async fn execute(
             }
         })
     }).await.unwrap_or_else(|_| Err(json!({"code":"worker_failed","message":"Command worker failed"})));
-    result.map_err(|error| {
-        let value = if legacy {
-            Value::String(format!(
-                "{}: {}",
-                error["code"].as_str().unwrap_or("command_failed"),
-                error["message"].as_str().unwrap_or("Python command failed")
-            ))
-        } else {
-            error
-        };
-        InvokeError::from(value)
-    })
+    result.map_err(InvokeError::from)
 }
 
-fn prepare(invoke: &Invoke, legacy: bool) -> Result<(String, Vec<u8>, Option<String>), Value> {
-    let invalid = || json!({"code":"invalid_request", "message":"Invalid Python command request"});
-    if legacy {
-        let command = invoke
-            .message
-            .headers()
-            .get("pyfunc")
-            .and_then(|value| value.to_str().ok())
-            .filter(|name| !name.is_empty())
-            .ok_or_else(invalid)?;
-        let body = match invoke.message.payload() {
-            InvokeBody::Raw(body) => body.clone(),
-            InvokeBody::Json(Value::Null) => Vec::new(),
-            // @tauri-apps/api/core 的默认参数将 undefined 正文转换成空对象。
-            InvokeBody::Json(Value::Object(value)) if value.is_empty() => Vec::new(),
-            _ => return Err(invalid()),
-        };
-        Ok((command.to_owned(), body, None))
-    } else {
-        let InvokeBody::Json(payload) = invoke.message.payload() else {
-            return Err(invalid());
-        };
-        let command = payload
-            .get("command")
-            .and_then(Value::as_str)
-            .filter(|name| !name.is_empty())
-            .ok_or_else(invalid)?;
-        let request_id = match payload.get("request_id") {
-            None | Some(Value::Null) => None,
-            Some(Value::String(id)) if valid_request_id(id) => Some(id.clone()),
-            Some(_) => {
-                return Err(json!({
-                    "code": "invalid_request_id",
-                    "message": "Request identifier must be printable ASCII up to 96 characters"
-                }))
-            }
-        };
-        Ok((
-            command.to_owned(),
-            payload
-                .get("payload")
-                .unwrap_or(&Value::Null)
-                .to_string()
-                .into_bytes(),
-            request_id,
-        ))
-    }
+fn prepare(invoke: &Invoke) -> Result<(String, Vec<u8>, Option<String>), Value> {
+    let invalid =
+        || json!({"code": "invalid_request", "message": "Invalid Python command request"});
+    let InvokeBody::Json(payload) = invoke.message.payload() else {
+        return Err(invalid());
+    };
+    let command = payload
+        .get("command")
+        .and_then(Value::as_str)
+        .filter(|name| !name.is_empty())
+        .ok_or_else(invalid)?;
+    let request_id = match payload.get("request_id") {
+        None | Some(Value::Null) => None,
+        Some(Value::String(id)) if valid_request_id(id) => Some(id.clone()),
+        Some(_) => {
+            return Err(json!({
+                "code": "invalid_request_id",
+                "message": "Request identifier must be printable ASCII up to 96 characters"
+            }))
+        }
+    };
+    Ok((
+        command.to_owned(),
+        payload
+            .get("payload")
+            .unwrap_or(&Value::Null)
+            .to_string()
+            .into_bytes(),
+        request_id,
+    ))
 }

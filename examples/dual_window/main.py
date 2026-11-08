@@ -136,7 +136,7 @@ def main() -> int:
         assert shared is Manager.state(app_handle, Shared)
         label = webview_window.label()
         assert claimed_label != label
-        assert any(name == b"x-migration" and value == b"legacy-client" for name, value in headers)
+        assert any(name == b"x-migration" and value == b"migrating-client" for name, value in headers)
         assert shared.setup_done
         with shared.lock:
             shared.seen.add(label)

@@ -77,7 +77,7 @@ def test_host_capabilities_select_references_and_inline_objects(tmp_path: Path) 
     write_capability(
         tmp_path,
         [
-            {"identifier": "selected", "windows": ["main", "plugin.*"], "permissions": ["pytauri:default"]},
+            {"identifier": "selected", "windows": ["main", "plugin.*"], "permissions": ["core:window:default"]},
             {"identifier": "excluded", "windows": ["rogue"], "permissions": ["core:default"]},
         ],
     )
@@ -94,7 +94,7 @@ def test_capabilities_toml(tmp_path: Path) -> None:
     (tmp_path / "capabilities").mkdir()
     (tmp_path / "capabilities" / "default.toml").write_text(
         'identifier = "ecl"\nwindows = ["main", "theme-studio", "plugin.*"]\n'
-        'permissions = ["core:default", "pytauri:default", "dialog:default"]\n',
+        'permissions = ["core:default", "core:window:default", "dialog:default"]\n',
         encoding="utf-8",
     )
     prepared = _prepare_context(tmp_path, None, False)

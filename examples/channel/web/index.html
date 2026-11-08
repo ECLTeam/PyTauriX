@@ -77,11 +77,6 @@ async function run() {
   await invoke("resume");
   await until(() => ended.has("late"));
   checks.after_return &&= JSON.stringify(values.late) === '[{"completed":3,"total":3}]';
-  const legacyValues = [];
-  const legacy = new tauri.core.Channel(value => legacyValues.push(value));
-  await tauri.pytauri.pyInvoke("legacy", legacy);
-  await until(() => !window.__TAURI_INTERNALS__.callbacks.has(legacy.id));
-  checks.legacy_root = JSON.stringify(legacyValues) === '[{"completed":2,"total":3}]';
   await invoke("report", checks);
   if (label === "secondary") {
     pending.length = 0;

@@ -5,8 +5,7 @@ async function start() {
   const params = new URL(location.href).searchParams;
   const report = {};
   for (const [kind, command, body, options] of [
-    ["json", "python_command", { command: "forbidden", payload: {} }, undefined],
-    ["legacy", "plugin:pytauri|pyfunc", {}, { headers: { pyfunc: "forbidden" } }]
+    ["json", "python_command", { command: "forbidden", payload: {} }, undefined]
   ]) {
     try { await window.__TAURI_INTERNALS__.invoke(command, body, options); report[kind] = false; }
     catch (error) { report[kind] = /not allowed|not permitted|denied/i.test(String(error)); }

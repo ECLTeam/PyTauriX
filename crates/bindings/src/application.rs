@@ -239,11 +239,7 @@ impl Builder {
             for apply in plugins {
                 builder = apply(builder);
             }
-            builder = builder.plugin(pytaruix_bridge::init()).plugin(
-                tauri::plugin::Builder::<tauri::Wry>::new("pytauri")
-                    .invoke_handler(crate::ipc::legacy_handler)
-                    .build(),
-            );
+            builder = builder.plugin(pytaruix_bridge::init());
             for (name, handler) in protocols {
                 builder = crate::protocol::register(builder, name, handler);
             }

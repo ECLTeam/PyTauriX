@@ -42,7 +42,6 @@ class RuntimeInfo:
             "ipc.state",
             "ipc.headers",
             "ipc.bytes",
-            "ipc.legacy_pytauri",
             "ipc.channel",
             "ipc.channel_model",
             "ipc.channel_close",

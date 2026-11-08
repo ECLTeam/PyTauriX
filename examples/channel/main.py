@@ -158,12 +158,6 @@ def main() -> int:
         releases[webview_window.label()].set()
 
     @commands.command()
-    def legacy(body: JavaScriptChannelId[Progress], webview_window: WebviewWindow) -> None:
-        channel = body.channel_on(webview_window.as_ref_webview())
-        channel.send_model(Progress(completed=2, total=3))
-        channel.close()
-
-    @commands.command()
     def report(body: dict[str, bool], webview_window: WebviewWindow) -> None:
         print("CHANNEL_REPORT " + webview_window.label() + " " + json.dumps(body), flush=True)
         reports[webview_window.label()] = body

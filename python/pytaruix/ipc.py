@@ -189,7 +189,7 @@ StateType = TypeVar("StateType")
 
 class State(Generic[StateType]):
     """
-    标记受管理的状态，兼容 Annotated[T, State()]，也支持 State[T].value。
+    标记受管理的状态，同时支持 Annotated[T, State()] 与 State[T].value 两种写法。
 
     状态按具体 Python 类型注册，注入共享原对象，不复制、不由请求载荷覆盖。
     调用方负责对象内部的并发控制；标记对象本身没有状态值。
@@ -324,7 +324,6 @@ class Commands:
             app_handle: AppHandle,
             webview_window: WebviewWindow | None = None,
             headers: Headers | None = None,
-            legacy: bool = False,
             request: FfiRequest | None = None,
         ) -> str | bytes:
             command = commands.get(command_name)
@@ -354,9 +353,15 @@ class Commands:
                 arguments[name] = State(state) if wrapped else state
             try:
                 if command.raw_body:
-                    arguments["body"] = payload_json.encode("utf-8") if isinstance(payload_json, str) else payload_json
+                    if isinstance(payload_json, (bytes, bytearray)):
+                        arguments["body"] = bytes(payload_json)
+                    else:
+                        raw = json.loads(payload_json) if payload_json else ""
+                        if not isinstance(raw, str):
+                            raise CommandError("invalid_payload", "Raw body commands require a string payload")
+                        arguments["body"] = raw.encode("utf-8")
                 else:
-                    # 旧客户端省略正文时发送空请求；没有模型正文时等价 null。
+                    # 省略正文等价于 null；没有模型正文时按空对象处理。
                     payload: JsonValue = json.loads(payload_json) if payload_json else None
                     if "body" in command.adapter_by_parameter:
                         arguments["body"] = command.adapter_by_parameter["body"].validate_python(payload)

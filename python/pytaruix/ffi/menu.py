@@ -1,5 +1,5 @@
 # PytaruiX
-# 文件作用：菜单公开契约、种类边界及 PyTauri 兼容构造。
+# 文件作用：菜单公开契约、种类边界与构造。
 # 公开接口：Menu、Submenu、MenuItem、CheckMenuItem、IconMenuItem、PredefinedMenuItem、ContextMenu。
 from __future__ import annotations
 
@@ -403,7 +403,7 @@ class Menu(_Container):
 
     def set_as_app_menu(self) -> None:
         """
-        将菜单挂载到所属应用，保持 PyTauri 的 None 返回契约。
+        将菜单挂载到所属应用，成功返回 None。
 
         需要旧菜单时使用 AppHandle.set_menu；释放 GIL，禁止回调重入。
         """
@@ -411,7 +411,7 @@ class Menu(_Container):
 
     def set_as_window_menu(self, window: WebviewWindow, /) -> None:
         """
-        挂载到同应用 WebviewWindow，保持 PyTauri 的 None 返回契约。
+        挂载到同应用 WebviewWindow，成功返回 None。
 
         接受 WebviewWindow 是本项目扩展；原窗口关闭后报错，释放 GIL。
         """
@@ -512,7 +512,7 @@ class MenuItem(_Accelerated):
         /,
     ) -> MenuItem:
         """
-        创建指定 ID 的普通项目，参数形状沿用 PyTauri。
+        创建指定 ID 的普通项目。
 
         无效快捷键在构造前拒绝；释放 GIL，禁止同步 GUI 回调重入。
         """
@@ -560,7 +560,7 @@ class CheckMenuItem(_Accelerated):
         """
         创建指定 ID 的勾选项目，可省略快捷键。
 
-        参数顺序沿用 PyTauri；释放 GIL，退出或同步 GUI 回调内报错。
+        释放 GIL；退出或同步 GUI 回调内报错。
         """
         return cls._from_resource(_create("check", manager, _text(id), text, enabled, checked, accelerator))
 
@@ -618,7 +618,7 @@ class IconMenuItem(_Accelerated):
         /,
     ) -> IconMenuItem:
         """
-        创建指定 ID 的图像项目，参数形状沿用 PyTauri。
+        创建指定 ID 的图像项目。
 
         图像数据由原生拥有；释放 GIL，退出或同步回调内报错。
         """
@@ -864,7 +864,7 @@ class ContextMenu:
     """
     Menu 与 Submenu 的上下文弹出辅助入口。
 
-    当前接受 WebviewWindow 是本项目扩展，未提供 PyTauri 独立 Window。
+    只接受 WebviewWindow；不提供独立 Window 抽象。
     """
 
     @staticmethod

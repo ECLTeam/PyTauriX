@@ -7,7 +7,7 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
   const {label, reportUrl} = window.__HOST_ACCEPTANCE__;
   const checks = {};
   try {
-    const invoke = (command, body) => window.__TAURI__.pytauri.pyInvoke(command, body);
+    const invoke = (command, body) => window.__TAURI__.pytaruix.pyInvoke(command, body);
     if (label === "rogue" || label === "external" || label === "main-denied") {
       try { await invoke("identify", {}); checks.denied = false; }
       catch (error) { checks.denied = /not allowed|denied/i.test(String(error)); }

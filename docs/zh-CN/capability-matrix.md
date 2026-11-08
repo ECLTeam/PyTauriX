@@ -13,7 +13,7 @@
 | 生命周期 | 部分绑定 | Ready/Exit/ExitRequested(code, api) 已验证；窗口/设备/平台事件待实现 |
 | 窗口/WebView | 部分绑定 | 扩展构建属性、主题读写、标题变更与 blob 下载有 Windows 真实桌面证据；拖放/缩放/主题变化事件与显示查询、几何、销毁、显示器/DPI/工作区快照已绑定，其中拖放与 DPI 专项证据待补；独立 profile 与新窗口/资源/权限策略已接入；完整 Builder、嵌入与 Create 待实现 |
 | WebView 回调 | 部分绑定 | 同步导航、页面加载、标题变更与下载有 Windows 证据；新窗口 Deny、应用资源响应替换、Geolocation 拒绝及失败恢复有 Windows 证据；新窗口 Create、Allow/Default 平台效果待补 |
-| IPC/命令 | 部分绑定 | 状态/来源窗口/头字段、旧字节协议、原生 Channel、请求级取消与通道配额流控已绑定；取消与配额入口的 Windows 真实桌面证据已通过桌面验收取得（含 ACL 授权修复），TS 生成待实现 |
+| IPC/命令 | 部分绑定 | 状态/来源窗口/头字段、单一 JSON 协议、原生 Channel、请求级取消与通道配额流控已绑定；旧字节协议已移除；取消与配额入口的 Windows 真实桌面证据已通过桌面验收取得（含 ACL 授权修复），TS 生成待实现 |
 | 事件 | 部分绑定 | 六种目标、原始 JSON、应用/窗口/任意目标监听已验证；过滤发送与独立 Window/Webview 资源待实现 |
 | 资源/图像 | 部分绑定 | 文件快照、RGBA、PNG/ICO 原生解码及四种 feature 组合已验证；其他资源来源、CSP 哈希待实现 |
 | 菜单 | 部分绑定 | 六种资源、17 种预定义角色与 About 元数据、默认菜单、NativeIcon、项目顺序/动态修改、挂载/弹出/广播事件及清理有 Windows 证据；NativeIcon 在 Windows 无可见效果，完整 Builder 待实现 |

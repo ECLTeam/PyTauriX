@@ -36,7 +36,7 @@ def test_request_injection_wraps_native_handle() -> None:
         return request.id
 
     invoke = commands.generate_handler()
-    assert invoke("ping", "null", cast(AppHandle, object()), None, None, False, _request()) == '"session-1"'
+    assert invoke("ping", "null", cast(AppHandle, object()), None, None, _request()) == '"session-1"'
     assert isinstance(seen["request"], Request)
     assert seen["request"].cancelled is False
     assert "session-1" in repr(seen["request"])
@@ -64,7 +64,7 @@ def test_request_cancel_delegates_to_native_handle() -> None:
         return request.cancel()
 
     invoke = commands.generate_handler()
-    assert invoke("ping", "null", cast(AppHandle, object()), None, None, False, cast(NativeRequest, handle)) == "true"
+    assert invoke("ping", "null", cast(AppHandle, object()), None, None, cast(NativeRequest, handle)) == "true"
     assert handle.cancel_calls == 1
 
 
@@ -78,11 +78,11 @@ def test_command_observes_cancellation_before_completion() -> None:
         return "done"
 
     with pytest.raises(CommandError) as failure:
-        commands.generate_handler()("loop", "null", cast(AppHandle, object()), None, None, False, _request(True))
+        commands.generate_handler()("loop", "null", cast(AppHandle, object()), None, None, _request(True))
     assert failure.value.code == "cancelled"
 
 
-def test_request_injection_does_not_leak_into_legacy_path() -> None:
+def test_command_without_request_parameter_ignores_handle() -> None:
     commands = Commands()
 
     @commands.command()
@@ -91,8 +91,6 @@ def test_request_injection_does_not_leak_into_legacy_path() -> None:
 
     handle = _Handle()
     invoke = commands.generate_handler()
-    result = invoke(
-        "plain", '{"name":"无常"}', cast(AppHandle, object()), None, None, True, cast(NativeRequest, handle)
-    )
+    result = invoke("plain", '{"name":"无常"}', cast(AppHandle, object()), None, None, cast(NativeRequest, handle))
     assert json.loads(result) == "无常"
     assert handle.cancel_calls == 0

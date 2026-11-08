@@ -56,11 +56,7 @@ pub fn authority(
     let mut acl = manifests()?;
     // 发行包编译进某插件不等于宿主注册了它；未注册插件的权限不能静默接受。
     acl.retain(|name, _| {
-        name == APP_ACL_KEY
-            || name == "core"
-            || name.starts_with("core:")
-            || name == "pytauri"
-            || plugins.contains(name)
+        name == APP_ACL_KEY || name == "core" || name.starts_with("core:") || plugins.contains(name)
     });
     let resolved = resolve(&acl, capabilities)?;
     // RuntimeAuthority 构造及 Context.runtime_authority_mut 是版本相关集成边界。

@@ -50,7 +50,7 @@ class Page:
             return response["result"]["result"].get("value")
 
     def invoke(self, command: str, body: object = None) -> object:
-        return self.evaluate(f"window.__TAURI__.pytauri.pyInvoke({json.dumps(command)}, {json.dumps(body or {})})")
+        return self.evaluate(f"window.__TAURI__.pytaruix.pyInvoke({json.dumps(command)}, {json.dumps(body or {})})")
 
     def close(self) -> None:
         self.context.__exit__(None, None, None)

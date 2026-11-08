@@ -46,7 +46,7 @@ def test_state_markers_and_authoritative_context() -> None:
 
     invoke = commands.generate_handler()
     assert invoke("probe", '{"name":"a"}', handle, window, headers) == "1"
-    assert invoke("probe", b'{"name":"b"}', handle, window, headers, True) == "2"
+    assert invoke("probe", b'{"name":"b"}', handle, window, headers) == "2"
     assert len(headers) == 2
     for field in ("app", "source", "request", "direct", "wrapped"):
         with pytest.raises(CommandError) as error:
@@ -95,11 +95,11 @@ def test_raw_bytes_and_json_scalars() -> None:
 
     invoke = commands.generate_handler()
     handle = cast(AppHandle, object())
-    assert invoke("raw", b"\xff\x00\x01", handle, legacy=True) == b"\x01\x00\xff"
-    assert invoke("scalar", b"5", handle, legacy=True) == "6"
-    assert invoke("empty", b"", handle, legacy=True) == '"ok"'
+    assert invoke("raw", b"\xff\x00\x01", handle) == b"\x01\x00\xff"
+    assert invoke("scalar", b"5", handle) == "6"
+    assert invoke("empty", b"", handle) == '"ok"'
     with pytest.raises(CommandError) as error:
-        invoke("scalar", b"\xff", handle, legacy=True)
+        invoke("scalar", b"\xff", handle)
     assert error.value.code == "invalid_payload"
 
 

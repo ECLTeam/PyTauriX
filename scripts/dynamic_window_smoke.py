@@ -32,7 +32,6 @@ dynamic_checks = frozenset(
         "invalid_label",
         "invalid_size",
         "label_denied",
-        "legacy_ipc",
         "logical_geometry",
         "maximize",
         "minimize",

@@ -23,7 +23,7 @@ class EventTarget:
     """
     提供六种事件路由目标；相同标签的不同原生对象仍保留目标类型。
 
-    该类型不授予 IPC 权限。字符串发送目标等价于 AnyLabel，命名沿用 PyTauri。
+    该类型不授予 IPC 权限。字符串发送目标等价于 AnyLabel。
     """
 
     @dataclass(frozen=True, slots=True)

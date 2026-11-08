@@ -1,7 +1,8 @@
 # ECL 接入指南
 
 项目名为 PytaruiX，发行包及导入为 `pytaruix`，Rust crate 为 `pytaruix-bindings` 与 `pytaruix-bridge`。
-现有磁盘目录 Tarui-PyO3 保持原路径。前端兼容入口 `window.__TAURI__.pytauri.pyInvoke` 与旧原生 plugin 协议保持。
+现有磁盘目录 Tarui-PyO3 保持原路径。前端唯一入口为 `window.__TAURI__.pytaruix.pyInvoke`，
+`pytauri` 全局对象与旧原生 plugin 协议已移除，ECL 前端需同步改名。
 当前提供可审核的隔离 ECL 接入版本，原 ECL 工作区没有切换；完整阶段结果见 [验证记录](validation.md)。
 
 ## 导入与构建
@@ -44,7 +45,8 @@ CSP、隔离模式、JSON5、完整构建配置和移动资源暂未实现，不
 未注册 dialog 的情况下引用 dialog 权限会在原生运行时消费前失败，允许修正并重新 build。
 窗口模式与 remote.urls 使用上游解析，非法权限/来源明确失败；不通过静默丢弃配置获得启动成功。
 存在宿主策略时，动态窗口不再自动授予原型默认权限；空宿主能力目录拒绝全部前端调用。
-旧协议需 pytauri:allow-pyfunc，新协议需应用 allow-python-command；原生窗口 JS API 则需相应 core 权限。
+Python 调用需应用 allow-python-command；取消与配额入口另需 allow-pytaruix-cancel 与 allow-pytaruix-channel-ack；
+原生窗口 JS API 则需相应 core 权限。不再有 pytauri:allow-pyfunc。
 
 当前 ECL 插件描述符采用 `plugin.id.panel`，Tauri 窗口 label 不允许点号。
 迁移只将原生 label 中的点号转为冒号，例如 `plugin:pytaruix-smoke:panel`；descriptorId 和插件 SDK 标识保留。

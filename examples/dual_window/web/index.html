@@ -2,20 +2,17 @@
 <html lang="zh-CN">
 <head><meta charset="utf-8"><title>双窗口验收</title>
 <style>body { font: 16px system-ui; margin: 32px; background: #f3f5f7; color: #1b2632; } pre { white-space: pre-wrap; }</style></head>
-<body><h1>双窗口与迁移协议验收</h1><pre id="result">正在验证…</pre>
+<body><h1>双窗口与注入验收</h1><pre id="result">正在验证…</pre>
 <script>
 const tauri = window.__TAURI__;
 const output = document.getElementById("result");
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const invoke = tauri.pytaruix.pyInvoke;
-// 独立模拟旧 npm 客户端的传输契约，不依赖本项目 pytauri 全局桥。
-async function oldInvoke(name, body, options) {
-  const encoded = body === undefined || body instanceof ArrayBuffer || body instanceof Uint8Array
-    ? body : new TextEncoder().encode(JSON.stringify(body));
-  const headers = new Headers(options?.headers);
-  headers.set("pyfunc", name);
-  return tauri.core.invoke("plugin:pytauri|pyfunc", encoded, { ...options, headers });
-}
+// 轻量断言：解析错误对象，避免把 [object Object] 当成错误码。
+const failedWith = async (code, call) => {
+  try { await call(); return false; }
+  catch (error) { return error?.code === code; }
+};
 async function run() {
   const window = tauri.webviewWindow.getCurrentWebviewWindow();
   const label = window.label;
@@ -26,30 +23,23 @@ async function run() {
   });
   const remove = await window.listen("target-check", () => removed++);
   await remove();
-  const response = await oldInvoke("probe", { claimed_label: "spoof" }, { headers: { "x-migration": "legacy-client" } });
-  const newResponse = await invoke("probe", { claimed_label: "spoof" }, { headers: { "x-migration": "legacy-client" } });
+  const response = await invoke("probe", { claimed_label: "spoof" }, { headers: { "x-migration": "migrating-client" } });
   const checks = {
-    origin: response.label === label && newResponse.label === label,
+    origin: response.label === label,
     setup: response.setup === true,
-    headers: response.headers === true && newResponse.headers === true,
-    legacy_empty: (await oldInvoke("empty")) === "empty-ok",
-    legacy_scalar: (await oldInvoke("scalar", 5)) === 6,
-    global_compat: (await tauri.pytauri.pyInvoke("scalar", 8)) === 9,
+    headers: response.headers === true,
     native_listeners: await invoke("events"),
   };
-  const bytes = new Uint8Array(await oldInvoke("raw", new Uint8Array([0, 255, 1]).buffer));
-  checks.raw_bytes = bytes.length === 3 && bytes[0] === 1 && bytes[1] === 255 && bytes[2] === 0;
-  const uintBytes = new Uint8Array(await oldInvoke("raw", new Uint8Array([254, 2])));
-  checks.uint_bytes = uintBytes[0] === 2 && uintBytes[1] === 254;
-  try { await oldInvoke("fail"); checks.legacy_error = false; }
-  catch (error) { checks.legacy_error = typeof error === "string" && error.startsWith("command_failed:") && !error.includes("private"); }
-  try { await oldInvoke("scalar", new Uint8Array([255])); checks.validation = false; }
-  catch (error) { checks.validation = String(error).startsWith("invalid_payload:"); }
-  try { await oldInvoke("not-registered"); checks.unknown = false; }
-  catch (error) { checks.unknown = String(error).startsWith("unknown_command:"); }
+  const bytes = new Uint8Array(await invoke("raw", "abc"));
+  checks.raw_bytes = bytes.length === 3 && bytes[0] === 0x63 && bytes[1] === 0x62 && bytes[2] === 0x61;
+  checks.scalar = (await invoke("scalar", 5)) === 6;
+  checks.empty = (await invoke("empty")) === "empty-ok";
+  checks.fail_error = await failedWith("command_failed", () => invoke("fail"));
+  checks.validation = await failedWith("invalid_payload", () => invoke("scalar", { nested: true }));
+  checks.unknown = await failedWith("unknown_command", () => invoke("not-registered"));
   try { await invoke("probe", { claimed_label: "spoof", webview_window: "main" }); checks.injected_spoof = false; }
   catch (error) { checks.injected_spoof = error.code === "invalid_payload"; }
-  checks.recovered = (await oldInvoke("empty")) === "empty-ok";
+  checks.recovered = (await invoke("empty")) === "empty-ok";
   // 两窗口都安装监听并调用 probe 后再发送定向事件。
   let both = false;
   for (let i = 0; i < 100 && !both; i++) { both = await invoke("ready"); if (!both) await sleep(25); }

@@ -69,8 +69,8 @@ prevent_close 只在本次关闭回调内有效，保存后再调用返回 reque
 
 ## 权限与平台
 
-无宿主策略的原型中，默认 main/secondary 和动态本地窗口按精确标签取得 core:default、旧 pyfunc 与新 python_command 权限。
-新旧入口都接受 Tauri 原生 ACL 检查；未授权标签与外部页面拒绝 Python 调用。WebviewUrl.External 只接受 HTTP(S)，不自动授权远程来源。
+无宿主策略的原型中，默认 main/secondary 和动态本地窗口按精确标签取得 core:default 与 python_command 权限。
+所有调用都接受 Tauri 原生 ACL 检查；未授权标签与外部页面拒绝 Python 调用。WebviewUrl.External 只接受 HTTP(S)，不自动授权远程来源。
 宿主定义 capabilities 目录或 security.capabilities 后，动态窗口由其窗口模式及来源控制，不自动扩大权限。
 默认 feature 包含 dynamic-acl；原型自动授权未开启时，本地动态创建返回 unsupported_capability。CSP 与构建后任意 ACL 修改尚未实现。
 上游能力增补不能撤销：关闭窗口不等于删除该标签权限，同标签重建沿用标签策略。

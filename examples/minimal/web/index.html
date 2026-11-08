@@ -52,7 +52,7 @@
       catch (error) { checks.validation = error.code === "invalid_payload"; }
       try { await invoke("unregistered"); checks.unknown = false; }
       catch (error) { checks.unknown = error.code === "unknown_command"; }
-      const recovered = await window.__TAURI__.pytauri.pyInvoke("greet", { name: "Recovered" });
+      const recovered = await window.__TAURI__.pytaruix.pyInvoke("greet", { name: "Recovered" });
       checks.recovered = recovered.message === "Hello, Recovered! From Python.";
       checks.window_title = (await window.__TAURI__.window.getCurrentWindow().title()) === "Hello, Recovered";
       output.textContent = JSON.stringify(checks, null, 2);

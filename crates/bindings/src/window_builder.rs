@@ -415,7 +415,6 @@ fn register_capability(handle: &AppHandle, label: &str) -> PyResult<()> {
     let capability = tauri::ipc::CapabilityBuilder::new(format!("python-window-{label}"))
         .window(label)
         .permission("core:default")
-        .permission("pytauri:allow-pyfunc")
         .permission("allow-python-command")
         // 取消与配额归还是桥自带的前端入口，缺一条就会在真实 ACL 下被拒。
         .permission("allow-pytaruix-cancel")
@@ -436,7 +435,6 @@ pub(crate) fn register_config_capability(handle: &AppHandle, label: &str) -> PyR
     let capability = tauri::ipc::CapabilityBuilder::new(format!("python-config-window-{label}"))
         .window(label)
         .permission("core:default")
-        .permission("pytauri:allow-pyfunc")
         .permission("allow-python-command")
         .permission("allow-pytaruix-cancel")
         .permission("allow-pytaruix-channel-ack");

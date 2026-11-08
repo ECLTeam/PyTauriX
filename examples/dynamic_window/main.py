@@ -419,8 +419,8 @@ def main() -> int:
         checks["target_isolation"] = body and target_seen
         checks["navigation"] = denied_navigation and navigated
         checks["page_load"] = pages == {PageLoadEvent.Started, PageLoadEvent.Finished}
-        checks["external_denied"] = reports.get("external") == {"json": True, "legacy": True}
-        checks["label_denied"] = reports.get("local") == {"json": True, "legacy": True}
+        checks["external_denied"] = reports.get("external") == {"json": True}
+        checks["label_denied"] = reports.get("local") == {"json": True}
         print("DYNAMIC_RESULT " + json.dumps(checks, sort_keys=True), flush=True)
         app_handle.exit(0 if checks and all(checks.values()) else 1)
 

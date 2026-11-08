@@ -152,7 +152,7 @@ def _capabilities(root: Path, security: dict[str, object]) -> tuple[list[dict[st
         {
             "identifier": "pytaruix-prototype",
             "windows": ["main", "secondary"],
-            "permissions": ["core:default", "pytauri:allow-pyfunc", "allow-python-command"],
+            "permissions": ["core:default", "allow-python-command"],
         }
     ], False
 

@@ -1,5 +1,5 @@
 # PytaruiX
-# 文件作用：保留显示器快照的 PyTauri 导入路径。
+# 文件作用：显示器快照类型的公开入口。
 # 公开接口：Monitor。
 from __future__ import annotations
 

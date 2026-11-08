@@ -87,8 +87,8 @@ from_str 只能验证格式，send 成功只表示原生接受提交，不确认
 不提供重连、分片重传或任意 Python 回调构造原生 Channel。
 
 内部 `plugin:__TAURI_CHANNEL__|fetch` 在上游绕过普通命令 ACL；它用调用 Webview 标签及 Tauri-Channel-Id 查找一次性数据。
-每个 Webview 有独立编号序列，窗口销毁由原生清理。该内部机制不授予 python_command、旧 pyfunc 或 dialog JS 权限。
-本阶段未扩大本地精确标签策略，未授予远程页面权限。对应新旧 IPC 拒绝由既有动态窗口回归验证。
+每个 Webview 有独立编号序列，窗口销毁由原生清理。该内部机制不授予 python_command 或 dialog JS 权限。
+本阶段未扩大本地精确标签策略，未授予远程页面权限。远程页面的 IPC 拒绝由既有动态窗口回归验证。
 真实双窗口检查同编号的所有者隔离、重复/无效/缺失头字段拉取、销毁缓存和同标签重建。
 
 运行 `python scripts/channel_smoke.py` 验收；完整可复现场景位于 examples/channel。

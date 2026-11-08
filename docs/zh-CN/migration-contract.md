@@ -1,4 +1,8 @@
-# PyTauri 迁移契约
+# 从 PyTauri 迁移
+
+本文件记录与 PyTauri 的接口差异，供迁移参考。
+本项目**不提供 PyTauri 运行时兼容**：不存在 `pytauri` 包名、`pytauri` 前端全局对象或旧字节协议垫片，
+迁移时必须修改导入路径。下表是改名对照，不是兼容承诺。
 
 参考源码：<https://github.com/pytauri/pytauri>；本地参考 checkout 提交为 `7d99c6f6c8dcefdf8ed5cf87e7c7d707a1f5d749`。
 参考公开接口：`python/pytauri/src/pytauri/{__init__,ipc}.py`、`ffi/{lib,ipc}.py`、`python/pytauri-wheel`。
@@ -32,11 +36,11 @@
 | pytauri_wheel.lib 工厂函数 | pytaruix 根工厂函数 | 显式 JSON/TOML 上下文、宿主权限与图标；无扩展发现兼容包 |
 | WebviewWindow.open_devtools | 同名接口 | 构建启用 devtools；Windows 原生打开已调用 |
 | WebviewWindow.close_devtools / is_devtools_open | 同名接口 | Windows 上游不可用，明确抛 platform_unavailable |
-| window.__TAURI__.pytauri.pyInvoke | 同名全局入口 | 旧 plugin/头字段/字节协议已验证 |
-| 原 npm 客户端 pyInvoke | plugin:pytauri\|pyfunc | 独立模拟客户端传输契约通过真实 WebView 测试 |
+| window.__TAURI__.pytauri.pyInvoke | window.__TAURI__.pytaruix.pyInvoke | 唯一入口；没有第二套协议 |
+| 原 npm 客户端 pyInvoke | pytaruix.pyInvoke（python_command JSON 请求） | 真实 WebView 验收通过 |
 
-默认不占用 `pytauri` 包名；零导入改动模式需要另外安装兼容包，并排斥旧发行包同时安装。
-本阶段没有安装原 npm 包进行端到端验收；独立测试函数按其源码传输契约调用原生插件入口。
+不占用 `pytauri` 包名，也不提供零导入改动的兼容包。旧客户端的 `plugin:pytauri|pyfunc` 通道已移除，
+需要改用 `pytaruix.pyInvoke`，并按新形状处理错误。
 
 ## 行为契约
 
@@ -44,7 +48,7 @@
 - `AppHandle`、`WebviewWindow`、`Headers` 和状态按注解注入，前端载荷不能覆盖。请求头为字节元组列表，保留原生重复值；浏览器传输可能先规范化字段。
 - `Manager.manage(app_or_handle_or_window, object)` 按具体 Python 类型注册；重复注册返回 False 并保留原值。`try_state` 未注册返回 None，`state` 抛 BindingError；None 不能注册。
 - 状态原对象跨命令/窗口共享，内部并发控制由调用方负责。本阶段不提供运行时注销状态或命令取消。
-- `State[T]` 注入包装器，通过 `.value` 取得 T；`Annotated[T, State()]` 直接注入 T，保持 PyTauri 的常见形式。
+- `State[T]` 注入包装器，通过 `.value` 取得 T；`Annotated[T, State()]` 直接注入 T。两种写法并存。
 - `context_factory` 保留资源路径基准、递归覆盖与快照；支持 JSON/TOML、平台覆盖、宿主 capabilities 和 PNG/ICO 默认图标。
 - 默认选择生产 frontendDist，开发地址必须显式 `dev=True`；宿主远程能力按来源匹配，CSP、隔离和 JSON5 仍未实现。
 - 宿主策略在构建前解析，插件权限仅使用实际注册插件；无效权限明确失败。存在宿主策略时禁用原型动态窗口自动授权。
@@ -98,15 +102,16 @@
 新入口 `pytaruix.pyInvoke(name, payload, options)` 使用 python_command JSON 请求，失败拒绝 `{code, message}`。
 `options.signal` 为 `AbortSignal` 时桥生成请求编号并支持取消；取消后本地立即以 `AbortError` 拒绝并通知原生。
 `pytaruix.createChannel(onmessage)` 在处理完消息后调用 `pytaruix_channel_ack` 归还配额，供 `capacity > 0` 的通道使用。
-兼容全局入口使用旧插件请求：`plugin:pytauri|pyfunc`，请求头 `pyfunc` 为命令名，普通值先 JSON 编码为 UTF-8 字节；ArrayBuffer/Uint8Array 保持原始字节。
-旧协议没有请求编号，不支持取消与配额。
-旧客户端省略正文时，Tauri 将 undefined 转换成空对象；桥把该情况视为无正文。JSON 模型和标量按类型校验；`body: bytes` 保留请求原文。
-返回 bytes 形成 ArrayBuffer，其他结果序列化为 JSON。旧协议失败保持字符串拒绝，格式为 `code: message`，不泄露原始异常内容；未声称错误文字与 PyTauri 完全一致。
-自定义 InvokeHandler 的内部签名已扩展为七个参数（新增 `request`，旧协议传 `None`）；第一阶段内部三参数回调需要调整。Commands.generate_handler 的公开调用形状保持。
+只有一条协议：`python_command`。`pytauri` 全局对象与 `plugin:pytauri|pyfunc` 已移除，没有第二套字节入口。
+省略正文时等价于 `null`；JSON 模型和标量按类型校验。
+`body: bytes` 命令的载荷是 JSON 字符串，按 UTF-8 取字节；Python 侧直接调用仍接受 bytes 原文。
+返回 bytes 形成 ArrayBuffer，其他结果序列化为 JSON。错误统一拒绝 `{code, message}`，不泄露原始异常内容。
+自定义 InvokeHandler 的内部签名为六个参数（`command`、`payload`、`handle`、`window`、`headers`、`request`）；
+早期七参数或三参数回调需要调整。Commands.generate_handler 的公开调用形状保持。
 
 ## 验收与剩余迁移
 
-双窗口测试核验来源、共享状态、头字段、新旧入口、空正文、标量、两种字节输入、错误后恢复、注入覆盖拒绝、事件隔离与注销。
+双窗口测试核验来源、共享状态、头字段、空正文、标量、字节返回值、三类错误码、错误后恢复、注入覆盖拒绝、事件隔离与注销。
 独立进程验证退出拦截、过期控制 API、setup/监听错误恢复和弱引用资源释放。
 动态窗口在 setup/命令工作线程使用静态 build/from_config；异步命令可 await build_async。
 回调提供 URL 字符串与 PageLoadPayload 的 url/event 属性；窗口事件处理器为每窗一个可替换槽，区别于上游累加监听。
