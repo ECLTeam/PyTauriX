@@ -83,6 +83,9 @@ jobs:
       id-token: write
       contents: write
     steps:
+      # checkout 必须在下载产物之前：其默认 clean 会清空工作区，
+      # 若放在 download-artifact 之后会把 dist/ 构建产物一并删除。
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           path: dist
@@ -91,12 +94,6 @@ jobs:
         run: ls -la dist/
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-      - name: Create GitHub Release
-        # gh 需要 git 上下文生成 release notes；本 job 只有下载的 artifact，须先 checkout。
-        uses: actions/checkout@v4
-        with:
-          sparse-checkout: .
-          fetch-depth: 0
       - name: Push release
         env:
           GH_TOKEN: ${{ github.token }}
