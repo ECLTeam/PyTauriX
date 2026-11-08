@@ -247,6 +247,33 @@ def _state_annotation(annotation: object) -> tuple[type[object], bool] | None:
     return None
 
 
+def _raw_body(payload_json: str | bytes) -> bytes:
+    """
+    解析 raw body 命令的载荷。
+
+    IPC 路径传入的是 JSON 文本字节，前端传字符串即取该字符串的 UTF-8 字节。
+    非 JSON 文本按原始字节直通，供 Python 直接调用或应用自备编码使用。
+
+    :param payload_json: JSON 文本或其字节形式
+    :return: 命令正文
+    :raises CommandError: JSON 文本存在但不是字符串
+    """
+    if isinstance(payload_json, (bytes, bytearray)):
+        raw_bytes = bytes(payload_json)
+        try:
+            decoded = json.loads(raw_bytes.decode("utf-8"))
+        except (UnicodeDecodeError, ValueError):
+            return raw_bytes
+    else:
+        raw_bytes = payload_json.encode("utf-8")
+        if not payload_json:
+            return b""
+        decoded = json.loads(payload_json)
+    if not isinstance(decoded, str):
+        raise CommandError("invalid_payload", "Raw body commands require a string payload")
+    return decoded.encode("utf-8")
+
+
 class Commands:
     """
     保存命令注册表，生成处理器时固定快照。
@@ -353,13 +380,7 @@ class Commands:
                 arguments[name] = State(state) if wrapped else state
             try:
                 if command.raw_body:
-                    if isinstance(payload_json, (bytes, bytearray)):
-                        arguments["body"] = bytes(payload_json)
-                    else:
-                        raw = json.loads(payload_json) if payload_json else ""
-                        if not isinstance(raw, str):
-                            raise CommandError("invalid_payload", "Raw body commands require a string payload")
-                        arguments["body"] = raw.encode("utf-8")
+                    arguments["body"] = _raw_body(payload_json)
                 else:
                     # 省略正文等价于 null；没有模型正文时按空对象处理。
                     payload: JsonValue = json.loads(payload_json) if payload_json else None

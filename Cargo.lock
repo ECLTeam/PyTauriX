@@ -3286,6 +3286,7 @@ dependencies = [
 name = "pytaruix-bindings"
 version = "0.1.0-alpha.1"
 dependencies = [
+ "glob",
  "muda",
  "pyo3",
  "pytaruix-bridge",

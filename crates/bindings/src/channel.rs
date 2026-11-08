@@ -280,6 +280,16 @@ impl Channel {
                 "timeout must be a non-negative finite number",
             ));
         }
+        // 失效对象优先于载荷格式校验，避免关闭后仍返回 invalid_json 这类细节。
+        let open = self
+            .state
+            .native
+            .lock()
+            .map_err(|_| binding_error("state_failed", "Channel unavailable"))?
+            .is_some();
+        if !open {
+            return Err(binding_error("channel_closed", "Channel has been closed"));
+        }
         let body = if let Ok(bytes) = data.cast::<PyBytes>() {
             InvokeResponseBody::Raw(bytes.as_bytes().to_vec())
         } else if let Ok(text) = data.extract::<String>() {

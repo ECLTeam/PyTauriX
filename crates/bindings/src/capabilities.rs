@@ -49,6 +49,19 @@ fn resolve(acl: &BTreeMap<String, Manifest>, capabilities: &[Capability]) -> PyR
     .map_err(|error| binding_error("invalid_capability", error))
 }
 
+/// 判断窗口标签是否落在某个 capability 的 windows 范围内。
+///
+/// 上游语义：`windows` 为空表示不限制窗口，否则按 glob 模式匹配。
+/// 本地自动授权只覆盖被声明的窗口，未列出的窗口保持无权限。
+pub fn covers_window(capabilities: &[Capability], label: &str) -> bool {
+    capabilities.iter().any(|capability| {
+        capability.windows.is_empty()
+            || capability.windows.iter().any(|pattern| {
+                glob::Pattern::new(pattern).is_ok_and(|compiled| compiled.matches(label))
+            })
+    })
+}
+
 pub fn authority(
     capabilities: &[Capability],
     plugins: &HashSet<String>,

@@ -158,6 +158,22 @@ impl Builder {
             })
             .collect::<PyResult<Vec<_>>>()?;
         let context = context.clone();
+        // 只为宿主 capability 覆盖的配置窗口补本地授权。未列入 windows 的窗口保持无权限，
+        // 低信任窗口与来源拒绝场景依赖这一点。
+        let local_acl_windows: HashSet<String> = if context.host_capabilities {
+            HashSet::new()
+        } else {
+            context
+                .config
+                .app
+                .windows
+                .iter()
+                .filter(|window| {
+                    crate::capabilities::covers_window(&context.capabilities, &window.label)
+                })
+                .map(|window| window.label.clone())
+                .collect()
+        };
         let runtime = RuntimeState::new(py, names, !context.host_capabilities);
         let setup_runtime = Arc::clone(&runtime);
         let event_runtime = Arc::clone(&runtime);
@@ -249,8 +265,8 @@ impl Builder {
             let handle = AppHandle::new(app.handle().clone(), runtime);
             // 配置声明的窗口在 build 时已创建，未经 window_builder，本地授权要在这里补齐。
             if handle.runtime.automatic_local_acl {
-                for window in handle.inner.config().app.windows.iter() {
-                    crate::window_builder::register_config_capability(&handle, &window.label)?;
+                for label in &local_acl_windows {
+                    crate::window_builder::register_config_capability(&handle, label)?;
                 }
             }
             NATIVE_APP.with(|slot| *slot.borrow_mut() = Some(app));
