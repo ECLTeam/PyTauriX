@@ -16,7 +16,7 @@
         "entry": "pytaruix.plugins.opener.init",
         "signature": "() -> Plugin"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-opener compiled",
         "plugin missing yields plugin_missing"
@@ -25,7 +25,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
       "limitations": ""
     },
@@ -40,7 +42,7 @@
         "entry": "pytaruix.plugins.opener.Opener.open_url",
         "signature": "(url: str, /, *, with_app: str | None = None) -> None"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-opener compiled",
         "plugin missing yields plugin_missing"
@@ -49,9 +51,11 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
-      "limitations": ""
+      "limitations": "以本地 HTTP 服务的真实命中判定"
     },
     {
       "id": "open_path",
@@ -64,7 +68,7 @@
         "entry": "pytaruix.plugins.opener.Opener.open_path",
         "signature": "(path: str | Path, /, *, with_app: str | None = None) -> None"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-opener compiled",
         "plugin missing yields plugin_missing"
@@ -73,9 +77,11 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
-      "limitations": ""
+      "limitations": "由人工确认默认程序打开文件"
     },
     {
       "id": "reveal_item_in_dir",
@@ -88,7 +94,7 @@
         "entry": "pytaruix.plugins.opener.Opener.reveal_item_in_dir",
         "signature": "(path: str | Path, /) -> None"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-opener compiled",
         "plugin missing yields plugin_missing"
@@ -97,9 +103,11 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
-      "limitations": ""
+      "limitations": "由人工确认文件管理器选中条目"
     },
     {
       "id": "open_js_links_on_click",

@@ -390,3 +390,24 @@ Issue/PR 模板、`CODEOWNERS` 与 Dependabot 配置；`pyproject.toml` 补 SPDX
 bytes 正文在 JSON 协议下多一对引号（改为 JSON 文本取字符串内容、非 JSON 按原文直通）、
 已关闭通道先报 invalid_json 而非 channel_closed（关闭检查提到解析之前）。
 Linux/macOS 仍无运行证据。
+
+## 第二十五阶段（插件行为验收）
+
+用户明确暂不处理 Linux/macOS，先补 Windows 侧最后一个证据缺口：`global-shortcut`、
+`notification`、`opener` 三个插件的真实桌面行为。此前八项验收刻意绕开了需要人参与的部分，
+账本里这三家共 16 条仍是 `bound_unverified`。
+
+新增 `examples/plugin_behavior/`（应用、前端、配置）与 `scripts/plugin_behavior_acceptance.py`。
+设计原则是尽量不让自动化让位给人：快捷键用 `SendInput` 合成 Ctrl+Alt+F9，由
+`RegisterHotKey` 的真实 `WM_HOTKEY` 路径回调；`opener.open_url` 指向脚本自己起的本地
+HTTP 服务，以真实请求命中判定，不靠"没报错"推定成功。无法机器观察的三项才弹原生消息框：
+通知是否出现、记事本是否打开探测文件、文件管理器是否选中该条目。
+
+首轮执行即失败：确认框依赖 dialog 插件，而示例只注册了三个被测插件，第一项人工确认报
+`plugin_missing`，后续两项检查被顺带跳过。改为每组检查独立 try，并把失败写进结果文件，
+再补上 `dialog_init()`。第二轮十项判据全部通过，`shortcut_manual` 为假——合成按键足以触发，
+无需人工按键。
+
+账本据实升级：global-shortcut 5 条、notification 6 条、opener 4 条记 `bound_tested`；
+notification 的 `silent` 只验证了参数路径，实际静默效果未确认，记 `partial_tested`。
+`--check` 通过。仍未覆盖：`silent=True` 的静默效果、热键与输入法冲突、Linux 与 macOS。

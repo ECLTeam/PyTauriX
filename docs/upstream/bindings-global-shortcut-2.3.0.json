@@ -16,7 +16,7 @@
         "entry": "pytaruix.plugins.global_shortcut.init",
         "signature": "() -> Plugin"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-global-shortcut compiled",
         "plugin registered before shortcuts are used",
@@ -26,7 +26,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
       "limitations": ""
     },
@@ -41,7 +43,7 @@
         "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.register",
         "signature": "(accelerator: str, handler: ShortcutHandler, /) -> None"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-global-shortcut compiled",
         "plugin registered before shortcuts are used",
@@ -51,9 +53,11 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
-      "limitations": "处理器只在 ShortcutState::Pressed 时回调"
+      "limitations": "处理器只在 ShortcutState::Pressed 时回调；按键由应用内合成事件触发"
     },
     {
       "id": "unregister",
@@ -66,7 +70,7 @@
         "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.unregister",
         "signature": "(accelerator: str, /) -> None"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-global-shortcut compiled",
         "plugin registered before shortcuts are used",
@@ -76,7 +80,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
       "limitations": ""
     },
@@ -91,7 +97,7 @@
         "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.unregister_all",
         "signature": "() -> None"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-global-shortcut compiled",
         "plugin registered before shortcuts are used",
@@ -101,7 +107,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
       "limitations": ""
     },
@@ -116,7 +124,7 @@
         "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.is_registered",
         "signature": "(accelerator: str, /) -> bool"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-global-shortcut compiled",
         "plugin registered before shortcuts are used",
@@ -126,7 +134,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
       "limitations": ""
     },

@@ -16,7 +16,7 @@
         "entry": "pytaruix.plugins.notification.init",
         "signature": "() -> Plugin"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-notification compiled",
         "desktop permission is reported as granted",
@@ -26,7 +26,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
       "limitations": ""
     },
@@ -41,7 +43,7 @@
         "entry": "pytaruix.plugins.notification.Notification.send",
         "signature": "(title: str, body: str, /, *, silent: bool = False, id: int | None = None) -> None"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-notification compiled",
         "desktop permission is reported as granted",
@@ -51,7 +53,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
       "limitations": ""
     },
@@ -66,7 +70,7 @@
         "entry": "pytaruix.plugins.notification.Notification.send",
         "signature": "send 的提交动作"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-notification compiled",
         "desktop permission is reported as granted",
@@ -76,9 +80,11 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
-      "limitations": ""
+      "limitations": "通知可见性由人工确认，见 scripts/plugin_behavior_acceptance.py"
     },
     {
       "id": "silent",
@@ -91,7 +97,7 @@
         "entry": "pytaruix.plugins.notification.Notification.send",
         "signature": "silent: bool = False"
       },
-      "status": "bound_unverified",
+      "status": "partial_tested",
       "conditions": [
         "plugin-notification compiled",
         "desktop permission is reported as granted",
@@ -101,9 +107,11 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
-      "limitations": ""
+      "limitations": "仅验证参数路径，silent=True 的实际静默效果未在桌面确认"
     },
     {
       "id": "id",
@@ -116,7 +124,7 @@
         "entry": "pytaruix.plugins.notification.Notification.send",
         "signature": "id: int | None = None"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-notification compiled",
         "desktop permission is reported as granted",
@@ -126,7 +134,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
       "limitations": ""
     },
@@ -141,7 +151,7 @@
         "entry": "pytaruix.plugins.notification.Notification.permission_state",
         "signature": "() -> str"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-notification compiled",
         "desktop permission is reported as granted",
@@ -151,7 +161,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
       "limitations": ""
     },
@@ -166,7 +178,7 @@
         "entry": "pytaruix.plugins.notification.Notification.request_permission",
         "signature": "() -> str"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-notification compiled",
         "desktop permission is reported as granted",
@@ -176,7 +188,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/plugin_behavior_acceptance.py",
+        "examples/plugin_behavior/main.py"
       ],
       "limitations": ""
     },

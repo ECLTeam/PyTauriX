@@ -96,4 +96,6 @@ rustc 的栈溢出崩溃（`STATUS_STACK_BUFFER_OVERRUN`），单作业可以稳
 
 契约测试覆盖可用性标志、能力报告一致性、缺失 feature 的拒绝、参数校验与包装类类型检查。
 第二实例唤醒已在 Windows 真实桌面验证：回调带回第二进程的 argv 与 cwd，见[桌面验收](desktop-acceptance.md)。
-热键冲突、通知显示与默认程序启动需要人工操作确认，仍缺证据；Linux/macOS 另行验收。
+热键按下回调、通知显示与默认程序启动同样已有真实桌面证据：热键由 `SendInput` 合成事件触发，
+通知与默认程序通过原生消息框取得人工确认，十项判据见[插件行为验收](desktop-acceptance.md#插件行为验收)。
+仍缺证据的是热键与其他程序冲突、通知的 `silent=True` 静默效果，以及 Linux/macOS。

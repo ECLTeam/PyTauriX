@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PytaruiX 插件行为验收</title>
+  <style>
+    body { margin: 0; padding: 28px 32px; background: #f3f5f7; color: #1b2632; font: 14px/1.7 system-ui, sans-serif; }
+    h1 { font-size: 19px; margin: 0 0 6px; }
+    p.hint { margin: 0 0 18px; color: #5b6b7a; }
+    ol { padding-left: 20px; margin: 0; }
+    li { margin-bottom: 10px; }
+    code { padding: 1px 6px; background: #e6ebf0; border-radius: 4px; font-size: 13px; }
+    .note { margin-top: 20px; padding: 12px 14px; background: #fff; border-left: 3px solid #2f6fb3; border-radius: 6px; color: #45566a; }
+  </style>
+</head>
+<body>
+  <h1>PytaruiX 插件行为验收</h1>
+  <p class="hint">本窗口用于 <code>global-shortcut</code>、<code>notification</code> 与 <code>opener</code> 的真实桌面证据。</p>
+  <ol>
+    <li>全局快捷键：程序会先尝试自动注入按键；若失败，请按提示手动按 <code>Ctrl+Alt+F9</code>。</li>
+    <li>系统通知：观察屏幕右下角是否出现通知，然后按消息框作答。</li>
+    <li>默认程序：默认浏览器应打开本地地址，记事本与文件管理器会依次被唤起。</li>
+  </ol>
+  <div class="note">全程只需要点击消息框按钮，结束前不会写入任何业务数据。结果由驱动脚本收集到 <code>artifacts/</code>。</div>
+</body>
+</html>
