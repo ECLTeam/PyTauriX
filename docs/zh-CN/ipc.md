@@ -74,14 +74,24 @@ await window.__TAURI__.pytaruix.pyInvoke("explain", { channel });
 
 | 入口 | 用途 |
 | --- | --- |
-| `window.__TAURI__.pytaruix.pyInvoke(command, payload, { signal })` | 新协议，可取消 |
+| `window.__TAURI__.pytaruix.pyInvoke(command, payload, { signal, onCancelResult })` | 新协议，可取消 |
 | `window.__TAURI__.pytaruix.createChannel(onmessage)` | 带配额归还的 Channel |
 | `window.__TAURI__.pytauri.pyInvoke(command, body, options)` | 旧字节协议，不可取消 |
 
 `pytaruix_cancel` 与 `pytaruix_channel_ack` 由原始分发入口处理，不执行 Python 代码；
 两者都只作用于来源窗口登记的请求或通道，请求编号与通道编号都不是授权凭证。
 
+`onCancelResult` 可选，收到原生取消入口的返回值：`true` 表示本次取消确实应答了本地登记项，
+`false` 表示登记项已结束或不存在，错误对象表示这次取消请求本身没有被原生接受。
+它不改变 Promise 的拒绝行为，只用于观测。
+
+这两个入口是应用命令，**必须在 `build.rs` 的 `AppManifest::commands` 里声明**，
+并在窗口的 capability 中授予 `allow-pytaruix-cancel` 与 `allow-pytaruix-channel-ack`；
+缺任一条，前端会收到 `not allowed`，取消与配额归还都不会生效。
+
 ## 边界
 
 不提供跨窗口广播取消、强制中止同步调用、优先级队列、分片重传或前端 Codec 分帧策略。
-取消与流控的实测证据见第十七阶段方案；Linux/macOS 与移动平台另行验收。
+Windows 桌面证据由 `scripts/acceptance_desktop.py` 产出：取消以 `AbortError` 结束、
+原生取消入口返回 `true`、Python 在检查点观察到 `cancelled`，见[桌面验收](desktop-acceptance.md)。
+Linux/macOS 与移动平台另行验收。

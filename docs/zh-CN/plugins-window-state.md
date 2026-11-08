@@ -72,4 +72,5 @@ state.filename                              # 当前状态文件名
 - **`with_filter` 与 `map_label` 未暴露**：两者都需要在构建期传入 Python 回调，
   当前插件描述符只接受静态参数。
 - **`filename` 是插件内部文件名，不是完整路径**：上游把它拼到应用配置目录下。
-- 尚无真实 Windows 桌面证据：跨会话恢复、多显示器变化下的位置修正都需要实际开窗验证。
+- Windows 已通过[桌面验收](desktop-acceptance.md)验证跨进程恢复：第一轮固定 820×560 并保存，
+  第二轮读到相同尺寸。多显示器变化、denylist 与 skip_initial 的真实效果仍未验证。

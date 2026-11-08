@@ -11,3 +11,4 @@
 **/*.pdb
 /crates/bindings/gen/
 .workbuddy-ai/
+/.workbuddy/

@@ -16,7 +16,7 @@
         "entry": "pytaruix.plugins.single_instance.init",
         "signature": "(handler: SingleInstanceHandler) -> Plugin"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-single-instance compiled for desktop",
         "plugin registered before bridge plugins",
@@ -26,7 +26,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_extensions_contract.py"
+        "tests/test_plugin_extensions_contract.py",
+        "scripts/acceptance_desktop.py",
+        "examples/acceptance/main.py"
       ],
       "limitations": ""
     },

@@ -17,10 +17,17 @@
     const requestId = `${session}-${++sequence}`;
     const settings = { ...options };
     delete settings.signal;
+    delete settings.onCancelResult;
     const pending = core().invoke("python_command", { command, payload, request_id: requestId }, settings);
     return new Promise((resolve, reject) => {
       const onAbort = () => {
-        core().invoke("pytaruix_cancel", { request_id: requestId }).catch(() => {});
+        // 原生是否真的应答了这次取消；false 表示登记项已结束或不存在。
+        core()
+          .invoke("pytaruix_cancel", { request_id: requestId })
+          .then(
+            (value) => options?.onCancelResult?.(value),
+            (error) => options?.onCancelResult?.(error),
+          );
         reject(new DOMException("Invoked command was aborted", "AbortError"));
       };
       signal.addEventListener("abort", onAbort, { once: true });

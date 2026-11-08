@@ -325,3 +325,35 @@ Pyright 0 错误，Ruff 与 Ruff format 通过；Rustfmt 与默认、全插件�
 账本新增 `bindings-window-state-2.4.0.json` 9 条（7 条 bound_unverified、2 条 unimplemented），
 `update_coverage.py` 的插件清单同步扩到六项，`--check` 通过。
 **未验证**：跨会话恢复、多显示器变化下的位置修正、denylist 与 skip_initial 的真实效果。
+
+## 第二十三阶段（真实桌面验收）
+
+用户要求把 `.workbuddy/` 排除出版本库并开始桌面证据测。`.gitignore` 增加 `/.workbuddy/`。
+新增 `examples/acceptance/`（应用 + 前端 + 配置）与 `scripts/acceptance_desktop.py`：
+两轮进程、八项判据，报告写入 `artifacts/desktop-acceptance-<时间戳>/`。
+说明见 [桌面验收](desktop-acceptance.md)。
+
+首轮执行即暴露两个契约测试照不出的缺陷，都直接导致取消不可用：
+
+1. `pytaruix_cancel` 与 `pytaruix_channel_ack` 未在 `crates/bindings/build.rs` 的
+   `AppManifest::commands` 中声明，前端收到 `pytaruix_cancel not allowed. Command not found`；
+2. 补声明后仍被拒，因为本地自动授权只在 `window_builder::register_capability` 中发生，
+   而配置文件声明的窗口由 Tauri 直接创建，不经过该路径。新增 `register_config_capability`，
+   在应用构建后为 `context.config.app.windows` 中的每个窗口补授权，标识为
+   `python-config-window-<label>`，与动态窗口的 `python-window-<label>` 区分。
+   `crates/bindings/capabilities/default.json` 同步加入两条新权限。
+
+第三处是自定义协议：页面与 scheme 不同 origin，`fetch` 必须由处理器返回
+`access-control-allow-origin`，否则浏览器直接拦下，这条已写进协议指南。
+
+前端桥新增可选的 `onCancelResult`，把原生取消入口的返回值交给调用方，
+用于区分"确实应答了登记项"与"取消请求本身未被接受"；它不改变 Promise 的拒绝行为。
+
+验收结果（Windows x86_64，Python 3.14）：`cancel_abort`、`cancel_ack`、`protocol_status`、
+`protocol_body`、`fs_roundtrip`、`python_saw_cancel`、`second_instance`、
+`window_state_restored` 八项全部通过。账本据实升级：fs 的 init/read/open、
+single-instance 的 init、window-state 的 builder_build/with_state_flags 记 `bound_tested`，
+fs 的 fs_ext 与 window-state 的 app_handle_ext 记 `partial_tested`，
+global-shortcut、notification、opener 与未覆盖路径仍为 `bound_unverified`。
+`tests/` 全量 262 项通过、4 项跳过。
+**仍未覆盖**：热键冲突、通知显示、默认程序启动、多显示器变化、Linux 与 macOS。

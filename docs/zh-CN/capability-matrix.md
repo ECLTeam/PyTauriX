@@ -13,13 +13,13 @@
 | 生命周期 | 部分绑定 | Ready/Exit/ExitRequested(code, api) 已验证；窗口/设备/平台事件待实现 |
 | 窗口/WebView | 部分绑定 | 扩展构建属性、主题读写、标题变更与 blob 下载有 Windows 真实桌面证据；拖放/缩放/主题变化事件与显示查询、几何、销毁、显示器/DPI/工作区快照已绑定，其中拖放与 DPI 专项证据待补；独立 profile 与新窗口/资源/权限策略已接入；完整 Builder、嵌入与 Create 待实现 |
 | WebView 回调 | 部分绑定 | 同步导航、页面加载、标题变更与下载有 Windows 证据；新窗口 Deny、应用资源响应替换、Geolocation 拒绝及失败恢复有 Windows 证据；新窗口 Create、Allow/Default 平台效果待补 |
-| IPC/命令 | 部分绑定 | 状态/来源窗口/头字段、旧字节协议、原生 Channel、请求级取消与通道配额流控已绑定；取消的 Windows 桌面证据待补，TS 生成待实现 |
+| IPC/命令 | 部分绑定 | 状态/来源窗口/头字段、旧字节协议、原生 Channel、请求级取消与通道配额流控已绑定；取消与配额入口的 Windows 真实桌面证据已通过桌面验收取得（含 ACL 授权修复），TS 生成待实现 |
 | 事件 | 部分绑定 | 六种目标、原始 JSON、应用/窗口/任意目标监听已验证；过滤发送与独立 Window/Webview 资源待实现 |
 | 资源/图像 | 部分绑定 | 文件快照、RGBA、PNG/ICO 原生解码及四种 feature 组合已验证；其他资源来源、CSP 哈希待实现 |
 | 菜单 | 部分绑定 | 六种资源、17 种预定义角色与 About 元数据、默认菜单、NativeIcon、项目顺序/动态修改、挂载/弹出/广播事件及清理有 Windows 证据；NativeIcon 在 Windows 无可见效果，完整 Builder 待实现 |
 | 托盘 | 部分绑定 | 桌面 Builder、图标/菜单、鼠标事件、应用查询和显式关闭已绑定；Rust 内部闭包扩展未绑定，平台限制单列 |
 | 路径/进程/异步运行时 | 部分绑定 | 21 个目录、`resolve`/`parse` 与进程查询/重启已绑定并有 Windows 证据；Tauri `async_runtime` 明确不转发，移动平台区别待建 |
-| 自定义协议 | 部分绑定 | 构建期异步注册、请求快照、响应状态/头/正文与失败归还已绑定；同步回调、HTTPS scheme、CORS 与真实 WebView 往返证据待补 |
+| 自定义协议 | 部分绑定 | 构建期异步注册、请求快照、响应状态/头/正文与失败归还已绑定；Windows 真实 WebView `fetch` 往返已验收（需处理器自行返回 CORS 头）；同步回调与 HTTPS scheme 未实现 |
 | ACL/隔离/权限 | 部分绑定 | 宿主 JSON/TOML、窗口模式、远程来源、实际插件权限和空策略拒绝已验证；撤销、隔离、schema 待实现 |
 | 配置/构建/打包 | 部分绑定 | JSON/TOML、平台覆盖、生产资源快照、显式开发地址与 wheel；JSON5/CSP、正式打包发布待验收 |
 | 实验性接口 | 仅构建映射 | unstable 多 WebView 等逐项验证 |
@@ -83,11 +83,11 @@ dialog 锁定 2.8.1；`../upstream/dialog-2.8.1.json` 有 3 个 feature 映射�
 过滤器排除列表和消息图标外观仍待独立测量；注册不会扩大前端 ACL，也不开放 fs 传递依赖。
 
 window-state 锁定 2.4.0，只暴露静态注册参数与运行期保存/恢复；`with_filter`、`map_label`
-需要构建期 Python 回调，未绑定；窗口几何跨会话恢复尚无桌面证据。
+需要构建期 Python 回调，未绑定；窗口几何跨会话恢复已通过桌面验收验证（两轮进程，尺寸一致）。
 
 single-instance 锁定 2.3.2、global-shortcut 2.3.0、notification 2.3.0、opener 2.5.0，
-均以独立 feature 提供、默认 wheel 不包含；第二实例唤醒、热键冲突、通知显示与默认程序启动
-尚无真实桌面证据，Linux/macOS 另行验收。构建器已把用户插件排在桥接插件之前，
+均以独立 feature 提供、默认 wheel 不包含；第二实例唤醒已通过桌面验收验证（回调带回 argv 与 cwd）；热键冲突、通知显示与默认程序启动
+仍需人工确认，Linux/macOS 另行验收。构建器已把用户插件排在桥接插件之前，
 满足 single-instance 尽早登记的要求。
 
 fs 锁定 2.6.0，构建时启用 `plugin-fs`，默认 wheel 不包含。当前只绑定上游真正提供的 Rust API：
@@ -95,7 +95,7 @@ fs 锁定 2.6.0，构建时启用 `plugin-fs`，默认 wheel 不包含。当前�
 Python 侧已由 `pathlib` 覆盖，不重复实现。
 上游 Rust API 不经过 capability scope 校验（`desktop.rs` 直接调用 `std::fs`），因此本绑定不宣称受限访问。
 插件描述符改为"名称 + 装载闭包"的形态，擦除各插件的配置类型，使不同 `Config` 的上游插件共用同一 Python 类型。
-Windows 真实读写证据待补；Linux/macOS 与移动平台另行验收。
+Windows 真实读写已通过桌面验收验证（写入后读出字节一致）；Linux/macOS 与移动平台另行验收。
 
 ## 验收依据
 

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "PytaruiX Acceptance",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.acceptance",
+  "build": { "frontendDist": "web" },
+  "app": {
+    "windows": [{ "label": "main", "title": "PytaruiX 桌面验收", "width": 820, "height": 560 }],
+    "withGlobalTauri": true
+  },
+  "bundle": { "active": false }
+}

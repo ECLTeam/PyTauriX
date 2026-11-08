@@ -70,9 +70,12 @@ app.run_return()
 
 自定义协议不经过命令 ACL，也不扩大资源协议的授权范围。处理器拿到的是请求快照，
 其中的来源标签由原生注入，不能由正文覆盖；需要按窗口区分数据时必须显式校验 `webview_label`。
-响应不会自动添加 CORS 头，也不参与 CSP 哈希计算。
+响应不会自动添加 CORS 头，也不参与 CSP 哈希计算。页面与 scheme 属于不同 origin，
+从页面 `fetch` 时必须由处理器显式返回 `access-control-allow-origin`，否则浏览器会拦下请求；
+这条在 Windows 实测中确认过。
 
 ## 验收状态
 
-契约测试覆盖名称校验、请求快照、返回值类型与默认响应；Windows 真实 WebView 的
-`fetch` 往返证据待补，Linux/macOS 与移动平台另行验收。
+契约测试覆盖名称校验、请求快照、返回值类型与默认响应。Windows 真实 WebView 的 `fetch`
+往返已通过[桌面验收](desktop-acceptance.md)验证：`http://acceptance.localhost/ping` 返回 200
+且正文与处理器一致。Linux/macOS 与移动平台另行验收。

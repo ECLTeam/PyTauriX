@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-pytaruix-channel-ack"
+description = "Enables the pytaruix_channel_ack command without any pre-configured scope."
+commands.allow = ["pytaruix_channel_ack"]
+
+[[permission]]
+identifier = "deny-pytaruix-channel-ack"
+description = "Denies the pytaruix_channel_ack command without any pre-configured scope."
+commands.deny = ["pytaruix_channel_ack"]

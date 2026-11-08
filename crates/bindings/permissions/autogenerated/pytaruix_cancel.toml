@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-pytaruix-cancel"
+description = "Enables the pytaruix_cancel command without any pre-configured scope."
+commands.allow = ["pytaruix_cancel"]
+
+[[permission]]
+identifier = "deny-pytaruix-cancel"
+description = "Denies the pytaruix_cancel command without any pre-configured scope."
+commands.deny = ["pytaruix_cancel"]

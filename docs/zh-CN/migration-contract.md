@@ -77,6 +77,10 @@
 - `pytaruix.plugins.single_instance.init(handler)`、`global_shortcut.GlobalShortcut`、`notification.Notification`、
   `opener.Opener` 各自需要独立 feature；未启用时 `init()` 报 `unsupported_capability`，未注册插件时包装类报 `plugin_missing`。
   用户插件现在先于桥接插件登记，以支持 single-instance 的尽早注册要求。见 [系统集成插件](plugins-extensions.md)。
+- 前端桥 `pyInvoke` 新增可选 `onCancelResult`，回传原生取消入口的返回值；不改变 Promise 拒绝行为。
+  `pytaruix_cancel` 与 `pytaruix_channel_ack` 必须在 `build.rs` 的 `AppManifest::commands` 声明，
+  并在窗口 capability 中授予对应 allow 权限，否则前端收到 `not allowed`。
+  配置文件声明的窗口现在也会获得本地自动授权（identifier 为 `python-config-window-<label>`）。
 - `pytaruix.plugins.window_state` 提供 `init(filename, flags, denylist, skip_initial)` 与
   `WindowState(handle).save()/.restore()/.filename`，需要 `plugin-window-state` feature。
   标志名非法报 `ValueError`，未注册插件报 `plugin_missing`。见 [窗口状态插件](plugins-window-state.md)。

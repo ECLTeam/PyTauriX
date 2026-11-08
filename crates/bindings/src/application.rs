@@ -251,6 +251,12 @@ impl Builder {
                 .build(native_context)
                 .map_err(|error| binding_error("startup_failed", error))?;
             let handle = AppHandle::new(app.handle().clone(), runtime);
+            // 配置声明的窗口在 build 时已创建，未经 window_builder，本地授权要在这里补齐。
+            if handle.runtime.automatic_local_acl {
+                for window in handle.inner.config().app.windows.iter() {
+                    crate::window_builder::register_config_capability(&handle, &window.label)?;
+                }
+            }
             NATIVE_APP.with(|slot| *slot.borrow_mut() = Some(app));
             Ok::<_, PyErr>(handle)
         })?;

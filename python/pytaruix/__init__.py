@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from . import process
 from .application import App, Builder, builder_factory, context_factory
-from .dpi import Rect
+from .dpi import LogicalPosition, LogicalSize, PhysicalPosition, PhysicalSize, Rect
 from .errors import BindingError, CommandError
 from .event_target import EventTarget, EventTargetType
 from .events import (
@@ -54,6 +54,8 @@ __all__ = [
     "ExitRequestApi",
     "Headers",
     "Listener",
+    "LogicalPosition",
+    "LogicalSize",
     "Manager",
     "NewWindowFeatures",
     "NewWindowResponse",
@@ -62,6 +64,8 @@ __all__ = [
     "PathResolver",
     "PermissionKind",
     "PermissionResponse",
+    "PhysicalPosition",
+    "PhysicalSize",
     "Protocol",
     "ProtocolRequest",
     "ProtocolResponse",

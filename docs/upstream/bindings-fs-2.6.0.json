@@ -16,7 +16,7 @@
         "entry": "pytaruix.plugins.fs.init",
         "signature": "() -> Plugin"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-fs compiled for desktop Wry",
         "Fs plugin registered once during Builder.build",
@@ -26,7 +26,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_fs_contract.py"
+        "tests/test_plugin_fs_contract.py",
+        "scripts/acceptance_desktop.py",
+        "examples/acceptance/main.py"
       ],
       "limitations": ""
     },
@@ -41,7 +43,7 @@
         "entry": "pytaruix.plugins.fs.Fs",
         "signature": "(handle: AppHandle) -> Fs"
       },
-      "status": "bound_unverified",
+      "status": "partial_tested",
       "conditions": [
         "plugin-fs compiled for desktop Wry",
         "Fs plugin registered once during Builder.build",
@@ -51,9 +53,11 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_fs_contract.py"
+        "tests/test_plugin_fs_contract.py",
+        "scripts/acceptance_desktop.py",
+        "examples/acceptance/main.py"
       ],
-      "limitations": "只用于探测插件是否注册，不暴露 trait 本身"
+      "limitations": "只用于探测插件是否注册，不暴露 trait 本身；桌面验收只覆盖被调用的路径"
     },
     {
       "id": "read_to_string",
@@ -91,7 +95,7 @@
         "entry": "pytaruix.plugins.fs.Fs.read_bytes",
         "signature": "(path: str | Path, /) -> bytes"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-fs compiled for desktop Wry",
         "Fs plugin registered once during Builder.build",
@@ -101,7 +105,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_fs_contract.py"
+        "tests/test_plugin_fs_contract.py",
+        "scripts/acceptance_desktop.py",
+        "examples/acceptance/main.py"
       ],
       "limitations": ""
     },
@@ -116,7 +122,7 @@
         "entry": "pytaruix.plugins.fs.Fs.write_text",
         "signature": "(path: str | Path, contents: str, /) -> None"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-fs compiled for desktop Wry",
         "Fs plugin registered once during Builder.build",
@@ -126,7 +132,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_fs_contract.py"
+        "tests/test_plugin_fs_contract.py",
+        "scripts/acceptance_desktop.py",
+        "examples/acceptance/main.py"
       ],
       "limitations": "写模式 + 创建 + 截断；write_bytes 复用同一入口"
     },

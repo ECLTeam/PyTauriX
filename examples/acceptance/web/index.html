@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PytaruiX 桌面验收</title>
+  <style>
+    body { margin: 0; padding: 40px; background: #f3f5f7; color: #1b2632; font: 15px/1.6 system-ui, sans-serif; }
+    main { max-width: 720px; margin: auto; }
+    h1 { font-size: 20px; margin-bottom: 4px; }
+    pre { white-space: pre-wrap; padding: 18px; background: #fff; border-radius: 10px; min-height: 220px; }
+    .ok { color: #1b7f4b; }
+    .bad { color: #b3261e; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>PytaruiX 桌面验收</h1>
+  <p id="hint">正在执行自动检查，请勿关闭窗口。</p>
+  <pre id="log">启动中…</pre>
+</main>
+<script>
+  const log = document.getElementById("log");
+  const hint = document.getElementById("hint");
+  let round = "1";
+  const invoke = (name, body, options) => window.__TAURI__.pytaruix.pyInvoke(name, body, options);
+  const lines = [];
+  const show = (text, ok) => {
+    lines.push((ok === undefined ? "" : ok ? "[ok] " : "[fail] ") + text);
+    log.textContent = lines.join("\n");
+  };
+
+  async function checkCancel() {
+    const controller = new AbortController();
+    let cancelReply = null;
+    const pending = invoke("slow", {}, {
+      signal: controller.signal,
+      onCancelResult: (value) => { cancelReply = value; },
+    });
+    setTimeout(() => controller.abort(), 250);
+    try {
+      await pending;
+      show("取消：调用未被中止", false);
+      return { cancel_abort: false };
+    } catch (error) {
+      const aborted = error?.name === "AbortError";
+      show("取消：Promise 以 " + (error?.name || error) + " 结束", aborted);
+      // 给原生取消请求一次处理机会，也确认 Python 能观测到 cancelled。
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      const detail = cancelReply === true ? "true" : String(cancelReply);
+      show("取消：原生应答 " + detail);
+      return { cancel_abort: aborted, cancel_ack: cancelReply === true, cancel_detail: detail };
+    }
+  }
+
+  async function checkProtocol() {
+    // Windows 下自定义 scheme 通过 http://<scheme>.localhost 访问。
+    const base = navigator.userAgent.includes("Windows")
+      ? "http://acceptance.localhost"
+      : "acceptance://localhost";
+    try {
+      const response = await fetch(base + "/ping");
+      const body = await response.json().catch(() => null);
+      const statusOk = response.status === 200;
+      const bodyOk = body?.ok === true;
+      show("协议：status=" + response.status + " body=" + JSON.stringify(body), statusOk && bodyOk);
+      return { protocol_status: statusOk, protocol_body: bodyOk };
+    } catch (error) {
+      show("协议：fetch 失败 " + String(error), false);
+      return { protocol_status: false, protocol_body: false };
+    }
+  }
+
+  async function checkFs() {
+    try {
+      const result = await invoke("fs_roundtrip", {});
+      const matched = result?.matched === true;
+      show("fs：写读 " + result?.bytes + " 字节，内容" + (matched ? "一致" : "不一致"), matched);
+      return { fs_roundtrip: matched, fs_bytes: result?.bytes ?? 0 };
+    } catch (error) {
+      show("fs：调用失败 " + String(error), false);
+      return { fs_roundtrip: false, fs_bytes: 0 };
+    }
+  }
+
+  async function start() {
+    try {
+      round = await invoke("acceptance_round", {});
+      if (round === "1") {
+        const size = await invoke("apply_geometry", {});
+        show("窗口固定为 " + size.width + "×" + size.height);
+        const checks = Object.assign({}, await checkCancel(), await checkProtocol(), await checkFs());
+        await invoke("checks_done", checks);
+        const seen = await invoke("wait_second_instance", {});
+        show("第二实例回调：" + (seen ? "收到" : "未收到"), seen);
+        const geometry = await invoke("geometry", {});
+        await invoke("finish", geometry);
+      } else {
+        const geometry = await invoke("geometry", {});
+        show("恢复后的窗口 " + geometry.width + "×" + geometry.height);
+        await invoke("finish", geometry);
+      }
+      hint.textContent = "检查完成，窗口即将关闭。";
+    } catch (error) {
+      show("验收中断：" + String(error), false);
+      hint.textContent = "验收中断，请查看日志。";
+    }
+  }
+
+  start();
+</script>
+</body>
+</html>

@@ -16,7 +16,7 @@
         "entry": "pytaruix.plugins.window_state.init",
         "signature": "(*, filename=None, flags=None, denylist=None, skip_initial=None) -> Plugin"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-window-state compiled for desktop Wry",
         "plugin registered once during Builder.build",
@@ -26,7 +26,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_window_state_contract.py"
+        "tests/test_plugin_window_state_contract.py",
+        "scripts/acceptance_desktop.py",
+        "examples/acceptance/main.py"
       ],
       "limitations": ""
     },
@@ -41,7 +43,7 @@
         "entry": "pytaruix.plugins.window_state.init",
         "signature": "flags=('size'|'position'|'maximized'|'visible'|'decorations'|'fullscreen')"
       },
-      "status": "bound_unverified",
+      "status": "bound_tested",
       "conditions": [
         "plugin-window-state compiled for desktop Wry",
         "plugin registered once during Builder.build",
@@ -51,7 +53,9 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_window_state_contract.py"
+        "tests/test_plugin_window_state_contract.py",
+        "scripts/acceptance_desktop.py",
+        "examples/acceptance/main.py"
       ],
       "limitations": ""
     },
@@ -141,7 +145,7 @@
         "entry": "pytaruix.plugins.window_state.WindowState.save",
         "signature": "(*, flags=None) -> None"
       },
-      "status": "bound_unverified",
+      "status": "partial_tested",
       "conditions": [
         "plugin-window-state compiled for desktop Wry",
         "plugin registered once during Builder.build",
@@ -151,9 +155,11 @@
         "windows-x86_64"
       ],
       "evidence": [
-        "tests/test_plugin_window_state_contract.py"
+        "tests/test_plugin_window_state_contract.py",
+        "scripts/acceptance_desktop.py",
+        "examples/acceptance/main.py"
       ],
-      "limitations": "trait 含 save_window_state 与 filename，均通过包装类暴露"
+      "limitations": "trait 含 save_window_state 与 filename，均通过包装类暴露；桌面验收只覆盖被调用的路径"
     },
     {
       "id": "window_ext",

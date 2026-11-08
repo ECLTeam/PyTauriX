@@ -416,12 +416,47 @@ fn register_capability(handle: &AppHandle, label: &str) -> PyResult<()> {
         .window(label)
         .permission("core:default")
         .permission("pytauri:allow-pyfunc")
-        .permission("allow-python-command");
+        .permission("allow-python-command")
+        // 取消与配额归还是桥自带的前端入口，缺一条就会在真实 ACL 下被拒。
+        .permission("allow-pytaruix-cancel")
+        .permission("allow-pytaruix-channel-ack");
     handle
         .inner
         .add_capability(capability)
         .map_err(|error| binding_error("capability_failed", error))
 }
+/// 配置文件声明的窗口由 Tauri 直接创建，不经过本模块，需要单独补本地授权。
+///
+/// 标识与动态窗口不同，避免与 `register_capability` 冲突。
+#[cfg(feature = "dynamic-acl")]
+pub(crate) fn register_config_capability(handle: &AppHandle, label: &str) -> PyResult<()> {
+    if !handle.runtime.automatic_local_acl {
+        return Ok(());
+    }
+    let capability = tauri::ipc::CapabilityBuilder::new(format!("python-config-window-{label}"))
+        .window(label)
+        .permission("core:default")
+        .permission("pytauri:allow-pyfunc")
+        .permission("allow-python-command")
+        .permission("allow-pytaruix-cancel")
+        .permission("allow-pytaruix-channel-ack");
+    handle
+        .inner
+        .add_capability(capability)
+        .map_err(|error| binding_error("capability_failed", error))
+}
+
+#[cfg(not(feature = "dynamic-acl"))]
+pub(crate) fn register_config_capability(handle: &AppHandle, _label: &str) -> PyResult<()> {
+    if !handle.runtime.automatic_local_acl {
+        return Ok(());
+    }
+    Err(binding_error(
+        "unsupported_capability",
+        "Local window IPC requires the dynamic-acl build feature",
+    ))
+}
+
 #[cfg(not(feature = "dynamic-acl"))]
 fn register_capability(handle: &AppHandle, _label: &str) -> PyResult<()> {
     if !handle.runtime.automatic_local_acl {
