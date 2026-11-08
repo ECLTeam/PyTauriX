@@ -8,11 +8,11 @@
 前端带 `AbortSignal` 调用时，桥为每个请求生成编号（页面会话前缀 + 序号），
 随正文提交到原生侧登记。取消有两个来源：
 
-- 前端 `controller.abort()`：桥本地立即以 `AbortError` 拒绝 Promise，并调用 `pytaruix_cancel`。
+- 前端 `controller.abort()`：桥本地立即以 `AbortError` 拒绝 Promise，并调用 `pytaurix_cancel`。
 - Python 侧 `request.cancel()`：立即拒绝前端 Promise，错误码为 `cancelled`。
 
 ```python
-from pytaruix import CommandError, Commands, Request
+from pytaurix import CommandError, Commands, Request
 
 commands = Commands()
 
@@ -27,7 +27,7 @@ def slow_import(path: str, request: Request) -> str:
 
 ```javascript
 const controller = new AbortController();
-window.__TAURI__.pytaruix.pyInvoke("slow_import", { path }, { signal: controller.signal });
+window.__TAURI__.pytaurix.pyInvoke("slow_import", { path }, { signal: controller.signal });
 controller.abort();
 ```
 
@@ -58,10 +58,10 @@ channel.pending  # 尚未归还的配额
 前端必须使用本项目提供的包装，它在处理完每条消息后归还配额：
 
 ```javascript
-const channel = window.__TAURI__.pytaruix.createChannel(async (progress) => {
+const channel = window.__TAURI__.pytaurix.createChannel(async (progress) => {
   render(progress);
 });
-await window.__TAURI__.pytaruix.pyInvoke("explain", { channel });
+await window.__TAURI__.pytaurix.pyInvoke("explain", { channel });
 ```
 
 - `capacity=0`（默认）不限制，保持既有行为。
@@ -74,11 +74,11 @@ await window.__TAURI__.pytaruix.pyInvoke("explain", { channel });
 
 | 入口 | 用途 |
 | --- | --- |
-| `window.__TAURI__.pytaruix.pyInvoke(command, payload, { signal, onCancelResult })` | 新协议，可取消 |
-| `window.__TAURI__.pytaruix.createChannel(onmessage)` | 带配额归还的 Channel |
+| `window.__TAURI__.pytaurix.pyInvoke(command, payload, { signal, onCancelResult })` | 新协议，可取消 |
+| `window.__TAURI__.pytaurix.createChannel(onmessage)` | 带配额归还的 Channel |
 | `window.__TAURI__.pytauri.pyInvoke(command, body, options)` | 旧字节协议，不可取消 |
 
-`pytaruix_cancel` 与 `pytaruix_channel_ack` 由原始分发入口处理，不执行 Python 代码；
+`pytaurix_cancel` 与 `pytaurix_channel_ack` 由原始分发入口处理，不执行 Python 代码；
 两者都只作用于来源窗口登记的请求或通道，请求编号与通道编号都不是授权凭证。
 
 `onCancelResult` 可选，收到原生取消入口的返回值：`true` 表示本次取消确实应答了本地登记项，
@@ -86,7 +86,7 @@ await window.__TAURI__.pytaruix.pyInvoke("explain", { channel });
 它不改变 Promise 的拒绝行为，只用于观测。
 
 这两个入口是应用命令，**必须在 `build.rs` 的 `AppManifest::commands` 里声明**，
-并在窗口的 capability 中授予 `allow-pytaruix-cancel` 与 `allow-pytaruix-channel-ack`；
+并在窗口的 capability 中授予 `allow-pytaurix-cancel` 与 `allow-pytaurix-channel-ack`；
 缺任一条，前端会收到 `not allowed`，取消与配额归还都不会生效。
 
 ## 边界

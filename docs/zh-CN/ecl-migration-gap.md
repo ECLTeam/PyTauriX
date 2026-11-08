@@ -1,8 +1,8 @@
 # ECL 迁移差距报告
 
-这份报告回答一个问题：**把 ECL 从 PyTauri 换到 PytaruiX，要改多少东西。**
+这份报告回答一个问题：**把 ECL 从 PyTauri 换到 PyTauriX，要改多少东西。**
 
-结论先说：**业务代码只依赖 19 个上游符号，全部能在 PytaruiX 找到对应物，
+结论先说：**业务代码只依赖 19 个上游符号，全部能在 PyTauriX 找到对应物，
 关键调用形状也一致。这是导入路径替换，不是重写。**
 但这只证明"接得上"，不证明"跑得对"——行为等价性还没有验证，见文末的风险清单。
 
@@ -11,41 +11,41 @@
 - 扫描目标：`EuoraCraft-Launcher` 仓库的 Python 业务代码，共 **3158 个文件**
 - 排除：`.venv`、`build`、`ECL_data`、`__pycache__`、`node_modules`、`dist`
 - 方法：AST 解析 `Import` / `ImportFrom`，统计 `pytauri*` 前缀的模块与符号
-- 复核：对每个符号用 `importlib` 在 PytaruiX 里反射查找，再人工核对调用形状
+- 复核：对每个符号用 `importlib` 在 PyTauriX 里反射查找，再人工核对调用形状
 
 第一次扫描时把 ECL 自己的 `.venv` 也算进去了，得出 234 个符号、39 个模块的结论——
 那 90% 是 PyTauri 与 `pytauri_plugins` 自己的内部实现。排除虚拟环境后才是真实依赖面。
 
 ## 符号映射
 
-| # | ECL 导入 | PytaruiX 对应 | 次数 | 状态 |
+| # | ECL 导入 | PyTauriX 对应 | 次数 | 状态 |
 | --- | --- | --- | --- | --- |
-| 1 | `pytauri.AppHandle` | `pytaruix.AppHandle` | 47 | 改名 |
-| 2 | `pytauri.WebviewUrl` | `pytaruix.WebviewUrl` | 31 | 改名 |
-| 3 | `pytauri.Commands` | `pytaruix.Commands` | 28 | 改名 |
-| 4 | `pytauri_wheel.lib.builder_factory` | `pytaruix.builder_factory` | 28 | 改路径 |
-| 5 | `pytauri_wheel.lib.context_factory` | `pytaruix.context_factory` | 28 | 改路径 |
-| 6 | `pytauri.ffi.webview.WebviewWindowBuilder` | `pytaruix.webview.WebviewWindowBuilder` | 26 | 改路径 |
-| 7 | `pytauri.ffi.webview.WebviewWindow` | `pytaruix.webview.WebviewWindow` | 20 | 改路径 |
-| 8 | `pytauri.ipc.WebviewWindow` | `pytaruix.ipc.WebviewWindow` | 13 | 改包名 |
-| 9 | `pytauri_plugins.dialog.DialogExt` | `pytaruix.plugins.dialog.DialogExt` | 10 | 改路径 |
+| 1 | `pytauri.AppHandle` | `pytaurix.AppHandle` | 47 | 改名 |
+| 2 | `pytauri.WebviewUrl` | `pytaurix.WebviewUrl` | 31 | 改名 |
+| 3 | `pytauri.Commands` | `pytaurix.Commands` | 28 | 改名 |
+| 4 | `pytauri_wheel.lib.builder_factory` | `pytaurix.builder_factory` | 28 | 改路径 |
+| 5 | `pytauri_wheel.lib.context_factory` | `pytaurix.context_factory` | 28 | 改路径 |
+| 6 | `pytauri.ffi.webview.WebviewWindowBuilder` | `pytaurix.webview.WebviewWindowBuilder` | 26 | 改路径 |
+| 7 | `pytauri.ffi.webview.WebviewWindow` | `pytaurix.webview.WebviewWindow` | 20 | 改路径 |
+| 8 | `pytauri.ipc.WebviewWindow` | `pytaurix.ipc.WebviewWindow` | 13 | 改包名 |
+| 9 | `pytauri_plugins.dialog.DialogExt` | `pytaurix.plugins.dialog.DialogExt` | 10 | 改路径 |
 | 10 | `pytauri.ffi.webview_version` | 无对应 | 6 | **仅测试桩使用，业务无依赖** |
-| 11 | `pytauri.EventTarget` | `pytaruix.EventTarget` | 5 | 改名 |
-| 12 | `pytauri.ffi.Emitter` | `pytaruix.ffi.Emitter` | 5 | 改路径 |
-| 13 | `pytauri.ffi.image.Image` | `pytaruix.ffi.image.Image` | 5 | 改包名 |
-| 14 | `pytauri.Manager` | `pytaruix.Manager` | 5 | 改名 |
-| 15 | `pytauri.RunEvent` | `pytaruix.RunEvent` | 5 | 改名 |
-| 16 | `pytauri.RunEventType` | `pytaruix.RunEventType` | 5 | 改名 |
-| 17 | `pytauri_plugins.dialog.init` | `pytaruix.plugins.dialog.init` | 5 | 改路径 |
-| 18 | `pytauri.WindowEvent` | `pytaruix.WindowEvent` | 3 | 改名 |
-| 19 | `pytauri.webview.WebviewWindowBuilder` | `pytaruix.webview.WebviewWindowBuilder` | 5 | 改路径 |
+| 11 | `pytauri.EventTarget` | `pytaurix.EventTarget` | 5 | 改名 |
+| 12 | `pytauri.ffi.Emitter` | `pytaurix.ffi.Emitter` | 5 | 改路径 |
+| 13 | `pytauri.ffi.image.Image` | `pytaurix.ffi.image.Image` | 5 | 改包名 |
+| 14 | `pytauri.Manager` | `pytaurix.Manager` | 5 | 改名 |
+| 15 | `pytauri.RunEvent` | `pytaurix.RunEvent` | 5 | 改名 |
+| 16 | `pytauri.RunEventType` | `pytaurix.RunEventType` | 5 | 改名 |
+| 17 | `pytauri_plugins.dialog.init` | `pytaurix.plugins.dialog.init` | 5 | 改路径 |
+| 18 | `pytauri.WindowEvent` | `pytaurix.WindowEvent` | 3 | 改名 |
+| 19 | `pytauri.webview.WebviewWindowBuilder` | `pytaurix.webview.WebviewWindowBuilder` | 5 | 改路径 |
 
 `webview_version` 的 6 次出现全部在 `.pytest_tmp/` 与 `build/` 下的测试桩里，
 业务代码没有引用，迁移时可忽略。
 
 ## 调用形状核对
 
-符号能导入不等于能用。逐处比对了 ECL 的实际调用与 PytaruiX 的签名：
+符号能导入不等于能用。逐处比对了 ECL 的实际调用与 PyTauriX 的签名：
 
 ### 上下文与应用构建
 
@@ -61,14 +61,14 @@ app = builder_factory().build(
 ```
 
 ```python
-# PytaruiX 签名
+# PyTauriX 签名
 def context_factory(resource_path, /, *, tauri_config=None, dev=False) -> Context
 Builder.build(*, context, invoke_handler, setup=None, plugins=(), protocols=(), on_tray_icon_event=None)
 Commands.generate_handler(portal=None)
 ```
 
 三个关键字全部对得上：`tauri_config` 支持递归合并覆盖，`generate_handler(portal)` 用于异步命令，
-`setup` 在 Ready 时执行。`protocols` 是 PytaruiX 的额外可选参数，ECL 不传也不影响。
+`setup` 在 Ready 时执行。`protocols` 是 PyTauriX 的额外可选参数，ECL 不传也不影响。
 
 ### 动态建窗
 
@@ -80,9 +80,9 @@ webview = WebviewWindowBuilder.build(app_handle, label, WebviewUrl.App(url), **b
 ECL 传入的键：`title`、`inner_size`、`min_inner_size`、`decorations`、`transparent`、
 `visible`、`resizable`、`initialization_script`、`background_color`、`icon`、`position`。
 
-PytaruiX 的 `WebviewWindowBuilderArgs` 有 50 个选项，上述 11 个全部在内，值类型也一致：
+PyTauriX 的 `WebviewWindowBuilderArgs` 有 50 个选项，上述 11 个全部在内，值类型也一致：
 
-| 选项 | ECL 传的值 | PytaruiX 声明 |
+| 选项 | ECL 传的值 | PyTauriX 声明 |
 | --- | --- | --- |
 | `inner_size` / `min_inner_size` / `position` | `(float, float)` 元组 | `tuple[float, float]`，按逻辑像素 |
 | `background_color` | `(r, g, b, a)` 四元组 | `tuple[int, int, int, int]` |
@@ -98,7 +98,7 @@ if isinstance(value, WindowEvent.CloseRequested): ...
 elif isinstance(value, WindowEvent.Destroyed): ...
 ```
 
-PytaruiX 的 `WindowEvent` 提供 `CloseRequested`、`Destroyed`、`Focused`、`Moved`、`Resized`、
+PyTauriX 的 `WindowEvent` 提供 `CloseRequested`、`Destroyed`、`Focused`、`Moved`、`Resized`、
 `ThemeChanged`、`ScaleFactorChanged` 与四个 `DragDrop*` 变体，ECL 用到的两个都在。
 
 ```python
@@ -108,7 +108,7 @@ DialogExt.file(self._webview).blocking_save_file(
 )
 ```
 
-`pytaruix.plugins.dialog` 的重导出清单里就有 `DialogExt`、`FileDialogBuilder`、`MessageDialogBuilder`，
+`pytaurix.plugins.dialog` 的重导出清单里就有 `DialogExt`、`FileDialogBuilder`、`MessageDialogBuilder`，
 注释写明是"保留常见迁移导入布局"。
 
 ## 迁移方式
@@ -116,7 +116,7 @@ DialogExt.file(self._webview).blocking_save_file(
 两条路，按风险从低到高：
 
 **A. 先做命名空间垫片。** 添加一个仅用于过渡的 `pytauri` / `pytauri_wheel` / `pytauri_plugins`
-包，把导入转发到 `pytaruix`，ECL 代码零改动先启动。好处是能最快证实"能不能跑起来"，
+包，把导入转发到 `pytaurix`，ECL 代码零改动先启动。好处是能最快证实"能不能跑起来"，
 坏处是多一层间接，且垫片本身要维护。
 
 **B. 直接改名。** 3158 个文件里只有 19 个符号、约 250 处导入需要改，集中在
@@ -130,19 +130,19 @@ DialogExt.file(self._webview).blocking_save_file(
 符号与签名对上，只说明"代码不会因为 ImportError 或 TypeError 立刻挂掉"。以下都没有证据：
 
 1. **200 个命令的真实执行**：ECL 注册了 200 个 `@commands.command`，参数模型、并发、
-   取消与背压行为都没有在 PytaruiX 上跑过。
+   取消与背压行为都没有在 PyTauriX 上跑过。
 2. **`pytauri_plugins` 的其它插件**：ECL 业务只直接用到 dialog，但插件管理器可能按需加载
-   fs、clipboard-manager、deep-link、autostart 等。PytaruiX 目前只有 6 个插件，
+   fs、clipboard-manager、deep-link、autostart 等。PyTauriX 目前只有 6 个插件，
    缺的插件对应的功能会在运行期报错。
-3. **菜单、托盘、拖放、主题**：这些 PytaruiX 有绑定，但 ECL 的具体用法（默认菜单、托盘事件、
+3. **菜单、托盘、拖放、主题**：这些 PyTauriX 有绑定，但 ECL 的具体用法（默认菜单、托盘事件、
    拖放文件到窗口）没有对照过。
-4. **TS 类型生成**：PyTauri 有 `pytauri._gen_ts`，PytaruiX 没有对应能力，前端契约需要另想办法。
-5. **打包与资源**：`pytauri_wheel` 涉及 wheel 内的资源布局，PytaruiX 的 `context_factory`
+4. **TS 类型生成**：PyTauri 有 `pytauri._gen_ts`，PyTauriX 没有对应能力，前端契约需要另想办法。
+5. **打包与资源**：`pytauri_wheel` 涉及 wheel 内的资源布局，PyTauriX 的 `context_factory`
    资源解析规则是否覆盖 ECL 的 `resource_path` 结构，未验证。
 
 ## 下一步建议
 
-先做**最小启动验证**：在 ECL 的隔离副本里，只把 `ECL/host/tauri.py` 的四个入口换成 PytaruiX，
+先做**最小启动验证**：在 ECL 的隔离副本里，只把 `ECL/host/tauri.py` 的四个入口换成 PyTauriX，
 其余模块加一层导入垫片，看能否起窗口、能否调用一个命令。这一步能证伪大部分风险，
 成本大约是一次会话。
 

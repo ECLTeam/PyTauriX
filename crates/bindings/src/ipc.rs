@@ -147,7 +147,7 @@ impl Requests {
 }
 
 /// 命令可注入的请求句柄；只表示本地登记状态，不是授权凭证。
-#[pyclass(frozen, module = "pytaruix.ffi.ipc")]
+#[pyclass(frozen, module = "pytaurix.ffi.ipc")]
 pub struct Request {
     id: String,
     pending: Arc<PendingInvocation>,
@@ -179,8 +179,8 @@ impl Request {
 pub fn invoke_handler(invoke: Invoke) -> bool {
     match invoke.message.command() {
         "python_command" => dispatch(invoke),
-        "pytaruix_cancel" => cancel(invoke),
-        "pytaruix_channel_ack" => acknowledge(invoke),
+        "pytaurix_cancel" => cancel(invoke),
+        "pytaurix_channel_ack" => acknowledge(invoke),
         _ => return false,
     }
     true

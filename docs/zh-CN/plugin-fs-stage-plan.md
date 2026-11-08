@@ -23,7 +23,7 @@
 ## 3. 契约
 
 - `Plugin` 内部为「名称 + `FnOnce(Builder) -> Builder`」；Python 侧形状不变（`name`、`consumed`）。
-- `pytaruix.plugins.fs.init()` 返回描述符；未启用 `plugin-fs` 时抛 `BindingError`（`unsupported_capability`）。
+- `pytaurix.plugins.fs.init()` 返回描述符；未启用 `plugin-fs` 时抛 `BindingError`（`unsupported_capability`）。
 - `Fs(handle)` 要求 `AppHandle`；未注册插件返回 `plugin_missing`，不让上游 `fs()` panic。
 - `read_text`/`read_bytes`/`write_text`/`write_bytes`；路径接受 `str`/`Path`，只做类型归一。
 - 读写失败为 `fs_failed`，附带 `io::ErrorKind`；不返回默认值或空内容。
@@ -38,9 +38,9 @@
 | `crates/bindings/src/fs.rs` | `Fs` pyclass 与四个读写入口 |
 | `crates/bindings/src/application.rs` | 插件消费改为应用装载闭包 |
 | `crates/bindings/src/lib.rs` | 模块与可用性标志注册 |
-| `python/pytaruix/plugins/fs/` | `init`、`Fs`、路径归一与文档 |
-| `python/pytaruix/runtime.py` | 能力项与 `fs_version` |
-| `python/pytaruix/_native.pyi` | 类型存根 |
+| `python/pytaurix/plugins/fs/` | `init`、`Fs`、路径归一与文档 |
+| `python/pytaurix/runtime.py` | 能力项与 `fs_version` |
+| `python/pytaurix/_native.pyi` | 类型存根 |
 | `tests/test_plugin_fs_contract.py` | 契约测试 |
 | 文档 | `plugins-fs.md`、features、矩阵、迁移契约、README |
 

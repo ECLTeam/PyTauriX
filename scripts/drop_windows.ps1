@@ -1,4 +1,4 @@
-# PytaruiX: native file-drop fixture; only source and target windows owned by this test.
+# PyTauriX: native file-drop fixture; only source and target windows owned by this test.
 param([long]$Window, [uint32]$OwnerProcess, [string]$FilePath)
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Windows.Forms
@@ -43,7 +43,7 @@ public class OwnedDropForm : Form {
         if (actual != TargetPid || !IsWindow(Target)) throw new Exception("Unowned target");
         GetWindowRect(Target, out BoundsTarget); GetCursorPos(out Original);
         Console.WriteLine("TARGET_RECT " + BoundsTarget.L + "," + BoundsTarget.T + "," + BoundsTarget.R + "," + BoundsTarget.B);
-        Text = "PytaruiX owned drop source";
+        Text = "PyTauriX owned drop source";
         Width = 200; Height = 100; TopMost = true;
         StartPosition = FormStartPosition.Manual;
         Left = BoundsTarget.L + 20; Top = BoundsTarget.T + 20;

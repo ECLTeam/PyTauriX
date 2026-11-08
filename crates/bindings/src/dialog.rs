@@ -143,7 +143,7 @@ enum Request {
     },
 }
 
-#[pyclass(frozen, module = "pytaruix.plugins.dialog.ffi")]
+#[pyclass(frozen, module = "pytaurix.plugins.dialog.ffi")]
 pub struct Dialog {
     handle: AppHandle,
     owner: Option<Owner>,

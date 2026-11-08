@@ -5,10 +5,10 @@ from pathlib import Path
 from typing import cast
 
 import pytest
-from pytaruix import BindingError, NewWindowResponse, PermissionResponse, WebResourceResponse
-from pytaruix.manager import ManagerType
-from pytaruix.webview import WebviewWindowBuilder, WebviewWindowBuilderArgs
-from pytaruix.webview_requests import _decision, _response_parts
+from pytaurix import BindingError, NewWindowResponse, PermissionResponse, WebResourceResponse
+from pytaurix.manager import ManagerType
+from pytaurix.webview import WebviewWindowBuilder, WebviewWindowBuilderArgs
+from pytaurix.webview_requests import _decision, _response_parts
 
 
 def test_response_copies_headers_and_preserves_duplicate_binary_values() -> None:

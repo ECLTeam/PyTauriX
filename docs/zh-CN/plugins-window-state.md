@@ -9,8 +9,8 @@
 ## 注册
 
 ```python
-from pytaruix import builder_factory
-from pytaruix.plugins.window_state import init as window_state
+from pytaurix import builder_factory
+from pytaurix.plugins.window_state import init as window_state
 
 app = builder_factory().build(
     context=context,
@@ -52,7 +52,7 @@ app = builder_factory().build(
 ## 运行期
 
 ```python
-from pytaruix.plugins.window_state import WindowState
+from pytaurix.plugins.window_state import WindowState
 
 state = WindowState(handle)
 state.save()                                # 立即把全部窗口状态落盘

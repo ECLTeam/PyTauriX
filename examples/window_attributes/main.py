@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：真实桌面验收扩展窗口属性、主题设置、标题变更与下载回调。
 # 公开接口：无。
 # ============================================================
@@ -11,8 +11,8 @@ import time
 from pathlib import Path
 
 from anyio.from_thread import start_blocking_portal
-from pytaruix import AppHandle, Commands, WebviewUrl, builder_factory, context_factory
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix import AppHandle, Commands, WebviewUrl, builder_factory, context_factory
+from pytaurix.webview import WebviewWindowBuilder
 
 CHECKS = (
     "attrs_created",
@@ -49,7 +49,7 @@ def main() -> int:
             "attrs",
             WebviewUrl.App("index.html"),
             parent="main",
-            title="PytaruiX Attributes",
+            title="PyTauriX Attributes",
             inner_size=(360, 240),
             visible=False,
             theme="dark",
@@ -57,12 +57,12 @@ def main() -> int:
             visible_on_all_workspaces=True,
             content_protected=True,
             drag_drop_enabled=True,
-            window_classname="PytaruiXAttributes",
+            window_classname="PyTauriXAttributes",
             title_bar_style="visible",
             hidden_title=True,
             accept_first_mouse=True,
-            tabbing_identifier="pytaruix",
-            user_agent="PytaruiXAttributes/1",
+            tabbing_identifier="pytaurix",
+            user_agent="PyTauriXAttributes/1",
             use_https_scheme=False,
             zoom_hotkeys_enabled=False,
             devtools=None,
@@ -93,7 +93,7 @@ def main() -> int:
             ):
                 time.sleep(0.1)
             print("WINDOW_ATTR_DEBUG " + json.dumps({"titles": titles, "downloads": downloads}), flush=True)
-            checks["title_changed"] = any(title == "PytaruiX Title Changed" for title in titles)
+            checks["title_changed"] = any(title == "PyTauriX Title Changed" for title in titles)
             checks["download_requested"] = any("Requested:" in item for item in downloads)
             checks["download_finished"] = any("Finished:" in item for item in downloads)
             print("WINDOW_ATTR_RESULT " + json.dumps(checks, sort_keys=True), flush=True)

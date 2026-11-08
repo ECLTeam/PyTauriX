@@ -1,14 +1,14 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "PytaruiX Plugin Behavior",
+  "productName": "PyTauriX Plugin Behavior",
   "version": "0.1.0",
-  "identifier": "top.eclteam.pytaruix.plugin-behavior",
+  "identifier": "top.eclteam.pytaurix.plugin-behavior",
   "build": { "frontendDist": "web" },
   "app": {
     "windows": [
       {
         "label": "main",
-        "title": "PytaruiX 插件行为验收",
+        "title": "PyTauriX 插件行为验收",
         "width": 560,
         "height": 460,
         "center": true

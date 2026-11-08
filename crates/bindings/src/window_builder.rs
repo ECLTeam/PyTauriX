@@ -166,7 +166,7 @@ pub fn build_window(
                                     tauri::webview::PageLoadEvent::Finished => "finished",
                                 };
                                 let event = py
-                                    .import("pytaruix.events")?
+                                    .import("pytaurix.events")?
                                     .getattr("_page_load")?
                                     .call1((payload.url().as_str(), name))?;
                                 let result = callback.call1(py, (window, event))?;
@@ -244,7 +244,7 @@ pub fn build_window(
                             handle,
                             Arc::clone(&state),
                         );
-                        let events = py.import("pytaruix.events")?;
+                        let events = py.import("pytaurix.events")?;
                         let payload = match &event {
                             tauri::webview::DownloadEvent::Requested { url, destination } => {
                                 events.getattr("DownloadRequested")?.call1((
@@ -417,8 +417,8 @@ fn register_capability(handle: &AppHandle, label: &str) -> PyResult<()> {
         .permission("core:default")
         .permission("allow-python-command")
         // 取消与配额归还是桥自带的前端入口，缺一条就会在真实 ACL 下被拒。
-        .permission("allow-pytaruix-cancel")
-        .permission("allow-pytaruix-channel-ack");
+        .permission("allow-pytaurix-cancel")
+        .permission("allow-pytaurix-channel-ack");
     handle
         .inner
         .add_capability(capability)
@@ -436,8 +436,8 @@ pub(crate) fn register_config_capability(handle: &AppHandle, label: &str) -> PyR
         .window(label)
         .permission("core:default")
         .permission("allow-python-command")
-        .permission("allow-pytaruix-cancel")
-        .permission("allow-pytaruix-channel-ack");
+        .permission("allow-pytaurix-cancel")
+        .permission("allow-pytaurix-channel-ack");
     handle
         .inner
         .add_capability(capability)

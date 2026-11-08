@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：在真实 WebView 验收 TOML、宿主 ACL、开发来源、图标与 ECL 注入形状。
 # 公开接口：无。
 from __future__ import annotations
@@ -12,7 +12,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 from anyio.from_thread import start_blocking_portal
-from pytaruix import (
+from pytaurix import (
     AppHandle,
     BindingError,
     Commands,
@@ -25,8 +25,8 @@ from pytaruix import (
     builder_factory,
     context_factory,
 )
-from pytaruix.ffi.image import Image
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix.ffi.image import Image
+from pytaurix.webview import WebviewWindowBuilder
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from display_windows import DesktopDisplay

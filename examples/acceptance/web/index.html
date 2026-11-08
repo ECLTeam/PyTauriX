@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PytaruiX 桌面验收</title>
+  <title>PyTauriX 桌面验收</title>
   <style>
     body { margin: 0; padding: 40px; background: #f3f5f7; color: #1b2632; font: 15px/1.6 system-ui, sans-serif; }
     main { max-width: 720px; margin: auto; }
@@ -15,7 +15,7 @@
 </head>
 <body>
 <main>
-  <h1>PytaruiX 桌面验收</h1>
+  <h1>PyTauriX 桌面验收</h1>
   <p id="hint">正在执行自动检查，请勿关闭窗口。</p>
   <pre id="log">启动中…</pre>
 </main>
@@ -23,7 +23,7 @@
   const log = document.getElementById("log");
   const hint = document.getElementById("hint");
   let round = "1";
-  const invoke = (name, body, options) => window.__TAURI__.pytaruix.pyInvoke(name, body, options);
+  const invoke = (name, body, options) => window.__TAURI__.pytaurix.pyInvoke(name, body, options);
   const lines = [];
   const show = (text, ok) => {
     lines.push((ok === undefined ? "" : ok ? "[ok] " : "[fail] ") + text);

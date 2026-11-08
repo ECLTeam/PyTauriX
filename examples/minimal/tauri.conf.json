@@ -1,11 +1,11 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "PytaruiX Example",
+  "productName": "PyTauriX Example",
   "version": "0.1.0",
-  "identifier": "top.eclteam.pytaruix.example",
+  "identifier": "top.eclteam.pytaurix.example",
   "build": { "frontendDist": "web" },
   "app": {
-    "windows": [{ "label": "main", "title": "PytaruiX", "width": 760, "height": 520 }],
+    "windows": [{ "label": "main", "title": "PyTauriX", "width": 760, "height": 520 }],
     "withGlobalTauri": true
   },
   "bundle": { "active": false }

@@ -3,9 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-from pytaruix import BindingError, _native, get_runtime_info
-from pytaruix.plugins.fs import Fs, init
-from pytaruix.plugins.fs.ffi import _path
+from pytaurix import BindingError, _native, get_runtime_info
+from pytaurix.plugins.fs import Fs, init
+from pytaurix.plugins.fs.ffi import _path
 
 
 @pytest.mark.parametrize(("value", "expected"), [("a.txt", "a.txt"), (Path("a.txt"), "a.txt")])

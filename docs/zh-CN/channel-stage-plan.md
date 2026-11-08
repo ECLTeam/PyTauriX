@@ -19,8 +19,8 @@ ECL/api/windows.py 直接构造 RGBA 图标。核对当前代码，没有发现�
 
 ## 公开接口与迁移形状
 
-- pytaruix.ffi.ipc：原生 JavaScriptChannelId.from_str、channel_on，以及 Channel.id/send。
-- pytaruix.ipc：Pydantic 可用的 JavaScriptChannelId[T] 和 Channel[T]，保留 from_str、channel_on、id、send、send_model。
+- pytaurix.ffi.ipc：原生 JavaScriptChannelId.from_str、channel_on，以及 Channel.id/send。
+- pytaurix.ipc：Pydantic 可用的 JavaScriptChannelId[T] 和 Channel[T]，保留 from_str、channel_on、id、send、send_model。
 - WebviewWindow.as_ref_webview()：提供归属于现有窗口代次的 Webview 引用视图，用于参考的 channel_on 形状。
 - Webview 引用不拥有新窗口；本阶段不开放独立 Webview 建造、多嵌入 Webview 或完整 Webview 管理器。
 - 本项目新增 Channel.close() 与 closed，给后台持有通道的调用方提供明确的资源结束方式；保留旧方法和默认行为。
@@ -29,8 +29,8 @@ ECL/api/windows.py 直接构造 RGBA 图标。核对当前代码，没有发现�
 
 ```python
 from pydantic import BaseModel
-from pytaruix import Commands
-from pytaruix.ipc import JavaScriptChannelId, WebviewWindow
+from pytaurix import Commands
+from pytaurix.ipc import JavaScriptChannelId, WebviewWindow
 
 commands = Commands()
 

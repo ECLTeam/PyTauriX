@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：验证插件所有权、迁移类型和无 GUI 参数边界。
 # 公开接口：无。
 # ============================================================
@@ -12,10 +12,10 @@ import sys
 from pathlib import Path
 
 import pytest
-from pytaruix import BindingError
-from pytaruix.plugin import Plugin
-from pytaruix.plugins.dialog import MessageDialogButtons, MessageDialogKind, init
-from pytaruix.plugins.dialog.ffi import _callback, _options
+from pytaurix import BindingError
+from pytaurix.plugin import Plugin
+from pytaurix.plugins.dialog import MessageDialogButtons, MessageDialogKind, init
+from pytaurix.plugins.dialog.ffi import _callback, _options
 
 
 def test_descriptor_is_native_readonly_and_does_not_initialize_gui() -> None:
@@ -84,8 +84,8 @@ def test_noncallable_cannot_fall_through_to_blocking(value: object) -> None:
 def test_build_rejection_preserves_input_and_runtime_before_consumption() -> None:
     code = """
 from pathlib import Path
-from pytaruix import BindingError, Commands, builder_factory, context_factory
-from pytaruix.plugins.dialog import DialogExt, MessageDialogButtons, init
+from pytaurix import BindingError, Commands, builder_factory, context_factory
+from pytaurix.plugins.dialog import DialogExt, MessageDialogButtons, init
 context = context_factory(Path("examples/minimal"))
 handler = Commands().generate_handler()
 plugin = init()
@@ -127,8 +127,8 @@ print("PLUGIN_OWNERSHIP_OK")
 def test_unregistered_plugin_returns_error_instead_of_native_panic() -> None:
     code = """
 from pathlib import Path
-from pytaruix import BindingError, Commands, builder_factory, context_factory
-from pytaruix.plugins.dialog import DialogExt
+from pytaurix import BindingError, Commands, builder_factory, context_factory
+from pytaurix.plugins.dialog import DialogExt
 app = builder_factory().build(
     context=context_factory(Path("examples/minimal")), invoke_handler=Commands().generate_handler()
 )
@@ -146,8 +146,8 @@ print("PLUGIN_MISSING_OK")
 def test_unrun_application_can_finalize_with_plugin_and_state() -> None:
     code = """
 from pathlib import Path
-from pytaruix import Commands, Manager, builder_factory, context_factory
-from pytaruix.plugins.dialog import init
+from pytaurix import Commands, Manager, builder_factory, context_factory
+from pytaurix.plugins.dialog import init
 app = builder_factory().build(
     context=context_factory(Path("examples/minimal")),
     invoke_handler=Commands().generate_handler(), plugins=[init()],

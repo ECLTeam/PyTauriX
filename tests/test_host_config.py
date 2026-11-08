@@ -6,8 +6,8 @@ import sys
 from pathlib import Path
 
 import pytest
-from pytaruix import BindingError, context_factory
-from pytaruix.configuration import _prepare_context
+from pytaurix import BindingError, context_factory
+from pytaurix.configuration import _prepare_context
 from test_context import make_project
 
 
@@ -137,7 +137,7 @@ def test_host_icon_is_loaded_as_owned_pixels(tmp_path: Path) -> None:
 def test_native_config_window_failure_returns_to_python() -> None:
     code = """
 from pathlib import Path
-from pytaruix import BindingError, Commands, builder_factory, context_factory
+from pytaurix import BindingError, Commands, builder_factory, context_factory
 context = context_factory(Path("examples/minimal"), tauri_config={
     "app": {"windows": [{"label": "invalid.dot"}]}
 })
@@ -170,8 +170,8 @@ print("CONFIG_WINDOW_ERROR_RECOVERED")
 def test_unregistered_host_plugin_policy_does_not_consume_runtime() -> None:
     code = """
 from pathlib import Path
-from pytaruix import BindingError, Commands, builder_factory, context_factory
-from pytaruix.plugins.dialog import init
+from pytaurix import BindingError, Commands, builder_factory, context_factory
+from pytaurix.plugins.dialog import init
 context = context_factory(Path("examples/minimal"), tauri_config={
     "app": {"windows": [], "security": {"capabilities": [{
         "identifier": "host-dialog", "windows": ["main"], "permissions": ["dialog:default"]

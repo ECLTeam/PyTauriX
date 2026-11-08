@@ -18,8 +18,8 @@ PyTauri 参考提供 Monitor 的五项属性及四种查询；其当前 Image Py
 - WebviewWindow.current_monitor()/primary_monitor() -> Monitor | None。
 - WebviewWindow.available_monitors() -> list[Monitor]。
 - WebviewWindow.monitor_from_point(x, y, /) -> Monitor | None，坐标单位沿用上游物理像素，校验有限数值。
-- pytaruix.ffi.window.Monitor：保留 name、size、position、work_area、scale_factor 属性形状。
-- pytaruix.dpi.PhysicalRect：position 为 PhysicalPosition，size 为 PhysicalSize，保留有符号位置与无符号尺寸。
+- pytaurix.ffi.window.Monitor：保留 name、size、position、work_area、scale_factor 属性形状。
+- pytaurix.dpi.PhysicalRect：position 为 PhysicalPosition，size 为 PhysicalSize，保留有符号位置与无符号尺寸。
 
 Monitor 是只读值快照，不拥有显示设备或窗口；重新查询才能取得新状态，旧快照不会自动反映设备拔插。
 原生返回 None 不改写成异常；调用者窗口或应用失效仍用 window_closed/app_closed。
@@ -29,7 +29,7 @@ Monitor 是只读值快照，不拥有显示设备或窗口；重新查询才能
 
 ## 图像加载与构建开关
 
-- 沿用 pytaruix.ffi.image.Image，增加 from_bytes(encoded: bytes, /) 和 from_path(path: pathlib.Path, /)。
+- 沿用 pytaurix.ffi.image.Image，增加 from_bytes(encoded: bytes, /) 和 from_path(path: pathlib.Path, /)。
 - 返回拥有 RGBA 的 Image，width/height/rgba 与现有构造结果一致；不引入 Pillow 或替代原生解码路径。
 - 使用上游 image-png/image-ico；明确只承诺启用格式的 PNG/ICO，不默认宣称 JPEG/WebP/GIF 支持。
 - 默认构建建议启用 PNG/ICO，保留显式关闭选项；需审核体积/依赖变化并记录。

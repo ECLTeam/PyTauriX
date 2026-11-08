@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：真实动态窗口、销毁代次、回调及精确来源权限的联合验收。
 # 公开接口：无。
 # ============================================================
@@ -16,7 +16,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 from anyio.from_thread import start_blocking_portal
-from pytaruix import (
+from pytaurix import (
     AppHandle,
     BindingError,
     CloseRequestApi,
@@ -32,9 +32,9 @@ from pytaruix import (
     builder_factory,
     context_factory,
 )
-from pytaruix.dpi import LogicalPosition, LogicalSize, PhysicalPosition, PhysicalSize
-from pytaruix.ffi.image import Image
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix.dpi import LogicalPosition, LogicalSize, PhysicalPosition, PhysicalSize
+from pytaurix.ffi.image import Image
+from pytaurix.webview import WebviewWindowBuilder
 
 
 def main() -> int:

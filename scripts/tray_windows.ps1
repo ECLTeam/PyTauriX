@@ -1,4 +1,4 @@
-﻿# PytaruiX
+﻿# PyTauriX
 # 文件作用：只读取 Windows 通知区域中自有测试图标或溢出按钮的 UI Automation 数据。
 param([string]$Tooltip, [switch]$Chevron, [switch]$Inspect)
 $ErrorActionPreference = "Stop"

@@ -13,7 +13,7 @@
         "declaration": "pub fn init<R: Runtime, F: FnMut(&AppHandle<R>, Vec<String>, String) + Send + Sync + 'static>("
       },
       "python": {
-        "entry": "pytaruix.plugins.single_instance.init",
+        "entry": "pytaurix.plugins.single_instance.init",
         "signature": "(handler: SingleInstanceHandler) -> Plugin"
       },
       "status": "bound_tested",
@@ -40,7 +40,7 @@
         "declaration": "pub fn destroy<R: Runtime, M: Manager<R>>(manager: &M) {"
       },
       "python": {
-        "entry": "pytaruix.plugins.single_instance（未提供）",
+        "entry": "pytaurix.plugins.single_instance（未提供）",
         "signature": "—"
       },
       "status": "unimplemented",

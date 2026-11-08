@@ -22,7 +22,7 @@ thread_local! {
     static NATIVE_APP: RefCell<Option<tauri::App>> = const { RefCell::new(None) };
 }
 
-#[pyclass(frozen, skip_from_py_object, module = "pytaruix.ffi")]
+#[pyclass(frozen, skip_from_py_object, module = "pytaurix.ffi")]
 #[derive(Clone)]
 pub struct Context {
     config: tauri::Config,
@@ -32,16 +32,16 @@ pub struct Context {
     icon: Option<tauri::image::Image<'static>>,
 }
 
-#[pyclass(frozen, module = "pytaruix.ffi")]
+#[pyclass(frozen, module = "pytaurix.ffi")]
 pub struct Builder;
 
-#[pyclass(unsendable, module = "pytaruix.ffi")]
+#[pyclass(unsendable, module = "pytaurix.ffi")]
 pub struct App {
     consumed: bool,
     handle: AppHandle,
 }
 
-#[pyclass(frozen, module = "pytaruix.events")]
+#[pyclass(frozen, module = "pytaurix.events")]
 pub struct ExitRequestApi {
     inner: Arc<Mutex<Option<tauri::ExitRequestApi>>>,
 }
@@ -255,7 +255,7 @@ impl Builder {
             for apply in plugins {
                 builder = apply(builder);
             }
-            builder = builder.plugin(pytaruix_bridge::init());
+            builder = builder.plugin(pytaurix_bridge::init());
             for (name, handler) in protocols {
                 builder = crate::protocol::register(builder, name, handler);
             }

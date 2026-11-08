@@ -1,9 +1,9 @@
 [package]
-name = "pytaruix-bridge"
+name = "pytaurix-bridge"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
-links = "pytaruix-bridge"
+links = "pytaurix-bridge"
 
 [dependencies]
 tauri = { workspace = true, features = ["wry"] }

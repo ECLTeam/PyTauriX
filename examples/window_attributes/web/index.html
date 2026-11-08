@@ -5,12 +5,12 @@
     <title>Window Attributes</title>
   </head>
   <body>
-    <h1>PytaruiX window attributes</h1>
+    <h1>PyTauriX window attributes</h1>
     <p>Only the events window changes its document title and starts a blob download.</p>
     <script>
       if (location.search.includes("events=1")) {
         setTimeout(() => {
-          document.title = "PytaruiX Title Changed";
+          document.title = "PyTauriX Title Changed";
         }, 300);
         setTimeout(() => {
           const blob = new Blob(["pytaruiX download"], { type: "text/plain" });

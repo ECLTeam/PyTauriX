@@ -7,7 +7,7 @@
 const tauri = window.__TAURI__;
 const output = document.getElementById("result");
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-const invoke = tauri.pytaruix.pyInvoke;
+const invoke = tauri.pytaurix.pyInvoke;
 // 轻量断言：解析错误对象，避免把 [object Object] 当成错误码。
 const failedWith = async (code, call) => {
   try { await call(); return false; }

@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "PytaruiX",
+  "productName": "PyTauriX",
   "version": "0.1.0",
-  "identifier": "top.eclteam.pytaruix",
+  "identifier": "top.eclteam.pytaurix",
   "build": { "frontendDist": "assets" },
   "app": { "windows": [], "withGlobalTauri": true },
   "bundle": { "active": false }

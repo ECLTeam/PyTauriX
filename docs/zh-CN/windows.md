@@ -5,10 +5,10 @@
 ## 创建与线程
 
 ```python
-from pytaruix import WebviewUrl
-from pytaruix.dpi import LogicalSize, PhysicalPosition
-from pytaruix.ffi.image import Image
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix import WebviewUrl
+from pytaurix.dpi import LogicalSize, PhysicalPosition
+from pytaurix.ffi.image import Image
+from pytaurix.webview import WebviewWindowBuilder
 
 window = WebviewWindowBuilder.build(
     app_handle,
@@ -48,7 +48,7 @@ window.show()
 ## 生命周期与回调
 
 ```python
-from pytaruix import WindowEvent, WindowEventType
+from pytaurix import WindowEvent, WindowEventType
 
 
 def on_event(event: WindowEventType) -> None:

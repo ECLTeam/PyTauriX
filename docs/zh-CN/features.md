@@ -18,9 +18,9 @@
 - 请求编号与协作式取消：前端 `AbortSignal`、注入 `Request` 的 `cancelled`/`cancel()`；
   取消与完成共用应答所有权，前端以 `AbortError` 或 `cancelled` 结束。
 - 原生 IPC Channel、Pydantic 通道模型、JSON/二进制流、显式结束与窗口代次清理。
-- `capacity > 0` 的通道配额流控与前端 `pytaruix.createChannel` 配额归还；超时报 `channel_backpressure`。
+- `capacity > 0` 的通道配额流控与前端 `pytaurix.createChannel` 配额归还；超时报 `channel_backpressure`。
 - 单一 JSON 协议：`python_command` 请求、结构化错误与 ArrayBuffer 返回值。
-- 前端 `window.__TAURI__.pytaruix.pyInvoke`（可传 `signal` 与 `onCancelResult`）与 `createChannel`。
+- 前端 `window.__TAURI__.pytaurix.pyInvoke`（可传 `signal` 与 `onCancelResult`）与 `createChannel`。
 
 ## 事件与调度
 

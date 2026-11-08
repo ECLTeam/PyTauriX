@@ -13,7 +13,7 @@
         "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R, Option<config::Config>> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.opener.init",
+        "entry": "pytaurix.plugins.opener.init",
         "signature": "() -> Plugin"
       },
       "status": "bound_tested",
@@ -39,7 +39,7 @@
         "declaration": "pub fn open_url(&self, url: impl Into<String>, with: Option<impl Into<String>>) -> Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.opener.Opener.open_url",
+        "entry": "pytaurix.plugins.opener.Opener.open_url",
         "signature": "(url: str, /, *, with_app: str | None = None) -> None"
       },
       "status": "bound_tested",
@@ -65,7 +65,7 @@
         "declaration": "pub fn open_path("
       },
       "python": {
-        "entry": "pytaruix.plugins.opener.Opener.open_path",
+        "entry": "pytaurix.plugins.opener.Opener.open_path",
         "signature": "(path: str | Path, /, *, with_app: str | None = None) -> None"
       },
       "status": "bound_tested",
@@ -91,7 +91,7 @@
         "declaration": "pub fn reveal_item_in_dir<P: AsRef<Path>>(&self, p: P) -> Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.opener.Opener.reveal_item_in_dir",
+        "entry": "pytaurix.plugins.opener.Opener.reveal_item_in_dir",
         "signature": "(path: str | Path, /) -> None"
       },
       "status": "bound_tested",
@@ -117,7 +117,7 @@
         "declaration": "pub fn open_js_links_on_click(mut self, open: bool) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.opener（未提供）",
+        "entry": "pytaurix.plugins.opener（未提供）",
         "signature": "—"
       },
       "status": "unimplemented",
@@ -136,7 +136,7 @@
         "declaration": "pub fn reveal_items_in_dir<I, P>(&self, paths: I) -> Result<()>"
       },
       "python": {
-        "entry": "pytaruix.plugins.opener（未提供）",
+        "entry": "pytaurix.plugins.opener（未提供）",
         "signature": "—"
       },
       "status": "unimplemented",

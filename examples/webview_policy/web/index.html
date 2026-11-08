@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="zh-CN">
 <meta charset="utf-8">
-<title>PytaruiX WebView 策略验收</title>
+<title>PyTauriX WebView 策略验收</title>
 <body>WebView 策略回调原生验收
 <script>
 async function run() {
-  const invoke = window.__TAURI__.pytaruix.pyInvoke;
+  const invoke = window.__TAURI__.pytaurix.pyInvoke;
   try {
     const original = await fetch('original.html');
     const replaced = await fetch('replaced.html');
@@ -14,7 +14,7 @@ async function run() {
     const checks = {
       original_response: (await original.text()).trim() === 'original body',
       resource_replaced: replaced.status === 201 && replacedBody === 'native replacement',
-      repeated_headers: replaced.headers.get('x-pytaruix') === 'one, two'
+      repeated_headers: replaced.headers.get('x-pytaurix') === 'one, two'
     };
     const popup = window.open('popup.html?deny=1', '_blank', 'width=310,height=230');
     await new Promise(resolve => setTimeout(resolve, 400));

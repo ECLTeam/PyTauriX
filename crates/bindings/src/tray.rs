@@ -141,7 +141,7 @@ fn default_left() -> bool {
     true
 }
 
-#[pyclass(frozen, skip_from_py_object, module = "pytaruix._native")]
+#[pyclass(frozen, skip_from_py_object, module = "pytaurix._native")]
 #[derive(Clone)]
 pub struct TrayResource {
     handle: AppHandle,
@@ -483,7 +483,7 @@ pub fn lookup(py: Python<'_>, handle: &AppHandle, id: String, remove: bool) -> P
     })?;
     match resource {
         Some(resource) => Ok(py
-            .import("pytaruix.ffi.tray")?
+            .import("pytaurix.ffi.tray")?
             .getattr("_from_native")?
             .call1((resource,))?
             .unbind()),
@@ -493,7 +493,7 @@ pub fn lookup(py: Python<'_>, handle: &AppHandle, id: String, remove: bool) -> P
 pub fn listen_global(py: Python<'_>, handle: &AppHandle, handler: Py<PyAny>) -> PyResult<()> {
     callback(py, &handler)?;
     let adapter = py
-        .import("pytaruix.ffi.tray")?
+        .import("pytaurix.ffi.tray")?
         .getattr("_adapt_global")?
         .call1((handler,))?
         .unbind();

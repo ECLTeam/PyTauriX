@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：通过真实 WebView 验证资源、新窗口和权限策略及失败清理。
 # 公开接口：无。
 from __future__ import annotations
@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import cast
 
 from anyio.from_thread import start_blocking_portal
-from pytaruix import (
+from pytaurix import (
     AppHandle,
     BindingError,
     Commands,
@@ -28,7 +28,7 @@ from pytaruix import (
     builder_factory,
     context_factory,
 )
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix.webview import WebviewWindowBuilder
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from smoke_resources import run_profiled_example
@@ -65,7 +65,7 @@ class Policy:
             self.seen["original_snapshot"] = original.status == 200 and b"original replacement" in original.body
         return WebResourceResponse(
             201,
-            (("content-type", b"text/plain"), ("x-pytaruix", b"one"), ("x-pytaruix", b"two")),
+            (("content-type", b"text/plain"), ("x-pytaurix", b"one"), ("x-pytaurix", b"two")),
             b"native replacement",
         )
 
@@ -132,7 +132,7 @@ def _run_application(data: Path) -> int:
                 handle,
                 {"label": "policy", "url": f"index.html?mode={mode}"},
                 data_directory=data,
-                title=f"PytaruiX policy {os.getpid()}",
+                title=f"PyTauriX policy {os.getpid()}",
                 inner_size=(440, 300),
                 on_new_window=policy.new_window,
                 on_permission_request=policy.permission,
@@ -183,7 +183,7 @@ def _run_application(data: Path) -> int:
 
 def main() -> int:
     """由父进程拥有 profile，待真实 WebView 进程结束后清理，不终止未知浏览器进程。"""
-    return run_profiled_example(Path(__file__).resolve(), "pytaruix-policy-", _run_application)
+    return run_profiled_example(Path(__file__).resolve(), "pytaurix-policy-", _run_application)
 
 
 if __name__ == "__main__":

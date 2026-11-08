@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：由验收父进程拥有并清理独立 WebView profile，避免浏览器退出与文件删除竞争。
 # 公开接口：run_profiled_example。
 from __future__ import annotations

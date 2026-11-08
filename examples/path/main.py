@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：真实桌面核验宿主目录解析、进程查询与错误契约。
 # 公开接口：无。
 from __future__ import annotations
@@ -9,7 +9,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from pytaruix import (
+from pytaurix import (
     AppHandle,
     BaseDirectory,
     BindingError,

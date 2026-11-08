@@ -4,8 +4,8 @@ import json
 from typing import cast
 
 import pytest
-from pytaruix import AppHandle, CommandError, Commands, Request
-from pytaruix._native import Request as NativeRequest
+from pytaurix import AppHandle, CommandError, Commands, Request
+from pytaurix._native import Request as NativeRequest
 
 
 class _Handle:

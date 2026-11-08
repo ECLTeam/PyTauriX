@@ -39,7 +39,7 @@ fn check_format(bytes: &[u8]) -> Result<(), (&'static str, &'static str)> {
     Ok(())
 }
 
-#[pyclass(frozen, module = "pytaruix.ffi.image")]
+#[pyclass(frozen, module = "pytaurix.ffi.image")]
 pub struct Image {
     pub inner: tauri::image::Image<'static>,
 }

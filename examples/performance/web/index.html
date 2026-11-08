@@ -2,14 +2,14 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <title>PytaruiX IPC Benchmark</title>
+    <title>PyTauriX IPC Benchmark</title>
   </head>
   <body>
-    <h1>PytaruiX IPC benchmark</h1>
+    <h1>PyTauriX IPC benchmark</h1>
     <pre id="status">running…</pre>
     <script>
       const output = document.getElementById("status");
-      const invoke = (name, body) => window.__TAURI__.pytaruix.pyInvoke(name, body);
+      const invoke = (name, body) => window.__TAURI__.pytaurix.pyInvoke(name, body);
       const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
       function summarize(samples) {

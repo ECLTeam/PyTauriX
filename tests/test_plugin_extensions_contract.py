@@ -1,17 +1,17 @@
 from __future__ import annotations
 
 import pytest
-from pytaruix import BindingError, _native, get_runtime_info
-from pytaruix.plugins.global_shortcut import GlobalShortcut
-from pytaruix.plugins.global_shortcut import init as global_shortcut_init
-from pytaruix.plugins.global_shortcut.ffi import _accelerator
-from pytaruix.plugins.notification import Notification
-from pytaruix.plugins.notification import init as notification_init
-from pytaruix.plugins.notification.ffi import _text
-from pytaruix.plugins.opener import Opener
-from pytaruix.plugins.opener import init as opener_init
-from pytaruix.plugins.opener.ffi import _path
-from pytaruix.plugins.single_instance import init as single_instance_init
+from pytaurix import BindingError, _native, get_runtime_info
+from pytaurix.plugins.global_shortcut import GlobalShortcut
+from pytaurix.plugins.global_shortcut import init as global_shortcut_init
+from pytaurix.plugins.global_shortcut.ffi import _accelerator
+from pytaurix.plugins.notification import Notification
+from pytaurix.plugins.notification import init as notification_init
+from pytaurix.plugins.notification.ffi import _text
+from pytaurix.plugins.opener import Opener
+from pytaurix.plugins.opener import init as opener_init
+from pytaurix.plugins.opener.ffi import _path
+from pytaurix.plugins.single_instance import init as single_instance_init
 
 
 def test_availability_flags_are_bools() -> None:

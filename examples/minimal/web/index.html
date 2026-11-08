@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PytaruiX</title>
+  <title>PyTauriX</title>
   <style>
     body { margin: 0; padding: 48px; background: #f3f5f7; color: #1b2632; font: 16px system-ui, sans-serif; }
     main { max-width: 640px; margin: auto; }
@@ -16,7 +16,7 @@
 </head>
 <body>
 <main>
-  <h1>PytaruiX</h1>
+  <h1>PyTauriX</h1>
   <p>从前端调用 Python，接收事件并更新原生窗口标题。</p>
   <input id="name" value="Python" aria-label="姓名">
   <button id="greet">发送问候</button>
@@ -25,7 +25,7 @@
 <script>
   const output = document.getElementById("result");
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-  const invoke = (name, body) => window.__TAURI__.pytaruix.pyInvoke(name, body);
+  const invoke = (name, body) => window.__TAURI__.pytaurix.pyInvoke(name, body);
   let receivedEvent = null;
   async function start() {
     const unlisten = await window.__TAURI__.event.listen("python-greeting", event => {
@@ -52,7 +52,7 @@
       catch (error) { checks.validation = error.code === "invalid_payload"; }
       try { await invoke("unregistered"); checks.unknown = false; }
       catch (error) { checks.unknown = error.code === "unknown_command"; }
-      const recovered = await window.__TAURI__.pytaruix.pyInvoke("greet", { name: "Recovered" });
+      const recovered = await window.__TAURI__.pytaurix.pyInvoke("greet", { name: "Recovered" });
       checks.recovered = recovered.message === "Hello, Recovered! From Python.";
       checks.window_title = (await window.__TAURI__.window.getCurrentWindow().title()) === "Hello, Recovered";
       output.textContent = JSON.stringify(checks, null, 2);

@@ -140,7 +140,7 @@ pub fn check_sync(py: Python<'_>, result: Py<PyAny>) -> PyResult<()> {
     Ok(())
 }
 
-#[pyclass(frozen, module = "pytaruix.events")]
+#[pyclass(frozen, module = "pytaurix.events")]
 pub struct CloseRequestApi {
     inner: Arc<Mutex<Option<tauri::CloseRequestApi>>>,
     prevented: Arc<AtomicBool>,
@@ -249,7 +249,7 @@ pub fn window_event(
                     prevented: Arc::clone(&prevented),
                 });
                 let event = py
-                    .import("pytaruix.events")?
+                    .import("pytaurix.events")?
                     .getattr("_window_event")?
                     .call1((name, data.to_string(), api))?;
                 let result = callback.call1(py, (event,))?;

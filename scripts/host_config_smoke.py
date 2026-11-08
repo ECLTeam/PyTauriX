@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：独立进程验收生产、显式开发来源及空宿主权限。
 # 公开接口：无。
 from __future__ import annotations

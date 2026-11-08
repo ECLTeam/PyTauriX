@@ -1,6 +1,6 @@
 # 贡献指南
 
-PytaruiX 是独立实现的 Tauri Python 绑定。为避免返工，提交代码前请先阅读
+PyTauriX 是独立实现的 Tauri Python 绑定。为避免返工，提交代码前请先阅读
 [AGENTS.md](AGENTS.md)——那是本仓库的规范入口，包含变更流程、Python/Rust 约定、
 线程与资源边界以及完整的验证命令表。本文件只说明外部贡献者需要知道的部分。
 

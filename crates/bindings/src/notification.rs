@@ -8,7 +8,7 @@ use pyo3::prelude::*;
 use tauri_plugin_notification::NotificationExt;
 
 /// 通知发送入口，归属应用运行期。
-#[pyclass(frozen, module = "pytaruix.plugins.notification")]
+#[pyclass(frozen, module = "pytaurix.plugins.notification")]
 pub struct NotificationApi {
     handle: AppHandle,
 }

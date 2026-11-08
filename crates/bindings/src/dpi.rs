@@ -2,22 +2,22 @@
 use crate::binding_error;
 use pyo3::prelude::*;
 
-#[pyclass(frozen, get_all, module = "pytaruix.dpi")]
+#[pyclass(frozen, get_all, module = "pytaurix.dpi")]
 pub struct LogicalSize {
     pub width: f64,
     pub height: f64,
 }
-#[pyclass(frozen, get_all, module = "pytaruix.dpi")]
+#[pyclass(frozen, get_all, module = "pytaurix.dpi")]
 pub struct PhysicalSize {
     pub width: u32,
     pub height: u32,
 }
-#[pyclass(frozen, get_all, module = "pytaruix.dpi")]
+#[pyclass(frozen, get_all, module = "pytaurix.dpi")]
 pub struct LogicalPosition {
     pub x: f64,
     pub y: f64,
 }
-#[pyclass(frozen, get_all, module = "pytaruix.dpi")]
+#[pyclass(frozen, get_all, module = "pytaurix.dpi")]
 pub struct PhysicalPosition {
     pub x: i32,
     pub y: i32,
@@ -26,7 +26,7 @@ pub struct PhysicalPosition {
 /// 保存有符号物理位置与无符号尺寸的不可变矩形。
 ///
 /// 不拥有原生资源，工作区等查询使用此类型返回值快照。
-#[pyclass(frozen, module = "pytaruix.dpi")]
+#[pyclass(frozen, module = "pytaurix.dpi")]
 pub struct PhysicalRect {
     pub inner: tauri::PhysicalRect<i32, u32>,
 }

@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：通过专用 WebView2 调试端口验收隔离 ECL 源码或独立程序的真实前后端。
 # 公开接口：无；仅启动指定副本，数据位于 artifacts，记录并清理自己创建的进程。
 from __future__ import annotations
@@ -50,7 +50,7 @@ class Page:
             return response["result"]["result"].get("value")
 
     def invoke(self, command: str, body: object = None) -> object:
-        return self.evaluate(f"window.__TAURI__.pytaruix.pyInvoke({json.dumps(command)}, {json.dumps(body or {})})")
+        return self.evaluate(f"window.__TAURI__.pytaurix.pyInvoke({json.dumps(command)}, {json.dumps(body or {})})")
 
     def close(self) -> None:
         self.context.__exit__(None, None, None)
@@ -99,13 +99,13 @@ def prepare_data(root: Path, data: Path, chrome: str) -> None:
     )
 
     subprocess.run([str(root / ".venv/Scripts/python.exe"), "-c", code], cwd=root, check=True)
-    plugin = data / "plugins" / "pytaruix-smoke"
+    plugin = data / "plugins" / "pytaurix-smoke"
     plugin.mkdir(parents=True)
     (plugin / "plugin.json").write_text(
         json.dumps(
             {
-                "name": "pytaruix-smoke",
-                "title": "PytaruiX acceptance",
+                "name": "pytaurix-smoke",
+                "title": "PyTauriX acceptance",
                 "version": "1.0.0",
                 "api_version": 2,
                 "entry_point": "main:AcceptancePlugin",
@@ -113,7 +113,7 @@ def prepare_data(root: Path, data: Path, chrome: str) -> None:
                 "permissions": [],
                 "contributes": {
                     "windows": [
-                        {"id": "panel", "route": "/plugin/pytaruix-smoke/panel", "commands": ["echo"], "events": []}
+                        {"id": "panel", "route": "/plugin/pytaurix-smoke/panel", "commands": ["echo"], "events": []}
                     ]
                 },
             }
@@ -186,7 +186,7 @@ def dialogs(page: Page, process: subprocess.Popen[bytes], root: Path, output: Pa
     checks["background_save"] = saved["success"] and saved_background.read_bytes() == background.read_bytes()
     skin = output / "skin.png"
     Image.new("RGBA", (64, 64), (28, 125, 225, 255)).save(skin)
-    item = page.invoke("wardrobe_import", {"path": str(skin), "kind": "skin", "name": "PytaruiX"})
+    item = page.invoke("wardrobe_import", {"path": str(skin), "kind": "skin", "name": "PyTauriX"})
     exported_skin = output / "skin-export.png"
     exported = invoke("wardrobe_export", {"item_id": item["data"]["item"]["id"]}, "另存为皮肤", exported_skin)
     checks["skin_save"] = exported["success"] and exported_skin.read_bytes() == skin.read_bytes()
@@ -205,7 +205,7 @@ def native_drop(page: Page, process: subprocess.Popen[bytes], output: Path) -> b
         if window.text == "EuoraCraft Launcher"
     )
     dropped = output / "native-drop.txt"
-    dropped.write_text("PytaruiX native drop fixture", encoding="utf-8")
+    dropped.write_text("PyTauriX native drop fixture", encoding="utf-8")
     page.evaluate(
         "window.__ECL_NATIVE_DROPS__=[];window.__TAURI__.event.listen('tauri://drag-drop',e=>window.__ECL_NATIVE_DROPS__.push(e.payload))"
     )
@@ -296,19 +296,19 @@ def acceptance(root: Path, executable: Path | None, chrome: str, output: Path, *
             checks["invalid_body"] = main.invoke("settings_set", {"data": {}})["success"] is False
             checks["recovery"] = main.invoke("system_ping")["success"]
             # 2026-11-08 起插件权限系统整体移除：目录安装经 plugin_enable 直接启用。
-            enable_result = main.invoke("plugin_enable", {"plugin_name": "pytaruix-smoke"})
+            enable_result = main.invoke("plugin_enable", {"plugin_name": "pytaurix-smoke"})
             checks["plugin_enable"] = enable_result["success"]
             checks["plugin_loaded"] = any(
-                item["name"] == "pytaruix-smoke" and item["status"] == "enabled"
+                item["name"] == "pytaurix-smoke" and item["status"] == "enabled"
                 for item in main.invoke("plugin_list")["data"]
             )
-            plugin_result = main.invoke("window_open", {"descriptor_id": "plugin.pytaruix-smoke.panel"})
+            plugin_result = main.invoke("window_open", {"descriptor_id": "plugin.pytaurix-smoke.panel"})
             print("PLUGIN_WINDOW " + json.dumps(plugin_result, ensure_ascii=False), flush=True)
             checks["plugin_window"] = plugin_result["success"]
             if checks["plugin_window"]:
                 plugin_label = plugin_result["data"]["label"]
                 checks["reuse"] = (
-                    main.invoke("window_open", {"descriptor_id": "plugin.pytaruix-smoke.panel"})["data"]["label"]
+                    main.invoke("window_open", {"descriptor_id": "plugin.pytaurix-smoke.panel"})["data"]["label"]
                     == plugin_label
                 )
                 checks["bounds"] = main.invoke(
@@ -327,14 +327,14 @@ def acceptance(root: Path, executable: Path | None, chrome: str, output: Path, *
                 checks["plugin_command"] = child.invoke(
                     "plugin_call_command",
                     {
-                        "command": "pytaruix-smoke:echo",
+                        "command": "pytaurix-smoke:echo",
                         "params": {"message": "native-window"},
                     },
                 )["data"] == {"message": "native-window"}
                 checks["plugin_denied"] = (
                     child.invoke("settings_set", {"section": "ui", "data": ui})["errorCode"] == "WINDOW_COMMAND_DENIED"
                 )
-                checks["plugin_disabled"] = main.invoke("plugin_disable", {"plugin_name": "pytaruix-smoke"})["success"]
+                checks["plugin_disabled"] = main.invoke("plugin_disable", {"plugin_name": "pytaurix-smoke"})["success"]
             main.evaluate("window.__TAURI__.window.getCurrentWindow().minimize()")
             time.sleep(0.2)
             # 用真实单实例移交恢复并置前。
@@ -355,7 +355,7 @@ def acceptance(root: Path, executable: Path | None, chrome: str, output: Path, *
                 spawned = main.invoke(
                     "debug_process_spawn",
                     {
-                        "name": "PytaruiX owned process",
+                        "name": "PyTauriX owned process",
                         "type": "Acceptance",
                         "stdin": True,
                         "args": [

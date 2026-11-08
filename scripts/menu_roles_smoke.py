@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：启动真实菜单角色桌面验收，核验全部预定义项。
 # 公开接口：无。
 from __future__ import annotations

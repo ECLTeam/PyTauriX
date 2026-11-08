@@ -8,7 +8,7 @@
 ## 新窗口
 
 ```python
-from pytaruix import NewWindowFeatures, NewWindowResponse
+from pytaurix import NewWindowFeatures, NewWindowResponse
 
 def on_new_window(url: str, features: NewWindowFeatures) -> NewWindowResponse:
     return NewWindowResponse.Deny
@@ -22,7 +22,7 @@ def on_new_window(url: str, features: NewWindowFeatures) -> NewWindowResponse:
 ## 浏览器权限
 
 ```python
-from pytaruix import PermissionKind, PermissionResponse, Webview
+from pytaurix import PermissionKind, PermissionResponse, Webview
 
 def on_permission(view: Webview, kind: PermissionKind) -> PermissionResponse:
     return PermissionResponse.Deny
@@ -36,7 +36,7 @@ def on_permission(view: Webview, kind: PermissionKind) -> PermissionResponse:
 ## 应用资源请求
 
 ```python
-from pytaruix import WebResourceRequest, WebResourceResponse
+from pytaurix import WebResourceRequest, WebResourceResponse
 
 def on_resource(request: WebResourceRequest, original: WebResourceResponse) -> WebResourceResponse | None:
     if request.url.endswith("/health.html"):

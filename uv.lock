@@ -280,7 +280,7 @@ wheels = [
 ]
 
 [[package]]
-name = "pytaruix"
+name = "pytaurix"
 version = "0.1.0a1"
 source = { editable = "." }
 dependencies = [

@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：双窗口验证注入、旧字节协议、监听器与受控退出。
 # 公开接口：无。
 # ============================================================
@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Annotated
 
 from anyio.from_thread import start_blocking_portal
-from pytaruix import (
+from pytaurix import (
     AppHandle,
     BindingError,
     Commands,

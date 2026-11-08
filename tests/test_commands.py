@@ -7,7 +7,7 @@ import anyio
 import pytest
 from anyio.from_thread import start_blocking_portal
 from pydantic import BaseModel
-from pytaruix import AppHandle, CommandError, Commands
+from pytaurix import AppHandle, CommandError, Commands
 
 
 class Person(BaseModel):

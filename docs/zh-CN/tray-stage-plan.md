@@ -19,7 +19,7 @@
 
 ## 接口范围
 
-1. 新增 pytaruix.tray 与 pytaruix.ffi.tray，同一组类型重导出。
+1. 新增 pytaurix.tray 与 pytaurix.ffi.tray，同一组类型重导出。
    提供 TrayIcon、TrayIconBuilder、TrayIconId、MouseButton、MouseButtonState、TrayIconEvent 与事件联合类型。
 2. 保留 TrayIcon(manager) 与 with_id(manager, id) 的常用 PyTauri 形状。
    manager 接受现有 AppHandle 和 WebviewWindow，窗口仅用作取得所属应用，托盘不随该窗口销毁。

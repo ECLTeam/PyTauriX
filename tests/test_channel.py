@@ -5,10 +5,10 @@ from typing import cast
 
 import pytest
 from pydantic import BaseModel, TypeAdapter, ValidationError
-from pytaruix import AppHandle, BindingError, CommandError, Commands
-from pytaruix.ffi.ipc import Channel as FfiChannel
-from pytaruix.ffi.ipc import JavaScriptChannelId as FfiId
-from pytaruix.ipc import Channel, JavaScriptChannelId
+from pytaurix import AppHandle, BindingError, CommandError, Commands
+from pytaurix.ffi.ipc import Channel as FfiChannel
+from pytaurix.ffi.ipc import JavaScriptChannelId as FfiId
+from pytaurix.ipc import Channel, JavaScriptChannelId
 
 
 class Progress(BaseModel):

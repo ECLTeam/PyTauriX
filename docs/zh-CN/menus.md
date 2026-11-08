@@ -7,9 +7,9 @@ Linux/macOS 尚未实测；移动平台导入模块不会创建 GUI，构造明�
 ## 导入与构造
 
 ```python
-from pytaruix.menu import Menu, Submenu, MenuItem, CheckMenuItem
-from pytaruix.ffi.menu import IconMenuItem, PredefinedMenuItem, ContextMenu
-from pytaruix.ffi.image import Image
+from pytaurix.menu import Menu, Submenu, MenuItem, CheckMenuItem
+from pytaurix.ffi.menu import IconMenuItem, PredefinedMenuItem, ContextMenu
+from pytaurix.ffi.image import Image
 
 
 def setup(handle):
@@ -66,7 +66,7 @@ Windows 的关闭路径在未被 Python prevent_close 拦截时解除 HMENU 关�
 ## 上下文菜单与线程
 
 ```python
-from pytaruix.dpi import LogicalPosition
+from pytaurix.dpi import LogicalPosition
 
 # 在 IPC 命令工作线程或已有后台线程执行：
 ContextMenu.popup(menu, window)
@@ -124,7 +124,7 @@ Linux/macOS 行为、菜单快捷键的物理键盘触发、跨应用实例和 D
 Windows 上可以构造但不产生界面变化。`AboutMetadata` 省略空字段，图标尚未绑定。
 
 ```python
-from pytaruix.menu import AboutMetadata, Menu, PredefinedMenuItem
+from pytaurix.menu import AboutMetadata, Menu, PredefinedMenuItem
 
 menu = Menu.with_items(
     app_handle,
@@ -132,7 +132,7 @@ menu = Menu.with_items(
         PredefinedMenuItem.copy(app_handle),
         PredefinedMenuItem.paste(app_handle),
         PredefinedMenuItem.separator(app_handle),
-        PredefinedMenuItem.about(app_handle, "About", AboutMetadata(name="PytaruiX", version="0.1.0")),
+        PredefinedMenuItem.about(app_handle, "About", AboutMetadata(name="PyTauriX", version="0.1.0")),
         PredefinedMenuItem.quit(app_handle),
     ],
 )
@@ -148,7 +148,7 @@ app_handle.set_menu(menu)
 图标取自 56 项 `NativeIcon` 枚举，取值等于上游变体名：
 
 ```python
-from pytaruix.menu import IconMenuItem, Menu, NativeIcon
+from pytaurix.menu import IconMenuItem, Menu, NativeIcon
 
 default = Menu.default(app_handle)
 folder = IconMenuItem.with_native_icon(app_handle, "Open Folder", True, NativeIcon.FOLDER)

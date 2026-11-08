@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import pytest
-from pytaruix import BindingError, _native, get_runtime_info
-from pytaruix.plugins.window_state import WindowState, init
-from pytaruix.plugins.window_state.ffi import _flags, _labels
+from pytaurix import BindingError, _native, get_runtime_info
+from pytaurix.plugins.window_state import WindowState, init
+from pytaurix.plugins.window_state.ffi import _flags, _labels
 
 
 def test_flags_accept_known_names() -> None:

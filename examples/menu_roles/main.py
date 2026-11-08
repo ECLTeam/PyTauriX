@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：真实桌面核验全部预定义菜单角色的构造、文本与挂载。
 # 公开接口：无。
 from __future__ import annotations
@@ -6,8 +6,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from pytaruix import AppHandle, BindingError, Commands, builder_factory, context_factory
-from pytaruix.menu import AboutMetadata, IconMenuItem, Menu, NativeIcon, PredefinedMenuItem
+from pytaurix import AppHandle, BindingError, Commands, builder_factory, context_factory
+from pytaurix.menu import AboutMetadata, IconMenuItem, Menu, NativeIcon, PredefinedMenuItem
 
 ROLES = (
     "separator",
@@ -46,10 +46,10 @@ def main() -> int:
         checks["separator_text_empty"] = items[0].text() == ""
         about = PredefinedMenuItem.about(
             app_handle,
-            "About PytaruiX",
-            AboutMetadata(name="PytaruiX", version="0.1.0", authors=("ECL",)),
+            "About PyTauriX",
+            AboutMetadata(name="PyTauriX", version="0.1.0", authors=("ECL",)),
         )
-        checks["about_text"] = about.text() == "About PytaruiX"
+        checks["about_text"] = about.text() == "About PyTauriX"
         quit_item = PredefinedMenuItem.quit(app_handle, "Quit")
         checks["quit_text"] = quit_item.text() == "Quit"
         copy_item = PredefinedMenuItem.copy(app_handle, "Copy")

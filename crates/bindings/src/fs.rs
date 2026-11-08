@@ -13,7 +13,7 @@ use std::{io::Write, path::Path as FsPath};
 use tauri_plugin_fs::{FsExt, OpenOptions};
 
 /// 单次调用的文件系统入口，归属应用运行期。
-#[pyclass(frozen, module = "pytaruix.plugins.fs")]
+#[pyclass(frozen, module = "pytaurix.plugins.fs")]
 pub struct Fs {
     handle: AppHandle,
 }

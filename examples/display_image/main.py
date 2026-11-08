@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：真实 WebView 显示器/DPI、图像及窗口代次验收。
 # 公开接口：无。
 from __future__ import annotations
@@ -11,12 +11,12 @@ from pathlib import Path
 from typing import cast
 
 from anyio.from_thread import start_blocking_portal
-from pytaruix import AppHandle, BindingError, Commands, WebviewUrl, WebviewWindow, builder_factory, context_factory
-from pytaruix.dpi import LogicalPosition, LogicalSize, PhysicalPosition, PhysicalSize
-from pytaruix.events import WindowEvent, WindowEventType
-from pytaruix.ffi.image import Image
-from pytaruix.ffi.window import Monitor
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix import AppHandle, BindingError, Commands, WebviewUrl, WebviewWindow, builder_factory, context_factory
+from pytaurix.dpi import LogicalPosition, LogicalSize, PhysicalPosition, PhysicalSize
+from pytaurix.events import WindowEvent, WindowEventType
+from pytaurix.ffi.image import Image
+from pytaurix.ffi.window import Monitor
+from pytaurix.webview import WebviewWindowBuilder
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from display_windows import DesktopDisplay

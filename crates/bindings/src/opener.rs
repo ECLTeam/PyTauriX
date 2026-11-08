@@ -6,7 +6,7 @@ use std::path::Path;
 use tauri_plugin_opener::OpenerExt;
 
 /// 系统打开入口，归属应用运行期。
-#[pyclass(frozen, module = "pytaruix.plugins.opener")]
+#[pyclass(frozen, module = "pytaurix.plugins.opener")]
 pub struct OpenerApi {
     handle: AppHandle,
 }

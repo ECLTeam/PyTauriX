@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：验收自有桌面窗口上的真实系统焦点与文件拖放。
 # 公开接口：无。
 from __future__ import annotations

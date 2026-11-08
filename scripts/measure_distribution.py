@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：记录源码与工具链身份、wheel 体积分解及独立环境安装占用。
 # 公开接口：main。
 # ============================================================
@@ -133,8 +133,8 @@ def _install_report(uv: str, wheel: Path, venv: Path) -> dict[str, object]:
         site_packages = venv / "lib" / f"python{sys.version_info.major}.{sys.version_info.minor}" / "site-packages"
     subprocess.run([uv, "pip", "install", "--python", str(python), str(wheel)], check=True, timeout=600)
     script = (
-        "import importlib.metadata as m, json, pytaruix\n"
-        "print(json.dumps({'module': pytaruix.__file__, 'distributions': "
+        "import importlib.metadata as m, json, pytaurix\n"
+        "print(json.dumps({'module': pytaurix.__file__, 'distributions': "
         "[{'name': d.metadata['Name'], 'version': d.version} for d in m.distributions()]}))"
     )
     probe = subprocess.run([str(python), "-I", "-c", script], capture_output=True, text=True, timeout=120, check=True)
@@ -143,7 +143,7 @@ def _install_report(uv: str, wheel: Path, venv: Path) -> dict[str, object]:
         "venv": str(venv),
         "python": str(python),
         "module": data["module"],
-        "package_dir_bytes": _tree_bytes(site_packages / "pytaruix"),
+        "package_dir_bytes": _tree_bytes(site_packages / "pytaurix"),
         "site_packages_bytes": _tree_bytes(site_packages),
         "distributions": data["distributions"],
     }

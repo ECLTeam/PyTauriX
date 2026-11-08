@@ -44,12 +44,12 @@ wheel 共 32 个条目；默认组合中 `_native` 压缩后约 4.50 MiB，占�
 | 场景 | 组合 | P50 | P95 |
 | --- | --- | --- | --- |
 | 解释器空启动 | 默认 | 0.0211 s | 0.0225 s |
-| `import pytaruix` | 默认 | 0.1476 s | 0.1550 s |
+| `import pytaurix` | 默认 | 0.1476 s | 0.1550 s |
 | `get_runtime_info()` | 默认 | 0.1586 s | 0.1768 s |
 | `context_factory(examples/minimal)` | 默认 | 0.1509 s | 0.1627 s |
-| `import pytaruix` | 开发 | 0.1528 s | 0.1801 s |
+| `import pytaurix` | 开发 | 0.1528 s | 0.1801 s |
 | `context_factory(examples/minimal)` | 开发 | 0.1553 s | 0.1553 s |
-| `import pytaruix` | 最小 | 0.1431 s | 0.1482 s |
+| `import pytaurix` | 最小 | 0.1431 s | 0.1482 s |
 | `context_factory(examples/minimal)` | 最小 | 0.1462 s | 0.1462 s |
 
 导入相对空解释器增加约 126 ms；`context_factory` 与单独导入接近，说明示例规模（`examples/minimal`）的目录快照成本低于测量噪声。
@@ -61,8 +61,8 @@ wheel 共 32 个条目；默认组合中 `_native` 压缩后约 4.50 MiB，占�
 
 ```text
 tauri feature "default"
-└── pytaruix-bridge v0.1.0-alpha.1
-    └── pytaruix-bridge feature "default"
+└── pytaurix-bridge v0.1.0-alpha.1
+    └── pytaurix-bridge feature "default"
 ```
 
 `crates/bridge` 以 `tauri.workspace = true` 继承 workspace 依赖的默认 features，抵消了 bindings 的 `--no-default-features`。

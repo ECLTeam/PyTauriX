@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import FrozenInstanceError
 
 import pytest
-from pytaruix import BindingError, EventTarget
-from pytaruix.ffi import EventTarget as FfiEventTarget
+from pytaurix import BindingError, EventTarget
+from pytaurix.ffi import EventTarget as FfiEventTarget
 
 
 def test_event_target_imports_and_immutable_labels() -> None:

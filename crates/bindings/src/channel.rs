@@ -1,6 +1,6 @@
 //! 原生 Channel、窗口引用视图与弱登记的流生命周期。
 //!
-//! `capacity > 0` 时通道使用窗口流控：配额由前端 `pytaruix_channel_ack` 归还，
+//! `capacity > 0` 时通道使用窗口流控：配额由前端 `pytaurix_channel_ack` 归还，
 //! 没有 ack 的前端不得启用，否则发送会一直等到通道关闭。
 
 use crate::{
@@ -23,7 +23,7 @@ const FLOW_POLL: Duration = Duration::from_millis(50);
 /// 现有 WebviewWindow 的原始代次引用；不拥有新窗口，不提供独立 Webview 构造器。
 ///
 /// 支持工作线程查询和绑定 Channel，窗口/应用销毁后拒绝资源操作。
-#[pyclass(frozen, module = "pytaruix.webview")]
+#[pyclass(frozen, module = "pytaurix.webview")]
 pub struct Webview {
     inner: tauri::Webview,
     handle: AppHandle,
@@ -74,7 +74,7 @@ impl Webview {
 /// 原生前端 Channel 标识，通过 from_str 创建，不提供任意回调构造器。
 ///
 /// 标识仅校验格式，不证明回调存在或调用方已获授权。
-#[pyclass(frozen, module = "pytaruix.ffi.ipc")]
+#[pyclass(frozen, module = "pytaurix.ffi.ipc")]
 pub struct JavaScriptChannelId {
     inner: tauri::ipc::JavaScriptChannelId,
     text: String,
@@ -102,7 +102,7 @@ impl JavaScriptChannelId {
     /// 在指定活跃 Webview 代次绑定原生通道，允许工作线程调用。
     ///
     /// 参数 webview 为现有窗口引用；capacity 为 0 表示不限制，大于 0 时启用窗口流控，
-    /// 需要前端用 `pytaruix.createChannel` 归还配额。返回 Channel；应用/窗口失效分别报对应关闭错误。
+    /// 需要前端用 `pytaurix.createChannel` 归还配额。返回 Channel；应用/窗口失效分别报对应关闭错误。
     /// 原生操作释放 GIL；一个前端编号应只绑定一个发送句柄，再共享该句柄。
     fn channel_on(&self, py: Python<'_>, webview: &Webview, capacity: usize) -> PyResult<Channel> {
         py.detach(|| {
@@ -232,7 +232,7 @@ impl ChannelState {
 /// 原生发送句柄，由 channel_on 创建，归属应用及原始窗口代次。
 ///
 /// 支持 JSON/字节、工作线程、显式关闭和最后引用释放；capacity > 0 时按配额发送。
-#[pyclass(frozen, module = "pytaruix.ffi.ipc")]
+#[pyclass(frozen, module = "pytaurix.ffi.ipc")]
 pub struct Channel {
     id: u32,
     state: Arc<ChannelState>,

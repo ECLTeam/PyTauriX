@@ -1,4 +1,4 @@
-# PytaruiX 项目规范
+# PyTauriX 项目规范
 
 本文件是本仓库所有 AI 编码助手与协作者的统一规范入口。适用于 Python 公共包、Rust 绑定、前端桥、示例、测试、构建脚本、工作流与项目文档。
 
@@ -6,7 +6,7 @@
 
 ### 0.1 项目边界
 
-- 项目名称为 PytaruiX，Python 发行包及导入名为 `pytaruix`，Rust crate 为 `pytaruix-bindings` 与 `pytaruix-bridge`。
+- 项目名称为 PyTauriX，Python 发行包及导入名为 `pytaurix`，Rust crate 为 `pytaurix-bindings` 与 `pytaurix-bridge`。
 - 项目作为独立 Python/Tauri 框架发行。ECL 是主要集成验收项目，其账户、游戏、下载、插件业务、界面主题与配置默认值由 ECL 维护。
 - 长期目标为按平台和上游条件逐步完整引出 Tauri 可用能力。当前 ECL 能力子集不缩减此目标；新增接口以使用需求或覆盖计划为依据。
 - 接口由本项目自行定义与评审，不提供 PyTauri 的导入路径、前端协议或运行时兼容层。
@@ -169,7 +169,7 @@
 | Python 定向行为 | `uv run --no-sync pytest <文件或节点> -q`，需要时使用 `-k` |
 | Python 全量质量与行为 | `uv run --no-sync ruff check python tests scripts examples`、`uv run --no-sync ruff format --check python tests scripts examples`、`uv run --no-sync pyright`、`uv run --no-sync pytest -q` |
 | Rust 格式与指定组合 | `cargo fmt --all --check`、`cargo clippy --locked --jobs 1 --features <features> -- -D warnings` |
-| 默认与精简依赖 | `cargo tree --locked -p pytaruix-bindings -e features`；精简组合追加 `--no-default-features --features <features>` |
+| 默认与精简依赖 | `cargo tree --locked -p pytaurix-bindings -e features`；精简组合追加 `--no-default-features --features <features>` |
 | 覆盖账本 | `uv run --no-sync python scripts/update_coverage.py --check` |
 | release wheel | `uv run --no-sync maturin build --release --locked --jobs 1 --features <features> --out <独立目录>`；精简组合追加 `--no-default-features` |
 | 源包与内容核验 | `uv run --no-sync maturin sdist --out <独立目录>`、`uv run --no-sync python scripts/check_sdist.py <源包>` |

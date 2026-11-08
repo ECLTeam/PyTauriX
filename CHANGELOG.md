@@ -15,7 +15,7 @@
 
 ### 变更
 
-- 前端只保留 `window.__TAURI__.pytaruix.pyInvoke` 与 `createChannel`。
+- 前端只保留 `window.__TAURI__.pytaurix.pyInvoke` 与 `createChannel`。
 - `IPC 错误`统一为 `{code, message}` 对象，不再有旧协议的字符串形态。
 - 字节正文命令（`body: bytes`）的载荷语义明确为：前端传字符串，按 UTF-8 取字节；
   Python 侧直接调用仍接受 `bytes`。

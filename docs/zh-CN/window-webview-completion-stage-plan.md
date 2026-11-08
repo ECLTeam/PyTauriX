@@ -23,12 +23,12 @@ Python 构建器已支持标题、尺寸、最小/最大、位置、居中、可
 
 | 位置 | 改动 |
 | --- | --- |
-| `python/pytaruix/webview.py` | 扩充 `WebviewWindowBuilderArgs`、字段映射与严格校验；新增 `on_document_title_changed`、`on_download` |
-| `python/pytaruix/events.py` | 新增缩放因子、主题与拖放事件载荷 |
+| `python/pytaurix/webview.py` | 扩充 `WebviewWindowBuilderArgs`、字段映射与严格校验；新增 `on_document_title_changed`、`on_download` |
+| `python/pytaurix/events.py` | 新增缩放因子、主题与拖放事件载荷 |
 | `crates/bindings/src/window_state.rs` | 扩展回调槽与 `WindowEvent` 映射；拖放路径/位置快照 |
 | `crates/bindings/src/window_builder.rs` | 注册标题变更与下载回调，弱引用运行时与窗口代次 |
 | `crates/bindings/src/window.rs` | 新增 `set_theme`/`theme`、`set_always_on_bottom`、`set_content_protected`、`set_visible_on_all_workspaces` |
-| `python/pytaruix/_native.pyi` | 同步新增方法与回调签名 |
+| `python/pytaurix/_native.pyi` | 同步新增方法与回调签名 |
 | `tests/` | 构建器字段映射、未知/非法参数、事件解析、回调错误路径 |
 | `scripts/dynamic_window_smoke.py` 或新增场景 | 真实 Windows 窗口属性与事件证据 |
 | 文档 | `windows.md`、能力矩阵、迁移契约、运行时能力 |

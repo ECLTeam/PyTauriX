@@ -2,7 +2,7 @@
 <html lang="zh-CN"><meta charset="utf-8"><title>动态窗口验收</title>
 <body><h1>动态窗口验收</h1><pre id="output">正在创建子窗口…</pre>
 <script>
-const invoke = (name, body) => window.__TAURI__.pytaruix.pyInvoke(name, body);
+const invoke = (name, body) => window.__TAURI__.pytaurix.pyInvoke(name, body);
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function until(predicate) {
   for (let i = 0; i < 160; i++) {

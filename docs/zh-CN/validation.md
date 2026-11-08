@@ -1,6 +1,6 @@
 # 第九阶段验证记录
 
-日期：2026-10-02，Windows x86_64、WebView2；范围为 PytaruiX 更名与当前 ECL 接入。
+日期：2026-10-02，Windows x86_64、WebView2；范围为 PyTauriX 更名与当前 ECL 接入。
 第八阶段原始记录保留在 [历史快照](validation-phase8.md)，未改写其旧包名或执行结果。
 本阶段实现与本地验收已授权；未提交、推送、发布，也未将原 ECL 切换到新框架。
 
@@ -11,7 +11,7 @@ ECL/utils/config.py、Tauri.toml 和 frontend 的已有变更包含在隔离副�
 806 个来源文件的摘要及前端子模块提交记录于 artifacts/phase9-ecl-baseline.json。
 参考 PyTauri HEAD 为 7d99c6f6c8dcefdf8ed5cf87e7c7d707a1f5d749，仅作为只读契约参考。
 
-当前品牌 PytaruiX，Python pytaruix 0.1.0a1，Rust pytaruix-bindings / pytaruix-bridge。
+当前品牌 PyTauriX，Python pytaurix 0.1.0a1，Rust pytaurix-bindings / pytaurix-bridge。
 本次通过 crates.io 重新核对最新稳定基线：Tauri 2.12.1、tauri-build 2.7.1、tauri-utils 2.10.1、PyO3 0.29.3、dialog 2.8.1。
 Rust 1.97.1，最低 1.90；Python 最低 3.11，本地开发 3.14.7、独立 3.11.16、ECL 专用环境 3.13.9。
 ECL 仅安装新框架，使用独立虚拟环境、数据和 WebView2 目录，不使用旧 pytauri/pytauri-wheel。

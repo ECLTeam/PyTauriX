@@ -88,7 +88,7 @@ pub fn init(
 }
 
 /// 运行期入口：手动保存全部窗口状态，或对已存在的窗口立即恢复。
-#[pyclass(frozen, module = "pytaruix.plugins.window_state")]
+#[pyclass(frozen, module = "pytaurix.plugins.window_state")]
 pub struct WindowStateApi {
     handle: AppHandle,
 }

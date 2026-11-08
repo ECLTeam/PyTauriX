@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：为真实 OLE 拖放验收创建独立文件源窗口，不操作 Explorer 或用户文件。
 param([Parameter(Mandatory=$true)][string]$Path, [Parameter(Mandatory=$true)][string]$Title)
 $ErrorActionPreference = "Stop"
@@ -12,7 +12,7 @@ $form.Size = [System.Drawing.Size]::new(300, 180)
 $form.TopMost = $true
 [Console]::WriteLine("OLE_SOURCE_READY " + $PID + " " + $form.Text)
 $label = [System.Windows.Forms.Label]::new()
-$label.Text = "PytaruiX owned OLE source"
+$label.Text = "PyTauriX owned OLE source"
 $label.Dock = "Fill"
 $label.TextAlign = "MiddleCenter"
 $form.Controls.Add($label)

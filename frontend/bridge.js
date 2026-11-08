@@ -23,7 +23,7 @@
       const onAbort = () => {
         // 原生是否真的应答了这次取消；false 表示登记项已结束或不存在。
         core()
-          .invoke("pytaruix_cancel", { request_id: requestId })
+          .invoke("pytaurix_cancel", { request_id: requestId })
           .then(
             (value) => options?.onCancelResult?.(value),
             (error) => options?.onCancelResult?.(error),
@@ -50,11 +50,11 @@
       try {
         await onmessage(message);
       } finally {
-        core().invoke("pytaruix_channel_ack", { channel_id: channel.id }).catch(() => {});
+        core().invoke("pytaurix_channel_ack", { channel_id: channel.id }).catch(() => {});
       }
     });
     return channel;
   };
 
-  window.__TAURI__.pytaruix = Object.freeze({ pyInvoke, createChannel });
+  window.__TAURI__.pytaurix = Object.freeze({ pyInvoke, createChannel });
 })();

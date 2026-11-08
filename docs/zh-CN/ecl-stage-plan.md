@@ -1,12 +1,12 @@
 # 第九阶段方案：ECL 接入与交付验收
 
-状态：用户于 2026-10-02 明确“开始，并且项目更名为PytaruiX”，方案 1 已授权，接入实现、Windows 源码及独立程序桌面验收完成；原生拖放由用户暂缓验收，外部业务与其他平台单列。
-项目统一为 PytaruiX，发行包及导入名为 pytaruix，Rust crate 为 pytaruix-*；历史包名仅保留在阶段快照和迁移说明中。
+状态：用户于 2026-10-02 明确“开始，并且项目更名为PyTauriX”，方案 1 已授权，接入实现、Windows 源码及独立程序桌面验收完成；原生拖放由用户暂缓验收，外部业务与其他平台单列。
+项目统一为 PyTauriX，发行包及导入名为 pytaurix，Rust crate 为 pytaurix-*；历史包名仅保留在阶段快照和迁移说明中。
 长期完整绑定 Tauri 的目标继续保留；本阶段以当前 ECL 实际依赖和运行结果为验收基准。
 
 ## 调研基线
 
-框架路径：E:/Projects/EuoraCraft-Launcher/Tarui-PyO3，第八阶段原型，pytaruix 0.1.0a1。
+框架路径：E:/Projects/EuoraCraft-Launcher/Tarui-PyO3，第八阶段原型，pytaurix 0.1.0a1。
 ECL 路径：E:/Projects/EuoraCraft-Launcher/EuoraCraft-Launcher，HEAD eaa6973a1d2cfd6501ae35b92f4d0d7d387800e6。
 调查对象包括当前工作区；ECL/utils/config.py、Tauri.toml 和 frontend 有既有未提交变更，实施须保留，不能仅按 HEAD 内容替换。
 参考 PyTauri 位于 C:/Users/Wuchang325/.codex/worktrees/c9ec/pytauri，本阶段不修改该参考仓库。
@@ -20,7 +20,7 @@ pyproject.toml、packaging/build-nuitka.ps1、EuoraCraft-Launcher.spec 和 .gith
 | ECL 调用或配置 | 框架现状 | 本阶段工作 |
 | --- | --- | --- |
 | Commands、AnyIO portal、来源窗口/应用句柄、dict 正文 | 已绑定，示例验证；尚未用当前 ECL 全部正式处理器验收 | 核验实际命令注册、类型身份和异常边界，保留命令名与响应形状 |
-| pytauri/pytauri_plugins/pytauri_wheel 导入 | 新包使用 pytaruix 命名空间 | 在隔离的 ECL 接入环境调整直接导入、依赖和注入注解，不使用 sys.modules 全局替换 |
+| pytauri/pytauri_plugins/pytauri_wheel 导入 | 新包使用 pytaurix 命名空间 | 在隔离的 ECL 接入环境调整直接导入、依赖和注入注解，不使用 sys.modules 全局替换 |
 | Tauri.toml 与配置递归覆盖 | Python context_factory 仅读取 tauri.conf.json | 补 TOML 配置发现、优先级和覆盖，保持明确资源根目录 |
 | capabilities/default.toml | 当前读取不到宿主文件，编译示例能力只匹配 main/secondary | 补宿主能力载入和权限解析，核验 main/theme-studio/plugin.* 实际标签 |
 | 原生标题栏 API：minimize/close/startDragging/isDecorated | Tauri 原生前端接口存在，但示例 ACL 缺少部分调用权限 | 按 ECL 显式权限授权，真实 JS 调用验收；不能靠新增 Python 同名接口代替 ACL |
@@ -32,7 +32,7 @@ pyproject.toml、packaging/build-nuitka.ps1、EuoraCraft-Launcher.spec 和 .gith
 | 主窗口图标和 native/custom/system_shadow 模式 | 现使用框架占位默认图标；选定窗口属性存在 | 从宿主配置加载真实默认图标，验收三种主窗口模式和子窗口约定 |
 | 原生文件拖放事件 | 上游提供，当前未在 ECL 验收 | 验收 tauri://drag-* 监听、文件路径及退出注销，不只测 DOM 兜底 |
 | Nuitka 包含原生扩展、发行元数据和资源 | ECL 清单固定旧包名；当前只有本地 wheel | 更新隔离接入环境的模块/元数据/资源清单，验证脱离源码目录的独立程序 |
-| 插件宿主依赖声明与保留导入名称 | ECL 保护旧框架命名空间 | 同步新发行包和 pytaruix 宿主声明，保持现有 ECL 插件依赖管理行为 |
+| 插件宿主依赖声明与保留导入名称 | ECL 保护旧框架命名空间 | 同步新发行包和 pytaurix 宿主声明，保持现有 ECL 插件依赖管理行为 |
 
 ECL 当前直接注册的 Tauri 插件只有 dialog；系统单实例、更新、文件/进程处理有自身业务实现。
 本阶段不以“缺少其他 Tauri 插件”推断这些 ECL 功能缺失，实际链路须分别验证。

@@ -32,9 +32,9 @@
 | `crates/bindings/src/protocol.rs` | 新增 `Protocol`、`protocol_create`、异步注册与响应转换 |
 | `crates/bindings/src/application.rs` | `Builder.build(protocols=)`、名称唯一性校验与构建期登记 |
 | `crates/bindings/src/lib.rs` | 模块注册 |
-| `python/pytaruix/protocol.py` | `ProtocolRequest`、`ProtocolResponse`、`create_protocol`、原生适配 |
-| `python/pytaruix/application.py` | `protocols` 参数与描述符校验 |
-| `python/pytaruix/_native.pyi`、`__init__.py` | 类型与导出 |
+| `python/pytaurix/protocol.py` | `ProtocolRequest`、`ProtocolResponse`、`create_protocol`、原生适配 |
+| `python/pytaurix/application.py` | `protocols` 参数与描述符校验 |
+| `python/pytaurix/_native.pyi`、`__init__.py` | 类型与导出 |
 | `tests/test_protocol_contract.py` | 名称校验、请求快照、返回值类型、默认响应 |
 | 文档 | 新增 `protocols.md`，同步 features / 矩阵 / 迁移契约 |
 

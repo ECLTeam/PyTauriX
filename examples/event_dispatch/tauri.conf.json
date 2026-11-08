@@ -1,7 +1,7 @@
 {
-  "productName": "PytaruiX Event Dispatch",
+  "productName": "PyTauriX Event Dispatch",
   "version": "0.1.0",
-  "identifier": "top.eclteam.pytaruix.events",
+  "identifier": "top.eclteam.pytaurix.events",
   "build": { "frontendDist": "web" },
   "app": { "windows": [
     { "label": "main", "title": "事件与主线程验收", "width": 480, "height": 300 }

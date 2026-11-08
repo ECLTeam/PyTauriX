@@ -13,7 +13,7 @@
         "declaration": "pub fn build(self) -> TauriPlugin<R> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.global_shortcut.init",
+        "entry": "pytaurix.plugins.global_shortcut.init",
         "signature": "() -> Plugin"
       },
       "status": "bound_tested",
@@ -40,7 +40,7 @@
         "declaration": "pub fn on_shortcut<S, F>(&self, shortcut: S, handler: F) -> Result<()>"
       },
       "python": {
-        "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.register",
+        "entry": "pytaurix.plugins.global_shortcut.GlobalShortcut.register",
         "signature": "(accelerator: str, handler: ShortcutHandler, /) -> None"
       },
       "status": "bound_tested",
@@ -67,7 +67,7 @@
         "declaration": "pub fn unregister<S: TryInto<ShortcutWrapper>>(&self, shortcut: S) -> Result<()>"
       },
       "python": {
-        "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.unregister",
+        "entry": "pytaurix.plugins.global_shortcut.GlobalShortcut.unregister",
         "signature": "(accelerator: str, /) -> None"
       },
       "status": "bound_tested",
@@ -94,7 +94,7 @@
         "declaration": "pub fn unregister_all(&self) -> Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.unregister_all",
+        "entry": "pytaurix.plugins.global_shortcut.GlobalShortcut.unregister_all",
         "signature": "() -> None"
       },
       "status": "bound_tested",
@@ -121,7 +121,7 @@
         "declaration": "pub fn is_registered<S: TryInto<ShortcutWrapper>>(&self, shortcut: S) -> bool"
       },
       "python": {
-        "entry": "pytaruix.plugins.global_shortcut.GlobalShortcut.is_registered",
+        "entry": "pytaurix.plugins.global_shortcut.GlobalShortcut.is_registered",
         "signature": "(accelerator: str, /) -> bool"
       },
       "status": "bound_tested",
@@ -148,7 +148,7 @@
         "declaration": "pub fn register_multiple<S, T>(&self, shortcuts: S) -> Result<()>"
       },
       "python": {
-        "entry": "pytaruix.plugins.global_shortcut（未提供）",
+        "entry": "pytaurix.plugins.global_shortcut（未提供）",
         "signature": "—"
       },
       "status": "unimplemented",
@@ -167,7 +167,7 @@
         "declaration": "pub fn on_shortcuts<S, T, F>(&self, shortcuts: S, handler: F) -> Result<()>"
       },
       "python": {
-        "entry": "pytaruix.plugins.global_shortcut（未提供）",
+        "entry": "pytaurix.plugins.global_shortcut（未提供）",
         "signature": "—"
       },
       "status": "unimplemented",

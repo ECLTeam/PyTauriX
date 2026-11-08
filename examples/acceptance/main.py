@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：真实桌面验收入口，一次运行覆盖取消、协议、fs 与窗口状态。
 # 公开接口：无。
 # ============================================================
@@ -13,7 +13,7 @@ from pathlib import Path
 
 import anyio
 from anyio.from_thread import start_blocking_portal
-from pytaruix import (
+from pytaurix import (
     AppHandle,
     BindingError,
     Commands,
@@ -25,11 +25,11 @@ from pytaruix import (
     context_factory,
     create_protocol,
 )
-from pytaruix.plugins.fs import Fs
-from pytaruix.plugins.fs import init as fs_init
-from pytaruix.plugins.single_instance import init as single_instance_init
-from pytaruix.plugins.window_state import WindowState
-from pytaruix.plugins.window_state import init as window_state_init
+from pytaurix.plugins.fs import Fs
+from pytaurix.plugins.fs import init as fs_init
+from pytaurix.plugins.single_instance import init as single_instance_init
+from pytaurix.plugins.window_state import WindowState
+from pytaurix.plugins.window_state import init as window_state_init
 
 TARGET_WIDTH = 820
 TARGET_HEIGHT = 560
@@ -83,8 +83,8 @@ def fs_roundtrip(app_handle: AppHandle) -> dict[str, object]:
     :param app_handle: 注入的应用句柄
     :return: 是否一致、字节数与文件路径
     """
-    payload = json.dumps({"round": ROUND, "marker": "pytaruix"}, sort_keys=True).encode("utf-8")
-    directory = Path(tempfile.gettempdir()) / "pytaruix-acceptance"
+    payload = json.dumps({"round": ROUND, "marker": "pytaurix"}, sort_keys=True).encode("utf-8")
+    directory = Path(tempfile.gettempdir()) / "pytaurix-acceptance"
     directory.mkdir(parents=True, exist_ok=True)
     target = directory / "fs-probe.json"
     files = Fs(app_handle)

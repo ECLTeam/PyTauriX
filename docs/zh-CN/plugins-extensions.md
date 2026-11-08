@@ -6,7 +6,7 @@
 ## 单实例（single-instance 2.3.2）
 
 ```python
-from pytaruix.plugins.single_instance import init
+from pytaurix.plugins.single_instance import init
 
 def activated(handle, argv, cwd):
     print("第二个实例的参数：", argv, cwd)
@@ -26,7 +26,7 @@ app = builder_factory().build(
 ## 全局快捷键（global-shortcut 2.3.0）
 
 ```python
-from pytaruix.plugins.global_shortcut import GlobalShortcut, init
+from pytaurix.plugins.global_shortcut import GlobalShortcut, init
 
 def on_hotkey(handle, accelerator):
     print("按下", accelerator)
@@ -44,7 +44,7 @@ def setup(handle):
 ## 通知（notification 2.3.0）
 
 ```python
-from pytaruix.plugins.notification import Notification, init
+from pytaurix.plugins.notification import Notification, init
 
 def setup(handle):
     n = Notification(handle)
@@ -60,7 +60,7 @@ def setup(handle):
 ## opener（opener 2.5.0）
 
 ```python
-from pytaruix.plugins.opener import Opener, init
+from pytaurix.plugins.opener import Opener, init
 
 def setup(handle):
     opener = Opener(handle)

@@ -4,7 +4,7 @@ use pyo3::{prelude::*, types::PyType};
 use std::sync::Arc;
 use tauri::Manager;
 
-#[pyclass(frozen, skip_from_py_object, module = "pytaruix.ffi")]
+#[pyclass(frozen, skip_from_py_object, module = "pytaurix.ffi")]
 #[derive(Clone)]
 pub struct AppHandle {
     pub inner: tauri::AppHandle,
@@ -210,7 +210,7 @@ impl AppHandle {
     }
 }
 
-#[pyclass(frozen, module = "pytaruix.webview")]
+#[pyclass(frozen, module = "pytaurix.webview")]
 pub struct WebviewWindow {
     pub inner: tauri::WebviewWindow,
     pub handle: AppHandle,

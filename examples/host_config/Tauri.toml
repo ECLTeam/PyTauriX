@@ -1,6 +1,6 @@
 productName = "ECL Host Acceptance"
 version = "1.2.3"
-identifier = "top.eclteam.pytaruix.host"
+identifier = "top.eclteam.pytaurix.host"
 
 [build]
 frontendDist = "web"

@@ -5,8 +5,8 @@ import threading
 from pathlib import Path
 
 import pytest
-from pytaruix import BindingError, Commands, builder_factory, context_factory
-from pytaruix.application import _merge_config
+from pytaurix import BindingError, Commands, builder_factory, context_factory
+from pytaurix.application import _merge_config
 
 
 def make_project(tmp_path: Path) -> Path:

@@ -25,9 +25,9 @@ IPC Channel、监视器、图像解码、菜单/托盘继续属于完整绑定�
 
 ## 插件注册入口
 
-- 新增 pytaruix.plugin.Plugin，表达绑定支持的原生插件与一次性所有权。
+- 新增 pytaurix.plugin.Plugin，表达绑定支持的原生插件与一次性所有权。
 - Builder.build 增加 plugins 参数，默认空序列，维持已有关键字调用；用户列表不被修改。
-- 新入口采用 pytaruix.plugins.dialog，保留 init、DialogExt、FileDialogBuilder、MessageDialogBuilder 等常见名称，以及 ffi 重导出布局。
+- 新入口采用 pytaurix.plugins.dialog，保留 init、DialogExt、FileDialogBuilder、MessageDialogBuilder 等常见名称，以及 ffi 重导出布局。
 - init() 不创建 GUI；调用形状为 plugins=[dialog_init()]。同一原生插件不可重复消费，重复名称和无效对象在进入原生构建前拒绝。
 - Cargo 增加 plugin-dialog feature，候选默认桌面构建开启；feature 关闭时根包仍可导入，插件模块明确报告能力缺失。
 - 注册机制按模块组织，为后续插件复用；本阶段不开放任意 Python 对象伪装原生插件，不增加运行期插件装卸。
@@ -36,8 +36,8 @@ IPC Channel、监视器、图像解码、菜单/托盘继续属于完整绑定�
 建议迁移后的启动形状：
 
 ```python
-from pytaruix import builder_factory
-from pytaruix.plugins.dialog import init as dialog_init
+from pytaurix import builder_factory
+from pytaurix.plugins.dialog import init as dialog_init
 
 app = builder_factory().build(
     context=context,
@@ -63,7 +63,7 @@ ECL 异步调用可以继续使用原有工作线程形状：
 
 ```python
 from anyio import to_thread
-from pytaruix.plugins.dialog import DialogExt
+from pytaurix.plugins.dialog import DialogExt
 
 picked = await to_thread.run_sync(
     lambda: DialogExt.file(window).blocking_pick_file(

@@ -1,13 +1,13 @@
 <div align="center">
 
-# PytaruiX
+# PyTauriX
 
 **用 Python 写桌面应用，底层是 Tauri 2**
 
 [![CI](https://github.com/ECLTeam/PyTaruiX/actions/workflows/ci.yml/badge.svg)](https://github.com/ECLTeam/PyTaruiX/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/pytaruix)](https://pypi.org/project/pytaruix/)
-[![Python](https://img.shields.io/pypi/pyversions/pytaruix)](https://pypi.org/project/pytaruix/)
-[![License](https://img.shields.io/pypi/l/pytaruix)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/pytaurix)](https://pypi.org/project/pytaurix/)
+[![Python](https://img.shields.io/pypi/pyversions/pytaurix)](https://pypi.org/project/pytaurix/)
+[![License](https://img.shields.io/pypi/l/pytaurix)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)](#平台支持)
 
 通过 PyO3 把 Tauri 2 的原生能力带到 Python：窗口、WebView、菜单、托盘和系统集成由 Rust
@@ -18,9 +18,9 @@
 
 </div>
 
-## 为什么选 PytaruiX
+## 为什么选 PyTauriX
 
-| | PytaruiX | 传统 Python GUI |
+| | PyTauriX | 传统 Python GUI |
 | --- | --- | --- |
 | 渲染 | 系统 WebView（Chromium / WebKit） | 自绘控件或内嵌浏览器 |
 | 外观 | 原生窗口、原生菜单、系统托盘 | 框架自绘 |
@@ -48,7 +48,7 @@
 **预编译 wheel（推荐）**——无需安装 Rust 或任何构建工具：
 
 ```bash
-pip install --pre pytaruix
+pip install --pre pytaurix
 ```
 
 > [!NOTE]
@@ -71,7 +71,7 @@ uv run --no-sync maturin develop --locked --jobs 1
 ```python
 from pathlib import Path
 
-from pytaruix import Commands, builder_factory, context_factory
+from pytaurix import Commands, builder_factory, context_factory
 
 commands = Commands()
 
@@ -89,7 +89,7 @@ app.run_return()
 `frontend/index.html`：
 
 ```javascript
-const greeting = await window.__TAURI__.pytaruix.pyInvoke("greet", { name: "World" });
+const greeting = await window.__TAURI__.pytaurix.pyInvoke("greet", { name: "World" });
 ```
 
 克隆仓库后即可体验全部示例（双窗口、动态建窗、通道、菜单、托盘、对话框、宿主配置）：

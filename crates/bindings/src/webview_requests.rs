@@ -23,7 +23,7 @@ fn headers<'py>(py: Python<'py>, values: &HeaderMap) -> PyResult<Bound<'py, PyTu
 fn response(py: Python<'_>, value: Py<PyAny>) -> PyResult<Response<Cow<'static, [u8]>>> {
     // 即使调用方绕过 frozen dataclass，也在 Python/HTTP 边界重新完整校验。
     let parts = py
-        .import("pytaruix.webview_requests")?
+        .import("pytaurix.webview_requests")?
         .getattr("_response_parts")?
         .call1((value,))?;
     let (status, fields, body): ResponseParts = parts.extract()?;
@@ -74,7 +74,7 @@ pub fn register<'a>(
                 let callback = state.callback(py, "new_window")?.ok_or_else(|| {
                     binding_error("window_closed", "New window handler has been cleared")
                 })?;
-                let module = py.import("pytaruix.webview_requests")?;
+                let module = py.import("pytaurix.webview_requests")?;
                 let size = features.size().map(|value| (value.width, value.height));
                 let position = features.position().map(|value| (value.x, value.y));
                 let features = module
@@ -116,7 +116,7 @@ pub fn register<'a>(
                 let callback = state.callback(py, "permission")?.ok_or_else(|| {
                     binding_error("window_closed", "Permission handler has been cleared")
                 })?;
-                let module = py.import("pytaruix.webview_requests")?;
+                let module = py.import("pytaurix.webview_requests")?;
                 let kind = module
                     .getattr("PermissionKind")?
                     .call1((kind.to_string(),))?;
@@ -161,7 +161,7 @@ pub fn register<'a>(
                 let callback = state.callback(py, "resource")?.ok_or_else(|| {
                     binding_error("window_closed", "Resource handler has been cleared")
                 })?;
-                let module = py.import("pytaruix.webview_requests")?;
+                let module = py.import("pytaurix.webview_requests")?;
                 let request = module.getattr("WebResourceRequest")?.call1((
                     request.uri().to_string(),
                     request.method().as_str(),

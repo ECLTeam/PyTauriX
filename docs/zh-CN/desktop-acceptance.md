@@ -61,7 +61,7 @@ plugin-single-instance,plugin-window-state
 
 首次执行时 `cancel_ack` 与 `python_saw_cancel` 双失败，暴露出一个契约测试照不出的问题：
 
-1. `pytaruix_cancel` 与 `pytaruix_channel_ack` 没有在 `build.rs` 的 `AppManifest::commands`
+1. `pytaurix_cancel` 与 `pytaurix_channel_ack` 没有在 `build.rs` 的 `AppManifest::commands`
    里声明，ACL 直接报 `Command not found`；
 2. 声明之后仍然被拒，因为本地自动授权只覆盖动态创建的窗口，
    配置文件声明的窗口拿不到这几条权限。

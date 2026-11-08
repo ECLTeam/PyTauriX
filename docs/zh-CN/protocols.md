@@ -7,7 +7,7 @@ GUI 线程不等待。上游同步版本会在调用线程直接跑回调，由 
 ## 用法
 
 ```python
-from pytaruix import ProtocolResponse, builder_factory, context_factory, create_protocol
+from pytaurix import ProtocolResponse, builder_factory, context_factory, create_protocol
 
 assets = create_protocol("appdata", lambda request: ProtocolResponse(body=b"ok"))
 

@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：启动三个独立进程核验真实菜单与失败清理证据。
 # 公开接口：无。
 from __future__ import annotations

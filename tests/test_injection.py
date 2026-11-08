@@ -4,7 +4,7 @@ import json
 from typing import Annotated, cast
 
 import pytest
-from pytaruix import AppHandle, CommandError, Commands, Headers, State, WebviewWindow
+from pytaurix import AppHandle, CommandError, Commands, Headers, State, WebviewWindow
 
 
 class Shared:

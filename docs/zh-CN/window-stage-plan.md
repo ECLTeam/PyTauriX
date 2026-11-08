@@ -5,7 +5,7 @@
 ## 本阶段交付
 
 让 Python 能在应用运行期间创建和管理窗口，覆盖 ECL 当前的子窗口调用形状。
-保留 `pytaruix.webview`、根 `WebviewUrl` 与 `pytaruix.ffi.image.Image` 的布局。
+保留 `pytaurix.webview`、根 `WebviewUrl` 与 `pytaurix.ffi.image.Image` 的布局。
 采用 ECL 的类型、文件头、中文公共文档和领域模块规范。
 当前锁定 Tauri 2.12.1 / PyO3 0.29.3；实现前再次核验稳定版本，升级差异单独审核并更新账本。
 
@@ -26,9 +26,9 @@
 保留以下调用形状：
 
 ```python
-from pytaruix import WebviewUrl
-from pytaruix.ffi.image import Image
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix import WebviewUrl
+from pytaurix.ffi.image import Image
+from pytaurix.webview import WebviewWindowBuilder
 
 window = WebviewWindowBuilder.build(
     app_handle,

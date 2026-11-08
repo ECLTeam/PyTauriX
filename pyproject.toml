@@ -3,7 +3,7 @@ requires = ["maturin>=1.9,<2"]
 build-backend = "maturin"
 
 [project]
-name = "pytaruix"
+name = "pytaurix"
 version = "0.1.0a1"
 description = "Independent Python bindings for Tauri through PyO3"
 readme = "README.md"
@@ -36,7 +36,7 @@ dev = ["maturin>=1.9,<2", "pytest>=8,<10", "ruff>=0.12", "pyright>=1.1"]
 [tool.maturin]
 manifest-path = "crates/bindings/Cargo.toml"
 python-source = "python"
-module-name = "pytaruix._native"
+module-name = "pytaurix._native"
 include = [
     { path = "frontend/bridge.js", format = "sdist" },
     { path = "docs/**/*", format = "sdist" },

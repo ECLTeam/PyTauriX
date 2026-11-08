@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：串行启动自有托盘测试进程并核验原生行为和两类异常恢复。
 # 公开接口：无。
 from __future__ import annotations

@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：使用真实系统文件源验证 WebView 拖入、移动、离开、释放与焦点。
 # 公开接口：无。
 from __future__ import annotations
@@ -13,8 +13,8 @@ import traceback
 from pathlib import Path
 
 from anyio.from_thread import start_blocking_portal
-from pytaruix import AppHandle, Commands, WebviewUrl, WindowEvent, WindowEventType, builder_factory, context_factory
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix import AppHandle, Commands, WebviewUrl, WindowEvent, WindowEventType, builder_factory, context_factory
+from pytaurix.webview import WebviewWindowBuilder
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from interaction_windows import DesktopInteraction
@@ -32,7 +32,7 @@ def _run_application(profile: Path) -> int:
     checks: dict[str, bool] = {}
     failures: list[str] = []
     worker: threading.Thread | None = None
-    title = f"PytaruiX OLE target {os.getpid()}"
+    title = f"PyTauriX OLE target {os.getpid()}"
 
     def event(value: WindowEventType) -> None:
         with lock:
@@ -52,7 +52,7 @@ def _run_application(profile: Path) -> int:
             on_window_event=event,
         )
 
-        probe_title = f"PytaruiX focus probe {os.getpid()}"
+        probe_title = f"PyTauriX focus probe {os.getpid()}"
         probe = WebviewWindowBuilder.build(
             handle,
             "focus-probe",
@@ -88,7 +88,7 @@ def _run_application(profile: Path) -> int:
                     time.sleep(0.05)
                 checks["theme_events"] = themes == {"dark", "light"} and window.theme() == "light"
 
-                with tempfile.TemporaryDirectory(prefix="pytaruix-drop-") as temporary:
+                with tempfile.TemporaryDirectory(prefix="pytaurix-drop-") as temporary:
                     path = Path(temporary) / "拖放验收.txt"
                     path.write_text("owned drag payload", encoding="utf-8")
                     desktop.drag_file(title, path, leave=True)
@@ -147,7 +147,7 @@ def _run_application(profile: Path) -> int:
 
 def main() -> int:
     """由父进程拥有 WebView profile，在原生进程退出后清理。"""
-    return run_profiled_example(Path(__file__).resolve(), "pytaruix-interaction-", _run_application)
+    return run_profiled_example(Path(__file__).resolve(), "pytaurix-interaction-", _run_application)
 
 
 if __name__ == "__main__":

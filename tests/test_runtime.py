@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pytaruix import get_runtime_info
+from pytaurix import get_runtime_info
 
 
 def test_runtime_reports_compiled_capabilities_without_claiming_registration() -> None:

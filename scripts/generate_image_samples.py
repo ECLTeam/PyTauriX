@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：用标准库生成可逐像素验证的 PNG 与 DIB ICO 样本。
 # 公开接口：无。
 from __future__ import annotations

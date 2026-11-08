@@ -3283,13 +3283,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "pytaruix-bindings"
+name = "pytaurix-bindings"
 version = "0.1.0-alpha.1"
 dependencies = [
  "glob",
  "muda",
  "pyo3",
- "pytaruix-bridge",
+ "pytaurix-bridge",
  "serde",
  "serde_json",
  "specta",
@@ -3306,7 +3306,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pytaruix-bridge"
+name = "pytaurix-bridge"
 version = "0.1.0-alpha.1"
 dependencies = [
  "tauri",

@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：串行验收原生 WebView 策略、错误返回及回调释放。
 # 公开接口：无。
 from __future__ import annotations

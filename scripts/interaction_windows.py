@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：仅在自有窗口区域发送真实鼠标输入，验证系统 OLE 拖放和焦点。
 # 公开接口：DesktopInteraction。
 from __future__ import annotations
@@ -89,7 +89,7 @@ class DesktopInteraction:
         """
         target = self.find(self.windows, title)
         self.api.SetForegroundWindow(target)
-        source_title = f"PytaruiX OLE source {os.getpid()}"
+        source_title = f"PyTauriX OLE source {os.getpid()}"
         process = subprocess.Popen(
             [
                 "powershell",

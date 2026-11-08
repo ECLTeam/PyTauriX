@@ -15,7 +15,7 @@
 | `opt-level=s` + `cgu=1` | 3,412,398 | 3.254 | −1,323,918（−27.95%） | 10,143,744 | 10,377,623 | 196.1 s |
 | 组合候选（`opt=s`+`cgu=1`+`fat`+`strip`） | 3,365,204 | 3.209 | −1,371,112（−28.95%） | 9,837,056 | 10,070,919 | 259.8 s |
 
-每个变体在独立 venv 安装后，`import pytaruix` 与 `context_factory(examples/minimal)` 各采样 20 次（预热 1 次）：
+每个变体在独立 venv 安装后，`import pytaurix` 与 `context_factory(examples/minimal)` 各采样 20 次（预热 1 次）：
 
 | 变体 | 导入 P50 / P95 | Context P50 / P95 |
 | --- | --- | --- |

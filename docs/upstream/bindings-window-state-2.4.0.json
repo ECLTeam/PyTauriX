@@ -13,7 +13,7 @@
         "declaration": "pub fn build<R: Runtime>(self) -> TauriPlugin<R> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.window_state.init",
+        "entry": "pytaurix.plugins.window_state.init",
         "signature": "(*, filename=None, flags=None, denylist=None, skip_initial=None) -> Plugin"
       },
       "status": "bound_tested",
@@ -40,7 +40,7 @@
         "declaration": "pub fn with_state_flags(mut self, flags: StateFlags) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.window_state.init",
+        "entry": "pytaurix.plugins.window_state.init",
         "signature": "flags=('size'|'position'|'maximized'|'visible'|'decorations'|'fullscreen')"
       },
       "status": "bound_tested",
@@ -67,7 +67,7 @@
         "declaration": "pub fn with_filename(mut self, filename: impl Into<String>) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.window_state.init",
+        "entry": "pytaurix.plugins.window_state.init",
         "signature": "filename: str | None = None"
       },
       "status": "bound_unverified",
@@ -92,7 +92,7 @@
         "declaration": "pub fn with_denylist(mut self, denylist: &[&str]) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.window_state.init",
+        "entry": "pytaurix.plugins.window_state.init",
         "signature": "denylist: Iterable[str] = ()"
       },
       "status": "bound_unverified",
@@ -117,7 +117,7 @@
         "declaration": "pub fn skip_initial_state(mut self, label: &str) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.window_state.init",
+        "entry": "pytaurix.plugins.window_state.init",
         "signature": "skip_initial: Iterable[str] = ()"
       },
       "status": "bound_unverified",
@@ -142,7 +142,7 @@
         "declaration": "pub trait AppHandleExt {"
       },
       "python": {
-        "entry": "pytaruix.plugins.window_state.WindowState.save",
+        "entry": "pytaurix.plugins.window_state.WindowState.save",
         "signature": "(*, flags=None) -> None"
       },
       "status": "partial_tested",
@@ -169,7 +169,7 @@
         "declaration": "pub trait WindowExt {"
       },
       "python": {
-        "entry": "pytaruix.plugins.window_state.WindowState.restore",
+        "entry": "pytaurix.plugins.window_state.WindowState.restore",
         "signature": "(window, *, flags=None) -> None"
       },
       "status": "bound_unverified",
@@ -194,7 +194,7 @@
         "declaration": "pub fn with_filter<F>(mut self, filter_callback: F) -> Self"
       },
       "python": {
-        "entry": "pytaruix.plugins.window_state（未提供）",
+        "entry": "pytaurix.plugins.window_state（未提供）",
         "signature": "—"
       },
       "status": "unimplemented",
@@ -215,7 +215,7 @@
         "declaration": "pub fn map_label<F>(mut self, map_fn: F) -> Self"
       },
       "python": {
-        "entry": "pytaruix.plugins.window_state（未提供）",
+        "entry": "pytaurix.plugins.window_state（未提供）",
         "signature": "—"
       },
       "status": "unimplemented",

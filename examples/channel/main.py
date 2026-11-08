@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：真实双 WebView 的通道数据、终止、缓存与代次验收。
 # 公开接口：无。
 from __future__ import annotations
@@ -13,7 +13,7 @@ from typing import cast
 import anyio
 from anyio.from_thread import start_blocking_portal
 from pydantic import BaseModel
-from pytaruix import (
+from pytaurix import (
     AppHandle,
     BindingError,
     Commands,
@@ -23,9 +23,9 @@ from pytaruix import (
     builder_factory,
     context_factory,
 )
-from pytaruix.ffi.ipc import JavaScriptChannelId as FfiId
-from pytaruix.ipc import Channel, JavaScriptChannelId
-from pytaruix.webview import Webview, WebviewWindowBuilder
+from pytaurix.ffi.ipc import JavaScriptChannelId as FfiId
+from pytaurix.ipc import Channel, JavaScriptChannelId
+from pytaurix.webview import Webview, WebviewWindowBuilder
 
 
 class Progress(BaseModel):

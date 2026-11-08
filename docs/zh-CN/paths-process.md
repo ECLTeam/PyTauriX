@@ -1,6 +1,6 @@
 # 路径与进程
 
-本文说明 `pytaruix.path` 与 `pytaruix.process` 的入口、线程约束、平台差异和未绑定范围。
+本文说明 `pytaurix.path` 与 `pytaurix.process` 的入口、线程约束、平台差异和未绑定范围。
 接口契约与迁移差异见[迁移契约](migration-contract.md)，覆盖状态见[能力矩阵](capability-matrix.md)。
 
 ## 取得解析器
@@ -9,7 +9,7 @@
 解析只读取身份与宿主配置，不创建目录、不校验路径是否存在，也不访问网络。
 
 ```python
-from pytaruix import BaseDirectory, Manager
+from pytaurix import BaseDirectory, Manager
 
 resolver = Manager.path(app_handle)
 log_dir = resolver.app_log_dir  # Path | None

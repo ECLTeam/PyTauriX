@@ -6,9 +6,9 @@
 ## 注册与导入
 
 ```python
-from pytaruix import builder_factory
-from pytaruix.plugin import Plugin
-from pytaruix.plugins.dialog import DialogExt, init as dialog_init
+from pytaurix import builder_factory
+from pytaurix.plugin import Plugin
+from pytaurix.plugins.dialog import DialogExt, init as dialog_init
 
 plugins: list[Plugin] = [dialog_init()]
 app = builder_factory().build(
@@ -22,7 +22,7 @@ init 不创建窗口。build 复制输入序列，不修改调用方列表；无
 invalid_plugin、duplicate_plugin、plugin_consumed。通过验证并进入原生构建后，描述符被消费；原生启动失败也不会恢复。
 当前只提供 dialog 描述符，不支持任意 Python 插件、运行期注册/卸载或原生插件构造器。
 
-插件入口采用 pytaruix.plugins.dialog；同名公共类型也从其 ffi 模块重导出。
+插件入口采用 pytaurix.plugins.dialog；同名公共类型也从其 ffi 模块重导出。
 迁移 PyTauri 常用代码通常只需修改导入和包名，但不承诺完整 PyTauri 或 ECL 等价。
 默认构建开启 plugin-dialog 和 dialog-gtk3；可用 dialog-xdg-portal 选择另一 Linux 后端，平台行为仍须分别验收。
 使用 --no-default-features --features wry 构建可关闭 dialog；根包仍正常导入，导入插件模块抛明确 ImportError。
@@ -32,7 +32,7 @@ get_runtime_info 的 plugin.dialog 和 dialog_version 只报告编译能力，�
 
 ```python
 from anyio import to_thread
-from pytaruix.plugins.dialog import DialogExt
+from pytaurix.plugins.dialog import DialogExt
 
 picked = await to_thread.run_sync(
     lambda: DialogExt.file(window).blocking_pick_file(
@@ -70,7 +70,7 @@ set_can_create_directories 的上游效果仅适用于 macOS；Windows 已验证
 ## 消息框
 
 ```python
-from pytaruix.plugins.dialog import DialogExt, MessageDialogButtons, MessageDialogKind
+from pytaurix.plugins.dialog import DialogExt, MessageDialogButtons, MessageDialogKind
 
 confirmed = await to_thread.run_sync(
     lambda: DialogExt.message(window, "是否继续？").blocking_show(

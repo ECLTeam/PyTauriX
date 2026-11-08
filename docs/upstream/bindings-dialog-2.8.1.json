@@ -13,7 +13,7 @@
         "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.init",
+        "entry": "pytaurix.plugins.dialog.init",
         "signature": "() -> Plugin"
       },
       "status": "bound_tested",
@@ -42,7 +42,7 @@
         "declaration": "fn dialog(&self) -> &Dialog<R>;"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.DialogExt",
+        "entry": "pytaurix.plugins.dialog.DialogExt",
         "signature": "file(manager) / message(manager, message)"
       },
       "status": "partial_tested",
@@ -71,7 +71,7 @@
         "declaration": "pub fn file(&self) -> FileDialogBuilder<R> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.DialogExt.file",
+        "entry": "pytaurix.plugins.dialog.DialogExt.file",
         "signature": "(manager, /) -> FileDialogBuilder"
       },
       "status": "bound_tested",
@@ -100,7 +100,7 @@
         "declaration": "pub fn message(&self, message: impl Into<String>) -> MessageDialogBuilder<R> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.DialogExt.message",
+        "entry": "pytaurix.plugins.dialog.DialogExt.message",
         "signature": "(manager, message, /) -> MessageDialogBuilder"
       },
       "status": "bound_tested",
@@ -129,7 +129,7 @@
         "declaration": "pub fn new(dialog: Dialog<R>) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.DialogExt.file",
+        "entry": "pytaurix.plugins.dialog.DialogExt.file",
         "signature": "(manager, /) -> FileDialogBuilder"
       },
       "status": "partial_tested",
@@ -158,7 +158,7 @@
         "declaration": "pub fn new(dialog: Dialog<R>, title: impl Into<String>, message: impl Into<String>) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.DialogExt.message",
+        "entry": "pytaurix.plugins.dialog.DialogExt.message",
         "signature": "(manager, message, /) -> MessageDialogBuilder"
       },
       "status": "partial_tested",
@@ -187,7 +187,7 @@
         "declaration": "pub fn add_filter(mut self, name: impl Into<String>, extensions: &[&str]) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.add_filter",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilderArgs.add_filter",
         "signature": "tuple[str, Sequence[str]]"
       },
       "status": "bound_tested",
@@ -216,7 +216,7 @@
         "declaration": "pub fn set_directory<P: AsRef<Path>>(mut self, directory: P) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_directory",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilderArgs.set_directory",
         "signature": "Path | str"
       },
       "status": "bound_tested",
@@ -245,7 +245,7 @@
         "declaration": "pub fn set_file_name(mut self, file_name: impl Into<String>) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_file_name",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilderArgs.set_file_name",
         "signature": "str"
       },
       "status": "bound_tested",
@@ -274,7 +274,7 @@
         "declaration": "pub fn set_parent<"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_parent",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilderArgs.set_parent",
         "signature": "WebviewWindow"
       },
       "status": "bound_tested",
@@ -303,7 +303,7 @@
         "declaration": "pub fn set_title(mut self, title: impl Into<String>) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_title",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilderArgs.set_title",
         "signature": "str"
       },
       "status": "bound_tested",
@@ -332,7 +332,7 @@
         "declaration": "pub fn set_can_create_directories(mut self, can: bool) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_can_create_directories",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilderArgs.set_can_create_directories",
         "signature": "bool"
       },
       "status": "bound_unverified",
@@ -353,7 +353,7 @@
         "declaration": "pub fn pick_file<F: FnOnce(Option<FilePath>) + Send + 'static>(self, f: F) {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.pick_file",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilder.pick_file",
         "signature": "(handler: Callable[[Path | None], object], /, **kwargs) -> None"
       },
       "status": "bound_tested",
@@ -382,7 +382,7 @@
         "declaration": "pub fn blocking_pick_file(self) -> Option<FilePath> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.blocking_pick_file",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilder.blocking_pick_file",
         "signature": "(self, /, **kwargs) -> Path | None"
       },
       "status": "bound_tested",
@@ -411,7 +411,7 @@
         "declaration": "pub fn pick_files<F: FnOnce(Option<Vec<FilePath>>) + Send + 'static>(self, f: F) {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.pick_files",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilder.pick_files",
         "signature": "(handler: Callable[[list[Path] | None], object], /, **kwargs) -> None"
       },
       "status": "bound_tested",
@@ -440,7 +440,7 @@
         "declaration": "pub fn blocking_pick_files(self) -> Option<Vec<FilePath>> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.blocking_pick_files",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilder.blocking_pick_files",
         "signature": "(self, /, **kwargs) -> list[Path] | None"
       },
       "status": "bound_tested",
@@ -469,7 +469,7 @@
         "declaration": "pub fn pick_folder<F: FnOnce(Option<FilePath>) + Send + 'static>(self, f: F) {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.pick_folder",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilder.pick_folder",
         "signature": "(handler: Callable[[Path | None], object], /, **kwargs) -> None"
       },
       "status": "bound_tested",
@@ -498,7 +498,7 @@
         "declaration": "pub fn blocking_pick_folder(self) -> Option<FilePath> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.blocking_pick_folder",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilder.blocking_pick_folder",
         "signature": "(self, /, **kwargs) -> Path | None"
       },
       "status": "bound_tested",
@@ -527,7 +527,7 @@
         "declaration": "pub fn pick_folders<F: FnOnce(Option<Vec<FilePath>>) + Send + 'static>(self, f: F) {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.pick_folders",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilder.pick_folders",
         "signature": "(handler: Callable[[list[Path] | None], object], /, **kwargs) -> None"
       },
       "status": "bound_tested",
@@ -556,7 +556,7 @@
         "declaration": "pub fn blocking_pick_folders(self) -> Option<Vec<FilePath>> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.blocking_pick_folders",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilder.blocking_pick_folders",
         "signature": "(self, /, **kwargs) -> list[Path] | None"
       },
       "status": "bound_tested",
@@ -585,7 +585,7 @@
         "declaration": "pub fn save_file<F: FnOnce(Option<FilePath>) + Send + 'static>(self, f: F) {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.save_file",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilder.save_file",
         "signature": "(handler: Callable[[Path | None], object], /, **kwargs) -> None"
       },
       "status": "bound_tested",
@@ -614,7 +614,7 @@
         "declaration": "pub fn blocking_save_file(self) -> Option<FilePath> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilder.blocking_save_file",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilder.blocking_save_file",
         "signature": "(self, /, **kwargs) -> Path | None"
       },
       "status": "bound_tested",
@@ -643,7 +643,7 @@
         "declaration": "pub fn title(mut self, title: impl Into<String>) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogBuilderArgs.title",
+        "entry": "pytaurix.plugins.dialog.MessageDialogBuilderArgs.title",
         "signature": "str"
       },
       "status": "bound_tested",
@@ -672,7 +672,7 @@
         "declaration": "pub fn parent<W: raw_window_handle::HasWindowHandle + raw_window_handle::HasDisplayHandle>("
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogBuilderArgs.parent",
+        "entry": "pytaurix.plugins.dialog.MessageDialogBuilderArgs.parent",
         "signature": "WebviewWindow"
       },
       "status": "bound_tested",
@@ -701,7 +701,7 @@
         "declaration": "pub fn buttons(mut self, buttons: MessageDialogButtons) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogBuilderArgs.buttons",
+        "entry": "pytaurix.plugins.dialog.MessageDialogBuilderArgs.buttons",
         "signature": "MessageDialogButtonsType"
       },
       "status": "bound_tested",
@@ -730,7 +730,7 @@
         "declaration": "pub fn kind(mut self, kind: MessageDialogKind) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogBuilderArgs.kind",
+        "entry": "pytaurix.plugins.dialog.MessageDialogBuilderArgs.kind",
         "signature": "MessageDialogKind"
       },
       "status": "partial_tested",
@@ -759,7 +759,7 @@
         "declaration": "pub fn show<F: FnOnce(bool) + Send + 'static>(self, f: F) {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogBuilder.show",
+        "entry": "pytaurix.plugins.dialog.MessageDialogBuilder.show",
         "signature": "(handler: Callable[[bool], object], /, **kwargs) -> None"
       },
       "status": "bound_tested",
@@ -788,7 +788,7 @@
         "declaration": "pub fn blocking_show(self) -> bool {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogBuilder.blocking_show",
+        "entry": "pytaurix.plugins.dialog.MessageDialogBuilder.blocking_show",
         "signature": "(self, /, **kwargs) -> bool"
       },
       "status": "bound_tested",
@@ -817,7 +817,7 @@
         "declaration": "pub fn show_with_result<F: FnOnce(MessageDialogResult) + Send + 'static>(self, f: F) {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogBuilder.show_with_result",
+        "entry": "pytaurix.plugins.dialog.MessageDialogBuilder.show_with_result",
         "signature": "Not implemented"
       },
       "status": "unimplemented",
@@ -838,7 +838,7 @@
         "declaration": "pub fn blocking_show_with_result(self) -> MessageDialogResult {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogBuilder.blocking_show_with_result",
+        "entry": "pytaurix.plugins.dialog.MessageDialogBuilder.blocking_show_with_result",
         "signature": "Not implemented"
       },
       "status": "unimplemented",
@@ -859,7 +859,7 @@
         "declaration": "pub fn set_picker_mode(mut self, mode: PickerMode) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_picker_mode",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilderArgs.set_picker_mode",
         "signature": "Not implemented"
       },
       "status": "unimplemented",
@@ -880,7 +880,7 @@
         "declaration": "pub fn set_file_access_mode(mut self, mode: FileAccessMode) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileDialogBuilderArgs.set_file_access_mode",
+        "entry": "pytaurix.plugins.dialog.FileDialogBuilderArgs.set_file_access_mode",
         "signature": "Not implemented"
       },
       "status": "unimplemented",
@@ -901,7 +901,7 @@
         "declaration": "pub enum MessageDialogKind {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogKind",
+        "entry": "pytaurix.plugins.dialog.MessageDialogKind",
         "signature": "Enum variants"
       },
       "status": "partial_tested",
@@ -930,7 +930,7 @@
         "declaration": "pub enum MessageDialogButtons {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogButtons",
+        "entry": "pytaurix.plugins.dialog.MessageDialogButtons",
         "signature": "Enum variants"
       },
       "status": "bound_tested",
@@ -959,7 +959,7 @@
         "declaration": "pub enum MessageDialogResult {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.MessageDialogResult",
+        "entry": "pytaurix.plugins.dialog.MessageDialogResult",
         "signature": "Not implemented"
       },
       "status": "unimplemented",
@@ -980,7 +980,7 @@
         "declaration": "pub enum PickerMode {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.PickerMode",
+        "entry": "pytaurix.plugins.dialog.PickerMode",
         "signature": "Not implemented"
       },
       "status": "unimplemented",
@@ -1001,7 +1001,7 @@
         "declaration": "pub enum FileAccessMode {"
       },
       "python": {
-        "entry": "pytaruix.plugins.dialog.FileAccessMode",
+        "entry": "pytaurix.plugins.dialog.FileAccessMode",
         "signature": "Not implemented"
       },
       "status": "unimplemented",

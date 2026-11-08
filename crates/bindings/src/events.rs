@@ -9,7 +9,7 @@ use pyo3::prelude::*;
 use std::sync::Arc;
 use tauri::{Emitter, Listener};
 
-#[pyclass(frozen, module = "pytaruix.events")]
+#[pyclass(frozen, module = "pytaurix.events")]
 pub struct Event {
     id: u32,
     payload: String,

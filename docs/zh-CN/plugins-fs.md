@@ -6,8 +6,8 @@
 ## 用法
 
 ```python
-from pytaruix import builder_factory
-from pytaruix.plugins.fs import Fs, init
+from pytaurix import builder_factory
+from pytaurix.plugins.fs import Fs, init
 
 app = builder_factory().build(
     context=context,

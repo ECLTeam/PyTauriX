@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：两轮真实桌面验收，覆盖取消、协议、fs、单实例与窗口状态。
 # 公开接口：无。
 # ============================================================
@@ -186,7 +186,7 @@ def main() -> int:
 
     :return: 全通过返回 0
     """
-    from pytaruix import _native
+    from pytaurix import _native
 
     required = {
         "plugin_fs_available": "plugin-fs",

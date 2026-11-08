@@ -1,7 +1,7 @@
 {
-  "productName": "PytaruiX Dynamic Windows",
+  "productName": "PyTauriX Dynamic Windows",
   "version": "0.1.0",
-  "identifier": "top.eclteam.pytaruix.dynamic",
+  "identifier": "top.eclteam.pytaurix.dynamic",
   "build": { "frontendDist": "web" },
   "app": { "windows": [
     { "label": "main", "title": "动态窗口验收", "width": 540, "height": 360 }

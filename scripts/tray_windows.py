@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：独立定位通知区域自有测试图标并发送真实鼠标/键盘输入。
 # 公开接口：DesktopTray。
 from __future__ import annotations
@@ -49,7 +49,7 @@ class DesktopTray:
             ctypes.c_size_t,
         ]
         self.api.keybd_event.argtypes = [wintypes.BYTE, wintypes.BYTE, wintypes.DWORD, ctypes.c_size_t]
-        self.prefix = f"PytaruiX tray {os.getpid()} "
+        self.prefix = f"PyTauriX tray {os.getpid()} "
         self.windows = DesktopDialogs(os.getpid())
         self.api.GetDC.argtypes = [wintypes.HWND]
         self.api.GetDC.restype = wintypes.HDC

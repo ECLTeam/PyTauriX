@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：真实 WebView IPC 基准宿主，采集小 JSON、Pydantic 与并发调用耗时。
 # 公开接口：无。
 # ============================================================
@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 from pydantic import BaseModel
-from pytaruix import AppHandle, Commands, builder_factory, context_factory
+from pytaurix import AppHandle, Commands, builder_factory, context_factory
 
 
 class BenchBody(BaseModel):

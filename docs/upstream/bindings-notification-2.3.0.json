@@ -13,7 +13,7 @@
         "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.notification.init",
+        "entry": "pytaurix.plugins.notification.init",
         "signature": "() -> Plugin"
       },
       "status": "bound_tested",
@@ -40,7 +40,7 @@
         "declaration": "pub fn builder(&self) -> NotificationBuilder<R> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.notification.Notification.send",
+        "entry": "pytaurix.plugins.notification.Notification.send",
         "signature": "(title: str, body: str, /, *, silent: bool = False, id: int | None = None) -> None"
       },
       "status": "bound_tested",
@@ -67,7 +67,7 @@
         "declaration": "pub fn show(self) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.notification.Notification.send",
+        "entry": "pytaurix.plugins.notification.Notification.send",
         "signature": "send 的提交动作"
       },
       "status": "bound_tested",
@@ -94,7 +94,7 @@
         "declaration": "pub fn silent(mut self) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.notification.Notification.send",
+        "entry": "pytaurix.plugins.notification.Notification.send",
         "signature": "silent: bool = False"
       },
       "status": "partial_tested",
@@ -121,7 +121,7 @@
         "declaration": "pub fn id(mut self, id: i32) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.notification.Notification.send",
+        "entry": "pytaurix.plugins.notification.Notification.send",
         "signature": "id: int | None = None"
       },
       "status": "bound_tested",
@@ -148,7 +148,7 @@
         "declaration": "pub fn permission_state(&self) -> crate::Result<PermissionState> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.notification.Notification.permission_state",
+        "entry": "pytaurix.plugins.notification.Notification.permission_state",
         "signature": "() -> str"
       },
       "status": "bound_tested",
@@ -175,7 +175,7 @@
         "declaration": "pub fn request_permission(&self) -> crate::Result<PermissionState> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.notification.Notification.request_permission",
+        "entry": "pytaurix.plugins.notification.Notification.request_permission",
         "signature": "() -> str"
       },
       "status": "bound_tested",
@@ -202,7 +202,7 @@
         "declaration": "pub fn schedule(mut self, schedule: Schedule) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.notification（未提供）",
+        "entry": "pytaurix.plugins.notification（未提供）",
         "signature": "—"
       },
       "status": "unimplemented",
@@ -221,7 +221,7 @@
         "declaration": "pub fn channel_id(mut self, id: impl Into<String>) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.notification（未提供）",
+        "entry": "pytaurix.plugins.notification（未提供）",
         "signature": "—"
       },
       "status": "unimplemented",
@@ -240,7 +240,7 @@
         "declaration": "pub fn attachment(mut self, attachment: Attachment) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.plugins.notification（未提供）",
+        "entry": "pytaurix.plugins.notification（未提供）",
         "signature": "—"
       },
       "status": "unimplemented",

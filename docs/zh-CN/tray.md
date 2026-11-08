@@ -11,9 +11,9 @@ uv run --no-sync python examples/tray/main.py
 ## 构造与修改
 
 ```python
-from pytaruix.ffi.image import Image
-from pytaruix.menu import Menu, MenuItem
-from pytaruix.tray import TrayIconBuilder
+from pytaurix.ffi.image import Image
+from pytaurix.menu import Menu, MenuItem
+from pytaurix.tray import TrayIconBuilder
 
 def setup(handle):
     menu = Menu.with_items(handle, (MenuItem.with_id(handle, "show", "显示窗口", True),))
@@ -22,7 +22,7 @@ def setup(handle):
         TrayIconBuilder.with_id("main-tray")
         .icon(icon)
         .menu(menu)
-        .tooltip("PytaruiX")
+        .tooltip("PyTauriX")
         .show_menu_on_left_click(False)
         .build(handle)
     )

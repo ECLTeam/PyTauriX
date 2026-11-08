@@ -4,10 +4,10 @@ import json
 from dataclasses import FrozenInstanceError
 
 import pytest
-from pytaruix import BindingError, _native, get_runtime_info
-from pytaruix import tray as public
-from pytaruix.dpi import PhysicalPositionF64
-from pytaruix.ffi import tray as ffi
+from pytaurix import BindingError, _native, get_runtime_info
+from pytaurix import tray as public
+from pytaurix.dpi import PhysicalPositionF64
+from pytaurix.ffi import tray as ffi
 
 
 def test_import_and_feature_contract() -> None:

@@ -134,7 +134,7 @@ fn about_metadata(raw: &str) -> PyResult<menu::AboutMetadata<'static>> {
 /// 内部菜单句柄；公开 Python 类型按菜单种类限制操作。
 ///
 /// 资源归属应用，关闭构造它的窗口不会销毁资源；退出后拒绝操作。
-#[pyclass(frozen, skip_from_py_object, module = "pytaruix._native")]
+#[pyclass(frozen, skip_from_py_object, module = "pytaurix._native")]
 #[derive(Clone)]
 pub struct MenuResource {
     node: Node,
@@ -669,7 +669,7 @@ fn extract(value: &Bound<'_, PyAny>) -> PyResult<MenuResource> {
 fn public(py: Python<'_>, resource: Option<MenuResource>) -> PyResult<Py<PyAny>> {
     match resource {
         Some(resource) => Ok(py
-            .import("pytaruix.ffi.menu")?
+            .import("pytaurix.ffi.menu")?
             .getattr("_from_native")?
             .call1((resource,))?
             .unbind()),

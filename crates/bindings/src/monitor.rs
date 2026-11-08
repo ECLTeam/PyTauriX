@@ -11,7 +11,7 @@ use std::sync::atomic::Ordering;
 /// 保存名称、物理几何与缩放比的不可变显示器快照。
 ///
 /// 只能通过窗口查询获得；窗口关闭后仍可读取，不自动反映设备变化。
-#[pyclass(frozen, module = "pytaruix.ffi.window")]
+#[pyclass(frozen, module = "pytaurix.ffi.window")]
 pub struct Monitor {
     pub inner: tauri::window::Monitor,
 }

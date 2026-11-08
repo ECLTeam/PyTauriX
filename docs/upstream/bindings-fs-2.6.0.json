@@ -13,7 +13,7 @@
         "declaration": "pub fn init<R: Runtime>() -> TauriPlugin<R, Option<config::Config>> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.fs.init",
+        "entry": "pytaurix.plugins.fs.init",
         "signature": "() -> Plugin"
       },
       "status": "bound_tested",
@@ -40,7 +40,7 @@
         "declaration": "pub trait FsExt<R: Runtime> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.fs.Fs",
+        "entry": "pytaurix.plugins.fs.Fs",
         "signature": "(handle: AppHandle) -> Fs"
       },
       "status": "partial_tested",
@@ -67,7 +67,7 @@
         "declaration": "pub fn read_to_string<P: Into<FilePath>>(&self, path: P) -> std::io::Result<String> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.fs.Fs.read_text",
+        "entry": "pytaurix.plugins.fs.Fs.read_text",
         "signature": "(path: str | Path, /) -> str"
       },
       "status": "bound_unverified",
@@ -92,7 +92,7 @@
         "declaration": "pub fn read<P: Into<FilePath>>(&self, path: P) -> std::io::Result<Vec<u8>> {"
       },
       "python": {
-        "entry": "pytaruix.plugins.fs.Fs.read_bytes",
+        "entry": "pytaurix.plugins.fs.Fs.read_bytes",
         "signature": "(path: str | Path, /) -> bytes"
       },
       "status": "bound_tested",
@@ -119,7 +119,7 @@
         "declaration": "pub fn open<P: Into<FilePath>>("
       },
       "python": {
-        "entry": "pytaruix.plugins.fs.Fs.write_text",
+        "entry": "pytaurix.plugins.fs.Fs.write_text",
         "signature": "(path: str | Path, contents: str, /) -> None"
       },
       "status": "bound_tested",
@@ -146,7 +146,7 @@
         "declaration": "pub async fn read_text_file<R: Runtime>("
       },
       "python": {
-        "entry": "pytaruix.plugins.fs（命令层未绑定）",
+        "entry": "pytaurix.plugins.fs（命令层未绑定）",
         "signature": "—"
       },
       "status": "unimplemented",
@@ -165,7 +165,7 @@
         "declaration": "pub async fn read_dir<R: Runtime>("
       },
       "python": {
-        "entry": "pytaruix.plugins.fs（命令层未绑定）",
+        "entry": "pytaurix.plugins.fs（命令层未绑定）",
         "signature": "—"
       },
       "status": "unimplemented",
@@ -184,7 +184,7 @@
         "declaration": "pub fn remove<R: Runtime>("
       },
       "python": {
-        "entry": "pytaruix.plugins.fs（命令层未绑定）",
+        "entry": "pytaurix.plugins.fs（命令层未绑定）",
         "signature": "—"
       },
       "status": "unimplemented",
@@ -203,7 +203,7 @@
         "declaration": "pub fn rename<R: Runtime>("
       },
       "python": {
-        "entry": "pytaruix.plugins.fs（命令层未绑定）",
+        "entry": "pytaurix.plugins.fs（命令层未绑定）",
         "signature": "—"
       },
       "status": "unimplemented",

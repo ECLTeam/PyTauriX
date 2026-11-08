@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：真实通知区域双托盘、鼠标与菜单事件、窗口恢复和资源清理验收。
 # 公开接口：无。
 from __future__ import annotations
@@ -16,10 +16,10 @@ from pathlib import Path
 from typing import Any, cast
 
 from anyio.from_thread import start_blocking_portal
-from pytaruix import AppHandle, BindingError, Commands, WebviewWindow, builder_factory, context_factory
-from pytaruix.ffi.image import Image
-from pytaruix.menu import Menu, MenuItem, Submenu
-from pytaruix.tray import MouseButton, MouseButtonState, TrayIcon, TrayIconBuilder, TrayIconEvent, TrayIconEventType
+from pytaurix import AppHandle, BindingError, Commands, WebviewWindow, builder_factory, context_factory
+from pytaurix.ffi.image import Image
+from pytaurix.menu import Menu, MenuItem, Submenu
+from pytaurix.tray import MouseButton, MouseButtonState, TrayIcon, TrayIconBuilder, TrayIconEvent, TrayIconEventType
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from tray_windows import DesktopTray

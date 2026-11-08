@@ -6,10 +6,10 @@ from pathlib import Path
 from typing import cast
 
 import pytest
-from pytaruix import BindingError, get_runtime_info
-from pytaruix.dpi import PhysicalPosition, PhysicalRect, PhysicalSize
-from pytaruix.ffi.image import Image
-from pytaruix.ffi.window import Monitor
+from pytaurix import BindingError, get_runtime_info
+from pytaurix.dpi import PhysicalPosition, PhysicalRect, PhysicalSize
+from pytaurix.ffi.image import Image
+from pytaurix.ffi.window import Monitor
 
 samples = Path(__file__).resolve().parents[1] / "examples" / "display_image" / "icons"
 alpha = bytes((255, 0, 0, 255, 0, 255, 0, 128, 0, 0, 255, 0, 12, 34, 56, 64))

@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：模拟 ECL 工作线程选择文件，并验收真实 dialog 与资源生命周期。
 # 公开接口：无。
 # ============================================================
@@ -18,7 +18,7 @@ from typing import cast
 
 import anyio
 from anyio.from_thread import start_blocking_portal
-from pytaruix import (
+from pytaurix import (
     AppHandle,
     BindingError,
     Commands,
@@ -28,7 +28,7 @@ from pytaruix import (
     builder_factory,
     context_factory,
 )
-from pytaruix.plugins.dialog import (
+from pytaurix.plugins.dialog import (
     DialogExt,
     FileDialogBuilder,
     FileDialogBuilderArgs,
@@ -38,7 +38,7 @@ from pytaruix.plugins.dialog import (
     MessageDialogKind,
     init,
 )
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix.webview import WebviewWindowBuilder
 
 
 def main() -> int:
@@ -48,7 +48,7 @@ def main() -> int:
     print(f"DIALOG_PID {os.getpid()}", flush=True)
     root = Path(__file__).resolve().parent
     mode = os.getenv("PYTARUIX_FAILURE_MODE", "normal")
-    prefix = "pytaruix-dialog-" + uuid.uuid4().hex
+    prefix = "pytaurix-dialog-" + uuid.uuid4().hex
     commands = Commands()
     checks: dict[str, bool] = {}
     references: list[weakref.ReferenceType[Receiver]] = []
@@ -184,7 +184,7 @@ def main() -> int:
     async def exercise(app_handle: AppHandle) -> dict[str, object]:
         if mode != "normal":
             return await lifecycle(app_handle)
-        with TemporaryDirectory(prefix="pytaruix-dialog-中文-") as temporary:
+        with TemporaryDirectory(prefix="pytaurix-dialog-中文-") as temporary:
             directory = Path(temporary).resolve()
             files = [directory / "文件一.txt", directory / "文件二.txt"]
             folders = [directory / "目录一", directory / "目录二"]

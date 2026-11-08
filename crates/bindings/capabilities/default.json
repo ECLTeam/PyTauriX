@@ -5,7 +5,7 @@
   "permissions": [
     "core:default",
     "allow-python-command",
-    "allow-pytaruix-cancel",
-    "allow-pytaruix-channel-ack"
+    "allow-pytaurix-cancel",
+    "allow-pytaurix-channel-ack"
   ]
 }

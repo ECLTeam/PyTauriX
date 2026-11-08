@@ -11,7 +11,7 @@
 
 ## 建议实现范围
 
-1. 导入路径：pytaruix.menu 和 pytaruix.ffi.menu，重导出同一底层类型。
+1. 导入路径：pytaurix.menu 和 pytaurix.ffi.menu，重导出同一底层类型。
 2. 类型：Menu、Submenu、MenuItem、CheckMenuItem、IconMenuItem，及 PredefinedMenuItem.separator。
    MenuID 使用 str；MenuEvent 保留 PyTauri 的字符串菜单 ID 形状。
 3. 构造：沿用 new/with_id/with_items 等对应 Python 构造或静态工厂形状，逐项核对签名、默认值与位置参数。

@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：插件行为验收入口，真实调用全局快捷键、系统通知与默认程序。
 # 公开接口：无。
 # ============================================================
@@ -16,20 +16,20 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 
-from pytaruix import AppHandle, BindingError, Commands, Manager, builder_factory, context_factory
-from pytaruix.plugins.dialog import DialogExt, MessageDialogButtons
-from pytaruix.plugins.dialog import init as dialog_init
-from pytaruix.plugins.global_shortcut import GlobalShortcut
-from pytaruix.plugins.global_shortcut import init as global_shortcut_init
-from pytaruix.plugins.notification import Notification
-from pytaruix.plugins.notification import init as notification_init
-from pytaruix.plugins.opener import Opener
-from pytaruix.plugins.opener import init as opener_init
+from pytaurix import AppHandle, BindingError, Commands, Manager, builder_factory, context_factory
+from pytaurix.plugins.dialog import DialogExt, MessageDialogButtons
+from pytaurix.plugins.dialog import init as dialog_init
+from pytaurix.plugins.global_shortcut import GlobalShortcut
+from pytaurix.plugins.global_shortcut import init as global_shortcut_init
+from pytaurix.plugins.notification import Notification
+from pytaurix.plugins.notification import init as notification_init
+from pytaurix.plugins.opener import Opener
+from pytaurix.plugins.opener import init as opener_init
 
 ACCELERATOR = "Ctrl+Alt+F9"
 NOTIFICATION_ID = 4242
 OUTPUT = Path(os.environ.get("PYTARUIX_PLUGIN_BEHAVIOR_OUT", "plugin-behavior.json"))
-PROBE_DIR = Path(tempfile.gettempdir()) / "pytaruix-plugin-behavior"
+PROBE_DIR = Path(tempfile.gettempdir()) / "pytaurix-plugin-behavior"
 PROBE_FILE = PROBE_DIR / "probe.txt"
 
 report: dict[str, object] = {"accelerator": ACCELERATOR}
@@ -46,7 +46,7 @@ class _ProbeHandler(BaseHTTPRequestHandler):
         返回一段自述页并标记命中。
         """
         body = (
-            "<!doctype html><meta charset=utf-8><title>PytaruiX opener</title>"
+            "<!doctype html><meta charset=utf-8><title>PyTauriX opener</title>"
             "<h1>opener 验收已到达本地服务</h1>"
             "<p>这个页面由默认浏览器打开，可以关闭。</p>"
             "<script>setTimeout(() => window.close(), 1200)</script>"
@@ -201,7 +201,7 @@ def _shortcut_checks(handle: AppHandle, window: Any) -> None:
         window.set_title(f"请按 {ACCELERATOR}")
         _inject_shortcut()
         fired.wait(30.0)
-        window.set_title("PytaruiX 插件行为验收")
+        window.set_title("PyTauriX 插件行为验收")
         window.set_always_on_top(False)
     report["shortcut_manual"] = manual
     report["shortcut_fired"] = fired.is_set()
@@ -225,7 +225,7 @@ def _notification_checks(handle: AppHandle, window: Any) -> None:
     report["notification_request_result"] = notification.request_permission()
     token = time.strftime("%H:%M:%S")
     notification.send(
-        "PytaruiX 插件验收",
+        "PyTauriX 插件验收",
         f"看到这条通知请点「是」。时间 {token}。",
         id=NOTIFICATION_ID,
     )
@@ -233,7 +233,7 @@ def _notification_checks(handle: AppHandle, window: Any) -> None:
     time.sleep(1.5)
     report["notification_visible"] = _confirm(
         window,
-        f"屏幕上是否出现了标题为「PytaruiX 插件验收」、时间 {token} 的系统通知？",
+        f"屏幕上是否出现了标题为「PyTauriX 插件验收」、时间 {token} 的系统通知？",
         "系统通知",
     )
 
@@ -256,7 +256,7 @@ def _opener_checks(handle: AppHandle, window: Any) -> None:
         server.shutdown()
         server.server_close()
     PROBE_DIR.mkdir(parents=True, exist_ok=True)
-    PROBE_FILE.write_text("PytaruiX opener 验收文件。\n", encoding="utf-8")
+    PROBE_FILE.write_text("PyTauriX opener 验收文件。\n", encoding="utf-8")
     opener.open_path(PROBE_FILE)
     report["opener_path_opened"] = _confirm(
         window,

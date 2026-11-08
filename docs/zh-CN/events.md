@@ -6,8 +6,8 @@
 ## ECL 桥接调用
 
 ```python
-from pytaruix import EventTarget
-from pytaruix.ffi import Emitter
+from pytaurix import EventTarget
+from pytaurix.ffi import Emitter
 
 
 def update_ui() -> None:
@@ -30,7 +30,7 @@ CloseRequested 后仍可能先执行一个任务；已经开始的回调不会�
 ## 目标路由
 
 ```python
-from pytaruix import Emitter, EventTarget, Listener
+from pytaurix import Emitter, EventTarget, Listener
 
 Emitter.emit_to(app_handle, EventTarget.WebviewWindow("child"), "updated", {"ready": True})
 listener_id = Listener.listen(window, "updated", lambda event: print(event.payload()))

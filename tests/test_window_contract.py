@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：验证 URL、RGBA 数据、单位类型与回调载荷的边界契约。
 # 公开接口：无。
 # ============================================================
@@ -10,12 +10,12 @@ from pathlib import Path
 from typing import cast
 
 import pytest
-from pytaruix import BindingError, PageLoadEvent, WebviewUrl, WindowEvent
-from pytaruix.dpi import LogicalPosition, LogicalSize, PhysicalPosition, PhysicalSize
-from pytaruix.events import _page_load, _window_event
-from pytaruix.ffi.image import Image
-from pytaruix.manager import ManagerType
-from pytaruix.webview import WebviewWindowBuilder, WebviewWindowBuilderArgs
+from pytaurix import BindingError, PageLoadEvent, WebviewUrl, WindowEvent
+from pytaurix.dpi import LogicalPosition, LogicalSize, PhysicalPosition, PhysicalSize
+from pytaurix.events import _page_load, _window_event
+from pytaurix.ffi.image import Image
+from pytaurix.manager import ManagerType
+from pytaurix.webview import WebviewWindowBuilder, WebviewWindowBuilderArgs
 
 
 @pytest.mark.parametrize(
@@ -101,24 +101,24 @@ def test_builder_maps_new_attributes(monkeypatch: pytest.MonkeyPatch) -> None:
         captured["kwargs"] = kwargs
         return object()
 
-    monkeypatch.setattr("pytaruix.webview._handle", lambda manager: manager)
-    monkeypatch.setattr("pytaruix.webview._native.build_window", fake_build)
+    monkeypatch.setattr("pytaurix.webview._handle", lambda manager: manager)
+    monkeypatch.setattr("pytaurix.webview._native.build_window", fake_build)
     WebviewWindowBuilder.build(
         cast(ManagerType, object()),
         "main",
         WebviewUrl.App("index.html"),
-        user_agent="PytaruiX/1",
+        user_agent="PyTauriX/1",
         drag_drop_enabled=False,
         always_on_bottom=True,
         visible_on_all_workspaces=True,
         content_protected=True,
-        window_classname="PytaruiXWindow",
+        window_classname="PyTauriXWindow",
         theme="dark",
         title_bar_style="overlay",
         traffic_light_position=(4.0, 8.0),
         hidden_title=True,
         accept_first_mouse=True,
-        tabbing_identifier="pytaruix",
+        tabbing_identifier="pytaurix",
         additional_browser_args="--disable-features=Test",
         parent="host",
         proxy_url="http://127.0.0.1:8080",
@@ -132,7 +132,7 @@ def test_builder_maps_new_attributes(monkeypatch: pytest.MonkeyPatch) -> None:
     assert isinstance(config, dict)
     assert config["theme"] == "dark" and config["titleBarStyle"] == "overlay"
     assert config["trafficLightPosition"] == {"x": 4.0, "y": 8.0}
-    assert config["windowClassname"] == "PytaruiXWindow"
+    assert config["windowClassname"] == "PyTauriXWindow"
     assert config["proxyUrl"] == "http://127.0.0.1:8080"
     assert config["devtools"] is None and config["parent"] == "host"
     kwargs = captured.get("kwargs")

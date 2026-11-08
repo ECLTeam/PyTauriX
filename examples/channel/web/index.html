@@ -2,7 +2,7 @@
 <body><h1>原生流式消息</h1><pre id="output">正在验收…</pre><script>
 const tauri = window.__TAURI__;
 const label = tauri.webviewWindow.getCurrentWebviewWindow().label;
-const invoke = tauri.pytaruix.pyInvoke;
+const invoke = tauri.pytaurix.pyInvoke;
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const fetchCommand = "plugin:__TAURI_CHANNEL__|fetch";
 const channelUrl = window.__TAURI_INTERNALS__.convertFileSrc(fetchCommand, "ipc");

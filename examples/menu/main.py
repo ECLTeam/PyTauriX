@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：真实 Windows 菜单读回、选择事件、线程和资源代次验收。
 # 公开接口：无。
 from __future__ import annotations
@@ -15,12 +15,12 @@ from pathlib import Path
 from typing import cast
 
 from anyio.from_thread import start_blocking_portal
-from pytaruix import AppHandle, BindingError, Commands, WebviewUrl, WebviewWindow, builder_factory, context_factory
-from pytaruix.dpi import LogicalPosition, PhysicalPosition
-from pytaruix.events import WindowEvent, WindowEventType
-from pytaruix.ffi.image import Image
-from pytaruix.menu import CheckMenuItem, ContextMenu, IconMenuItem, Menu, MenuItem, PredefinedMenuItem, Submenu
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix import AppHandle, BindingError, Commands, WebviewUrl, WebviewWindow, builder_factory, context_factory
+from pytaurix.dpi import LogicalPosition, PhysicalPosition
+from pytaurix.events import WindowEvent, WindowEventType
+from pytaurix.ffi.image import Image
+from pytaurix.menu import CheckMenuItem, ContextMenu, IconMenuItem, Menu, MenuItem, PredefinedMenuItem, Submenu
+from pytaurix.webview import WebviewWindowBuilder
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from menu_windows import DesktopMenus

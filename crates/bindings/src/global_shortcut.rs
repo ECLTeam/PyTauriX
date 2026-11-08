@@ -9,7 +9,7 @@ use tauri::Manager;
 use tauri_plugin_global_shortcut::{GlobalShortcutExt, ShortcutState};
 
 /// 已注册快捷键的句柄，归属应用运行期。
-#[pyclass(frozen, module = "pytaruix.plugins.global_shortcut")]
+#[pyclass(frozen, module = "pytaurix.plugins.global_shortcut")]
 pub struct GlobalShortcutApi {
     handle: AppHandle,
 }

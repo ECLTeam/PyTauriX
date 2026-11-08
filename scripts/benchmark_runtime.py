@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：在独立进程中采集解释器启动、导入、运行时信息与 Context 准备耗时。
 # 公开接口：main。
 # ============================================================
@@ -22,14 +22,14 @@ def _command(name: str, python: str, resource: Path) -> list[str]:
     if name == "interpreter":
         return [python, "-I", "-c", "pass"]
     if name == "import":
-        return [python, "-I", "-c", "import pytaruix"]
+        return [python, "-I", "-c", "import pytaurix"]
     if name == "runtime_info":
-        return [python, "-I", "-c", "from pytaruix import get_runtime_info; get_runtime_info()"]
+        return [python, "-I", "-c", "from pytaurix import get_runtime_info; get_runtime_info()"]
     return [
         python,
         "-I",
         "-c",
-        "import sys; from pathlib import Path; from pytaruix import context_factory; "
+        "import sys; from pathlib import Path; from pytaurix import context_factory; "
         "context_factory(Path(sys.argv[1]))",
         str(resource),
     ]

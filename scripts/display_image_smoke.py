@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：启动真实显示器与图像桌面验收，核验完整证据集合。
 # 公开接口：无。
 from __future__ import annotations

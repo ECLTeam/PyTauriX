@@ -14,33 +14,33 @@
 
 | 原入口 | 新入口 | 当前状态 |
 | --- | --- | --- |
-| pytauri.AppHandle / Commands / Manager / Emitter / Listener | pytaruix 同名根导出 | 已实现子集 |
-| pytauri.EventTarget / EventTargetType | pytaruix 根与 ffi 同名导出 | 六种目标；字符串保留 AnyLabel 语义 |
-| pytauri.ffi.Emitter.emit_str / emit_str_to | pytaruix.ffi.Emitter 同名接口 | JSON 验证后保留原文，避免再次编码成字符串 |
-| pytauri.State 与 Annotated[T, State()] | pytaruix.State | 原对象注入已验证；新增 State[T].value 形式 |
-| pytauri.ipc.Headers / WebviewWindow | pytaruix.ipc 同名导出 | 原生请求头、真实来源窗口注入已验证 |
-| pytauri.ipc.JavaScriptChannelId / Channel | pytaruix.ipc 同名接口 | Pydantic 模型/根模型、from_str/channel_on/id/send/send_model；新增 close/closed |
-| pytauri.ffi.ipc.JavaScriptChannelId / Channel | pytaruix.ffi.ipc 同名接口 | 原生通道标识和 JSON/字节发送，没有公开构造器 |
-| WebviewWindow.as_ref_webview | pytaruix.webview.WebviewWindow.as_ref_webview | 原始窗口代次引用；本阶段不提供完整 Webview 管理器 |
-| pytauri.RunEvent / RunEventType | pytaruix 同名根导出 | Ready/Exit/ExitRequested(code, api)，支持阻止退出 |
-| pytauri.ffi | pytaruix.ffi | 已实现句柄与 Context；尚未提供全部 ffi 子模块 |
-| pytauri.webview.WebviewWindowBuilder | pytaruix.webview.WebviewWindowBuilder | build/from_config 的选定参数，新增 build_async |
-| pytauri.WebviewUrl / dpi | pytaruix.WebviewUrl / dpi | App/External 与逻辑/物理尺寸和位置 |
-| pytauri.ffi.image.Image | pytaruix.ffi.image.Image | 保留 RGBA/属性；本项目扩展 from_bytes/from_path，PNG/ICO feature 控制 |
-| pytauri.ffi.window.Monitor | pytaruix.ffi.window.Monitor | 五项只读属性与窗口的四种查询，值快照不拥有设备 |
-| pytauri.menu / pytauri.ffi.menu | pytaruix.menu / pytaruix.ffi.menu | 同一组菜单类型与对应构造默认值；MenuEvent 为 str |
+| pytauri.AppHandle / Commands / Manager / Emitter / Listener | pytaurix 同名根导出 | 已实现子集 |
+| pytauri.EventTarget / EventTargetType | pytaurix 根与 ffi 同名导出 | 六种目标；字符串保留 AnyLabel 语义 |
+| pytauri.ffi.Emitter.emit_str / emit_str_to | pytaurix.ffi.Emitter 同名接口 | JSON 验证后保留原文，避免再次编码成字符串 |
+| pytauri.State 与 Annotated[T, State()] | pytaurix.State | 原对象注入已验证；新增 State[T].value 形式 |
+| pytauri.ipc.Headers / WebviewWindow | pytaurix.ipc 同名导出 | 原生请求头、真实来源窗口注入已验证 |
+| pytauri.ipc.JavaScriptChannelId / Channel | pytaurix.ipc 同名接口 | Pydantic 模型/根模型、from_str/channel_on/id/send/send_model；新增 close/closed |
+| pytauri.ffi.ipc.JavaScriptChannelId / Channel | pytaurix.ffi.ipc 同名接口 | 原生通道标识和 JSON/字节发送，没有公开构造器 |
+| WebviewWindow.as_ref_webview | pytaurix.webview.WebviewWindow.as_ref_webview | 原始窗口代次引用；本阶段不提供完整 Webview 管理器 |
+| pytauri.RunEvent / RunEventType | pytaurix 同名根导出 | Ready/Exit/ExitRequested(code, api)，支持阻止退出 |
+| pytauri.ffi | pytaurix.ffi | 已实现句柄与 Context；尚未提供全部 ffi 子模块 |
+| pytauri.webview.WebviewWindowBuilder | pytaurix.webview.WebviewWindowBuilder | build/from_config 的选定参数，新增 build_async |
+| pytauri.WebviewUrl / dpi | pytaurix.WebviewUrl / dpi | App/External 与逻辑/物理尺寸和位置 |
+| pytauri.ffi.image.Image | pytaurix.ffi.image.Image | 保留 RGBA/属性；本项目扩展 from_bytes/from_path，PNG/ICO feature 控制 |
+| pytauri.ffi.window.Monitor | pytaurix.ffi.window.Monitor | 五项只读属性与窗口的四种查询，值快照不拥有设备 |
+| pytauri.menu / pytauri.ffi.menu | pytaurix.menu / pytaurix.ffi.menu | 同一组菜单类型与对应构造默认值；MenuEvent 为 str |
 | AppHandle/WebviewWindow 的菜单入口 | 同名 menu/set_menu/remove_menu/on_menu_event | 同步回调；新增 clear_menu_event_handlers |
-| pytauri.dpi.PhysicalRect | pytaruix.dpi.PhysicalRect | position/size 属性，有符号物理坐标，复制值 |
-| pytauri.plugin.Plugin | pytaruix.plugin.Plugin | 原生一次性描述符，仅当前支持的插件提供者 |
-| pytauri_plugins.dialog / dialog.ffi | pytaruix.plugins.dialog / dialog.ffi | 桌面选择器、消息及选项/按钮已实现子集 |
-| pytauri_wheel.lib 工厂函数 | pytaruix 根工厂函数 | 显式 JSON/TOML 上下文、宿主权限与图标；无扩展发现兼容包 |
+| pytauri.dpi.PhysicalRect | pytaurix.dpi.PhysicalRect | position/size 属性，有符号物理坐标，复制值 |
+| pytauri.plugin.Plugin | pytaurix.plugin.Plugin | 原生一次性描述符，仅当前支持的插件提供者 |
+| pytauri_plugins.dialog / dialog.ffi | pytaurix.plugins.dialog / dialog.ffi | 桌面选择器、消息及选项/按钮已实现子集 |
+| pytauri_wheel.lib 工厂函数 | pytaurix 根工厂函数 | 显式 JSON/TOML 上下文、宿主权限与图标；无扩展发现兼容包 |
 | WebviewWindow.open_devtools | 同名接口 | 构建启用 devtools；Windows 原生打开已调用 |
 | WebviewWindow.close_devtools / is_devtools_open | 同名接口 | Windows 上游不可用，明确抛 platform_unavailable |
-| window.__TAURI__.pytauri.pyInvoke | window.__TAURI__.pytaruix.pyInvoke | 唯一入口；没有第二套协议 |
-| 原 npm 客户端 pyInvoke | pytaruix.pyInvoke（python_command JSON 请求） | 真实 WebView 验收通过 |
+| window.__TAURI__.pytauri.pyInvoke | window.__TAURI__.pytaurix.pyInvoke | 唯一入口；没有第二套协议 |
+| 原 npm 客户端 pyInvoke | pytaurix.pyInvoke（python_command JSON 请求） | 真实 WebView 验收通过 |
 
 不占用 `pytauri` 包名，也不提供零导入改动的兼容包。旧客户端的 `plugin:pytauri|pyfunc` 通道已移除，
-需要改用 `pytaruix.pyInvoke`，并按新形状处理错误。
+需要改用 `pytaurix.pyInvoke`，并按新形状处理错误。
 
 ## 行为契约
 
@@ -69,7 +69,7 @@
 - channel_on 接受所属窗口的 Webview 引用，支持工作线程和命令返回后持续发送；窗口/应用失效清掉原生句柄。
 - close 幂等，GC 可结束流，closed 查询状态；共享同一个 FFI 句柄的包装也共享关闭状态。同一 JS 编号只建立一个发送句柄。
 - 编号不是授权凭证，不能证明 JS 回调存在；不承诺接收确认，重连与分片重传不在范围内。详细约束见 channels.md。
-- `channel_on(webview, capacity=N)` 在 `N > 0` 时启用配额流控，配额由前端 `pytaruix.createChannel` 归还；
+- `channel_on(webview, capacity=N)` 在 `N > 0` 时启用配额流控，配额由前端 `pytaurix.createChannel` 归还；
   `send(data, timeout=秒)` 到期返回 `channel_backpressure`，省略 timeout 时等到配额或关闭。直接构造 Channel 的前端不得启用配额。
 - 声明 `Request` 参数的命令获得请求句柄：`id`、`cancelled`、`cancel()`。取消为协作式，只保证应答与标志，
   不中断同步 Python 代码；取消与完成共用应答所有权，先取走者应答。见 [IPC 指南](ipc.md)。
@@ -77,15 +77,15 @@
   只提供异步响应版本，处理器在工作线程同步执行。异常、非 `ProtocolResponse` 返回值或非法状态/头字段归还空 500，
   初始化未完成归还 503；名称非法或保留为 `invalid_protocol_name`，重复为 `duplicate_protocol`。见 [协议指南](protocols.md)。
 - 插件描述符内部改为「名称 + 装载闭包」，Python 侧形状不变；带不同 `Config` 的上游插件因此可共用 `Plugin`。
-- `pytaruix.plugins.fs` 提供 `init()` 与 `Fs(handle)`，锁定 2.6.0，需要 `plugin-fs` feature。上游 Rust API 不经过 capability scope，本绑定不宣称受限访问；目录遍历/删除/重命名不在绑定范围。见 [fs 插件](plugins-fs.md)。
-- `pytaruix.plugins.single_instance.init(handler)`、`global_shortcut.GlobalShortcut`、`notification.Notification`、
+- `pytaurix.plugins.fs` 提供 `init()` 与 `Fs(handle)`，锁定 2.6.0，需要 `plugin-fs` feature。上游 Rust API 不经过 capability scope，本绑定不宣称受限访问；目录遍历/删除/重命名不在绑定范围。见 [fs 插件](plugins-fs.md)。
+- `pytaurix.plugins.single_instance.init(handler)`、`global_shortcut.GlobalShortcut`、`notification.Notification`、
   `opener.Opener` 各自需要独立 feature；未启用时 `init()` 报 `unsupported_capability`，未注册插件时包装类报 `plugin_missing`。
   用户插件现在先于桥接插件登记，以支持 single-instance 的尽早注册要求。见 [系统集成插件](plugins-extensions.md)。
 - 前端桥 `pyInvoke` 新增可选 `onCancelResult`，回传原生取消入口的返回值；不改变 Promise 拒绝行为。
-  `pytaruix_cancel` 与 `pytaruix_channel_ack` 必须在 `build.rs` 的 `AppManifest::commands` 声明，
+  `pytaurix_cancel` 与 `pytaurix_channel_ack` 必须在 `build.rs` 的 `AppManifest::commands` 声明，
   并在窗口 capability 中授予对应 allow 权限，否则前端收到 `not allowed`。
   配置文件声明的窗口现在也会获得本地自动授权（identifier 为 `python-config-window-<label>`）。
-- `pytaruix.plugins.window_state` 提供 `init(filename, flags, denylist, skip_initial)` 与
+- `pytaurix.plugins.window_state` 提供 `init(filename, flags, denylist, skip_initial)` 与
   `WindowState(handle).save()/.restore()/.filename`，需要 `plugin-window-state` feature。
   标志名非法报 `ValueError`，未注册插件报 `plugin_missing`。见 [窗口状态插件](plugins-window-state.md)。
 - 显示查询返回独立 Monitor 快照，工作线程释放 GIL；同步 GUI 回调返回 blocking_callback，旧窗口代次查询拒绝，快照仍可读取。
@@ -99,9 +99,9 @@
 
 ## 前端协议
 
-新入口 `pytaruix.pyInvoke(name, payload, options)` 使用 python_command JSON 请求，失败拒绝 `{code, message}`。
+新入口 `pytaurix.pyInvoke(name, payload, options)` 使用 python_command JSON 请求，失败拒绝 `{code, message}`。
 `options.signal` 为 `AbortSignal` 时桥生成请求编号并支持取消；取消后本地立即以 `AbortError` 拒绝并通知原生。
-`pytaruix.createChannel(onmessage)` 在处理完消息后调用 `pytaruix_channel_ack` 归还配额，供 `capacity > 0` 的通道使用。
+`pytaurix.createChannel(onmessage)` 在处理完消息后调用 `pytaurix_channel_ack` 归还配额，供 `capacity > 0` 的通道使用。
 只有一条协议：`python_command`。`pytauri` 全局对象与 `plugin:pytauri|pyfunc` 已移除，没有第二套字节入口。
 省略正文时等价于 `null`；JSON 模型和标量按类型校验。
 `body: bytes` 命令的载荷是 JSON 字符串，按 UTF-8 取字节；Python 侧直接调用仍接受 bytes 原文。
@@ -125,7 +125,7 @@ ECL 当前文件和皮肤保存所需的 dialog 注册/路径调用形状已实�
 
 ## 第十阶段托盘契约
 
-新增 pytaruix.tray 与 pytaruix.ffi.tray，重导出相同 TrayIcon、TrayIconBuilder、事件与鼠标枚举。
+新增 pytaurix.tray 与 pytaurix.ffi.tray，重导出相同 TrayIcon、TrayIconBuilder、事件与鼠标枚举。
 保留 TrayIcon(manager)、with_id(manager, id)、常用 setter 和事件字段形状；需要显式 tray-icon feature。
 未启用时模块仍可导入，构造返回 unsupported_capability，AppHandle 原生托盘方法不提供空壳。
 AppHandle 提供 tray_by_id/remove_tray_by_id/on_tray_icon_event，查询仅管理本绑定创建的资源。
@@ -172,13 +172,13 @@ Windows `WebviewWindow.is_focused()` 现在包含前台窗口内 WebView 子控�
 
 ## 第十四阶段路径与进程契约
 
-新增 `pytaruix.path`：`BaseDirectory` 为 `StrEnum`，`PathResolver` 由 `Manager.path(app|handle|window)` 取得。
+新增 `pytaurix.path`：`BaseDirectory` 为 `StrEnum`，`PathResolver` 由 `Manager.path(app|handle|window)` 取得。
 `resolve(path, base)` 与 `parse(path)` 返回 `pathlib.Path`，目录不可用时抛 `BindingError`；
 21 个目录属性在不可用时返回 `None`，不折叠成空路径。目录名接受 camelCase、snake_case 与 `$VARIABLE`，
 未知名称抛 `invalid_base_directory`。解析只读取应用身份，不创建目录、不校验存在性。
 Windows 返回值去掉 `\?\` 扩展长度前缀；非 UTF-8 路径抛 `path_not_utf8`，不做有损转换。
 
-新增 `pytaruix.process`：`current_pid()` 不需要应用实例；`current_binary(manager)` 返回可执行文件路径；
+新增 `pytaurix.process`：`current_pid()` 不需要应用实例；`current_binary(manager)` 返回可执行文件路径；
 `restart(manager)` 派生新进程后立即退出，不执行 Python 监听器与资源清理，需要有序退出时改用 `AppHandle.exit`。
 PyTauri 没有对应模块，这三项是本项目扩展；异步运行时仍由调用方的 AnyIO portal 承担，不转发 Tauri 的 `async_runtime`。
 

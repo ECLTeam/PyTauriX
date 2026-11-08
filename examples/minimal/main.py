@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：真实桌面示例，同时提供 WebView 自动验收入口。
 # 公开接口：无。
 # ============================================================
@@ -13,7 +13,7 @@ from pathlib import Path
 import anyio
 from anyio.from_thread import start_blocking_portal
 from pydantic import BaseModel
-from pytaruix import AppHandle, Commands, Emitter, Manager, RunEvent, RunEventType, builder_factory, context_factory
+from pytaurix import AppHandle, Commands, Emitter, Manager, RunEvent, RunEventType, builder_factory, context_factory
 
 
 class GreetingRequest(BaseModel):
@@ -59,7 +59,7 @@ def main() -> int:
                 raise RuntimeError("intentional lifecycle failure")
             window = Manager.get_webview_window(app_handle, "main")
             if window is not None:
-                window.set_title("PytaruiX — Python Ready")
+                window.set_title("PyTauriX — Python Ready")
 
     @commands.command()
     def status() -> dict[str, bool]:

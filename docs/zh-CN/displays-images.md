@@ -3,8 +3,8 @@
 ## 显示器快照
 
 ```python
-from pytaruix.ffi.window import Monitor
-from pytaruix.dpi import PhysicalPosition, PhysicalRect, PhysicalSize
+from pytaurix.ffi.window import Monitor
+from pytaurix.dpi import PhysicalPosition, PhysicalRect, PhysicalSize
 
 monitor = window.current_monitor()
 if monitor is not None:
@@ -39,8 +39,8 @@ Windows 已核对单屏 1600×900、100% DPI；多屏、混合 DPI、热插拔�
 
 ```python
 from pathlib import Path
-from pytaruix import get_runtime_info
-from pytaruix.ffi.image import Image
+from pytaurix import get_runtime_info
+from pytaurix.ffi.image import Image
 
 print(get_runtime_info().image_formats)
 icon = Image.from_path(Path("application.png"))

@@ -12,7 +12,7 @@
         "declaration": "pub fn handle(&self) -> &AppHandle<R> {"
       },
       "python": {
-        "entry": "pytaruix.App.handle",
+        "entry": "pytaurix.App.handle",
         "signature": "(self) -> AppHandle"
       },
       "status": "bound_tested",
@@ -40,7 +40,7 @@
         "declaration": "pub fn run_return<F: FnMut(&AppHandle<R>, RunEvent) + 'static>(mut self, callback: F) -> i32 {"
       },
       "python": {
-        "entry": "pytaruix.App.run_return",
+        "entry": "pytaurix.App.run_return",
         "signature": "(self, callback: RunCallback | None = None, /) -> int"
       },
       "status": "bound_tested",
@@ -67,7 +67,7 @@
         "declaration": "pub fn build(mut self, context: Context<R>) -> crate::Result<App<R>> {"
       },
       "python": {
-        "entry": "pytaruix.Builder.build",
+        "entry": "pytaurix.Builder.build",
         "signature": "(self, *, context: Context, invoke_handler: InvokeHandler, setup: SetupCallback | None = None, plugins: Sequence[Plugin] = ()) -> App"
       },
       "status": "partial_tested",
@@ -100,7 +100,7 @@
         "declaration": "pub fn setup<F>(mut self, setup: F) -> Self"
       },
       "python": {
-        "entry": "pytaruix.Builder.build.setup",
+        "entry": "pytaurix.Builder.build.setup",
         "signature": "Callable[[AppHandle], object] | None"
       },
       "status": "bound_tested",
@@ -127,7 +127,7 @@
         "declaration": "pub enum RunEvent {"
       },
       "python": {
-        "entry": "pytaruix.RunEvent",
+        "entry": "pytaurix.RunEvent",
         "signature": "Ready | Exit | ExitRequested(code: int | None, api: ExitRequestApi)"
       },
       "status": "partial_tested",
@@ -154,7 +154,7 @@
         "declaration": "pub fn prevent_exit(&self) {"
       },
       "python": {
-        "entry": "pytaruix.ExitRequestApi.prevent_exit",
+        "entry": "pytaurix.ExitRequestApi.prevent_exit",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -181,7 +181,7 @@
         "declaration": "fn manage<T>(&self, state: T) -> bool"
       },
       "python": {
-        "entry": "pytaruix.Manager.manage",
+        "entry": "pytaurix.Manager.manage",
         "signature": "(manager: ManagerType, value: object) -> bool"
       },
       "status": "bound_tested",
@@ -209,7 +209,7 @@
         "declaration": "fn state<T>(&self) -> State<'_, T>"
       },
       "python": {
-        "entry": "pytaruix.Manager.state",
+        "entry": "pytaurix.Manager.state",
         "signature": "(manager: ManagerType, state_type: type[T]) -> T"
       },
       "status": "bound_tested",
@@ -237,7 +237,7 @@
         "declaration": "fn try_state<T>(&self) -> Option<State<'_, T>>"
       },
       "python": {
-        "entry": "pytaruix.Manager.try_state",
+        "entry": "pytaurix.Manager.try_state",
         "signature": "(manager: ManagerType, state_type: type[T]) -> T | None"
       },
       "status": "bound_tested",
@@ -265,7 +265,7 @@
         "declaration": "fn get_webview_window(&self, label: &str) -> Option<WebviewWindow<R>> {"
       },
       "python": {
-        "entry": "pytaruix.Manager.get_webview_window",
+        "entry": "pytaurix.Manager.get_webview_window",
         "signature": "(manager: ManagerType, label: str) -> WebviewWindow | None"
       },
       "status": "bound_tested",
@@ -293,7 +293,7 @@
         "declaration": "fn emit<S: Serialize + Clone>(&self, event: &str, payload: S) -> Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.Emitter.emit",
+        "entry": "pytaurix.Emitter.emit",
         "signature": "(manager: ManagerType, event: str, payload: BaseModel | JsonValue, /) -> None"
       },
       "status": "bound_tested",
@@ -323,7 +323,7 @@
         "declaration": "fn emit_to<I, S>(&self, target: I, event: &str, payload: S) -> Result<()>"
       },
       "python": {
-        "entry": "pytaruix.Emitter.emit_to",
+        "entry": "pytaurix.Emitter.emit_to",
         "signature": "(manager: ManagerType, target: EventTargetType | str, event: str, payload: BaseModel | JsonValue, /) -> None"
       },
       "status": "bound_tested",
@@ -353,7 +353,7 @@
         "declaration": "fn listen<F>(&self, event: impl Into<String>, handler: F) -> EventId"
       },
       "python": {
-        "entry": "pytaruix.Listener.listen",
+        "entry": "pytaurix.Listener.listen",
         "signature": "(manager: ManagerType, event: str, handler: Callable[[Event], object], /) -> int"
       },
       "status": "bound_tested",
@@ -384,7 +384,7 @@
         "declaration": "fn once<F>(&self, event: impl Into<String>, handler: F) -> EventId"
       },
       "python": {
-        "entry": "pytaruix.Listener.once",
+        "entry": "pytaurix.Listener.once",
         "signature": "(manager: ManagerType, event: str, handler: Callable[[Event], object], /) -> int"
       },
       "status": "bound_tested",
@@ -415,7 +415,7 @@
         "declaration": "fn unlisten(&self, id: EventId);"
       },
       "python": {
-        "entry": "pytaruix.Listener.unlisten",
+        "entry": "pytaurix.Listener.unlisten",
         "signature": "(manager: ManagerType, id: int, /) -> None"
       },
       "status": "bound_tested",
@@ -446,7 +446,7 @@
         "declaration": "pub fn id(&self) -> EventId {"
       },
       "python": {
-        "entry": "pytaruix.Event.id",
+        "entry": "pytaurix.Event.id",
         "signature": "(self) -> int"
       },
       "status": "bound_tested",
@@ -473,7 +473,7 @@
         "declaration": "pub fn payload(&self) -> &str {"
       },
       "python": {
-        "entry": "pytaruix.Event.payload",
+        "entry": "pytaurix.Event.payload",
         "signature": "(self) -> str"
       },
       "status": "bound_tested",
@@ -500,7 +500,7 @@
         "declaration": "pub fn headers(&self) -> &HeaderMap {"
       },
       "python": {
-        "entry": "pytaruix.ipc.Headers",
+        "entry": "pytaurix.ipc.Headers",
         "signature": "Annotated[list[tuple[bytes, bytes]], header_marker]"
       },
       "status": "bound_tested",
@@ -528,7 +528,7 @@
         "declaration": "pub enum InvokeBody {"
       },
       "python": {
-        "entry": "pytaruix.Commands.generate_handler",
+        "entry": "pytaurix.Commands.generate_handler",
         "signature": "(portal: BlockingPortal | None = None) -> InvokeHandler"
       },
       "status": "partial_tested",
@@ -556,7 +556,7 @@
         "declaration": "pub enum InvokeResponseBody {"
       },
       "python": {
-        "entry": "pytaruix.Commands.generate_handler",
+        "entry": "pytaurix.Commands.generate_handler",
         "signature": "InvokeHandler(...) -> str | bytes"
       },
       "status": "bound_tested",
@@ -584,7 +584,7 @@
         "declaration": "pub fn label(&self) -> &str {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.label",
+        "entry": "pytaurix.webview.WebviewWindow.label",
         "signature": "(self) -> str"
       },
       "status": "bound_tested",
@@ -611,7 +611,7 @@
         "declaration": "pub fn set_title(&self, title: &str) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_title",
+        "entry": "pytaurix.webview.WebviewWindow.set_title",
         "signature": "(self, title: str) -> None"
       },
       "status": "bound_tested",
@@ -638,7 +638,7 @@
         "declaration": "pub fn close(&self) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.close",
+        "entry": "pytaurix.webview.WebviewWindow.close",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -667,7 +667,7 @@
         "declaration": "pub fn set_focus(&self) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_focus",
+        "entry": "pytaurix.webview.WebviewWindow.set_focus",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -696,7 +696,7 @@
         "declaration": "pub fn show(&self) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.show",
+        "entry": "pytaurix.webview.WebviewWindow.show",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -725,7 +725,7 @@
         "declaration": "pub fn hide(&self) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.hide",
+        "entry": "pytaurix.webview.WebviewWindow.hide",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -754,7 +754,7 @@
         "declaration": "pub fn center(&self) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.center",
+        "entry": "pytaurix.webview.WebviewWindow.center",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -783,7 +783,7 @@
         "declaration": "pub fn minimize(&self) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.minimize",
+        "entry": "pytaurix.webview.WebviewWindow.minimize",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -812,7 +812,7 @@
         "declaration": "pub fn unminimize(&self) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.unminimize",
+        "entry": "pytaurix.webview.WebviewWindow.unminimize",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -841,7 +841,7 @@
         "declaration": "pub fn maximize(&self) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.maximize",
+        "entry": "pytaurix.webview.WebviewWindow.maximize",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -870,7 +870,7 @@
         "declaration": "pub fn unmaximize(&self) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.unmaximize",
+        "entry": "pytaurix.webview.WebviewWindow.unmaximize",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -899,7 +899,7 @@
         "declaration": "pub fn is_visible(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_visible",
+        "entry": "pytaurix.webview.WebviewWindow.is_visible",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -928,7 +928,7 @@
         "declaration": "pub fn is_focused(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_focused",
+        "entry": "pytaurix.webview.WebviewWindow.is_focused",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -959,7 +959,7 @@
         "declaration": "pub fn is_minimized(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_minimized",
+        "entry": "pytaurix.webview.WebviewWindow.is_minimized",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -988,7 +988,7 @@
         "declaration": "pub fn is_maximized(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_maximized",
+        "entry": "pytaurix.webview.WebviewWindow.is_maximized",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -1017,7 +1017,7 @@
         "declaration": "pub fn is_fullscreen(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_fullscreen",
+        "entry": "pytaurix.webview.WebviewWindow.is_fullscreen",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -1046,7 +1046,7 @@
         "declaration": "pub fn is_decorated(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_decorated",
+        "entry": "pytaurix.webview.WebviewWindow.is_decorated",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -1075,7 +1075,7 @@
         "declaration": "pub fn is_always_on_top(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_always_on_top",
+        "entry": "pytaurix.webview.WebviewWindow.is_always_on_top",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -1104,7 +1104,7 @@
         "declaration": "pub fn is_resizable(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_resizable",
+        "entry": "pytaurix.webview.WebviewWindow.is_resizable",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -1133,7 +1133,7 @@
         "declaration": "pub fn is_maximizable(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_maximizable",
+        "entry": "pytaurix.webview.WebviewWindow.is_maximizable",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -1162,7 +1162,7 @@
         "declaration": "pub fn is_minimizable(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_minimizable",
+        "entry": "pytaurix.webview.WebviewWindow.is_minimizable",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -1191,7 +1191,7 @@
         "declaration": "pub fn is_closable(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.is_closable",
+        "entry": "pytaurix.webview.WebviewWindow.is_closable",
         "signature": "(self) -> bool"
       },
       "status": "bound_tested",
@@ -1220,7 +1220,7 @@
         "declaration": "pub fn set_fullscreen(&self, fullscreen: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_fullscreen",
+        "entry": "pytaurix.webview.WebviewWindow.set_fullscreen",
         "signature": "(self, value: bool) -> None"
       },
       "status": "bound_tested",
@@ -1249,7 +1249,7 @@
         "declaration": "pub fn set_decorations(&self, decorations: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_decorations",
+        "entry": "pytaurix.webview.WebviewWindow.set_decorations",
         "signature": "(self, value: bool) -> None"
       },
       "status": "bound_tested",
@@ -1278,7 +1278,7 @@
         "declaration": "pub fn set_shadow(&self, enable: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_shadow",
+        "entry": "pytaurix.webview.WebviewWindow.set_shadow",
         "signature": "(self, value: bool) -> None"
       },
       "status": "bound_tested",
@@ -1307,7 +1307,7 @@
         "declaration": "pub fn set_always_on_top(&self, always_on_top: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_always_on_top",
+        "entry": "pytaurix.webview.WebviewWindow.set_always_on_top",
         "signature": "(self, value: bool) -> None"
       },
       "status": "bound_tested",
@@ -1336,7 +1336,7 @@
         "declaration": "pub fn set_resizable(&self, resizable: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_resizable",
+        "entry": "pytaurix.webview.WebviewWindow.set_resizable",
         "signature": "(self, value: bool) -> None"
       },
       "status": "bound_tested",
@@ -1365,7 +1365,7 @@
         "declaration": "pub fn set_maximizable(&self, maximizable: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_maximizable",
+        "entry": "pytaurix.webview.WebviewWindow.set_maximizable",
         "signature": "(self, value: bool) -> None"
       },
       "status": "bound_tested",
@@ -1394,7 +1394,7 @@
         "declaration": "pub fn set_minimizable(&self, minimizable: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_minimizable",
+        "entry": "pytaurix.webview.WebviewWindow.set_minimizable",
         "signature": "(self, value: bool) -> None"
       },
       "status": "bound_tested",
@@ -1423,7 +1423,7 @@
         "declaration": "pub fn set_closable(&self, closable: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_closable",
+        "entry": "pytaurix.webview.WebviewWindow.set_closable",
         "signature": "(self, value: bool) -> None"
       },
       "status": "bound_tested",
@@ -1452,7 +1452,7 @@
         "declaration": "pub fn set_focusable(&self, focusable: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_focusable",
+        "entry": "pytaurix.webview.WebviewWindow.set_focusable",
         "signature": "(self, value: bool) -> None"
       },
       "status": "bound_tested",
@@ -1481,7 +1481,7 @@
         "declaration": "pub fn set_skip_taskbar(&self, skip: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_skip_taskbar",
+        "entry": "pytaurix.webview.WebviewWindow.set_skip_taskbar",
         "signature": "(self, value: bool) -> None"
       },
       "status": "bound_tested",
@@ -1510,7 +1510,7 @@
         "declaration": "pub fn title(&self) -> crate::Result<String> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.title",
+        "entry": "pytaurix.webview.WebviewWindow.title",
         "signature": "(self) -> str"
       },
       "status": "bound_tested",
@@ -1539,7 +1539,7 @@
         "declaration": "pub fn scale_factor(&self) -> crate::Result<f64> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.scale_factor",
+        "entry": "pytaurix.webview.WebviewWindow.scale_factor",
         "signature": "(self) -> float"
       },
       "status": "bound_tested",
@@ -1568,7 +1568,7 @@
         "declaration": "pub fn inner_size(&self) -> crate::Result<PhysicalSize<u32>> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.inner_size",
+        "entry": "pytaurix.webview.WebviewWindow.inner_size",
         "signature": "(self) -> PhysicalSize"
       },
       "status": "bound_tested",
@@ -1597,7 +1597,7 @@
         "declaration": "pub fn outer_position(&self) -> crate::Result<PhysicalPosition<i32>> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.outer_position",
+        "entry": "pytaurix.webview.WebviewWindow.outer_position",
         "signature": "(self) -> PhysicalPosition"
       },
       "status": "bound_tested",
@@ -1626,7 +1626,7 @@
         "declaration": "pub fn set_size<S: Into<Size>>(&self, size: S) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_size",
+        "entry": "pytaurix.webview.WebviewWindow.set_size",
         "signature": "(self, size: LogicalSize | PhysicalSize) -> None"
       },
       "status": "bound_tested",
@@ -1655,7 +1655,7 @@
         "declaration": "pub fn set_position<Pos: Into<Position>>(&self, position: Pos) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_position",
+        "entry": "pytaurix.webview.WebviewWindow.set_position",
         "signature": "(self, position: LogicalPosition | PhysicalPosition) -> None"
       },
       "status": "bound_tested",
@@ -1684,7 +1684,7 @@
         "declaration": "pub fn set_min_size<S: Into<Size>>(&self, size: Option<S>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_min_size",
+        "entry": "pytaurix.webview.WebviewWindow.set_min_size",
         "signature": "(self, size: LogicalSize | PhysicalSize | None) -> None"
       },
       "status": "bound_tested",
@@ -1713,7 +1713,7 @@
         "declaration": "pub fn set_max_size<S: Into<Size>>(&self, size: Option<S>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_max_size",
+        "entry": "pytaurix.webview.WebviewWindow.set_max_size",
         "signature": "(self, size: LogicalSize | PhysicalSize | None) -> None"
       },
       "status": "bound_tested",
@@ -1742,7 +1742,7 @@
         "declaration": "pub fn set_icon(&self, icon: Image<'_>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.set_icon",
+        "entry": "pytaurix.webview.WebviewWindow.set_icon",
         "signature": "(self, image: Image) -> None"
       },
       "status": "bound_tested",
@@ -1773,7 +1773,7 @@
         "declaration": "pub fn on_window_event<F: Fn(&WindowEvent) + Send + 'static>(&self, f: F) {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.on_window_event",
+        "entry": "pytaurix.webview.WebviewWindow.on_window_event",
         "signature": "(self, callback: Callable[..., object]) -> None"
       },
       "status": "partial_tested",
@@ -1802,7 +1802,7 @@
         "declaration": "fn app_handle(&self) -> &AppHandle<R> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.app_handle",
+        "entry": "pytaurix.webview.WebviewWindow.app_handle",
         "signature": "(self) -> AppHandle"
       },
       "status": "bound_tested",
@@ -1831,7 +1831,7 @@
         "declaration": "pub fn new<L: Into<String>>(manager: &'a M, label: L, url: WebviewUrl) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindowBuilder.build",
+        "entry": "pytaurix.webview.WebviewWindowBuilder.build",
         "signature": "(manager, label, url, /, **kwargs: Unpack[WebviewWindowBuilderArgs]) -> WebviewWindow"
       },
       "status": "partial_tested",
@@ -1860,7 +1860,7 @@
         "declaration": "pub fn from_config(manager: &'a M, config: &WindowConfig) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindowBuilder.from_config",
+        "entry": "pytaurix.webview.WebviewWindowBuilder.from_config",
         "signature": "(manager, config: Mapping[str, object], /, **kwargs) -> WebviewWindow"
       },
       "status": "partial_tested",
@@ -1889,7 +1889,7 @@
         "declaration": "pub fn build(self) -> crate::Result<WebviewWindow<R>> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindowBuilder.build",
+        "entry": "pytaurix.webview.WebviewWindowBuilder.build",
         "signature": "(manager, label, url, /, **kwargs) -> WebviewWindow"
       },
       "status": "bound_tested",
@@ -1918,7 +1918,7 @@
         "declaration": "pub fn on_navigation<F: Fn(&Url) -> bool + Send + 'static>(mut self, f: F) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindowBuilder.build.on_navigation",
+        "entry": "pytaurix.webview.WebviewWindowBuilder.build.on_navigation",
         "signature": "Callable[[str], bool]"
       },
       "status": "bound_tested",
@@ -1947,7 +1947,7 @@
         "declaration": "pub fn on_page_load<F: Fn(WebviewWindow<R>, PageLoadPayload<'_>) + Send + Sync + 'static>("
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindowBuilder.build.on_page_load",
+        "entry": "pytaurix.webview.WebviewWindowBuilder.build.on_page_load",
         "signature": "Callable[[WebviewWindow, PageLoadPayload], object]"
       },
       "status": "bound_tested",
@@ -1976,7 +1976,7 @@
         "declaration": "fn webview_windows(&self) -> HashMap<String, WebviewWindow<R>> {"
       },
       "python": {
-        "entry": "pytaruix.Manager.webview_windows",
+        "entry": "pytaurix.Manager.webview_windows",
         "signature": "(manager: ManagerType, /) -> dict[str, WebviewWindow]"
       },
       "status": "bound_tested",
@@ -2005,7 +2005,7 @@
         "declaration": "fn add_capability(&self, capability: impl RuntimeCapability) -> Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindowBuilder.build",
+        "entry": "pytaurix.webview.WebviewWindowBuilder.build",
         "signature": "Implicit exact-label local capability registration"
       },
       "status": "partial_tested",
@@ -2034,7 +2034,7 @@
         "declaration": "pub fn prevent_close(&self) {"
       },
       "python": {
-        "entry": "pytaruix.CloseRequestApi.prevent_close",
+        "entry": "pytaurix.CloseRequestApi.prevent_close",
         "signature": "(self) -> None"
       },
       "status": "bound_tested",
@@ -2063,7 +2063,7 @@
         "declaration": "pub enum WindowEvent {"
       },
       "python": {
-        "entry": "pytaruix.WindowEvent",
+        "entry": "pytaurix.WindowEvent",
         "signature": "CloseRequested | Destroyed | Focused | Resized | Moved"
       },
       "status": "partial_tested",
@@ -2092,7 +2092,7 @@
         "declaration": "pub const fn new_owned(rgba: Vec<u8>, width: u32, height: u32) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.ffi.image.Image",
+        "entry": "pytaurix.ffi.image.Image",
         "signature": "(rgba: bytes, width: int, height: int, /) -> Image"
       },
       "status": "bound_tested",
@@ -2122,7 +2122,7 @@
         "declaration": "pub fn rgba(&'a self) -> &'a [u8] {"
       },
       "python": {
-        "entry": "pytaruix.ffi.image.Image.rgba",
+        "entry": "pytaurix.ffi.image.Image.rgba",
         "signature": "property -> bytes"
       },
       "status": "bound_tested",
@@ -2152,7 +2152,7 @@
         "declaration": "pub fn width(&self) -> u32 {"
       },
       "python": {
-        "entry": "pytaruix.ffi.image.Image.width",
+        "entry": "pytaurix.ffi.image.Image.width",
         "signature": "property -> int"
       },
       "status": "bound_tested",
@@ -2182,7 +2182,7 @@
         "declaration": "pub fn height(&self) -> u32 {"
       },
       "python": {
-        "entry": "pytaruix.ffi.image.Image.height",
+        "entry": "pytaurix.ffi.image.Image.height",
         "signature": "property -> int"
       },
       "status": "bound_tested",
@@ -2212,7 +2212,7 @@
         "declaration": "pub fn run_on_main_thread<F: FnOnce() + Send + 'static>(&self, f: F) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.AppHandle.run_on_main_thread",
+        "entry": "pytaurix.AppHandle.run_on_main_thread",
         "signature": "(self, callback: Callable[[], object]) -> None"
       },
       "status": "bound_tested",
@@ -2241,7 +2241,7 @@
         "declaration": "pub fn run_on_main_thread<F: FnOnce() + Send + 'static>(&self, f: F) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.WebviewWindow.run_on_main_thread",
+        "entry": "pytaurix.WebviewWindow.run_on_main_thread",
         "signature": "(self, callback: Callable[[], object]) -> None"
       },
       "status": "bound_tested",
@@ -2270,7 +2270,7 @@
         "declaration": "pub enum EventTarget {"
       },
       "python": {
-        "entry": "pytaruix.EventTarget / pytaruix.ffi.EventTarget",
+        "entry": "pytaurix.EventTarget / pytaurix.ffi.EventTarget",
         "signature": "Any(), App(), AnyLabel(label), Window(label), Webview(label), WebviewWindow(label)"
       },
       "status": "bound_tested",
@@ -2299,7 +2299,7 @@
         "declaration": "fn listen_any<F>(&self, event: impl Into<String>, handler: F) -> EventId"
       },
       "python": {
-        "entry": "pytaruix.Listener.listen_any",
+        "entry": "pytaurix.Listener.listen_any",
         "signature": "(manager: ManagerType, event: str, handler: Callable[[Event], object], /) -> int"
       },
       "status": "bound_tested",
@@ -2328,7 +2328,7 @@
         "declaration": "fn once_any<F>(&self, event: impl Into<String>, handler: F) -> EventId"
       },
       "python": {
-        "entry": "pytaruix.Listener.once_any",
+        "entry": "pytaurix.Listener.once_any",
         "signature": "(manager: ManagerType, event: str, handler: Callable[[Event], object], /) -> int"
       },
       "status": "bound_tested",
@@ -2357,7 +2357,7 @@
         "declaration": "fn emit_str(&self, event: &str, payload: String) -> Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.ffi.Emitter.emit_str",
+        "entry": "pytaurix.ffi.Emitter.emit_str",
         "signature": "(manager: ManagerType, event: str, payload: str, /) -> None"
       },
       "status": "bound_tested",
@@ -2386,7 +2386,7 @@
         "declaration": "fn emit_str_to<I>(&self, target: I, event: &str, payload: String) -> Result<()>"
       },
       "python": {
-        "entry": "pytaruix.ffi.Emitter.emit_str_to",
+        "entry": "pytaurix.ffi.Emitter.emit_str_to",
         "signature": "(manager: ManagerType, target: EventTargetType | str, event: str, payload: str, /) -> None"
       },
       "status": "bound_tested",
@@ -2415,8 +2415,8 @@
         "declaration": "pub fn plugin<P: Plugin<R> + 'static>(self, plugin: P) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.Builder.build.plugins",
-        "signature": "Sequence[pytaruix.plugin.Plugin] = ()"
+        "entry": "pytaurix.Builder.build.plugins",
+        "signature": "Sequence[pytaurix.plugin.Plugin] = ()"
       },
       "status": "partial_tested",
       "conditions": [
@@ -2444,7 +2444,7 @@
         "declaration": "fn from_str(s: &str) -> Result<Self, Self::Err> {"
       },
       "python": {
-        "entry": "pytaruix.ffi.ipc.JavaScriptChannelId.from_str",
+        "entry": "pytaurix.ffi.ipc.JavaScriptChannelId.from_str",
         "signature": "(value: str, /) -> JavaScriptChannelId"
       },
       "status": "bound_tested",
@@ -2473,7 +2473,7 @@
         "declaration": "pub fn channel_on<R: Runtime, TSend>(&self, webview: Webview<R>) -> Channel<TSend> {"
       },
       "python": {
-        "entry": "pytaruix.ipc.JavaScriptChannelId.channel_on",
+        "entry": "pytaurix.ipc.JavaScriptChannelId.channel_on",
         "signature": "(self, webview: Webview, /) -> Channel[T]"
       },
       "status": "bound_tested",
@@ -2502,7 +2502,7 @@
         "declaration": "pub fn id(&self) -> u32 {"
       },
       "python": {
-        "entry": "pytaruix.ipc.Channel.id",
+        "entry": "pytaurix.ipc.Channel.id",
         "signature": "(self, /) -> int"
       },
       "status": "bound_tested",
@@ -2531,7 +2531,7 @@
         "declaration": "pub fn send(&self, data: TSend) -> crate::Result<()>"
       },
       "python": {
-        "entry": "pytaruix.ipc.Channel.send",
+        "entry": "pytaurix.ipc.Channel.send",
         "signature": "(self, data: str | bytes, /) -> None"
       },
       "status": "partial_tested",
@@ -2560,7 +2560,7 @@
         "declaration": "fn as_ref(&self) -> &Webview<R> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.as_ref_webview",
+        "entry": "pytaurix.webview.WebviewWindow.as_ref_webview",
         "signature": "(self) -> Webview"
       },
       "status": "bound_tested",
@@ -2589,7 +2589,7 @@
         "declaration": "pub fn current_monitor(&self) -> crate::Result<Option<Monitor>> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.current_monitor",
+        "entry": "pytaurix.webview.WebviewWindow.current_monitor",
         "signature": "(self) -> Monitor | None"
       },
       "status": "bound_tested",
@@ -2618,7 +2618,7 @@
         "declaration": "pub fn primary_monitor(&self) -> crate::Result<Option<Monitor>> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.primary_monitor",
+        "entry": "pytaurix.webview.WebviewWindow.primary_monitor",
         "signature": "(self) -> Monitor | None"
       },
       "status": "bound_tested",
@@ -2647,7 +2647,7 @@
         "declaration": "pub fn available_monitors(&self) -> crate::Result<Vec<Monitor>> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.available_monitors",
+        "entry": "pytaurix.webview.WebviewWindow.available_monitors",
         "signature": "(self) -> list[Monitor]"
       },
       "status": "bound_tested",
@@ -2676,7 +2676,7 @@
         "declaration": "pub fn monitor_from_point(&self, x: f64, y: f64) -> crate::Result<Option<Monitor>> {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindow.monitor_from_point",
+        "entry": "pytaurix.webview.WebviewWindow.monitor_from_point",
         "signature": "(self, x: float, y: float, /) -> Monitor | None"
       },
       "status": "bound_tested",
@@ -2705,7 +2705,7 @@
         "declaration": "pub fn name(&self) -> Option<&String> {"
       },
       "python": {
-        "entry": "pytaruix.ffi.window.Monitor.name",
+        "entry": "pytaurix.ffi.window.Monitor.name",
         "signature": "(self) -> str | None"
       },
       "status": "bound_tested",
@@ -2733,7 +2733,7 @@
         "declaration": "pub fn size(&self) -> &PhysicalSize<u32> {"
       },
       "python": {
-        "entry": "pytaruix.ffi.window.Monitor.size",
+        "entry": "pytaurix.ffi.window.Monitor.size",
         "signature": "(self) -> PhysicalSize"
       },
       "status": "bound_tested",
@@ -2761,7 +2761,7 @@
         "declaration": "pub fn position(&self) -> &PhysicalPosition<i32> {"
       },
       "python": {
-        "entry": "pytaruix.ffi.window.Monitor.position",
+        "entry": "pytaurix.ffi.window.Monitor.position",
         "signature": "(self) -> PhysicalPosition"
       },
       "status": "bound_tested",
@@ -2789,7 +2789,7 @@
         "declaration": "pub fn work_area(&self) -> &PhysicalRect<i32, u32> {"
       },
       "python": {
-        "entry": "pytaruix.ffi.window.Monitor.work_area",
+        "entry": "pytaurix.ffi.window.Monitor.work_area",
         "signature": "(self) -> PhysicalRect"
       },
       "status": "bound_tested",
@@ -2817,7 +2817,7 @@
         "declaration": "pub fn scale_factor(&self) -> f64 {"
       },
       "python": {
-        "entry": "pytaruix.ffi.window.Monitor.scale_factor",
+        "entry": "pytaurix.ffi.window.Monitor.scale_factor",
         "signature": "(self) -> float"
       },
       "status": "bound_tested",
@@ -2845,7 +2845,7 @@
         "declaration": "pub fn from_bytes(bytes: &[u8]) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.ffi.image.Image.from_bytes",
+        "entry": "pytaurix.ffi.image.Image.from_bytes",
         "signature": "(encoded: bytes, /) -> Image"
       },
       "status": "bound_tested",
@@ -2874,7 +2874,7 @@
         "declaration": "pub fn from_path<P: AsRef<std::path::Path>>(path: P) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.ffi.image.Image.from_path",
+        "entry": "pytaurix.ffi.image.Image.from_path",
         "signature": "(path: Path, /) -> Image"
       },
       "status": "bound_tested",
@@ -2903,7 +2903,7 @@
         "declaration": "pub fn new<M: Manager<R>>(manager: &M) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu",
+        "entry": "pytaurix.menu.Menu",
         "signature": "(manager: 'ManagerType', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -2932,7 +2932,7 @@
         "declaration": "pub fn with_id<M: Manager<R>, I: Into<MenuId>>(manager: &M, id: I) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.with_id",
+        "entry": "pytaurix.menu.Menu.with_id",
         "signature": "(manager: 'ManagerType', id: 'MenuID', /) -> 'Menu'"
       },
       "status": "bound_tested",
@@ -2961,7 +2961,7 @@
         "declaration": "pub fn with_items<M: Manager<R>>("
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.with_items",
+        "entry": "pytaurix.menu.Menu.with_items",
         "signature": "(manager: 'ManagerType', items: 'Sequence[MenuItemKind]', /) -> 'Menu'"
       },
       "status": "bound_tested",
@@ -2990,7 +2990,7 @@
         "declaration": "pub fn with_id_and_items<M: Manager<R>, I: Into<MenuId>>("
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.with_id_and_items",
+        "entry": "pytaurix.menu.Menu.with_id_and_items",
         "signature": "(manager: 'ManagerType', id: 'MenuID', items: 'Sequence[MenuItemKind]', /) -> 'Menu'"
       },
       "status": "bound_tested",
@@ -3019,7 +3019,7 @@
         "declaration": "pub fn app_handle(&self) -> &AppHandle<R> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.app_handle",
+        "entry": "pytaurix.menu.Menu.app_handle",
         "signature": "(self) -> '_native.AppHandle'"
       },
       "status": "bound_tested",
@@ -3048,7 +3048,7 @@
         "declaration": "pub fn id(&self) -> &MenuId {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.id",
+        "entry": "pytaurix.menu.Menu.id",
         "signature": "(self) -> 'MenuID'"
       },
       "status": "bound_tested",
@@ -3077,7 +3077,7 @@
         "declaration": "pub fn append(&self, item: &dyn IsMenuItem<R>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.append",
+        "entry": "pytaurix.menu.Menu.append",
         "signature": "(self, item: 'MenuItemKind', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3106,7 +3106,7 @@
         "declaration": "pub fn append_items(&self, items: &[&dyn IsMenuItem<R>]) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.append_items",
+        "entry": "pytaurix.menu.Menu.append_items",
         "signature": "(self, items: 'Sequence[MenuItemKind]', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3135,7 +3135,7 @@
         "declaration": "pub fn prepend(&self, item: &dyn IsMenuItem<R>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.prepend",
+        "entry": "pytaurix.menu.Menu.prepend",
         "signature": "(self, item: 'MenuItemKind', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3164,7 +3164,7 @@
         "declaration": "pub fn prepend_items(&self, items: &[&dyn IsMenuItem<R>]) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.prepend_items",
+        "entry": "pytaurix.menu.Menu.prepend_items",
         "signature": "(self, items: 'Sequence[MenuItemKind]', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3193,7 +3193,7 @@
         "declaration": "pub fn insert(&self, item: &dyn IsMenuItem<R>, position: usize) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.insert",
+        "entry": "pytaurix.menu.Menu.insert",
         "signature": "(self, item: 'MenuItemKind', position: 'int', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3222,7 +3222,7 @@
         "declaration": "pub fn insert_items(&self, items: &[&dyn IsMenuItem<R>], position: usize) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.insert_items",
+        "entry": "pytaurix.menu.Menu.insert_items",
         "signature": "(self, items: 'Sequence[MenuItemKind]', position: 'int', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3251,7 +3251,7 @@
         "declaration": "pub fn remove(&self, item: &dyn IsMenuItem<R>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.remove",
+        "entry": "pytaurix.menu.Menu.remove",
         "signature": "(self, item: 'MenuItemKind', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3280,7 +3280,7 @@
         "declaration": "pub fn remove_at(&self, position: usize) -> crate::Result<Option<MenuItemKind<R>>> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.remove_at",
+        "entry": "pytaurix.menu.Menu.remove_at",
         "signature": "(self, position: 'int', /) -> 'MenuItemKind | None'"
       },
       "status": "bound_tested",
@@ -3309,7 +3309,7 @@
         "declaration": "pub fn get<'a, I>(&self, id: &'a I) -> Option<MenuItemKind<R>>"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.get",
+        "entry": "pytaurix.menu.Menu.get",
         "signature": "(self, id: 'MenuID', /) -> 'MenuItemKind | None'"
       },
       "status": "bound_tested",
@@ -3338,7 +3338,7 @@
         "declaration": "pub fn items(&self) -> crate::Result<Vec<MenuItemKind<R>>> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.items",
+        "entry": "pytaurix.menu.Menu.items",
         "signature": "(self) -> 'list[MenuItemKind]'"
       },
       "status": "bound_tested",
@@ -3367,7 +3367,7 @@
         "declaration": "pub fn set_as_app_menu(&self) -> crate::Result<Option<Menu<R>>> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.set_as_app_menu",
+        "entry": "pytaurix.menu.Menu.set_as_app_menu",
         "signature": "(self) -> 'None'"
       },
       "status": "partial_tested",
@@ -3396,7 +3396,7 @@
         "declaration": "pub fn set_as_window_menu(&self, window: &Window<R>) -> crate::Result<Option<Menu<R>>> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.set_as_window_menu",
+        "entry": "pytaurix.menu.Menu.set_as_window_menu",
         "signature": "(self, window: 'WebviewWindow', /) -> 'None'"
       },
       "status": "partial_tested",
@@ -3425,7 +3425,7 @@
         "declaration": "pub fn new<M: Manager<R>, S: AsRef<str>>("
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu",
+        "entry": "pytaurix.menu.Submenu",
         "signature": "(manager: 'ManagerType', text: 'str', enabled: 'bool', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3454,7 +3454,7 @@
         "declaration": "pub fn with_id<M: Manager<R>, I: Into<MenuId>, S: AsRef<str>>("
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.with_id",
+        "entry": "pytaurix.menu.Submenu.with_id",
         "signature": "(manager: 'ManagerType', id: 'MenuID', text: 'str', enabled: 'bool', /) -> 'Submenu'"
       },
       "status": "bound_tested",
@@ -3483,7 +3483,7 @@
         "declaration": "pub fn with_items<M: Manager<R>, S: AsRef<str>>("
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.with_items",
+        "entry": "pytaurix.menu.Submenu.with_items",
         "signature": "(manager: 'ManagerType', text: 'str', enabled: 'bool', items: 'Sequence[MenuItemKind]', /) -> 'Submenu'"
       },
       "status": "bound_tested",
@@ -3512,7 +3512,7 @@
         "declaration": "pub fn with_id_and_items<M: Manager<R>, I: Into<MenuId>, S: AsRef<str>>("
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.with_id_and_items",
+        "entry": "pytaurix.menu.Submenu.with_id_and_items",
         "signature": "(manager: 'ManagerType', id: 'MenuID', text: 'str', enabled: 'bool', items: 'Sequence[MenuItemKind]', /) -> 'Submenu'"
       },
       "status": "bound_tested",
@@ -3541,7 +3541,7 @@
         "declaration": "pub fn app_handle(&self) -> &AppHandle<R> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.app_handle",
+        "entry": "pytaurix.menu.Submenu.app_handle",
         "signature": "(self) -> '_native.AppHandle'"
       },
       "status": "bound_tested",
@@ -3570,7 +3570,7 @@
         "declaration": "pub fn id(&self) -> &MenuId {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.id",
+        "entry": "pytaurix.menu.Submenu.id",
         "signature": "(self) -> 'MenuID'"
       },
       "status": "bound_tested",
@@ -3599,7 +3599,7 @@
         "declaration": "pub fn text(&self) -> crate::Result<String> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.text",
+        "entry": "pytaurix.menu.Submenu.text",
         "signature": "(self) -> 'str'"
       },
       "status": "bound_tested",
@@ -3628,7 +3628,7 @@
         "declaration": "pub fn set_text<S: AsRef<str>>(&self, text: S) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.set_text",
+        "entry": "pytaurix.menu.Submenu.set_text",
         "signature": "(self, text: 'str', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3657,7 +3657,7 @@
         "declaration": "pub fn is_enabled(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.is_enabled",
+        "entry": "pytaurix.menu.Submenu.is_enabled",
         "signature": "(self) -> 'bool'"
       },
       "status": "bound_tested",
@@ -3686,7 +3686,7 @@
         "declaration": "pub fn set_enabled(&self, enabled: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.set_enabled",
+        "entry": "pytaurix.menu.Submenu.set_enabled",
         "signature": "(self, enabled: 'bool', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3715,7 +3715,7 @@
         "declaration": "pub fn append(&self, item: &dyn IsMenuItem<R>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.append",
+        "entry": "pytaurix.menu.Submenu.append",
         "signature": "(self, item: 'MenuItemKind', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3744,7 +3744,7 @@
         "declaration": "pub fn append_items(&self, items: &[&dyn IsMenuItem<R>]) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.append_items",
+        "entry": "pytaurix.menu.Submenu.append_items",
         "signature": "(self, items: 'Sequence[MenuItemKind]', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3773,7 +3773,7 @@
         "declaration": "pub fn prepend(&self, item: &dyn IsMenuItem<R>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.prepend",
+        "entry": "pytaurix.menu.Submenu.prepend",
         "signature": "(self, item: 'MenuItemKind', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3802,7 +3802,7 @@
         "declaration": "pub fn prepend_items(&self, items: &[&dyn IsMenuItem<R>]) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.prepend_items",
+        "entry": "pytaurix.menu.Submenu.prepend_items",
         "signature": "(self, items: 'Sequence[MenuItemKind]', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3831,7 +3831,7 @@
         "declaration": "pub fn insert(&self, item: &dyn IsMenuItem<R>, position: usize) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.insert",
+        "entry": "pytaurix.menu.Submenu.insert",
         "signature": "(self, item: 'MenuItemKind', position: 'int', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3860,7 +3860,7 @@
         "declaration": "pub fn insert_items(&self, items: &[&dyn IsMenuItem<R>], position: usize) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.insert_items",
+        "entry": "pytaurix.menu.Submenu.insert_items",
         "signature": "(self, items: 'Sequence[MenuItemKind]', position: 'int', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3889,7 +3889,7 @@
         "declaration": "pub fn remove(&self, item: &dyn IsMenuItem<R>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.remove",
+        "entry": "pytaurix.menu.Submenu.remove",
         "signature": "(self, item: 'MenuItemKind', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -3918,7 +3918,7 @@
         "declaration": "pub fn remove_at(&self, position: usize) -> crate::Result<Option<MenuItemKind<R>>> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.remove_at",
+        "entry": "pytaurix.menu.Submenu.remove_at",
         "signature": "(self, position: 'int', /) -> 'MenuItemKind | None'"
       },
       "status": "bound_tested",
@@ -3947,7 +3947,7 @@
         "declaration": "pub fn get<'a, I>(&self, id: &'a I) -> Option<MenuItemKind<R>>"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.get",
+        "entry": "pytaurix.menu.Submenu.get",
         "signature": "(self, id: 'MenuID', /) -> 'MenuItemKind | None'"
       },
       "status": "bound_tested",
@@ -3976,7 +3976,7 @@
         "declaration": "pub fn items(&self) -> crate::Result<Vec<MenuItemKind<R>>> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Submenu.items",
+        "entry": "pytaurix.menu.Submenu.items",
         "signature": "(self) -> 'list[MenuItemKind]'"
       },
       "status": "bound_tested",
@@ -4005,7 +4005,7 @@
         "declaration": "pub fn new<M, T, A>("
       },
       "python": {
-        "entry": "pytaruix.menu.MenuItem",
+        "entry": "pytaurix.menu.MenuItem",
         "signature": "(manager: 'ManagerType', text: 'str', enabled: 'bool', accelerator: 'str | None' = None, /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4034,7 +4034,7 @@
         "declaration": "pub fn with_id<M, I, T, A>("
       },
       "python": {
-        "entry": "pytaruix.menu.MenuItem.with_id",
+        "entry": "pytaurix.menu.MenuItem.with_id",
         "signature": "(manager: 'ManagerType', id: 'MenuID', text: 'str', enabled: 'bool', accelerator: 'str | None' = None, /) -> 'MenuItem'"
       },
       "status": "bound_tested",
@@ -4063,7 +4063,7 @@
         "declaration": "pub fn app_handle(&self) -> &AppHandle<R> {"
       },
       "python": {
-        "entry": "pytaruix.menu.MenuItem.app_handle",
+        "entry": "pytaurix.menu.MenuItem.app_handle",
         "signature": "(self) -> '_native.AppHandle'"
       },
       "status": "bound_tested",
@@ -4092,7 +4092,7 @@
         "declaration": "pub fn id(&self) -> &MenuId {"
       },
       "python": {
-        "entry": "pytaruix.menu.MenuItem.id",
+        "entry": "pytaurix.menu.MenuItem.id",
         "signature": "(self) -> 'MenuID'"
       },
       "status": "bound_tested",
@@ -4121,7 +4121,7 @@
         "declaration": "pub fn text(&self) -> crate::Result<String> {"
       },
       "python": {
-        "entry": "pytaruix.menu.MenuItem.text",
+        "entry": "pytaurix.menu.MenuItem.text",
         "signature": "(self) -> 'str'"
       },
       "status": "bound_tested",
@@ -4150,7 +4150,7 @@
         "declaration": "pub fn set_text<S: AsRef<str>>(&self, text: S) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.MenuItem.set_text",
+        "entry": "pytaurix.menu.MenuItem.set_text",
         "signature": "(self, text: 'str', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4179,7 +4179,7 @@
         "declaration": "pub fn is_enabled(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.menu.MenuItem.is_enabled",
+        "entry": "pytaurix.menu.MenuItem.is_enabled",
         "signature": "(self) -> 'bool'"
       },
       "status": "bound_tested",
@@ -4208,7 +4208,7 @@
         "declaration": "pub fn set_enabled(&self, enabled: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.MenuItem.set_enabled",
+        "entry": "pytaurix.menu.MenuItem.set_enabled",
         "signature": "(self, enabled: 'bool', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4237,7 +4237,7 @@
         "declaration": "pub fn set_accelerator<S: AsRef<str>>(&self, accelerator: Option<S>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.MenuItem.set_accelerator",
+        "entry": "pytaurix.menu.MenuItem.set_accelerator",
         "signature": "(self, accelerator: 'str | None', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4266,7 +4266,7 @@
         "declaration": "pub fn new<M, T, A>("
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem",
+        "entry": "pytaurix.menu.CheckMenuItem",
         "signature": "(manager: 'ManagerType', text: 'str', enabled: 'bool', checked: 'bool', accelerator: 'str | None' = None, /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4295,7 +4295,7 @@
         "declaration": "pub fn with_id<M, I, T, A>("
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem.with_id",
+        "entry": "pytaurix.menu.CheckMenuItem.with_id",
         "signature": "(manager: 'ManagerType', id: 'MenuID', text: 'str', enabled: 'bool', checked: 'bool', accelerator: 'str | None' = None, /) -> 'CheckMenuItem'"
       },
       "status": "bound_tested",
@@ -4324,7 +4324,7 @@
         "declaration": "pub fn app_handle(&self) -> &AppHandle<R> {"
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem.app_handle",
+        "entry": "pytaurix.menu.CheckMenuItem.app_handle",
         "signature": "(self) -> '_native.AppHandle'"
       },
       "status": "bound_tested",
@@ -4353,7 +4353,7 @@
         "declaration": "pub fn id(&self) -> &MenuId {"
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem.id",
+        "entry": "pytaurix.menu.CheckMenuItem.id",
         "signature": "(self) -> 'MenuID'"
       },
       "status": "bound_tested",
@@ -4382,7 +4382,7 @@
         "declaration": "pub fn text(&self) -> crate::Result<String> {"
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem.text",
+        "entry": "pytaurix.menu.CheckMenuItem.text",
         "signature": "(self) -> 'str'"
       },
       "status": "bound_tested",
@@ -4411,7 +4411,7 @@
         "declaration": "pub fn set_text<S: AsRef<str>>(&self, text: S) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem.set_text",
+        "entry": "pytaurix.menu.CheckMenuItem.set_text",
         "signature": "(self, text: 'str', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4440,7 +4440,7 @@
         "declaration": "pub fn is_enabled(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem.is_enabled",
+        "entry": "pytaurix.menu.CheckMenuItem.is_enabled",
         "signature": "(self) -> 'bool'"
       },
       "status": "bound_tested",
@@ -4469,7 +4469,7 @@
         "declaration": "pub fn set_enabled(&self, enabled: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem.set_enabled",
+        "entry": "pytaurix.menu.CheckMenuItem.set_enabled",
         "signature": "(self, enabled: 'bool', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4498,7 +4498,7 @@
         "declaration": "pub fn set_accelerator<S: AsRef<str>>(&self, accelerator: Option<S>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem.set_accelerator",
+        "entry": "pytaurix.menu.CheckMenuItem.set_accelerator",
         "signature": "(self, accelerator: 'str | None', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4527,7 +4527,7 @@
         "declaration": "pub fn is_checked(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem.is_checked",
+        "entry": "pytaurix.menu.CheckMenuItem.is_checked",
         "signature": "(self) -> 'bool'"
       },
       "status": "bound_tested",
@@ -4556,7 +4556,7 @@
         "declaration": "pub fn set_checked(&self, checked: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.CheckMenuItem.set_checked",
+        "entry": "pytaurix.menu.CheckMenuItem.set_checked",
         "signature": "(self, checked: 'bool', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4585,7 +4585,7 @@
         "declaration": "pub fn new<M, T, A>("
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem",
+        "entry": "pytaurix.menu.IconMenuItem",
         "signature": "(manager: 'ManagerType', text: 'str', enabled: 'bool', icon: 'Image | None' = None, accelerator: 'str | None' = None, /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4614,7 +4614,7 @@
         "declaration": "pub fn with_id<M, I, T, A>("
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.with_id",
+        "entry": "pytaurix.menu.IconMenuItem.with_id",
         "signature": "(manager: 'ManagerType', id: 'MenuID', text: 'str', enabled: 'bool', icon: 'Image | None' = None, accelerator: 'str | None' = None, /) -> 'IconMenuItem'"
       },
       "status": "bound_tested",
@@ -4643,7 +4643,7 @@
         "declaration": "pub fn app_handle(&self) -> &AppHandle<R> {"
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.app_handle",
+        "entry": "pytaurix.menu.IconMenuItem.app_handle",
         "signature": "(self) -> '_native.AppHandle'"
       },
       "status": "bound_tested",
@@ -4672,7 +4672,7 @@
         "declaration": "pub fn id(&self) -> &MenuId {"
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.id",
+        "entry": "pytaurix.menu.IconMenuItem.id",
         "signature": "(self) -> 'MenuID'"
       },
       "status": "bound_tested",
@@ -4701,7 +4701,7 @@
         "declaration": "pub fn text(&self) -> crate::Result<String> {"
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.text",
+        "entry": "pytaurix.menu.IconMenuItem.text",
         "signature": "(self) -> 'str'"
       },
       "status": "bound_tested",
@@ -4730,7 +4730,7 @@
         "declaration": "pub fn set_text<S: AsRef<str>>(&self, text: S) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.set_text",
+        "entry": "pytaurix.menu.IconMenuItem.set_text",
         "signature": "(self, text: 'str', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4759,7 +4759,7 @@
         "declaration": "pub fn is_enabled(&self) -> crate::Result<bool> {"
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.is_enabled",
+        "entry": "pytaurix.menu.IconMenuItem.is_enabled",
         "signature": "(self) -> 'bool'"
       },
       "status": "bound_tested",
@@ -4788,7 +4788,7 @@
         "declaration": "pub fn set_enabled(&self, enabled: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.set_enabled",
+        "entry": "pytaurix.menu.IconMenuItem.set_enabled",
         "signature": "(self, enabled: 'bool', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4817,7 +4817,7 @@
         "declaration": "pub fn set_accelerator<S: AsRef<str>>(&self, accelerator: Option<S>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.set_accelerator",
+        "entry": "pytaurix.menu.IconMenuItem.set_accelerator",
         "signature": "(self, accelerator: 'str | None', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4846,7 +4846,7 @@
         "declaration": "pub fn set_icon(&self, icon: Option<Image<'_>>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.set_icon",
+        "entry": "pytaurix.menu.IconMenuItem.set_icon",
         "signature": "(self, icon: 'Image | None', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -4875,7 +4875,7 @@
         "declaration": "pub fn separator<M: Manager<R>>(manager: &M) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.separator",
+        "entry": "pytaurix.menu.PredefinedMenuItem.separator",
         "signature": "(manager: 'ManagerType', /) -> 'PredefinedMenuItem'"
       },
       "status": "bound_tested",
@@ -4904,7 +4904,7 @@
         "declaration": "pub fn app_handle(&self) -> &AppHandle<R> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.app_handle",
+        "entry": "pytaurix.menu.PredefinedMenuItem.app_handle",
         "signature": "(self) -> '_native.AppHandle'"
       },
       "status": "bound_tested",
@@ -4933,7 +4933,7 @@
         "declaration": "pub fn id(&self) -> &MenuId {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.id",
+        "entry": "pytaurix.menu.PredefinedMenuItem.id",
         "signature": "(self) -> 'MenuID'"
       },
       "status": "bound_tested",
@@ -4962,7 +4962,7 @@
         "declaration": "pub fn text(&self) -> crate::Result<String> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.text",
+        "entry": "pytaurix.menu.PredefinedMenuItem.text",
         "signature": "(self) -> 'str'"
       },
       "status": "bound_tested",
@@ -4991,7 +4991,7 @@
         "declaration": "pub fn set_text<S: AsRef<str>>(&self, text: S) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.set_text",
+        "entry": "pytaurix.menu.PredefinedMenuItem.set_text",
         "signature": "(self, text: 'str', /) -> 'None'"
       },
       "status": "bound_tested",
@@ -5020,7 +5020,7 @@
         "declaration": "pub fn menu(&self) -> Option<Menu<R>> {"
       },
       "python": {
-        "entry": "pytaruix.AppHandle.menu",
+        "entry": "pytaurix.AppHandle.menu",
         "signature": "(self, /)"
       },
       "status": "bound_tested",
@@ -5049,7 +5049,7 @@
         "declaration": "pub fn set_menu(&self, menu: Menu<R>) -> crate::Result<Option<Menu<R>>> {"
       },
       "python": {
-        "entry": "pytaruix.AppHandle.set_menu",
+        "entry": "pytaurix.AppHandle.set_menu",
         "signature": "(self, menu, /)"
       },
       "status": "bound_tested",
@@ -5078,7 +5078,7 @@
         "declaration": "pub fn remove_menu(&self) -> crate::Result<Option<Menu<R>>> {"
       },
       "python": {
-        "entry": "pytaruix.AppHandle.remove_menu",
+        "entry": "pytaurix.AppHandle.remove_menu",
         "signature": "(self, /)"
       },
       "status": "bound_tested",
@@ -5107,7 +5107,7 @@
         "declaration": "pub fn on_menu_event<F: Fn(&AppHandle<R>, MenuEvent) + Send + Sync + 'static>("
       },
       "python": {
-        "entry": "pytaruix.AppHandle.on_menu_event",
+        "entry": "pytaurix.AppHandle.on_menu_event",
         "signature": "(self, handler, /)"
       },
       "status": "bound_tested",
@@ -5136,7 +5136,7 @@
         "declaration": "pub fn menu(&self) -> Option<Menu<R>> {"
       },
       "python": {
-        "entry": "pytaruix.WebviewWindow.menu",
+        "entry": "pytaurix.WebviewWindow.menu",
         "signature": "(self, /)"
       },
       "status": "bound_tested",
@@ -5165,7 +5165,7 @@
         "declaration": "pub fn set_menu(&self, menu: Menu<R>) -> crate::Result<Option<Menu<R>>> {"
       },
       "python": {
-        "entry": "pytaruix.WebviewWindow.set_menu",
+        "entry": "pytaurix.WebviewWindow.set_menu",
         "signature": "(self, menu, /)"
       },
       "status": "bound_tested",
@@ -5194,7 +5194,7 @@
         "declaration": "pub fn remove_menu(&self) -> crate::Result<Option<Menu<R>>> {"
       },
       "python": {
-        "entry": "pytaruix.WebviewWindow.remove_menu",
+        "entry": "pytaurix.WebviewWindow.remove_menu",
         "signature": "(self, /)"
       },
       "status": "bound_tested",
@@ -5223,7 +5223,7 @@
         "declaration": "pub fn popup_menu<M: ContextMenu>(&self, menu: &M) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.WebviewWindow.popup_menu",
+        "entry": "pytaurix.WebviewWindow.popup_menu",
         "signature": "(self, menu, /)"
       },
       "status": "bound_tested",
@@ -5252,7 +5252,7 @@
         "declaration": "pub fn popup_menu_at<M: ContextMenu, P: Into<Position>>("
       },
       "python": {
-        "entry": "pytaruix.WebviewWindow.popup_menu_at",
+        "entry": "pytaurix.WebviewWindow.popup_menu_at",
         "signature": "(self, menu, position, /)"
       },
       "status": "bound_tested",
@@ -5281,7 +5281,7 @@
         "declaration": "pub fn on_menu_event<F: Fn(&crate::Window<R>, crate::menu::MenuEvent) + Send + Sync + 'static>("
       },
       "python": {
-        "entry": "pytaruix.WebviewWindow.on_menu_event",
+        "entry": "pytaurix.WebviewWindow.on_menu_event",
         "signature": "(self, handler, /)"
       },
       "status": "bound_tested",
@@ -5310,7 +5310,7 @@
         "declaration": "fn popup<R: crate::Runtime>(&self, window: crate::Window<R>) -> crate::Result<()>;"
       },
       "python": {
-        "entry": "pytaruix.menu.ContextMenu.popup",
+        "entry": "pytaurix.menu.ContextMenu.popup",
         "signature": "(slf: Menu | Submenu, window: WebviewWindow, /) -> None"
       },
       "status": "partial_tested",
@@ -5339,7 +5339,7 @@
         "declaration": "fn popup_at<R: crate::Runtime, P: Into<crate::Position>>("
       },
       "python": {
-        "entry": "pytaruix.menu.ContextMenu.popup_at",
+        "entry": "pytaurix.menu.ContextMenu.popup_at",
         "signature": "(slf: Menu | Submenu, window: WebviewWindow, position: PositionType, /) -> None"
       },
       "status": "partial_tested",
@@ -5368,7 +5368,7 @@
         "declaration": "pub fn open_devtools(&self) {"
       },
       "python": {
-        "entry": "pytaruix.WebviewWindow.open_devtools",
+        "entry": "pytaurix.WebviewWindow.open_devtools",
         "signature": "(self) -> None"
       },
       "status": "partial_tested",
@@ -5396,7 +5396,7 @@
         "declaration": "pub fn close_devtools(&self) {"
       },
       "python": {
-        "entry": "pytaruix.WebviewWindow.close_devtools",
+        "entry": "pytaurix.WebviewWindow.close_devtools",
         "signature": "(self) -> None"
       },
       "status": "platform_unavailable",
@@ -5424,7 +5424,7 @@
         "declaration": "pub fn is_devtools_open(&self) -> bool {"
       },
       "python": {
-        "entry": "pytaruix.WebviewWindow.is_devtools_open",
+        "entry": "pytaurix.WebviewWindow.is_devtools_open",
         "signature": "(self) -> bool"
       },
       "status": "platform_unavailable",
@@ -5452,7 +5452,7 @@
         "declaration": "pub fn set_default_window_icon(&mut self, icon: Option<image::Image<'static>>) {"
       },
       "python": {
-        "entry": "pytaruix.context_factory",
+        "entry": "pytaurix.context_factory",
         "signature": "(resource_path, /, *, tauri_config=None, dev=False) -> Context"
       },
       "status": "partial_tested",
@@ -5480,7 +5480,7 @@
         "declaration": "pub fn package_info_mut(&mut self) -> &mut PackageInfo {"
       },
       "python": {
-        "entry": "pytaruix.context_factory",
+        "entry": "pytaurix.context_factory",
         "signature": "(resource_path, /, *, tauri_config=None, dev=False) -> Context"
       },
       "status": "partial_tested",
@@ -5508,7 +5508,7 @@
         "declaration": "pub fn runtime_authority_mut(&mut self) -> &mut RuntimeAuthority {"
       },
       "python": {
-        "entry": "pytaruix.context_factory",
+        "entry": "pytaurix.context_factory",
         "signature": "(resource_path, /, *, tauri_config=None, dev=False) -> Context"
       },
       "status": "partial_tested",
@@ -5536,7 +5536,7 @@
         "declaration": "pub enum MouseButton {"
       },
       "python": {
-        "entry": "pytaruix.tray.MouseButton",
+        "entry": "pytaurix.tray.MouseButton",
         "signature": "Public Python type; see typed module for fields and methods"
       },
       "status": "bound_tested",
@@ -5564,7 +5564,7 @@
         "declaration": "pub enum MouseButtonState {"
       },
       "python": {
-        "entry": "pytaruix.tray.MouseButtonState",
+        "entry": "pytaurix.tray.MouseButtonState",
         "signature": "Public Python type; see typed module for fields and methods"
       },
       "status": "bound_tested",
@@ -5592,7 +5592,7 @@
         "declaration": "pub enum TrayIconEvent {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconEvent",
+        "entry": "pytaurix.tray.TrayIconEvent",
         "signature": "Public Python type; see typed module for fields and methods"
       },
       "status": "partial_tested",
@@ -5620,7 +5620,7 @@
         "declaration": "pub struct TrayIconBuilder<R: Runtime> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder",
+        "entry": "pytaurix.tray.TrayIconBuilder",
         "signature": "Public Python type; see typed module for fields and methods"
       },
       "status": "bound_tested",
@@ -5648,7 +5648,7 @@
         "declaration": "pub struct TrayIcon<R: Runtime> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon",
+        "entry": "pytaurix.tray.TrayIcon",
         "signature": "Public Python type; see typed module for fields and methods"
       },
       "status": "bound_tested",
@@ -5676,7 +5676,7 @@
         "declaration": "pub fn new() -> Self {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.new",
+        "entry": "pytaurix.tray.TrayIconBuilder.new",
         "signature": "() -> TrayIconBuilder"
       },
       "status": "bound_tested",
@@ -5704,7 +5704,7 @@
         "declaration": "pub fn with_id<I: Into<TrayIconId>>(id: I) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.with_id",
+        "entry": "pytaurix.tray.TrayIconBuilder.with_id",
         "signature": "(id: str, /) -> TrayIconBuilder"
       },
       "status": "partial_tested",
@@ -5732,7 +5732,7 @@
         "declaration": "pub fn id(&self) -> &TrayIconId {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.id",
+        "entry": "pytaurix.tray.TrayIconBuilder.id",
         "signature": "(self, /) -> str"
       },
       "status": "bound_tested",
@@ -5760,7 +5760,7 @@
         "declaration": "pub fn menu<M: ContextMenu>(mut self, menu: &M) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.menu",
+        "entry": "pytaurix.tray.TrayIconBuilder.menu",
         "signature": "(self, menu: Menu | Submenu, /) -> Self"
       },
       "status": "bound_tested",
@@ -5788,7 +5788,7 @@
         "declaration": "pub fn icon(mut self, icon: Image<'_>) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.icon",
+        "entry": "pytaurix.tray.TrayIconBuilder.icon",
         "signature": "(self, icon: Image, /) -> Self"
       },
       "status": "bound_tested",
@@ -5816,7 +5816,7 @@
         "declaration": "pub fn tooltip<S: AsRef<str>>(mut self, s: S) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.tooltip",
+        "entry": "pytaurix.tray.TrayIconBuilder.tooltip",
         "signature": "(self, tooltip: str, /) -> Self"
       },
       "status": "bound_tested",
@@ -5844,7 +5844,7 @@
         "declaration": "pub fn show_menu_on_left_click(mut self, enable: bool) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.show_menu_on_left_click",
+        "entry": "pytaurix.tray.TrayIconBuilder.show_menu_on_left_click",
         "signature": "(self, enable: bool, /) -> Self"
       },
       "status": "bound_tested",
@@ -5872,7 +5872,7 @@
         "declaration": "pub fn on_menu_event<F: Fn(&AppHandle<R>, MenuEvent) + Sync + Send + 'static>("
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.on_menu_event",
+        "entry": "pytaurix.tray.TrayIconBuilder.on_menu_event",
         "signature": "(self, handler: Callable[[AppHandle, str], None], /) -> Self"
       },
       "status": "bound_tested",
@@ -5900,7 +5900,7 @@
         "declaration": "pub fn on_tray_icon_event<F: Fn(&TrayIcon<R>, TrayIconEvent) + Sync + Send + 'static>("
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.on_tray_icon_event",
+        "entry": "pytaurix.tray.TrayIconBuilder.on_tray_icon_event",
         "signature": "(self, handler: Callable[[TrayIcon, TrayIconEventType], None], /) -> Self"
       },
       "status": "partial_tested",
@@ -5928,7 +5928,7 @@
         "declaration": "pub fn title<S: AsRef<str>>(mut self, title: S) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.title",
+        "entry": "pytaurix.tray.TrayIconBuilder.title",
         "signature": "(self, title: str, /) -> Self"
       },
       "status": "platform_unavailable",
@@ -5956,7 +5956,7 @@
         "declaration": "pub fn temp_dir_path<P: AsRef<Path>>(mut self, s: P) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.temp_dir_path",
+        "entry": "pytaurix.tray.TrayIconBuilder.temp_dir_path",
         "signature": "(self, path: Path, /) -> Self"
       },
       "status": "platform_unavailable",
@@ -5984,7 +5984,7 @@
         "declaration": "pub fn icon_as_template(mut self, is_template: bool) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.icon_as_template",
+        "entry": "pytaurix.tray.TrayIconBuilder.icon_as_template",
         "signature": "(self, is_template: bool, /) -> Self"
       },
       "status": "platform_unavailable",
@@ -6012,7 +6012,7 @@
         "declaration": "pub fn build<M: Manager<R>>(self, manager: &M) -> crate::Result<TrayIcon<R>> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconBuilder.build",
+        "entry": "pytaurix.tray.TrayIconBuilder.build",
         "signature": "(self, manager: App | AppHandle | WebviewWindow, /) -> TrayIcon"
       },
       "status": "partial_tested",
@@ -6040,7 +6040,7 @@
         "declaration": "pub fn app_handle(&self) -> &AppHandle<R> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.app_handle",
+        "entry": "pytaurix.tray.TrayIcon.app_handle",
         "signature": "(self, /) -> AppHandle"
       },
       "status": "bound_tested",
@@ -6068,7 +6068,7 @@
         "declaration": "pub fn id(&self) -> &TrayIconId {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.id",
+        "entry": "pytaurix.tray.TrayIcon.id",
         "signature": "(self, /) -> str"
       },
       "status": "bound_tested",
@@ -6096,7 +6096,7 @@
         "declaration": "pub fn set_icon(&self, icon: Option<Image<'_>>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.set_icon",
+        "entry": "pytaurix.tray.TrayIcon.set_icon",
         "signature": "(self, icon: Image | None, /) -> None"
       },
       "status": "bound_tested",
@@ -6124,7 +6124,7 @@
         "declaration": "pub fn set_menu<M: ContextMenu + 'static>(&self, menu: Option<M>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.set_menu",
+        "entry": "pytaurix.tray.TrayIcon.set_menu",
         "signature": "(self, menu: Menu | Submenu | None, /) -> None"
       },
       "status": "bound_tested",
@@ -6152,7 +6152,7 @@
         "declaration": "pub fn set_tooltip<S: AsRef<str>>(&self, tooltip: Option<S>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.set_tooltip",
+        "entry": "pytaurix.tray.TrayIcon.set_tooltip",
         "signature": "(self, tooltip: str | None, /) -> None"
       },
       "status": "bound_tested",
@@ -6180,7 +6180,7 @@
         "declaration": "pub fn set_visible(&self, visible: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.set_visible",
+        "entry": "pytaurix.tray.TrayIcon.set_visible",
         "signature": "(self, visible: bool, /) -> None"
       },
       "status": "bound_tested",
@@ -6208,7 +6208,7 @@
         "declaration": "pub fn set_icon_with_as_template("
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.set_icon_with_as_template",
+        "entry": "pytaurix.tray.TrayIcon.set_icon_with_as_template",
         "signature": "(self, icon: Image | None, is_template: bool, /) -> None"
       },
       "status": "bound_tested",
@@ -6236,7 +6236,7 @@
         "declaration": "pub fn set_show_menu_on_left_click(&self, #[allow(unused)] enable: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.set_show_menu_on_left_click",
+        "entry": "pytaurix.tray.TrayIcon.set_show_menu_on_left_click",
         "signature": "(self, enable: bool, /) -> None"
       },
       "status": "bound_tested",
@@ -6264,7 +6264,7 @@
         "declaration": "pub fn rect(&self) -> crate::Result<Option<crate::Rect>> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.rect",
+        "entry": "pytaurix.tray.TrayIcon.rect",
         "signature": "(self, /) -> Rect | None"
       },
       "status": "bound_tested",
@@ -6292,7 +6292,7 @@
         "declaration": "pub fn on_menu_event<F: Fn(&AppHandle<R>, MenuEvent) + Sync + Send + 'static>(&self, f: F) {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.on_menu_event",
+        "entry": "pytaurix.tray.TrayIcon.on_menu_event",
         "signature": "(self, handler: Callable[[AppHandle, str], None], /) -> None"
       },
       "status": "bound_tested",
@@ -6320,7 +6320,7 @@
         "declaration": "pub fn on_tray_icon_event<F: Fn(&TrayIcon<R>, TrayIconEvent) + Sync + Send + 'static>("
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.on_tray_icon_event",
+        "entry": "pytaurix.tray.TrayIcon.on_tray_icon_event",
         "signature": "(self, handler: Callable[[TrayIcon, TrayIconEventType], None], /) -> None"
       },
       "status": "partial_tested",
@@ -6348,7 +6348,7 @@
         "declaration": "pub fn set_title<S: AsRef<str>>(&self, title: Option<S>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.set_title",
+        "entry": "pytaurix.tray.TrayIcon.set_title",
         "signature": "(self, title: str | None, /) -> None"
       },
       "status": "platform_unavailable",
@@ -6376,7 +6376,7 @@
         "declaration": "pub fn set_temp_dir_path<P: AsRef<Path>>(&self, path: Option<P>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.set_temp_dir_path",
+        "entry": "pytaurix.tray.TrayIcon.set_temp_dir_path",
         "signature": "(self, path: Path | None, /) -> None"
       },
       "status": "platform_unavailable",
@@ -6404,7 +6404,7 @@
         "declaration": "pub fn set_icon_as_template(&self, #[allow(unused)] is_template: bool) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.set_icon_as_template",
+        "entry": "pytaurix.tray.TrayIcon.set_icon_as_template",
         "signature": "(self, is_template: bool, /) -> None"
       },
       "status": "platform_unavailable",
@@ -6432,7 +6432,7 @@
         "declaration": "pub fn with_inner_tray_icon<F, T>(&self, f: F) -> crate::Result<T>"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIcon.with_inner_tray_icon",
+        "entry": "pytaurix.tray.TrayIcon.with_inner_tray_icon",
         "signature": "Not exposed: requires arbitrary Rust closure and internal tray-icon crate type"
       },
       "status": "unimplemented",
@@ -6458,7 +6458,7 @@
         "declaration": "pub fn id(&self) -> &TrayIconId {"
       },
       "python": {
-        "entry": "pytaruix.tray.TrayIconEventType.id",
+        "entry": "pytaurix.tray.TrayIconEventType.id",
         "signature": "Readonly str field on each event variant"
       },
       "status": "partial_tested",
@@ -6486,7 +6486,7 @@
         "declaration": "pub fn on_tray_icon_event<F: Fn(&AppHandle<R>, TrayIconEvent) + Send + Sync + 'static>("
       },
       "python": {
-        "entry": "pytaruix.AppHandle.on_tray_icon_event",
+        "entry": "pytaurix.AppHandle.on_tray_icon_event",
         "signature": "(self, handler: Callable[[AppHandle, TrayIconEventType], None], /) -> None"
       },
       "status": "bound_tested",
@@ -6514,7 +6514,7 @@
         "declaration": "pub fn on_tray_icon_event<F: Fn(&AppHandle<R>, TrayIconEvent) + Send + Sync + 'static>("
       },
       "python": {
-        "entry": "pytaruix.Builder.build",
+        "entry": "pytaurix.Builder.build",
         "signature": "(*, on_tray_icon_event: Callable[[AppHandle, TrayIconEventType], None] | None = None, ...) -> App"
       },
       "status": "partial_tested",
@@ -6542,7 +6542,7 @@
         "declaration": "pub fn tray_by_id<'a, I>(&self, id: &'a I) -> Option<TrayIcon<R>>"
       },
       "python": {
-        "entry": "pytaruix.AppHandle.tray_by_id",
+        "entry": "pytaurix.AppHandle.tray_by_id",
         "signature": "(self, id: str, /) -> TrayIcon | None"
       },
       "status": "partial_tested",
@@ -6570,7 +6570,7 @@
         "declaration": "pub fn remove_tray_by_id<'a, I>(&self, id: &'a I) -> Option<TrayIcon<R>>"
       },
       "python": {
-        "entry": "pytaruix.AppHandle.remove_tray_by_id",
+        "entry": "pytaurix.AppHandle.remove_tray_by_id",
         "signature": "(self, id: str, /) -> TrayIcon | None"
       },
       "status": "partial_tested",
@@ -6598,7 +6598,7 @@
         "declaration": "PhysicalSize, PhysicalUnit, Pixel, PixelUnit, Position, Rect, Size,"
       },
       "python": {
-        "entry": "pytaruix.dpi.Rect",
+        "entry": "pytaurix.dpi.Rect",
         "signature": "Immutable snapshot; fields documented in Python dataclass"
       },
       "status": "partial_tested",
@@ -6626,7 +6626,7 @@
         "declaration": "LogicalPosition, LogicalRect, LogicalSize, LogicalUnit, PhysicalPosition, PhysicalRect,"
       },
       "python": {
-        "entry": "pytaruix.dpi.PhysicalPositionF64",
+        "entry": "pytaurix.dpi.PhysicalPositionF64",
         "signature": "Immutable snapshot; fields documented in Python dataclass"
       },
       "status": "partial_tested",
@@ -6654,7 +6654,7 @@
         "declaration": "pub fn on_new_window<F: Fn(Url, NewWindowFeatures) -> NewWindowResponse<R> + Send + 'static>("
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindowBuilderArgs.on_new_window",
+        "entry": "pytaurix.webview.WebviewWindowBuilderArgs.on_new_window",
         "signature": "(url: str, features: NewWindowFeatures) -> NewWindowResponse"
       },
       "status": "partial_tested",
@@ -6682,7 +6682,7 @@
         "declaration": "pub fn on_permission_request<"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindowBuilderArgs.on_permission_request",
+        "entry": "pytaurix.webview.WebviewWindowBuilderArgs.on_permission_request",
         "signature": "(view: Webview, kind: PermissionKind) -> PermissionResponse"
       },
       "status": "partial_tested",
@@ -6710,7 +6710,7 @@
         "declaration": "pub fn on_web_resource_request<"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindowBuilderArgs.on_web_resource_request",
+        "entry": "pytaurix.webview.WebviewWindowBuilderArgs.on_web_resource_request",
         "signature": "(request: WebResourceRequest, response: WebResourceResponse) -> WebResourceResponse | None"
       },
       "status": "bound_tested",
@@ -6738,7 +6738,7 @@
         "declaration": "pub fn data_directory(mut self, data_directory: PathBuf) -> Self {"
       },
       "python": {
-        "entry": "pytaruix.webview.WebviewWindowBuilderArgs.data_directory",
+        "entry": "pytaurix.webview.WebviewWindowBuilderArgs.data_directory",
         "signature": "Path (absolute)"
       },
       "status": "bound_tested",
@@ -6765,7 +6765,7 @@
         "declaration": "pub fn audio_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.audio_dir",
+        "entry": "pytaurix.PathResolver.audio_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -6792,7 +6792,7 @@
         "declaration": "pub fn cache_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.cache_dir",
+        "entry": "pytaurix.PathResolver.cache_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -6819,7 +6819,7 @@
         "declaration": "pub fn config_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.config_dir",
+        "entry": "pytaurix.PathResolver.config_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -6846,7 +6846,7 @@
         "declaration": "pub fn data_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.data_dir",
+        "entry": "pytaurix.PathResolver.data_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -6873,7 +6873,7 @@
         "declaration": "pub fn local_data_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.local_data_dir",
+        "entry": "pytaurix.PathResolver.local_data_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -6900,7 +6900,7 @@
         "declaration": "pub fn document_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.document_dir",
+        "entry": "pytaurix.PathResolver.document_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -6927,7 +6927,7 @@
         "declaration": "pub fn download_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.download_dir",
+        "entry": "pytaurix.PathResolver.download_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -6954,7 +6954,7 @@
         "declaration": "pub fn picture_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.picture_dir",
+        "entry": "pytaurix.PathResolver.picture_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -6981,7 +6981,7 @@
         "declaration": "pub fn public_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.public_dir",
+        "entry": "pytaurix.PathResolver.public_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7008,7 +7008,7 @@
         "declaration": "pub fn video_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.video_dir",
+        "entry": "pytaurix.PathResolver.video_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7035,7 +7035,7 @@
         "declaration": "pub fn desktop_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.desktop_dir",
+        "entry": "pytaurix.PathResolver.desktop_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7062,7 +7062,7 @@
         "declaration": "pub fn font_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.font_dir",
+        "entry": "pytaurix.PathResolver.font_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7089,7 +7089,7 @@
         "declaration": "pub fn runtime_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.runtime_dir",
+        "entry": "pytaurix.PathResolver.runtime_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7116,7 +7116,7 @@
         "declaration": "pub fn template_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.template_dir",
+        "entry": "pytaurix.PathResolver.template_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7143,7 +7143,7 @@
         "declaration": "pub fn resource_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.resource_dir",
+        "entry": "pytaurix.PathResolver.resource_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7170,7 +7170,7 @@
         "declaration": "pub fn app_config_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.app_config_dir",
+        "entry": "pytaurix.PathResolver.app_config_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7197,7 +7197,7 @@
         "declaration": "pub fn app_data_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.app_data_dir",
+        "entry": "pytaurix.PathResolver.app_data_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7224,7 +7224,7 @@
         "declaration": "pub fn app_local_data_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.app_local_data_dir",
+        "entry": "pytaurix.PathResolver.app_local_data_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7251,7 +7251,7 @@
         "declaration": "pub fn app_cache_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.app_cache_dir",
+        "entry": "pytaurix.PathResolver.app_cache_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7278,7 +7278,7 @@
         "declaration": "pub fn app_log_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.app_log_dir",
+        "entry": "pytaurix.PathResolver.app_log_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7305,7 +7305,7 @@
         "declaration": "pub fn home_dir(&self) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.home_dir",
+        "entry": "pytaurix.PathResolver.home_dir",
         "signature": "(self) -> Path | None"
       },
       "status": "bound_tested",
@@ -7332,7 +7332,7 @@
         "declaration": "pub fn resolve<P: AsRef<Path>>(&self, path: P, base_directory: BaseDirectory) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.resolve",
+        "entry": "pytaurix.PathResolver.resolve",
         "signature": "(self, path, base) -> Path"
       },
       "status": "bound_tested",
@@ -7359,7 +7359,7 @@
         "declaration": "pub fn parse<P: AsRef<Path>>(&self, path: P) -> Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.PathResolver.parse",
+        "entry": "pytaurix.PathResolver.parse",
         "signature": "(self, path) -> Path"
       },
       "status": "bound_tested",
@@ -7386,7 +7386,7 @@
         "declaration": "pub fn current_binary(_env: &Env) -> std::io::Result<PathBuf> {"
       },
       "python": {
-        "entry": "pytaruix.process.current_binary",
+        "entry": "pytaurix.process.current_binary",
         "signature": "(manager) -> Path"
       },
       "status": "bound_tested",
@@ -7413,7 +7413,7 @@
         "declaration": "pub fn restart(env: &Env) -> ! {"
       },
       "python": {
-        "entry": "pytaruix.process.restart",
+        "entry": "pytaurix.process.restart",
         "signature": "(manager) -> NoReturn"
       },
       "status": "bound_unverified",
@@ -7434,7 +7434,7 @@
         "declaration": "pub fn copy<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.copy",
+        "entry": "pytaurix.menu.PredefinedMenuItem.copy",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7461,7 +7461,7 @@
         "declaration": "pub fn cut<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.cut",
+        "entry": "pytaurix.menu.PredefinedMenuItem.cut",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7488,7 +7488,7 @@
         "declaration": "pub fn paste<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.paste",
+        "entry": "pytaurix.menu.PredefinedMenuItem.paste",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7515,7 +7515,7 @@
         "declaration": "pub fn select_all<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.select_all",
+        "entry": "pytaurix.menu.PredefinedMenuItem.select_all",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7542,7 +7542,7 @@
         "declaration": "pub fn undo<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.undo",
+        "entry": "pytaurix.menu.PredefinedMenuItem.undo",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7569,7 +7569,7 @@
         "declaration": "pub fn redo<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.redo",
+        "entry": "pytaurix.menu.PredefinedMenuItem.redo",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7596,7 +7596,7 @@
         "declaration": "pub fn minimize<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.minimize",
+        "entry": "pytaurix.menu.PredefinedMenuItem.minimize",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7623,7 +7623,7 @@
         "declaration": "pub fn maximize<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.maximize",
+        "entry": "pytaurix.menu.PredefinedMenuItem.maximize",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7650,7 +7650,7 @@
         "declaration": "pub fn fullscreen<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.fullscreen",
+        "entry": "pytaurix.menu.PredefinedMenuItem.fullscreen",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7677,7 +7677,7 @@
         "declaration": "pub fn hide<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.hide",
+        "entry": "pytaurix.menu.PredefinedMenuItem.hide",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7704,7 +7704,7 @@
         "declaration": "pub fn hide_others<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.hide_others",
+        "entry": "pytaurix.menu.PredefinedMenuItem.hide_others",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7731,7 +7731,7 @@
         "declaration": "pub fn show_all<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.show_all",
+        "entry": "pytaurix.menu.PredefinedMenuItem.show_all",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7758,7 +7758,7 @@
         "declaration": "pub fn close_window<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.close_window",
+        "entry": "pytaurix.menu.PredefinedMenuItem.close_window",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7785,7 +7785,7 @@
         "declaration": "pub fn quit<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.quit",
+        "entry": "pytaurix.menu.PredefinedMenuItem.quit",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7812,7 +7812,7 @@
         "declaration": "pub fn about<M: Manager<R>>("
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.about",
+        "entry": "pytaurix.menu.PredefinedMenuItem.about",
         "signature": "(cls, manager, text=None, metadata=None)"
       },
       "status": "bound_tested",
@@ -7839,7 +7839,7 @@
         "declaration": "pub fn services<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.services",
+        "entry": "pytaurix.menu.PredefinedMenuItem.services",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7866,7 +7866,7 @@
         "declaration": "pub fn bring_all_to_front<M: Manager<R>>(manager: &M, text: Option<&str>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.PredefinedMenuItem.bring_all_to_front",
+        "entry": "pytaurix.menu.PredefinedMenuItem.bring_all_to_front",
         "signature": "(cls, manager, text=None)"
       },
       "status": "bound_tested",
@@ -7893,7 +7893,7 @@
         "declaration": "pub fn default(app_handle: &AppHandle<R>) -> crate::Result<Self> {"
       },
       "python": {
-        "entry": "pytaruix.menu.Menu.default",
+        "entry": "pytaurix.menu.Menu.default",
         "signature": "(cls, manager)"
       },
       "status": "bound_tested",
@@ -7920,7 +7920,7 @@
         "declaration": "pub fn with_native_icon<M, T, A>("
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.with_native_icon",
+        "entry": "pytaurix.menu.IconMenuItem.with_native_icon",
         "signature": "(cls, manager, text, enabled, native_icon, accelerator=None)"
       },
       "status": "bound_tested",
@@ -7947,7 +7947,7 @@
         "declaration": "pub fn with_id_and_native_icon<M, I, T, A>("
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.with_id_and_native_icon",
+        "entry": "pytaurix.menu.IconMenuItem.with_id_and_native_icon",
         "signature": "(cls, manager, id, text, enabled, native_icon, accelerator=None)"
       },
       "status": "bound_tested",
@@ -7974,7 +7974,7 @@
         "declaration": "pub fn set_native_icon(&self, _icon: Option<NativeIcon>) -> crate::Result<()> {"
       },
       "python": {
-        "entry": "pytaruix.menu.IconMenuItem.set_native_icon",
+        "entry": "pytaurix.menu.IconMenuItem.set_native_icon",
         "signature": "(self, native_icon)"
       },
       "status": "bound_tested",

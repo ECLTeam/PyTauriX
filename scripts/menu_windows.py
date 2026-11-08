@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：独立读回当前测试进程的 Win32 菜单，通过原生菜单循环选择项目。
 # 公开接口：DesktopMenus。
 from __future__ import annotations

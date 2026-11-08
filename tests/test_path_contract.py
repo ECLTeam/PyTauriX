@@ -4,9 +4,9 @@ from pathlib import Path
 from typing import cast
 
 import pytest
-from pytaruix import BaseDirectory, BindingError, PathResolver, process
-from pytaruix.ffi import AppHandle
-from pytaruix.manager import ManagerType
+from pytaurix import BaseDirectory, BindingError, PathResolver, process
+from pytaurix.ffi import AppHandle
+from pytaurix.manager import ManagerType
 
 
 class StubHandle:
@@ -25,7 +25,7 @@ class StubHandle:
         return self.parsed.get(path)
 
     def current_binary(self) -> str:
-        return r"C:\Program Files\PytaruiX\pytaruix.exe"
+        return r"C:\Program Files\PyTauriX\pytaurix.exe"
 
 
 def resolver(handle: StubHandle) -> PathResolver:
@@ -74,4 +74,4 @@ def test_current_pid_needs_no_application() -> None:
 
 
 def test_current_binary_uses_handle() -> None:
-    assert process.current_binary(cast(ManagerType, StubHandle())) == Path(r"C:\Program Files\PytaruiX\pytaruix.exe")
+    assert process.current_binary(cast(ManagerType, StubHandle())) == Path(r"C:\Program Files\PyTauriX\pytaurix.exe")

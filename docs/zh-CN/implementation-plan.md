@@ -7,7 +7,7 @@
 ## 已确认目标
 
 独立项目；ECL 编码风格；降低 PyTauri 迁移成本；最新稳定 Tauri；最终完整引出其可用能力。
-当前项目位置为 `D:/Projects/EuoraCraft-Launcher/PyTaruiX`，项目名为 PytaruiX，发行包和导入名为 `pytaruix`。
+当前项目位置为 `D:/Projects/EuoraCraft-Launcher/PyTaruiX`，项目名为 PyTauriX，发行包和导入名为 `pytaurix`。
 早期阶段使用过其他目录与项目名称，保留在对应历史记录中。许可证仍待确定，独立发行前需完成许可决策。
 
 ## 第一阶段范围与文件
@@ -18,7 +18,7 @@
 4. `scripts/update_coverage.py`：从 Cargo 锁定源码重新生成清单，检查 feature 映射与版本漂移。
 5. `crates/bindings/src/{application,assets,ipc,window}.rs`：启动、资源、命令与窗口边界。
    `crates/bridge`：通过官方全局脚本构建集成保证桥接入口在 Tauri API 初始化后注册。
-6. `python/pytaruix/{application,events,ipc,errors,runtime}.py`、`ffi`、`webview`：公共 API 与兼容形状。
+6. `python/pytaurix/{application,events,ipc,errors,runtime}.py`、`ffi`、`webview`：公共 API 与兼容形状。
 7. `frontend/bridge.js`、`examples/minimal`：真实前端到 Python 闭环。
 8. `tests`、`scripts/desktop_smoke.py`：参数、错误、线程、真实 WebView 与退出验证。
 
@@ -72,7 +72,7 @@ Python 3.11/3.14 各 64 项测试、1 项环境跳过和 16 个真实桌面进�
 
 ## 第五阶段（已明确授权实施）
 
-本阶段补齐 Builder.build 的 plugins 注册入口，以及 pytaruix.plugins.dialog 的桌面文件/消息对话框。
+本阶段补齐 Builder.build 的 plugins 注册入口，以及 pytaurix.plugins.dialog 的桌面文件/消息对话框。
 当前 ECL 启动时注册 dialog，文件和皮肤操作直接使用 DialogExt；RGBA 子窗口图标已支持，图像解码不是该调用链前置。
 具体入口、线程/清理/权限边界及验收标准见 [第五阶段方案](plugin-dialog-stage-plan.md)。
 用户“开始实施”已授权；实现、独立安装包及源包重建验收已完成。
@@ -124,9 +124,9 @@ Windows 当前单屏 1600×900、100% DPI；多屏/混合 DPI、热插拔与跨�
 用户于 2026-10-02 明确近期目标为达到可供当前 ECL 使用的程度。
 以 ECL 的实际调用、配置、前端原生权限及独立程序结果为阶段标准；长期全量绑定目标保留。
 具体差距、三种接入方案、改动范围和验收要求见 [ECL 接入方案](ecl-stage-plan.md)。
-推荐显式使用 pytaruix，先补 TOML/宿主 capabilities、开发来源、默认图标、开发者工具和打包支持，
+推荐显式使用 pytaurix，先补 TOML/宿主 capabilities、开发来源、默认图标、开发者工具和打包支持，
 再在隔离 ECL 接入环境验证命令、事件、对话框、主/子窗口、插件及独立程序。
-用户“开始，并且项目更名为PytaruiX”已授权；使用 pytaruix 命名空间实施，ECL 既有未提交变更须保留。
+用户“开始，并且项目更名为PyTauriX”已授权；使用 pytaurix 命名空间实施，ECL 既有未提交变更须保留。
 统一身份与上述宿主配置/权限/图标/开发者工具已经实现，配置窗口失败有序归还 Python 错误。
 隔离 ECL 正式注册 216 个命令；三种主窗口、实际插件窗口与权限、事件、原生保存对话框及子进程链路已验证。
 后端 938 项测试通过、5 项跳过；前端 525 项测试通过、1 项待办，检查与生产构建完成。
@@ -200,8 +200,8 @@ Windows OLE 四类事件、焦点往返及窗口主题事件 9 项通过；托�
 
 2026-11-08 用户要求完成未实现功能，并明确当前以 Windows 为主、同时考虑 Linux/macOS。
 本批补齐能力矩阵中「路径/进程/异步运行时」的路径与进程部分；异步运行时保持不转发。
-新增 `pytaruix.path`（`BaseDirectory`、`PathResolver` 的 `resolve`/`parse` 与 21 个目录属性）
-和 `pytaruix.process`（`current_pid`、`current_binary`、`restart`）。
+新增 `pytaurix.path`（`BaseDirectory`、`PathResolver` 的 `resolve`/`parse` 与 21 个目录属性）
+和 `pytaurix.process`（`current_pid`、`current_binary`、`restart`）。
 原生侧新增 `paths` 模块与四个 `AppHandle` 入口，Windows 上去掉 `\?\` 扩展长度前缀，非 UTF-8 路径明确失败。
 `tests/test_path_contract.py` 8 项契约测试通过；`scripts/path_smoke.py` 在真实窗口内 12 项检查全通过。
 人工审核账本新增 25 条（21 个目录 + `resolve`/`parse` + 进程两项），当前 260 条：
@@ -239,10 +239,10 @@ Ruff、Pyright、pytest、Rustfmt、Clippy 与账本核验通过；未提交远�
 上游事实：`InvokeResolver` 可 Clone 且共享 `Arc<Mutex<Option<responder>>>`，
 `return_result` 对已消费 resolver 直接 panic，因此取消必须与完成竞争同一份所有权。
 新增 `PendingInvocation`、按 `(窗口标签, request_id)` 的 `Requests` 登记表、
-`pytaruix_cancel` 与 `pytaruix_channel_ack` 两个原生分发入口，以及注入用的 `Request` 句柄。
+`pytaurix_cancel` 与 `pytaurix_channel_ack` 两个原生分发入口，以及注入用的 `Request` 句柄。
 窗口销毁以 `window_closed`、应用退出以 `app_closed` 归还该窗口全部待应答项。
 通道新增 `capacity` 与 `send(timeout=)`：`capacity > 0` 时按配额发送，配额由前端
-`pytaruix.createChannel` 归还，超时报 `channel_backpressure`，提交失败回滚配额。
+`pytaurix.createChannel` 归还，超时报 `channel_backpressure`，提交失败回滚配额。
 前端桥新增 `AbortSignal` 取消与 `createChannel`；旧 `pyfunc` 协议不参与取消与配额。
 `tests/test_request_cancel.py` 5 项契约通过，全量 pytest 208 项通过、1 项跳过；
 Ruff、Ruff format、Pyright、Rustfmt 与默认 features Clippy（`-D warnings`）通过。
@@ -254,7 +254,7 @@ Ruff、Ruff format、Pyright、Rustfmt 与默认 features Clippy（`-D warnings`
 只提供异步响应版本：上游同步版本在调用线程执行回调，Python 回调可能卡住 GUI 线程，故不暴露。
 新增 `crates/bindings/src/protocol.rs`（`Protocol`、`protocol_create`、异步登记与响应转换），
 `Builder.build(protocols=)` 在构建期校验名称唯一性并消费描述符。
-Python 侧新增 `pytaruix.protocol`：`ProtocolRequest`/`ProtocolResponse` 不可变快照与 `create_protocol`；
+Python 侧新增 `pytaurix.protocol`：`ProtocolRequest`/`ProtocolResponse` 不可变快照与 `create_protocol`；
 处理器异常、非响应返回值、非法状态或头字段归还空 500，未就绪归还 503。
 scheme 规则为 ASCII 小写开头、仅小写字母/数字/`-+.`、≤32 字符，排除 `tauri`/`asset`/`http`/`https`/`ipc`/`channel`。
 `tests/test_protocol_contract.py` 覆盖名称规则、请求快照、返回值类型与默认响应，全量 pytest 231 项通过、1 项跳过。
@@ -271,7 +271,7 @@ Ruff、Ruff format、Pyright 通过；真实 Windows WebView `fetch` 往返、CO
 `crates/bindings/src/fs.rs` 只绑定上游真正提供的 Rust API：`read_text`、`read_bytes`、`write_text`、`write_bytes`；
 目录遍历、删除与重命名在上游只存在于命令层，Python 侧已由 `pathlib` 覆盖，不重复实现。
 `Fs` 先用 `try_fs_scope()` 判断插件是否注册，避免上游 `fs()` 直接 panic。
-Python 侧新增 `pytaruix.plugins.fs`（`init`、`Fs`、路径归一），`get_runtime_info()` 新增 `fs_version`
+Python 侧新增 `pytaurix.plugins.fs`（`init`、`Fs`、路径归一），`get_runtime_info()` 新增 `fs_version`
 与 `plugin.fs` 能力项；`plugin_fs_available` 随构建变化。
 `tests/test_plugin_fs_contract.py` 10 项契约通过（路径归一、类型拒绝、`Fs` 构造、能力报告、缺 feature 拒绝）；
 全量 pytest 240 项通过、2 项跳过。默认、`plugin-fs`、最小 `wry` 三组 Clippy（`-D warnings`）与 Rustfmt 通过，
@@ -335,8 +335,8 @@ Pyright 0 错误，Ruff 与 Ruff format 通过；Rustfmt 与默认、全插件�
 
 首轮执行即暴露两个契约测试照不出的缺陷，都直接导致取消不可用：
 
-1. `pytaruix_cancel` 与 `pytaruix_channel_ack` 未在 `crates/bindings/build.rs` 的
-   `AppManifest::commands` 中声明，前端收到 `pytaruix_cancel not allowed. Command not found`；
+1. `pytaurix_cancel` 与 `pytaurix_channel_ack` 未在 `crates/bindings/build.rs` 的
+   `AppManifest::commands` 中声明，前端收到 `pytaurix_cancel not allowed. Command not found`；
 2. 补声明后仍被拒，因为本地自动授权只在 `window_builder::register_capability` 中发生，
    而配置文件声明的窗口由 Tauri 直接创建，不经过该路径。新增 `register_config_capability`，
    在应用构建后为 `context.config.app.windows` 中的每个窗口补授权，标识为
@@ -367,7 +367,7 @@ global-shortcut、notification、opener 与未覆盖路径仍为 `bound_unverifi
 
 **移除范围**：
 - 前端：删除 `window.__TAURI__.pytauri.pyInvoke` 与 `plugin:pytauri|pyfunc` 调用，
-  只剩 `pytaruix.pyInvoke` 与 `createChannel`。
+  只剩 `pytaurix.pyInvoke` 与 `createChannel`。
 - 原生：删除 `legacy_handler`、`prepare` 的字节分支、`dispatch`/`execute` 的 `legacy` 参数，
   以及 `pytauri` 内联插件注册；错误统一为 `{code, message}`。
 - 权限：`build.rs` 去掉 `pyfunc` 内联插件，`capabilities/default.json` 去掉 `pytauri:allow-pyfunc`，
@@ -418,7 +418,7 @@ notification 的 `silent` 只验证了参数路径，实际静默效果未确认
 逐文件手工修改，每处改动保持可读。第九阶段的隔离副本与证据停留在 10 月 2 日，其后 ECL 自身
 前进了 30 余次提交，且兼容层移除与插件落地都晚于那份证据。
 
-**手工迁移范围**：ECL 12 个 Python 文件的导入改写（`pytauri.ffi.webview` 对应 `pytaruix.webview`）、
+**手工迁移范围**：ECL 12 个 Python 文件的导入改写（`pytauri.ffi.webview` 对应 `pytaurix.webview`）、
 三处保护名称集合、插件隔离版本校验、capabilities 的 `pytauri:default` → `allow-python-command`、
 前端四个文件的 `pytauri` 全局改名、`pyproject.toml` 依赖替换。副本另须剔除开发者本机 `.env`：
 其中的 `ECL_CONFIG_TAURI_FRONTENDDIST` 把主窗口指向 Vite 开发服务器（首轮失败即为

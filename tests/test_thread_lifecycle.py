@@ -12,8 +12,8 @@ def test_native_application_ownership_and_wrong_thread_guards() -> None:
 import threading
 import weakref
 from pathlib import Path
-from pytaruix import BindingError, Commands, Emitter, EventTarget, Listener, Manager, builder_factory, context_factory
-from pytaruix.ffi import Emitter as FfiEmitter
+from pytaurix import BindingError, Commands, Emitter, EventTarget, Listener, Manager, builder_factory, context_factory
+from pytaurix.ffi import Emitter as FfiEmitter
 
 class Shared:
     pass

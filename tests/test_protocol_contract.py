@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import pytest
-from pytaruix import Protocol, ProtocolRequest, ProtocolResponse, create_protocol
-from pytaruix.protocol import _serve, _validate_scheme
+from pytaurix import Protocol, ProtocolRequest, ProtocolResponse, create_protocol
+from pytaurix.protocol import _serve, _validate_scheme
 
 
 @pytest.mark.parametrize("name", ["appdata", "app-data", "app+data", "app.data", "app2"])

@@ -1,5 +1,5 @@
 # ============================================================
-# PytaruiX
+# PyTauriX
 # 文件作用：三窗口目标路由、ECL 调度链路和回调资源生命周期的真实桌面验收。
 # 公开接口：无。
 # ============================================================
@@ -13,7 +13,7 @@ import weakref
 from pathlib import Path
 
 from anyio.from_thread import start_blocking_portal
-from pytaruix import (
+from pytaurix import (
     AppHandle,
     BindingError,
     Commands,
@@ -31,8 +31,8 @@ from pytaruix import (
     builder_factory,
     context_factory,
 )
-from pytaruix.ffi import Emitter as FfiEmitter
-from pytaruix.webview import WebviewWindowBuilder
+from pytaurix.ffi import Emitter as FfiEmitter
+from pytaurix.webview import WebviewWindowBuilder
 
 
 def main() -> int:

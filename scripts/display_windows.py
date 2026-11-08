@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：独立 Windows 显示器查询及本进程窗口图标像素读取。
 # 公开接口：DesktopDisplay。
 from __future__ import annotations

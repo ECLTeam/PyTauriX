@@ -37,7 +37,7 @@ pub fn valid_scheme(name: &str) -> bool {
 }
 
 /// 一次性消费的协议描述符；构建应用时交给原生构建器。
-#[pyclass(frozen, module = "pytaruix.protocol")]
+#[pyclass(frozen, module = "pytaurix.protocol")]
 pub struct Protocol {
     name: String,
     handler: Py<PyAny>,

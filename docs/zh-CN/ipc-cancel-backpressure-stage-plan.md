@@ -19,7 +19,7 @@
 - 编号：前端生成 `request_id`（页面会话前缀 + 序号，≤96 字符），随新协议正文提交。
 - 登记：原生按 `(窗口标签, request_id)` 登记 `PendingInvocation`；重复编号拒绝为 `duplicate_request_id`。
 - 应答所有权：resolver 存放在 `Mutex<Option<_>>` 中，**取消与完成先取走者应答**，另一方静默丢弃结果。
-- 取消来源：前端 `AbortSignal` → `pytaruix_cancel`；Python `Request.cancel()`。
+- 取消来源：前端 `AbortSignal` → `pytaurix_cancel`；Python `Request.cancel()`。
 - 结果：前端收到 `cancelled` 拒绝码；桥同时在本地立即以 `AbortError` 拒绝原 Promise。
 - 旧协议（`plugin:pytauri|pyfunc`）没有编号，不参与取消，行为不变。
 - 命令声明 `Request` 参数但请求没有编号时返回 `request_unavailable`，不静默注入空对象。
@@ -30,7 +30,7 @@
 
 - `Channel` 新增 `capacity`（默认 `0` = 不限制，保持现有语义）。
 - `capacity > 0` 时启用窗口流控：在途数小于容量才允许发送，否则等待；等待期间通道关闭返回 `channel_closed`。
-- 配额归还需前端配合：`pytaruix.createChannel(handler)` 在处理完消息后调用 `pytaruix_channel_ack`。
+- 配额归还需前端配合：`pytaurix.createChannel(handler)` 在处理完消息后调用 `pytaurix_channel_ack`。
 - 直接使用 `new Channel(...)` 的前端没有 ack，不得启用 `capacity > 0`；文档与指南必须写明。
 - 显式 `timeout` 到期返回 `channel_backpressure`，不无限等待；不传 `timeout` 时等到配额或关闭。
 - 发送失败（原生提交错误）回滚配额，避免泄漏容量。
@@ -43,8 +43,8 @@
 | `crates/bindings/src/runtime.rs` | 持有请求登记表；退出时以 `app_closed` 拒绝全部待应答项 |
 | `crates/bindings/src/channel.rs` | 通道流控窗口、配额获取/归还、`capacity` 与 `timeout` 参数 |
 | `crates/bindings/src/resources.rs` | 按编号查找通道以归还配额 |
-| `python/pytaruix/ipc.py` | `Request` 包装与注入、`invoke` 新参数、`channel_on(capacity=)`、`send(timeout=)` |
-| `python/pytaruix/_native.pyi`、`ffi/ipc.py`、`__init__.py` | 同步类型与导出 |
+| `python/pytaurix/ipc.py` | `Request` 包装与注入、`invoke` 新参数、`channel_on(capacity=)`、`send(timeout=)` |
+| `python/pytaurix/_native.pyi`、`ffi/ipc.py`、`__init__.py` | 同步类型与导出 |
 | `frontend/bridge.js` | `AbortSignal` 取消、`createChannel` 配额归还包装 |
 | `tests/test_request_cancel.py` | 注入、缺失编号、取消标志与重复注册契约 |
 | 文档 | `ipc.md`、`channels.md`、`features.md`、能力矩阵、迁移契约 |

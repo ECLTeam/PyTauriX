@@ -2,7 +2,7 @@
 <body><h1>三窗口事件与调度</h1><pre id="output">正在验证…</pre><script>
 const tauri = window.__TAURI__;
 const label = tauri.webviewWindow.getCurrentWebviewWindow().label;
-const invoke = tauri.pytaruix.pyInvoke;
+const invoke = tauri.pytaurix.pyInvoke;
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function until(predicate) {
   for (let i = 0; i < 150; i++) {

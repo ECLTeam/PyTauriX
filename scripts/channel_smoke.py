@@ -1,4 +1,4 @@
-# PytaruiX
+# PyTauriX
 # 文件作用：在独立进程验收真实双窗口 Channel。
 # 公开接口：无。
 from __future__ import annotations

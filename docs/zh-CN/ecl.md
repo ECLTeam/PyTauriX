@@ -1,26 +1,26 @@
 # ECL 接入指南
 
-项目名为 PytaruiX，发行包及导入为 `pytaruix`，Rust crate 为 `pytaruix-bindings` 与 `pytaruix-bridge`。
-现有磁盘目录 Tarui-PyO3 保持原路径。前端唯一入口为 `window.__TAURI__.pytaruix.pyInvoke`，
+项目名为 PyTauriX，发行包及导入为 `pytaurix`，Rust crate 为 `pytaurix-bindings` 与 `pytaurix-bridge`。
+现有磁盘目录 Tarui-PyO3 保持原路径。前端唯一入口为 `window.__TAURI__.pytaurix.pyInvoke`，
 `pytauri` 全局对象与旧原生 plugin 协议已移除，ECL 前端需同步改名。
 当前提供可审核的隔离 ECL 接入版本，原 ECL 工作区没有切换；完整阶段结果见 [验证记录](validation.md)。
 
 ## 导入与构建
 
 ```python
-from pytaruix import AppHandle, Commands, Manager, builder_factory, context_factory
-from pytaruix.plugins.dialog import DialogExt, init as dialog_init
+from pytaurix import AppHandle, Commands, Manager, builder_factory, context_factory
+from pytaurix.plugins.dialog import DialogExt, init as dialog_init
 ```
 
 ECL 的六处直接 Python 导入、依赖清单、打包清单、宿主保护名称和测试替身需要迁移。
-依赖使用 `pytaruix==0.1.0a1`，从本地 wheel 安装；本项目尚未发布到索引，不能直接假设公开安装可用。
+依赖使用 `pytaurix==0.1.0a1`，从本地 wheel 安装；本项目尚未发布到索引，不能直接假设公开安装可用。
 当前 ECL 调试命令要求 wheel 构建显式开启开发者工具：
 
 ```powershell
 uv run --no-sync maturin build --release --locked --jobs 1 --features devtools --out dist/phase9
 ```
 
-旧插件协议属于兼容传输，不代表旧 Python 包继续存在。新入口是 `window.__TAURI__.pytaruix.pyInvoke`。
+旧插件协议属于兼容传输，不代表旧 Python 包继续存在。新入口是 `window.__TAURI__.pytaurix.pyInvoke`。
 实际 ECL 命令名、响应形状和业务事件保持；窗口标签变化见下文。
 
 ## 配置与资源
@@ -45,11 +45,11 @@ CSP、隔离模式、JSON5、完整构建配置和移动资源暂未实现，不
 未注册 dialog 的情况下引用 dialog 权限会在原生运行时消费前失败，允许修正并重新 build。
 窗口模式与 remote.urls 使用上游解析，非法权限/来源明确失败；不通过静默丢弃配置获得启动成功。
 存在宿主策略时，动态窗口不再自动授予原型默认权限；空宿主能力目录拒绝全部前端调用。
-Python 调用需应用 allow-python-command；取消与配额入口另需 allow-pytaruix-cancel 与 allow-pytaruix-channel-ack；
+Python 调用需应用 allow-python-command；取消与配额入口另需 allow-pytaurix-cancel 与 allow-pytaurix-channel-ack；
 原生窗口 JS API 则需相应 core 权限。不再有 pytauri:allow-pyfunc。
 
 当前 ECL 插件描述符采用 `plugin.id.panel`，Tauri 窗口 label 不允许点号。
-迁移只将原生 label 中的点号转为冒号，例如 `plugin:pytaruix-smoke:panel`；descriptorId 和插件 SDK 标识保留。
+迁移只将原生 label 中的点号转为冒号，例如 `plugin:pytaurix-smoke:panel`；descriptorId 和插件 SDK 标识保留。
 capabilities 的插件窗口模式同步为 `plugin:*`。窗口上下文仍注入实际 label，不能由 IPC 正文伪造。
 
 ## 开发者工具
@@ -65,13 +65,13 @@ Windows 上游 Wry 不支持关闭/读取打开状态，close_devtools / is_devt
 `.venv`、`node_modules`、`build`、`dist`、数据目录），然后逐文件手工修改并保留可读 diff。
 第二十六阶段记录的完整手工改动清单：
 
-- ECL Python：`from pytauri*` 导入改写到 `pytaruix`（`pytauri.ffi.webview` 对应 `pytaruix.webview`）；
-  宿主保护清单、无头任务禁入清单与插件受保护导入集合改为 `pytaruix`；
-  插件隔离的固定 wheel 版本校验改为检查 `pytaruix` 存在。
+- ECL Python：`from pytauri*` 导入改写到 `pytaurix`（`pytauri.ffi.webview` 对应 `pytaurix.webview`）；
+  宿主保护清单、无头任务禁入清单与插件受保护导入集合改为 `pytaurix`；
+  插件隔离的固定 wheel 版本校验改为检查 `pytaurix` 存在。
 - capabilities：`"pytauri:default"` 改为 `"allow-python-command"`，`plugin.*` 模式改 `plugin:*`。
 - 前端：`src/api/transport/tauri.ts`、`tauri.test.ts`、`src/app/runtime/mode.ts`、
-  `src/types/global.d.ts` 的 `pytauri` 全局改 `pytaruix`。
-- 依赖：`pyproject.toml` 用 `pytaruix==0.1.0a1` 本地 wheel。
+  `src/types/global.d.ts` 的 `pytauri` 全局改 `pytaurix`。
+- 依赖：`pyproject.toml` 用 `pytaurix==0.1.0a1` 本地 wheel。
 - 副本必须剔除开发者本机的 `.env`（其中 `ECL_CONFIG_TAURI_FRONTENDDIST` 会把窗口指向
   Vite 开发服务器，并含本机凭据），否则主窗口导航到 `http://localhost:5173`。
 - 打包清单（Nuitka/PyInstaller/CI）与 ECL 自身测试套件的改写仍待 ECL 侧进行。
@@ -89,7 +89,7 @@ custom 模式还操作真实系统对话框，核对背景/皮肤文件字节，
 未把 CDP 脚本直接注入业务返回值作为成功；调用实际 Vue/Tauri/Python 链路。
 原生拖放单独通过 --native-drop 检查；本次因模拟器窗口覆盖输入位置而待验收，不能把其他桌面检查记为拖放成功。
 
-Nuitka 清单必须包含 pytaruix、pytaruix._native、pytaruix 发行元数据、frontend/dist、Tauri.toml、capabilities 和 ECL 资源。
+Nuitka 清单必须包含 pytaurix、pytaurix._native、pytaurix 发行元数据、frontend/dist、Tauri.toml、capabilities 和 ECL 资源。
 Windows 本次禁用编译缓存 --disable-cache=ccache，避开内置 clcache 的本机编码错误；排除 ECL.game.tests。
 HTTPX 可选命令行会引入 Pygments；使用 --noinclude-custom-mode=pygments:bytecode 保留其模块，避开 MSVC 超大模块堆空间失败。
 独立程序用同一驱动的 --executable 指向 main.dist/main.exe，在源码目录以外运行。

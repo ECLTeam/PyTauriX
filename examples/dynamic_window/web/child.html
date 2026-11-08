@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><meta charset="utf-8"><title>子窗口</title><body><h1>动态子窗口</h1>
 <script>
-const invoke = (name, body) => window.__TAURI__.pytaruix.pyInvoke(name, body);
+const invoke = (name, body) => window.__TAURI__.pytaurix.pyInvoke(name, body);
 async function start() {
   const current = await invoke("child_ready", { initialization: window.stage3Init === "ready" });
   await window.__TAURI__.event.listen("dynamic-target", async () => {

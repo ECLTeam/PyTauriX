@@ -13,7 +13,7 @@ pub type Builder = tauri::Builder<tauri::Wry>;
 /// 消费时把插件登记到构建器；闭包捕获插件实例而非 Python 对象。
 pub type ApplyFn = Box<dyn FnOnce(Builder) -> Builder + Send>;
 
-#[pyclass(frozen, module = "pytaruix.plugin")]
+#[pyclass(frozen, module = "pytaurix.plugin")]
 pub struct Plugin {
     name: &'static str,
     apply: Mutex<Option<ApplyFn>>,

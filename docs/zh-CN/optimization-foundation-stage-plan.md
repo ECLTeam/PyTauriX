@@ -24,7 +24,7 @@
 复现 11-01 使用以下命令，保存完整输出后检查启用 tauri/default 的所有来源。
 
 ```powershell
-cargo tree --locked -p pytaruix-bindings --no-default-features --features wry -e features -i tauri
+cargo tree --locked -p pytaurix-bindings --no-default-features --features wry -e features -i tauri
 ```
 
 ## 3. 方案比较与推荐
@@ -124,7 +124,7 @@ Windows 优先使用 3.11 与 3.14 分别实际构建、安装与行为检查，
 
 ### 7.2 导入与首屏
 
-- 分别测解释器空启动、`import pytaruix`、Context 准备、原生 build、窗口可见和真实前端首次有效 IPC；使用单调时钟，说明跨进程握手方法。
+- 分别测解释器空启动、`import pytaurix`、Context 准备、原生 build、窗口可见和真实前端首次有效 IPC；使用单调时钟，说明跨进程握手方法。
 - 重复启动至少保留 20 个独立进程样本及预热记录，报告样本数、原始值、P50/P95 和波动。失败/超时单列，不能从样本中静默删除。
 - 首次用户数据目录启动与重复启动分开。未控制 OS 文件缓存的结果标为首次/重复运行，不宣称真实冷缓存测试。
 - 窗口可见使用实际原生事件或系统观测确认，首次 IPC 使用当前前端桥。仅 DOM 加载不等于窗口已可见或宿主已可用。

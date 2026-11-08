@@ -1,15 +1,15 @@
 # 原生 IPC Channel
 
 本绑定使用 Tauri 2.12.1 的原生 Channel，适合任务进度、日志和二进制片段。
-公开形状参考 PyTauri：`pytaruix.ipc.JavaScriptChannelId[T]`、`Channel[T]`，
-底层接口位于 `pytaruix.ffi.ipc`。不需要额外插件注册或前端 Channel 权限。
+公开形状参考 PyTauri：`pytaurix.ipc.JavaScriptChannelId[T]`、`Channel[T]`，
+底层接口位于 `pytaurix.ffi.ipc`。不需要额外插件注册或前端 Channel 权限。
 
 ## 模型与来源窗口
 
 ```python
 from pydantic import BaseModel
-from pytaruix import Commands
-from pytaruix.ipc import JavaScriptChannelId, WebviewWindow
+from pytaurix import Commands
+from pytaurix.ipc import JavaScriptChannelId, WebviewWindow
 
 commands = Commands()
 
@@ -39,7 +39,7 @@ import { Channel } from "@tauri-apps/api/core";
 
 const channel = new Channel();
 channel.onmessage = progress => console.log(progress);
-await window.__TAURI__.pytaruix.pyInvoke("stream", { channel });
+await window.__TAURI__.pytaurix.pyInvoke("stream", { channel });
 ```
 
 启用全局 SDK 的当前宿主也支持 `new window.__TAURI__.core.Channel()`。
@@ -60,7 +60,7 @@ Channel 标识在 JSON 中是 `__CHANNEL__:<u32>`，Pydantic 支持字符串输�
 
 原生 JSON 与字节直传阈值分别为小于 8192 和 1024 字节；阈值及其附近均通过 Windows 真实 WebView2 验收。
 `id()` 返回前端回调编号，关闭后仍可读取。
-`capacity > 0` 时发送按配额推进，配额由前端 `pytaruix.createChannel` 归还；详见 [IPC 指南](ipc.md)。
+`capacity > 0` 时发送按配额推进，配额由前端 `pytaurix.createChannel` 归还；详见 [IPC 指南](ipc.md)。
 
 ## 所有权与结束
 

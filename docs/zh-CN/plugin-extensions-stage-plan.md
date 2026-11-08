@@ -44,8 +44,8 @@ notification 2.3.0、opener 2.5.0（均锁定，本地 `Cargo.lock` 解析）。
 | `crates/bindings/src/notification.rs` | 权限状态与发送 |
 | `crates/bindings/src/opener.rs` | URL/路径打开与定位 |
 | `crates/bindings/src/application.rs` | 用户插件先于桥接插件登记 |
-| `python/pytaruix/plugins/*/` | 四个 Python 模块 |
-| `python/pytaruix/{_native.pyi,runtime.py}` | 类型与能力报告 |
+| `python/pytaurix/plugins/*/` | 四个 Python 模块 |
+| `python/pytaurix/{_native.pyi,runtime.py}` | 类型与能力报告 |
 | `tests/test_plugin_extensions_contract.py` | 契约测试 |
 | 文档 | `plugins-extensions.md`、features、矩阵、迁移契约、README |
 

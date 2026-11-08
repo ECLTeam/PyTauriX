@@ -6,10 +6,10 @@ from collections.abc import Callable
 from typing import cast
 
 import pytest
-from pytaruix import get_runtime_info
-from pytaruix import menu as public
-from pytaruix.ffi import menu as ffi
-from pytaruix.manager import ManagerType
+from pytaurix import get_runtime_info
+from pytaurix import menu as public
+from pytaurix.ffi import menu as ffi
+from pytaurix.manager import ManagerType
 
 
 def test_menu_import_identity_and_string_event() -> None:
@@ -128,9 +128,9 @@ def test_predefined_roles_map_to_native_kinds(monkeypatch: pytest.MonkeyPatch) -
 
 
 def test_about_metadata_serializes_only_provided_fields() -> None:
-    metadata = public.AboutMetadata(name="PytaruiX", version="0.1.0", authors=("ECL", "Contributors"))
+    metadata = public.AboutMetadata(name="PyTauriX", version="0.1.0", authors=("ECL", "Contributors"))
     assert json.loads(metadata.to_json()) == {
-        "name": "PytaruiX",
+        "name": "PyTauriX",
         "version": "0.1.0",
         "authors": ["ECL", "Contributors"],
     }
