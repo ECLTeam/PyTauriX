@@ -59,7 +59,7 @@ app.run_return()
 | 能力覆盖与缺口 | [capability-matrix.md](docs/zh-CN/capability-matrix.md) |
 | 迁移与兼容契约 | [migration-contract.md](docs/zh-CN/migration-contract.md) |
 | 工程规范与验收命令 | [AGENTS.md](AGENTS.md) |
-| 功能指南 | [窗口](docs/zh-CN/windows.md) · [事件](docs/zh-CN/events.md) · [IPC 取消与背压](docs/zh-CN/ipc.md) · [IPC Channel](docs/zh-CN/channels.md) · [自定义协议](docs/zh-CN/protocols.md) · [菜单](docs/zh-CN/menus.md) · [托盘](docs/zh-CN/tray.md) · [对话框](docs/zh-CN/plugins-dialog.md) · [fs 插件](docs/zh-CN/plugins-fs.md) · [系统集成插件](docs/zh-CN/plugins-extensions.md) · [窗口状态插件](docs/zh-CN/plugins-window-state.md) · [桌面验收](docs/zh-CN/desktop-acceptance.md) · [显示器与图像](docs/zh-CN/displays-images.md) · [WebView 策略](docs/zh-CN/webview-policies.md) · [路径与进程](docs/zh-CN/paths-process.md) |
+| 功能指南 | [窗口](docs/zh-CN/windows.md) · [事件](docs/zh-CN/events.md) · [IPC 取消与背压](docs/zh-CN/ipc.md) · [IPC Channel](docs/zh-CN/channels.md) · [自定义协议](docs/zh-CN/protocols.md) · [菜单](docs/zh-CN/menus.md) · [托盘](docs/zh-CN/tray.md) · [对话框](docs/zh-CN/plugins-dialog.md) · [fs 插件](docs/zh-CN/plugins-fs.md) · [系统集成插件](docs/zh-CN/plugins-extensions.md) · [窗口状态插件](docs/zh-CN/plugins-window-state.md) · [桌面验收](docs/zh-CN/desktop-acceptance.md) · [ECL 迁移差距](docs/zh-CN/ecl-migration-gap.md) · [ECL 迁移差距](docs/zh-CN/ecl-migration-gap.md) · [显示器与图像](docs/zh-CN/displays-images.md) · [WebView 策略](docs/zh-CN/webview-policies.md) · [路径与进程](docs/zh-CN/paths-process.md) |
 
 ## 目录结构
 
