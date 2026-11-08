@@ -15,6 +15,7 @@ mod ipc;
 #[cfg(desktop)]
 mod menu;
 mod monitor;
+mod paths;
 mod plugin;
 mod resources;
 mod runtime;
@@ -45,6 +46,12 @@ fn require_main_thread(py: Python<'_>) -> PyResult<()> {
         ));
     }
     Ok(())
+}
+
+/// 返回当前进程标识，不依赖应用实例。
+#[pyfunction]
+fn current_pid() -> u32 {
+    std::process::id()
 }
 
 #[pymodule]
@@ -94,6 +101,7 @@ fn _native(module: &Bound<'_, PyModule>) -> PyResult<()> {
     module.add_function(wrap_pyfunction!(window_builder::build_window, module)?)?;
     module.add_function(wrap_pyfunction!(application::context_factory, module)?)?;
     module.add_function(wrap_pyfunction!(application::builder_factory, module)?)?;
+    module.add_function(wrap_pyfunction!(current_pid, module)?)?;
     module.add("tauri_version", "2.12.1")?;
     module.add("pyo3_version", "0.29.3")?;
     Ok(())

@@ -5,6 +5,7 @@
 # ============================================================
 from __future__ import annotations
 
+from . import process
 from .application import App, Builder, builder_factory, context_factory
 from .dpi import Rect
 from .errors import BindingError, CommandError
@@ -23,6 +24,7 @@ from .events import (
 from .ffi import AppHandle, Context, Webview, WebviewWindow
 from .ipc import Commands, Headers, State
 from .manager import Emitter, Listener, Manager
+from .path import BaseDirectory, PathResolver
 from .runtime import RuntimeInfo, get_runtime_info
 from .url import WebviewUrl, WebviewUrlType
 from .webview_requests import (
@@ -37,6 +39,7 @@ from .webview_requests import (
 __all__ = [
     "App",
     "AppHandle",
+    "BaseDirectory",
     "BindingError",
     "Builder",
     "CloseRequestApi",
@@ -55,6 +58,7 @@ __all__ = [
     "NewWindowResponse",
     "PageLoadEvent",
     "PageLoadPayload",
+    "PathResolver",
     "PermissionKind",
     "PermissionResponse",
     "Rect",
@@ -73,4 +77,5 @@ __all__ = [
     "builder_factory",
     "context_factory",
     "get_runtime_info",
+    "process",
 ]

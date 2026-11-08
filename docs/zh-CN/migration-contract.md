@@ -142,3 +142,15 @@ Windows `WebviewWindow.is_focused()` 现在包含前台窗口内 WebView 子控�
 `WindowEvent.Focused` 仍保留上游原生窗口事件语义。旧句柄在查询期间被销毁时仍返回失效错误。
 运行期 Builder 新增 `data_directory: Path`，要求绝对路径，由调用方拥有；
 `WindowConfig.dataDirectory` 继续使用相对路径，绝对/遍历配置现在在动态建窗边界明确拒绝，避免上游静默忽略。
+
+## 第十四阶段路径与进程契约
+
+新增 `pytaruix.path`：`BaseDirectory` 为 `StrEnum`，`PathResolver` 由 `Manager.path(app|handle|window)` 取得。
+`resolve(path, base)` 与 `parse(path)` 返回 `pathlib.Path`，目录不可用时抛 `BindingError`；
+21 个目录属性在不可用时返回 `None`，不折叠成空路径。目录名接受 camelCase、snake_case 与 `$VARIABLE`，
+未知名称抛 `invalid_base_directory`。解析只读取应用身份，不创建目录、不校验存在性。
+Windows 返回值去掉 `\?\` 扩展长度前缀；非 UTF-8 路径抛 `path_not_utf8`，不做有损转换。
+
+新增 `pytaruix.process`：`current_pid()` 不需要应用实例；`current_binary(manager)` 返回可执行文件路径；
+`restart(manager)` 派生新进程后立即退出，不执行 Python 监听器与资源清理，需要有序退出时改用 `AppHandle.exit`。
+PyTauri 没有对应模块，这三项是本项目扩展；异步运行时仍由调用方的 AnyIO portal 承担，不转发 Tauri 的 `async_runtime`。

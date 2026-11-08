@@ -45,7 +45,7 @@ app.run_return()
 ## 能力摘要
 
 应用与生命周期、命令与状态注入、原生 IPC Channel、事件与主线程调度、动态窗口与 WebView
-策略回调、显示器与图像、菜单、托盘、对话框插件、宿主配置与权限均已绑定。
+策略回调、显示器与图像、菜单、托盘、对话框插件、宿主配置与权限、路径与进程查询均已绑定。
 完整清单见[功能清单](docs/zh-CN/features.md)，各领域缺口与平台限制见能力矩阵。
 
 ## 文档
@@ -57,7 +57,7 @@ app.run_return()
 | 能力覆盖与缺口 | [capability-matrix.md](docs/zh-CN/capability-matrix.md) |
 | 迁移与兼容契约 | [migration-contract.md](docs/zh-CN/migration-contract.md) |
 | 工程规范与验收命令 | [AGENTS.md](AGENTS.md) |
-| 功能指南 | [窗口](docs/zh-CN/windows.md) · [事件](docs/zh-CN/events.md) · [IPC Channel](docs/zh-CN/channels.md) · [菜单](docs/zh-CN/menus.md) · [托盘](docs/zh-CN/tray.md) · [对话框](docs/zh-CN/plugins-dialog.md) · [显示器与图像](docs/zh-CN/displays-images.md) · [WebView 策略](docs/zh-CN/webview-policies.md) |
+| 功能指南 | [窗口](docs/zh-CN/windows.md) · [事件](docs/zh-CN/events.md) · [IPC Channel](docs/zh-CN/channels.md) · [菜单](docs/zh-CN/menus.md) · [托盘](docs/zh-CN/tray.md) · [对话框](docs/zh-CN/plugins-dialog.md) · [显示器与图像](docs/zh-CN/displays-images.md) · [WebView 策略](docs/zh-CN/webview-policies.md) · [路径与进程](docs/zh-CN/paths-process.md) |
 
 ## 目录结构
 

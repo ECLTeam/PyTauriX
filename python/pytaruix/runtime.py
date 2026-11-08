@@ -89,6 +89,12 @@ class RuntimeInfo:
             "config.dev_url",
             "config.host_icon",
             "acl.host_capabilities",
+            "path.resolve",
+            "path.parse",
+            "path.directories",
+            "process.current_pid",
+            "process.current_binary",
+            "process.restart",
             "plugin.register",
         )
         + (("plugin.dialog",) if _native.plugin_dialog_available else ())

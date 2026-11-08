@@ -18,6 +18,7 @@ from .events import Event
 from .ffi import AppHandle, WebviewWindow
 from .ffi import Emitter as FfiEmitter
 from .ipc import JsonValue
+from .path import PathResolver
 
 ManagerType: TypeAlias = App | AppHandle | WebviewWindow
 StateType = TypeVar("StateType")
@@ -54,6 +55,18 @@ class Manager:
         :raises BindingError: 应用已关闭
         """
         return _handle(manager).webview_windows()
+
+    @staticmethod
+    def path(manager: ManagerType) -> PathResolver:
+        """
+        返回绑定到该应用句柄的路径解析器。
+
+        解析器只读取应用身份，不创建目录；应用退出后调用明确报错。
+
+        :param manager: 应用、应用句柄或窗口
+        :return: 路径解析器
+        """
+        return PathResolver(_handle(manager))
 
     @staticmethod
     def get_webview_window(manager: ManagerType, label: str) -> WebviewWindow | None:

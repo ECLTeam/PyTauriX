@@ -1,0 +1,8 @@
+{
+  "productName": "PytaruiX Path",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaruix.path",
+  "build": { "frontendDist": "web" },
+  "app": { "windows": [{ "label": "main", "title": "路径与进程验收", "width": 420, "height": 240 }] },
+  "bundle": { "active": false }
+}

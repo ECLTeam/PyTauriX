@@ -47,6 +47,37 @@ impl AppHandle {
         py.detach(|| self.inner.exit(exit_code));
         Ok(())
     }
+    /// 解析宿主目录下的相对路径，返回绝对路径；目录不可用时返回 None。
+    ///
+    /// base 接受 camelCase、snake_case 或 `$VARIABLE` 形式，未知名称明确报错。
+    #[pyo3(signature = (base, path, /))]
+    pub fn resolve_path(&self, base: &str, path: &str) -> PyResult<Option<String>> {
+        self.runtime.ensure_active()?;
+        crate::paths::resolve(&self.inner, base, path)
+    }
+    /// 解析以 `$VARIABLE` 开头的路径；未知变量或不可用目录返回 None。
+    #[pyo3(signature = (path, /))]
+    pub fn parse_path(&self, path: &str) -> PyResult<Option<String>> {
+        self.runtime.ensure_active()?;
+        crate::paths::parse(&self.inner, path)
+    }
+    /// 返回当前进程可执行文件路径，AppImage 与 macOS 符号链接差异沿用上游实现。
+    pub fn current_binary(&self) -> PyResult<String> {
+        self.runtime.ensure_active()?;
+        let env = self.inner.env();
+        let path = tauri::process::current_binary(&env)
+            .map_err(|error| binding_error("process_failed", error))?;
+        crate::paths::path_string(path)
+    }
+    /// 重启当前进程：派生新进程后立即退出，不返回调用方。
+    ///
+    /// 不执行 Python 监听器与资源清理；需要有序退出时使用 exit。
+    pub fn restart(&self, py: Python<'_>) -> PyResult<()> {
+        self.runtime.ensure_active()?;
+        let env = self.inner.env();
+        py.detach(|| tauri::process::restart(&env));
+        Ok(())
+    }
     /// 返回当前应用菜单，未挂载时返回 None。
     ///
     /// 桌面 setup 或运行期间使用，释放 GIL，禁止同步回调重入。

@@ -119,6 +119,8 @@ impl Resources {
         Ok(())
     }
     #[cfg(all(feature = "plugin-dialog", desktop))]
+    // 保持 MSRV 1.90：替代方法 try_update 需要 1.95，升级 MSRV 后再切换。
+    #[allow(deprecated)]
     pub fn add_operation(
         &self,
         runtime: &RuntimeState,
@@ -187,6 +189,8 @@ impl Resources {
         }
         Ok(registry.listeners.remove(&id))
     }
+    // 保持 MSRV 1.90：替代方法 try_update 需要 1.95，升级 MSRV 后再切换。
+    #[allow(deprecated)]
     pub fn add_task(&self, runtime: &RuntimeState, slot: &Arc<CallbackSlot>) -> PyResult<u64> {
         let mut registry = self
             .registry

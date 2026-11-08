@@ -6756,6 +6756,675 @@
         "scripts/smoke_resources.py"
       ],
       "limitations": "Explicit Builder option differs from WindowConfig relative dataDirectory; platform effects need independent verification."
+    },
+    {
+      "id": "PathResolver::audio_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 42,
+        "declaration": "pub fn audio_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.audio_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::cache_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 53,
+        "declaration": "pub fn cache_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.cache_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::config_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 64,
+        "declaration": "pub fn config_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.config_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::data_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 75,
+        "declaration": "pub fn data_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.data_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::local_data_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 86,
+        "declaration": "pub fn local_data_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.local_data_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::document_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 108,
+        "declaration": "pub fn document_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.document_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::download_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 119,
+        "declaration": "pub fn download_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.download_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::picture_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 164,
+        "declaration": "pub fn picture_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.picture_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::public_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 175,
+        "declaration": "pub fn public_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.public_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::video_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 208,
+        "declaration": "pub fn video_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.video_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::desktop_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 97,
+        "declaration": "pub fn desktop_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.desktop_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::font_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 141,
+        "declaration": "pub fn font_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.font_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::runtime_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 186,
+        "declaration": "pub fn runtime_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.runtime_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::template_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 197,
+        "declaration": "pub fn template_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.template_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::resource_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 230,
+        "declaration": "pub fn resource_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.resource_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::app_config_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 239,
+        "declaration": "pub fn app_config_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.app_config_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::app_data_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 251,
+        "declaration": "pub fn app_data_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.app_data_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::app_local_data_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 265,
+        "declaration": "pub fn app_local_data_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.app_local_data_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::app_cache_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 278,
+        "declaration": "pub fn app_cache_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.app_cache_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::app_log_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 296,
+        "declaration": "pub fn app_log_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.app_log_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::home_dir",
+      "upstream": {
+        "source": "src/path/desktop.rs",
+        "line": 153,
+        "declaration": "pub fn home_dir(&self) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.home_dir",
+        "signature": "(self) -> Path | None"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Directory availability depends on the platform; unavailable entries return None"
+    },
+    {
+      "id": "PathResolver::resolve",
+      "upstream": {
+        "source": "src/path/mod.rs",
+        "line": 273,
+        "declaration": "pub fn resolve<P: AsRef<Path>>(&self, path: P, base_directory: BaseDirectory) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.resolve",
+        "signature": "(self, path, base) -> Path"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Raises BindingError when the base directory is unavailable; names accept camelCase, snake_case or $VARIABLE"
+    },
+    {
+      "id": "PathResolver::parse",
+      "upstream": {
+        "source": "src/path/mod.rs",
+        "line": 290,
+        "declaration": "pub fn parse<P: AsRef<Path>>(&self, path: P) -> Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.PathResolver.parse",
+        "signature": "(self, path) -> Path"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Unknown $VARIABLE prefixes are reported as path_unresolved"
+    },
+    {
+      "id": "process::current_binary",
+      "upstream": {
+        "source": "src/process.rs",
+        "line": 48,
+        "declaration": "pub fn current_binary(_env: &Env) -> std::io::Result<PathBuf> {"
+      },
+      "python": {
+        "entry": "pytaruix.process.current_binary",
+        "signature": "(manager) -> Path"
+      },
+      "status": "bound_tested",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [
+        "windows-x86_64"
+      ],
+      "evidence": [
+        "tests/test_path_contract.py",
+        "scripts/path_smoke.py",
+        "examples/path/main.py"
+      ],
+      "limitations": "Linux AppImage and macOS symlink rules follow upstream; Windows verbatim prefixes are stripped"
+    },
+    {
+      "id": "process::restart",
+      "upstream": {
+        "source": "src/process.rs",
+        "line": 74,
+        "declaration": "pub fn restart(env: &Env) -> ! {"
+      },
+      "python": {
+        "entry": "pytaruix.process.restart",
+        "signature": "(manager) -> NoReturn"
+      },
+      "status": "bound_unverified",
+      "conditions": [
+        "Default Wry desktop runtime",
+        "Python >= 3.11",
+        "Native event loop on Python main thread"
+      ],
+      "tested_platforms": [],
+      "evidence": [],
+      "limitations": "Spawns a new process and exits immediately without Python cleanup; not exercised in automated runs"
     }
   ]
 }

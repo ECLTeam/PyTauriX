@@ -195,3 +195,16 @@ Windows `is_focused()` 查询覆盖 WebView 子控件，旧代次继续失效；
 Windows OLE 四类事件、焦点往返及窗口主题事件 9 项通过；托盘完整正常/异常/awaitable 三进程通过。
 阶段方案、未验收平台和后续完整能力批次见 [第十三阶段方案](system-webview-stage-plan.md)。
 本批不提交、不推送、不发布；当前 ECL 的正式迁移不在本次修改中执行。
+
+## 第十四阶段（路径与进程，实现完成）
+
+2026-11-08 用户要求完成未实现功能，并明确当前以 Windows 为主、同时考虑 Linux/macOS。
+本批补齐能力矩阵中「路径/进程/异步运行时」的路径与进程部分；异步运行时保持不转发。
+新增 `pytaruix.path`（`BaseDirectory`、`PathResolver` 的 `resolve`/`parse` 与 21 个目录属性）
+和 `pytaruix.process`（`current_pid`、`current_binary`、`restart`）。
+原生侧新增 `paths` 模块与四个 `AppHandle` 入口，Windows 上去掉 `\?\` 扩展长度前缀，非 UTF-8 路径明确失败。
+`tests/test_path_contract.py` 8 项契约测试通过；`scripts/path_smoke.py` 在真实窗口内 12 项检查全通过。
+人工审核账本新增 25 条（21 个目录 + `resolve`/`parse` + 进程两项），当前 260 条：
+219 已绑定验收、31 部分绑定、8 平台不可用、1 未绑定、1 已绑定未在自动化中触发。
+Ruff、Pyright、200 项 pytest、Rustfmt、Clippy（默认 features、`-D warnings`）与账本核验通过。
+本批未提交远端、未发布，ECL 正式工作区未修改。
