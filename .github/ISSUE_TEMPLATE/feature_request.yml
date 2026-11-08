@@ -1,0 +1,45 @@
+name: 功能请求
+description: 提出新能力或行为调整
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 要解决的问题
+      description: 现在卡在哪里，不要先给方案。
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 期望的行为
+      description: 可观察的验收标准，例如"在 X 场景下返回 Y"。
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 涉及区域
+      multiple: true
+      options:
+        - 应用与生命周期
+        - 命令与 IPC
+        - 事件与线程
+        - 窗口与 WebView
+        - 菜单 / 托盘 / 对话框
+        - 自定义协议
+        - 官方插件
+        - 构建与发行
+        - 文档
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 考虑过的替代方案
+      description: 包括现有 API 能否绕开，以及为什么不够。
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: 范围确认
+      options:
+        - label: 该需求不依赖与 PyTauri 的运行时兼容
+          required: true

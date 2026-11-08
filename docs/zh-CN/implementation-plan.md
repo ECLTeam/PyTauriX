@@ -357,3 +357,31 @@ fs 的 fs_ext 与 window-state 的 app_handle_ext 记 `partial_tested`，
 global-shortcut、notification、opener 与未覆盖路径仍为 `bound_unverified`。
 `tests/` 全量 262 项通过、4 项跳过。
 **仍未覆盖**：热键冲突、通知显示、默认程序启动、多显示器变化、Linux 与 macOS。
+
+## 第二十四阶段（移除 PyTauri 兼容层与工程标准化）
+
+用户决定不再提供 PyTauri 运行时兼容，并接入远端 `https://github.com/ECLTeam/PyTauriX`。
+
+**远端与分支**：远端仅有 Apache-2.0 `LICENSE` 的初始提交。本地提交链 rebase 到该提交之上，
+保持线性历史后改名为 `main` 并推送，未使用强推。许可证由此确定，不再是待定项。
+
+**移除范围**：
+- 前端：删除 `window.__TAURI__.pytauri.pyInvoke` 与 `plugin:pytauri|pyfunc` 调用，
+  只剩 `pytaruix.pyInvoke` 与 `createChannel`。
+- 原生：删除 `legacy_handler`、`prepare` 的字节分支、`dispatch`/`execute` 的 `legacy` 参数，
+  以及 `pytauri` 内联插件注册；错误统一为 `{code, message}`。
+- 权限：`build.rs` 去掉 `pyfunc` 内联插件，`capabilities/default.json` 去掉 `pytauri:allow-pyfunc`，
+  `capabilities.rs` 不再豁免 `pytauri`，窗口本地授权同步收敛。
+- Python：`InvokeHandler` 与 `generate_handler()` 的 `legacy` 形参移除（七个降为六个），
+  原型权限去掉 `pyfunc`，能力项去掉 `ipc.legacy_pytauri`。
+- 示例与脚本：`dual_window`、`dynamic_window`、`channel`、`minimal`、`host_config`、`ecl_desktop_smoke`
+  改用单一入口；验收判据由「新旧入口对比」改为「错误码、字节返回值、恢复能力」。
+
+**新增契约**：`body: bytes` 命令的载荷语义明确为 JSON 字符串按 UTF-8 取字节，Python 直接调用仍接受 bytes。
+此前该路径只能借旧协议传原始字节，移除后需要一条明确规则。
+
+**工程标准**：新增 `NOTICE`、`CONTRIBUTING.md`、`SECURITY.md`、`CHANGELOG.md`、`.editorconfig`、
+Issue/PR 模板、`CODEOWNERS` 与 Dependabot 配置；`pyproject.toml` 补 SPDX 许可证、仓库链接、
+分类器与 sdist 内容。README 重写为项目介绍，工程细节移入 `docs/` 与贡献指南。
+
+**未验证**：移除兼容层后的桌面回归（双窗口、动态窗口、通道三组）尚未执行；Linux/macOS 仍无运行证据。

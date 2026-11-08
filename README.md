@@ -1,23 +1,38 @@
 # PytaruiX
 
-用 PyO3 把 Tauri 2 的桌面能力带到 Python 的独立框架。发行包与导入名均为 `pytaruix`，
-公开 API 布局参考 PyTauri，线程、资源与错误语义按本仓库规范维护。
+用 Python 写 Tauri 桌面应用。
 
-**状态**：预发布 `0.1.0a1`。基线为 Tauri 2.12.1、tauri-build 2.7.1、PyO3 0.29.3，
-要求 Rust 1.90+ 与 Python 3.11+。Windows 已取得真实桌面验收；Linux/macOS 已有工作流文件
-但尚无运行证据；移动端未实现。详见[能力矩阵](docs/zh-CN/capability-matrix.md)。
+PytaruiX 是独立实现的 Tauri 2 Python 绑定：Rust 侧通过 PyO3 暴露原生能力，Python 侧提供
+命令、事件、窗口、菜单等 API，前端用注入的桥调用 Python 函数。你写 Python，得到的是真正的
+原生窗口和系统集成，而不是另起一套 UI 框架。
 
-## 快速开始
+它不是 PyTauri 的分支、也不提供 PyTauri 兼容层——没有 `pytauri` 导入路径，没有旧版前端协议。
+API 由本项目自行定义与维护。
 
-Windows 另需 MSVC 构建工具与 WebView2；其他平台需对应 Tauri 系统依赖。
+## 特性
+
+- **命令即函数**：`@commands.command()` 装饰器，支持同步与 `async`，参数由 Pydantic 校验，
+  可注入来源窗口、请求头、应用句柄与共享状态。
+- **可取消的调用**：前端传 `AbortSignal`，Python 侧拿到 `Request` 句柄，在检查点协作退出。
+- **流控通道**：原生 IPC Channel 支持 JSON 与二进制，可按配额发送并等待前端归还。
+- **事件与线程**：窗口级与全局事件、定向发送、主线程调度，GUI 始终在 Python 主线程。
+- **窗口与 WebView**：动态建窗、导航与新窗口策略回调、显示器与图像、混合 DPI 几何。
+- **系统集成**：菜单、托盘、对话框，以及单实例唤醒、全局热键、系统通知、默认程序打开、
+  窗口状态记忆。
+- **自定义协议**：构建期注册 URI scheme，由 Python 处理请求。
+- **官方插件**：dialog、fs、single-instance、global-shortcut、notification、opener、window-state，
+  各自独立 feature，默认包不引入。
+
+## 安装
+
+需要 Python 3.11+、Rust 1.90+ 与对应平台的 Tauri 系统依赖（Windows 为 MSVC 构建工具与 WebView2）。
 
 ```powershell
 uv sync --locked --no-install-project
 uv run --no-sync maturin develop --locked --jobs 1
-uv run --no-sync python examples/minimal/main.py
 ```
 
-最小应用：
+## 最小示例
 
 ```python
 from pathlib import Path
@@ -37,41 +52,36 @@ app = builder_factory().build(context=context, invoke_handler=commands.generate_
 app.run_return()
 ```
 
-`Builder.build()` 即构建原生应用，`App.handle()` 在运行前取得句柄；每个进程只允许一个原生应用。
-配置窗口与 `setup(AppHandle)` 沿用上游 Ready 初始化时机，早到的前端 IPC 等待 setup 完成。
-资源目录在启动前读取为内存快照，配置与资源路径由调用方显式传入。
-异步命令依赖调用方提供的 AnyIO portal，运行期间必须保持开启。
+前端调用：
 
-## 能力摘要
+```javascript
+const greeting = await window.__TAURI__.pytaruix.pyInvoke("greet", { name: "World" });
+```
 
-应用与生命周期、命令与状态注入、原生 IPC Channel、事件与主线程调度、动态窗口与 WebView
-策略回调、显示器与图像、菜单、托盘、对话框插件、宿主配置与权限、路径与进程查询均已绑定。
-命令支持前端 `AbortSignal` 与注入 `Request` 的协作式取消，通道支持 `capacity` 配额流控；
-支持构建期注册自定义 URI scheme，官方插件已接入 dialog、fs、single-instance、global-shortcut、notification、opener 与 window-state。
-完整清单见[功能清单](docs/zh-CN/features.md)，各领域缺口与平台限制见能力矩阵。
+完整示例见 [`examples/`](examples)：最小应用、双窗口、动态建窗、通道、菜单、托盘、对话框、
+宿主配置与桌面验收。
+
+## 平台与状态
+
+预发布 `0.1.0a1`，基线 Tauri 2.12.1 + PyO3 0.29.3。
+
+| 平台 | 状态 |
+| --- | --- |
+| Windows | 已通过真实桌面验收 |
+| Linux / macOS | 有构建工作流，尚无运行证据 |
+| 移动端 | 未实现 |
+
+各领域的能力覆盖与缺口见[能力矩阵](docs/zh-CN/capability-matrix.md)。
 
 ## 文档
 
-| 主题 | 入口 |
-| --- | --- |
-| 开发路线与阶段出口 | [development-roadmap.md](docs/zh-CN/development-roadmap.md) |
-| 阶段实施记录 | [implementation-plan.md](docs/zh-CN/implementation-plan.md) |
-| 能力覆盖与缺口 | [capability-matrix.md](docs/zh-CN/capability-matrix.md) |
-| 迁移与兼容契约 | [migration-contract.md](docs/zh-CN/migration-contract.md) |
-| 工程规范与验收命令 | [AGENTS.md](AGENTS.md) |
-| 功能指南 | [窗口](docs/zh-CN/windows.md) · [事件](docs/zh-CN/events.md) · [IPC 取消与背压](docs/zh-CN/ipc.md) · [IPC Channel](docs/zh-CN/channels.md) · [自定义协议](docs/zh-CN/protocols.md) · [菜单](docs/zh-CN/menus.md) · [托盘](docs/zh-CN/tray.md) · [对话框](docs/zh-CN/plugins-dialog.md) · [fs 插件](docs/zh-CN/plugins-fs.md) · [系统集成插件](docs/zh-CN/plugins-extensions.md) · [窗口状态插件](docs/zh-CN/plugins-window-state.md) · [桌面验收](docs/zh-CN/desktop-acceptance.md) · [ECL 迁移差距](docs/zh-CN/ecl-migration-gap.md) · [ECL 迁移差距](docs/zh-CN/ecl-migration-gap.md) · [显示器与图像](docs/zh-CN/displays-images.md) · [WebView 策略](docs/zh-CN/webview-policies.md) · [路径与进程](docs/zh-CN/paths-process.md) |
+- [功能清单](docs/zh-CN/features.md) — 已绑定的接口
+- [能力矩阵](docs/zh-CN/capability-matrix.md) — 覆盖范围、平台限制与缺口
+- [迁移契约](docs/zh-CN/migration-contract.md) — 对外契约与不兼容变更
+- [开发路线](docs/zh-CN/development-roadmap.md) — 里程碑与依赖
 
-## 目录结构
-
-| 路径 | 内容 |
-| --- | --- |
-| `crates/bindings` | 原生边界：应用、窗口、IPC、事件、菜单、托盘、图像 |
-| `crates/bridge` | 前端桥的构建期集成 |
-| `python/pytaruix` | 公共 API、`ffi` 层与类型存根 |
-| `frontend/bridge.js` | 前端 `pyInvoke` 入口 |
-| `tests`、`scripts` | 行为测试与真实桌面验收场景 |
-| `docs` | 阶段记录、能力矩阵与上游发现清单 |
+参与开发前先读 [AGENTS.md](AGENTS.md)，其中包含工程规范、验证命令与提交约定。
 
 ## 许可证
 
-尚未确定，当前不发布软件包。未复制 PyTauri 实现代码，参考来源见迁移契约。
+[Apache-2.0](LICENSE)。本项目为独立实现，未复制 PyTauri 的代码。

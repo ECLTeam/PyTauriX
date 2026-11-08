@@ -1,0 +1,12 @@
+# 默认负责人
+* @Wuchang325
+
+# 原生边界与安全相关路径
+/crates/bindings/src/ipc.rs @Wuchang325
+/crates/bindings/src/capabilities.rs @Wuchang325
+/crates/bindings/src/protocol.rs @Wuchang325
+/crates/bindings/capabilities/ @Wuchang325
+
+# 规范与工程配置
+/AGENTS.md @Wuchang325
+/.github/ @Wuchang325

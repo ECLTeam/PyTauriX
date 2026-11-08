@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安全问题
+    url: https://github.com/ECLTeam/PyTauriX/security/advisories/new
+    about: 请私下报告可被利用的漏洞，不要提交公开 Issue。
+  - name: 使用与集成问题
+    url: https://github.com/ECLTeam/PyTauriX/blob/main/docs/zh-CN/features.md
+    about: 先查功能清单与能力矩阵，确认接口是否已绑定。
