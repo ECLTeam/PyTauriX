@@ -64,7 +64,7 @@ jobs:
       - name: Install maturin
         run: python -m pip install "maturin>=1.9,<2"
       - name: Build sdist
-        run: maturin sdist --locked --out dist
+        run: maturin sdist --out dist
       - name: Verify source archive
         run: |
           python -m pip install pytest
