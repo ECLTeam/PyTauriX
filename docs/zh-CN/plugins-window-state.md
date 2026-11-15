@@ -34,6 +34,7 @@ app = builder_factory().build(
 | `flags` | 参与持久化的状态位 | 全部 |
 | `denylist` | 完全不参与持久化的窗口标签 | 空 |
 | `skip_initial` | 首次创建时不恢复的窗口标签 | 空 |
+| `filter` | 同步回调 `(label) -> bool`，返回 False 的窗口不参与持久化 | 空 |
 
 ## 标志
 
@@ -69,8 +70,10 @@ state.filename                              # 当前状态文件名
   包装类先查运行态登记表挡住。
 - **恢复只面向已存在的窗口**：新建窗口的恢复由插件在创建时自行完成，`restore()` 只用于
   “窗口已经在了，我要按文件内容再摆一次”。
-- **`with_filter` 与 `map_label` 未暴露**：两者都需要在构建期传入 Python 回调，
-  当前插件描述符只接受静态参数。
+- **`with_filter` 已暴露，`map_label` 未暴露**：filter 回调由上游在窗口创建与保存时机调用，
+  回调异常按「不保存该窗口」降级；`map_label` 的上游签名要求返回借用 `&str`，
+  Python 回调无法在不出借内存的前提下满足，暂缓并记录于
+  [协议扩展阶段方案](protocol-extensions-stage-plan.md)。
 - **`filename` 是插件内部文件名，不是完整路径**：上游把它拼到应用配置目录下。
 - Windows 已通过[桌面验收](desktop-acceptance.md)验证跨进程恢复：第一轮固定 820×560 并保存，
   第二轮读到相同尺寸。多显示器变化、denylist 与 skip_initial 的真实效果仍未验证。

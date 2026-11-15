@@ -5,7 +5,8 @@
 # ============================================================
 from __future__ import annotations
 
-from collections.abc import Iterable
+import inspect
+from collections.abc import Callable, Iterable
 
 from ... import _native
 from ...errors import BindingError
@@ -80,6 +81,7 @@ def init(
     flags: Iterable[object] | None = None,
     denylist: Iterable[object] | None = None,
     skip_initial: Iterable[object] | None = None,
+    filter: Callable[[str], bool] | None = None,
 ) -> Plugin:
     """
     创建窗口状态插件描述符；注册后由插件在窗口事件中自动保存与恢复。
@@ -90,8 +92,11 @@ def init(
     :param flags: 参与保存/恢复的标志，默认全部
     :param denylist: 不参与持久化的窗口标签
     :param skip_initial: 首次创建时不恢复的窗口标签
+    :param filter: 同步回调 ``(label) -> bool``，返回 False 的窗口不参与
+        持久化；回调由上游在窗口创建与保存时机调用，异常按不保存降级
     :return: 传给 Builder.build(plugins=...) 的原生插件
     :raises BindingError: 当前构建未包含该插件
+    :raises TypeError: filter 不可调用或为协程函数时抛出
     """
     if not _native.plugin_window_state_available:
         raise BindingError("unsupported_capability: Build with the plugin-window-state feature")
@@ -99,12 +104,17 @@ def init(
         raise TypeError("filename must be str")
     if filename is not None and not filename.strip():
         raise ValueError("filename must not be empty")
+    if filter is not None and not callable(filter):
+        raise TypeError("filter must be callable")
+    if filter is not None and inspect.iscoroutinefunction(filter):
+        raise TypeError("filter must be a synchronous callable")
     prepared_flags = _flags(flags)
     return _native.window_state_init(
         filename=filename,
         flags=list(prepared_flags) if prepared_flags is not None else None,
         denylist=list(_labels(denylist, "denylist")),
         skip_initial=list(_labels(skip_initial, "skip_initial")),
+        filter=filter,
     )
 
 

@@ -134,13 +134,14 @@ pub fn single_instance_init(py: Python<'_>, handler: Py<PyAny>) -> PyResult<Plug
 
 #[cfg(feature = "plugin-window-state")]
 #[pyfunction]
-#[pyo3(signature = (*, filename=None, flags=None, denylist=None, skip_initial=None))]
+#[pyo3(signature = (*, filename=None, flags=None, denylist=None, skip_initial=None, filter=None))]
 pub fn window_state_init(
     py: Python<'_>,
     filename: Option<String>,
     flags: Option<Vec<String>>,
     denylist: Option<Vec<String>>,
     skip_initial: Option<Vec<String>>,
+    filter: Option<Py<PyAny>>,
 ) -> PyResult<Plugin> {
-    crate::window_state_plugin::init(py, filename, flags, denylist, skip_initial)
+    crate::window_state_plugin::init(py, filename, flags, denylist, skip_initial, filter)
 }

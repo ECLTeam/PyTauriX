@@ -99,6 +99,7 @@ def window_state_init(
     flags: list[str] | None = None,
     denylist: list[str] | None = None,
     skip_initial: list[str] | None = None,
+    filter: Callable[[str], bool] | None = None,
 ) -> Plugin: ...
 
 plugin_fs_available: bool

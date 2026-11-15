@@ -48,13 +48,18 @@ fn restore_error(error: tauri::Error) -> PyErr {
     binding_error("window_state_failed", error.to_string())
 }
 
-/// 注册插件；文件名与例外清单在构建期固定，之后不再变更。
+/// 注册插件；文件名、例外清单与过滤回调在构建期固定，之后不再变更。
+///
+/// 过滤回调由上游在窗口创建与保存时机调用，决定该窗口是否参与持久化；
+/// 回调异常按「不保存该窗口」降级并记录到 stderr，不把 Python 异常带进
+/// 原生回调 panic。
 pub fn init(
     py: Python<'_>,
     filename: Option<String>,
     flags: Option<Vec<String>>,
     denylist: Option<Vec<String>>,
     skip_initial: Option<Vec<String>>,
+    filter: Option<Py<PyAny>>,
 ) -> PyResult<crate::plugin::Plugin> {
     let _ = py;
     let flags = parse_flags(flags)?;
@@ -81,6 +86,17 @@ pub fn init(
             }
             for label in &skip_initial {
                 native = native.skip_initial_state(label);
+            }
+            if let Some(callback) = filter {
+                native = native.with_filter(move |label: &str| {
+                    Python::attach(|py| match callback.call1(py, (label.to_string(),)) {
+                        Ok(result) => result.is_truthy(py).unwrap_or(false),
+                        Err(error) => {
+                            eprintln!("pytaurix: window-state filter callback failed: {error}");
+                            false
+                        }
+                    })
+                });
             }
             builder.plugin(native.build())
         }),

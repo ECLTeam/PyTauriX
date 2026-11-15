@@ -73,3 +73,32 @@ def test_init_reports_missing_feature() -> None:
     with pytest.raises(BindingError) as failure:
         init()
     assert "unsupported_capability" in str(failure.value)
+
+
+def test_init_rejects_non_callable_filter() -> None:
+    if not _native.plugin_window_state_available:
+        pytest.skip("window-state 插件未编译进当前构建")
+    with pytest.raises(TypeError, match="filter must be callable"):
+        init(filter="main")  # type: ignore[arg-type]
+
+
+def test_init_rejects_async_filter() -> None:
+    if not _native.plugin_window_state_available:
+        pytest.skip("window-state 插件未编译进当前构建")
+
+    async def filter(label: str) -> bool:
+        return label == "main"  # pragma: no cover
+
+    with pytest.raises(TypeError, match="synchronous callable"):
+        init(filter=filter)  # type: ignore[arg-type]
+
+
+def test_init_accepts_sync_filter_descriptor() -> None:
+    if not _native.plugin_window_state_available:
+        pytest.skip("window-state 插件未编译进当前构建")
+
+    def filter(label: str) -> bool:
+        return not label.startswith("ephemeral")
+
+    descriptor = init(filter=filter)
+    assert descriptor.name == "window-state"
