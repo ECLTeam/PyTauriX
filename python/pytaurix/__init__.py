@@ -25,7 +25,15 @@ from .ffi import AppHandle, Context, Webview, WebviewWindow
 from .ipc import Commands, Headers, Request, State
 from .manager import Emitter, Listener, Manager
 from .path import BaseDirectory, PathResolver
-from .protocol import Protocol, ProtocolRequest, ProtocolResponse, create_protocol
+from .protocol import (
+    Protocol,
+    ProtocolRequest,
+    ProtocolResponse,
+    RangeRequest,
+    create_protocol,
+    file_range_response,
+    parse_range,
+)
 from .runtime import RuntimeInfo, get_runtime_info
 from .url import WebviewUrl, WebviewUrlType
 from .webview_requests import (
@@ -69,6 +77,7 @@ __all__ = [
     "Protocol",
     "ProtocolRequest",
     "ProtocolResponse",
+    "RangeRequest",
     "Rect",
     "Request",
     "RunEvent",
@@ -86,6 +95,8 @@ __all__ = [
     "builder_factory",
     "context_factory",
     "create_protocol",
+    "file_range_response",
     "get_runtime_info",
+    "parse_range",
     "process",
 ]

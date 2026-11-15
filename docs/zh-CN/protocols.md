@@ -60,11 +60,31 @@ app.run_return()
 
 - scheme 必须是 ASCII 小写字母开头、只含小写字母/数字/`-+.`，长度不超过 32，
   且不能是 `tauri`、`asset`、`http`、`https`、`ipc`、`channel`。非法名称在创建时拒绝。
-- 处理器必须是同步函数；异步函数在创建时以 `ValueError` 拒绝，避免运行时静默变成 500。
+- 同步处理器在阻塞工作线程执行；协程函数作为处理器时必须显式提供
+  `create_protocol(name, handler, portal=...)` 的阻塞 portal（与命令桥的
+  `start_blocking_portal` 设施一致），缺失或形状不符在创建时以 `ValueError` 拒绝。
+  协程经 portal 事件循环调度并阻塞等待，阻塞发生在工作线程，GUI 线程不受影响。
+- 请求不可取消：连接提前断开时处理器仍执行完毕，最终响应由原生丢弃。
 - 处理器抛异常、返回非 `ProtocolResponse`、状态码或头字段非法：原生归还**空 500**，
-  异常不进入前端，也不终止应用。
+  异常不进入前端，也不终止应用。portal 关闭后到达的请求同样归还空 500。
 - 应用尚未完成初始化时到达的请求归还 `503`，与 IPC 的等待语义一致。
 - 回调不占用 GUI 线程，可以执行文件读取与编码转换；命令与协议共用同一套主线程约束。
+
+## 大文件与媒体流
+
+上游 Tauri 2.12.1 的自定义协议响应体只支持一次性字节，不提供流式交付。大文件的
+替代形态是 **Range/206 分块协作**：WebView 按 `Range` 逐块请求，处理器每次只读
+并返回一块，内存无压力。
+
+- `ProtocolRequest.range` 解析单个 `Range` 头，支持 `bytes=A-B`、`bytes=A-` 与
+  `bytes=-N`；缺失、多范围或畸形头归一为 `None`（明确拒绝，不做部分降级）。
+- `RangeRequest.resolve(total_size)` 产出 `(start, length)`；空资源、`suffix`
+  非正或 `start` 越界返回 `None`，调用方回退全量 200。
+- `file_range_response(path, mime, range=..., if_range=...)` 从文件构建响应：
+  可满足时返回 206 与 `Content-Range`/`Accept-Ranges`/`ETag`；`If-Range` 只做
+  ETag 强比较，弱 ETag 与日期形态按不匹配回退全量；全量回退会读取整个文件，
+  应仅用于能被 WebView 按 Range 逐块请求的场景。
+- `ETag` 由文件修改时间与大小生成；文件被替换后浏览器缓存自然失效。
 
 ## 安全边界
 
@@ -76,6 +96,8 @@ app.run_return()
 
 ## 验收状态
 
-契约测试覆盖名称校验、请求快照、返回值类型与默认响应。Windows 真实 WebView 的 `fetch`
+契约测试覆盖名称校验、请求快照、返回值类型与默认响应、异步处理器经 portal 调度、
+`Range` 解析与 `file_range_response` 的 200/206 分支。Windows 真实 WebView 的 `fetch`
 往返已通过[桌面验收](desktop-acceptance.md)验证：`http://acceptance.localhost/ping` 返回 200
-且正文与处理器一致。Linux/macOS 与移动平台另行验收。
+且正文与处理器一致。异步处理器与媒体流 Range 的桌面场景见
+[协议扩展阶段方案](protocol-extensions-stage-plan.md)。Linux/macOS 与移动平台另行验收。
