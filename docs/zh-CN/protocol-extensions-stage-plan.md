@@ -1,7 +1,8 @@
 # 协议扩展阶段方案：异步处理器、媒体流、window-state 回调与默认 features
 
-状态：**阶段 A、B、C 已实施并提交（14e2a12 / a437e09，2026-11-15，桌面场景脚本待补）；
-阶段 D 随 0.1.0a2 发版执行**
+状态：**阶段 A、B、C 已实施并提交（14e2a12 / a437e09），桌面场景已验收
+（scripts/protocol_scenarios_smoke.py，Windows 真实 WebView，2026-11-15）；
+阶段 D 已随 0.1.0a2 执行（4dcc90d）**
 
 ## 0. 背景与上游边界（先读）
 

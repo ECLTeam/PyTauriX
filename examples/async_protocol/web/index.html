@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PyTauriX 异步协议验收</title>
+  <style>
+    body { margin: 0; padding: 40px; background: #f3f5f7; color: #1b2632; font: 15px/1.6 system-ui, sans-serif; }
+    main { max-width: 680px; margin: auto; }
+    pre { white-space: pre-wrap; padding: 16px; background: #fff; border-radius: 10px; min-height: 160px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>PyTauriX 异步协议验收</h1>
+  <pre id="log">启动中…</pre>
+</main>
+<script>
+  const log = document.getElementById("log");
+  const lines = [];
+  const show = (text, ok) => {
+    lines.push((ok === undefined ? "" : ok ? "[ok] " : "[fail] ") + text);
+    log.textContent = lines.join("\n");
+  };
+  const invoke = (name, body) => window.__TAURI__.pytaurix.pyInvoke(name, body);
+  // Windows 下自定义 scheme 经 http://<scheme>.localhost 访问。
+  const windowsPlatform = navigator.userAgent.includes("Windows");
+  const url = (scheme, path) => (windowsPlatform ? `http://${scheme}.localhost` : `${scheme}://localhost`) + path;
+
+  async function checkAsync() {
+    try {
+      const started = performance.now();
+      const response = await fetch(url("asyncproto", "/async-ping"));
+      const body = await response.json().catch(() => null);
+      const elapsed = performance.now() - started;
+      const statusOk = response.status === 200;
+      const bodyOk = body?.ok === true && body?.path === "async";
+      const slowOk = elapsed >= 40; // 处理器内 await asyncio.sleep(0.05)
+      show(`异步处理器：status=${response.status} body=${JSON.stringify(body)} 耗时=${Math.round(elapsed)}ms`, statusOk && bodyOk && slowOk);
+      return { async_status: statusOk, async_body: bodyOk, async_scheduled: slowOk };
+    } catch (error) {
+      show("异步处理器：fetch 失败 " + String(error), false);
+      return { async_status: false, async_body: false, async_scheduled: false };
+    }
+  }
+
+  async function checkSync() {
+    try {
+      const response = await fetch(url("syncproto", "/sync-ping"));
+      const body = await response.json().catch(() => null);
+      const ok = response.status === 200 && body?.ok === true && body?.path === "sync";
+      show(`同步对照：status=${response.status} body=${JSON.stringify(body)}`, ok);
+      return { sync_regression: ok };
+    } catch (error) {
+      show("同步对照：fetch 失败 " + String(error), false);
+      return { sync_regression: false };
+    }
+  }
+
+  async function main() {
+    const checks = { ...(await checkAsync()), ...(await checkSync()) };
+    await invoke("finish", checks);
+  }
+  main();
+</script>
+</body>
+</html>

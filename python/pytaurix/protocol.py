@@ -251,6 +251,11 @@ def _serve(
         )
         if portal is None:
             response = handler(request)
+            if inspect.iscoroutine(response):
+                raise TypeError(
+                    "protocol handler returned a coroutine; "
+                    "pass an async function and a blocking portal to create_protocol"
+                )
         else:
             response = portal.call(handler, request)
         if not isinstance(response, ProtocolResponse):

@@ -85,6 +85,14 @@ app.run_return()
   ETag 强比较，弱 ETag 与日期形态按不匹配回退全量；全量回退会读取整个文件，
   应仅用于能被 WebView 按 Range 逐块请求的场景。
 - `ETag` 由文件修改时间与大小生成；文件被替换后浏览器缓存自然失效。
+- 与前端快照资源同路径的 URL 会命中前端快照而不是自定义协议处理器；
+  协议承载的媒体文件不要放进 `frontendDist` 目录。
+- 前端要读取 `ETag`/`Accept-Ranges`/`Content-Range` 等响应头时，处理器必须返回
+  `access-control-expose-headers`（CORS 安全清单外的响应头对 JS 不可见）。
+- 请求带 `If-Range` 这类非安全清单请求头时，WebView 会先发 OPTIONS 预检
+  （`access-control-request-headers: if-range`）；处理器必须应答预检
+  （200/204 + `access-control-allow-headers`），否则 fetch 直接网络级失败。
+  以上两条均经 Windows 桌面场景实测确认。
 
 ## 安全边界
 
@@ -99,5 +107,7 @@ app.run_return()
 契约测试覆盖名称校验、请求快照、返回值类型与默认响应、异步处理器经 portal 调度、
 `Range` 解析与 `file_range_response` 的 200/206 分支。Windows 真实 WebView 的 `fetch`
 往返已通过[桌面验收](desktop-acceptance.md)验证：`http://acceptance.localhost/ping` 返回 200
-且正文与处理器一致。异步处理器与媒体流 Range 的桌面场景见
-[协议扩展阶段方案](protocol-extensions-stage-plan.md)。Linux/macOS 与移动平台另行验收。
+且正文与处理器一致。异步处理器与媒体流 Range 已由 `scripts/protocol_scenarios_smoke.py`
+在 Windows 真实 WebView 上验收：协程处理器 fetch 往返、4 MiB 模式文件 16 块 Range
+步进拼接、206/Content-Range、If-Range 协商与回退全部通过。
+Linux/macOS 与移动平台另行验收。

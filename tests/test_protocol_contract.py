@@ -219,3 +219,11 @@ def test_file_range_response_falls_back_to_full_when_unsatisfiable(tmp_path) -> 
 
     assert response.status == 200
     assert response.body == b"0123456789"
+
+
+def test_sync_handler_returning_coroutine_fails_clearly() -> None:
+    async def async_handler(request: ProtocolRequest) -> ProtocolResponse:
+        return ProtocolResponse()  # pragma: no cover
+
+    with pytest.raises(TypeError, match="blocking portal"):
+        _serve(async_handler)("appdata://localhost/", "GET", [], b"", "main")

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "PyTauriX Media Range",
+  "version": "0.1.0",
+  "identifier": "top.eclteam.pytaurix.media-range",
+  "build": { "frontendDist": "web" },
+  "app": {
+    "windows": [{ "label": "main", "title": "PyTauriX 媒体区间验收", "width": 760, "height": 480 }],
+    "withGlobalTauri": true
+  },
+  "bundle": { "active": false }
+}

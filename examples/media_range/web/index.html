@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PyTauriX 媒体区间验收</title>
+  <style>
+    body { margin: 0; padding: 40px; background: #f3f5f7; color: #1b2632; font: 15px/1.6 system-ui, sans-serif; }
+    main { max-width: 680px; margin: auto; }
+    pre { white-space: pre-wrap; padding: 16px; background: #fff; border-radius: 10px; min-height: 160px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>PyTauriX 媒体区间验收</h1>
+  <pre id="log">启动中…</pre>
+</main>
+<script>
+  const log = document.getElementById("log");
+  const lines = [];
+  const show = (text, ok) => {
+    lines.push((ok === undefined ? "" : ok ? "[ok] " : "[fail] ") + text);
+    log.textContent = lines.join("\n");
+  };
+  const invoke = (name, body) => window.__TAURI__.pytaurix.pyInvoke(name, body);
+  const windowsPlatform = navigator.userAgent.includes("Windows");
+  const base = windowsPlatform ? "http://mediarange.localhost" : "mediarange://localhost";
+  const SIZE = 4 * 1024 * 1024;
+  const byteAt = (index) => index % 256;
+  const grab = (path, options) => fetch(base + path, { cache: "no-store", ...options });
+
+  async function checkFull() {
+    const response = await grab("/pattern.bin");
+    const body = new Uint8Array(await response.arrayBuffer());
+    const ok = response.status === 200
+      && body.length === SIZE
+      && (response.headers.get("accept-ranges") || "") === "bytes"
+      && (response.headers.get("etag") || "").startsWith('"file-')
+      && body[123] === byteAt(123) && body[SIZE - 1] === byteAt(SIZE - 1);
+    show(`全量 200：status=${response.status} 长度=${body.length} accept-ranges=${response.headers.get("accept-ranges")}`, ok);
+    return { full_200: ok };
+  }
+
+  async function checkSlice() {
+    const response = await grab("/pattern.bin", { headers: { Range: "bytes=1000000-1000999" } });
+    const body = new Uint8Array(await response.arrayBuffer());
+    const contentRange = response.headers.get("content-range") || "";
+    let patternOk = body.length === 1000;
+    for (let index = 0; patternOk && index < body.length; index += 1) {
+      patternOk = body[index] === byteAt(1000000 + index);
+    }
+    const ok = response.status === 206 && contentRange === `bytes 1000000-1000999/${SIZE}` && patternOk;
+    show(`区间 206：status=${response.status} content-range=${contentRange} 模式匹配=${patternOk}`, ok);
+    return { slice_206: ok };
+  }
+
+  async function checkStepped() {
+    // 播放器式消费：按 256 KiB 步进读完全量，验证多次区间请求拼接一致。
+    const chunk = 256 * 1024;
+    let offset = 0;
+    let ok = true;
+    while (offset < SIZE && ok) {
+      const end = Math.min(offset + chunk, SIZE) - 1;
+      const response = await grab("/pattern.bin", { headers: { Range: `bytes=${offset}-${end}` } });
+      const body = new Uint8Array(await response.arrayBuffer());
+      ok = response.status === 206
+        && body.length === end - offset + 1
+        && body[0] === byteAt(offset)
+        && body[body.length - 1] === byteAt(end);
+      offset = end + 1;
+    }
+    show("Range 步进 16 块拼接校验", ok);
+    return { stepped_playback: ok };
+  }
+
+  async function checkFallbacks() {
+    const unsatisfiable = await grab("/pattern.bin", { headers: { Range: "bytes=99999999-" } });
+    const unsatisfiableOk = unsatisfiable.status === 200;
+    const first = await grab("/pattern.bin");
+    const etag = first.headers.get("etag") || "";
+    const mismatch = await grab("/pattern.bin", { headers: { Range: "bytes=0-9", "If-Range": '"stale-etag"' } });
+    const mismatchOk = mismatch.status === 200;
+    const matched = await grab("/pattern.bin", { headers: { Range: "bytes=0-9", "If-Range": etag } });
+    const matchedBody = new Uint8Array(await matched.arrayBuffer());
+    const matchedOk = matched.status === 206 && matchedBody.length === 10 && matchedBody[0] === 0;
+    show(`回退与 If-Range：越界=${unsatisfiable.status} 过期=${mismatch.status} 匹配=${matched.status}`, unsatisfiableOk && mismatchOk && matchedOk);
+    return { fallback_200: unsatisfiableOk && mismatchOk, if_range_negotiation: matchedOk && etag !== "" };
+  }
+
+  async function report(name, result) {
+    await invoke("progress", { name, ...result });
+    return result;
+  }
+
+  async function main() {
+    try {
+      const checks = {
+        ...(await report("full", await checkFull())),
+        ...(await report("slice", await checkSlice())),
+        ...(await report("stepped", await checkStepped())),
+        ...(await report("fallbacks", await checkFallbacks())),
+      };
+      await invoke("finish", checks);
+    } catch (error) {
+      show("场景异常：" + String(error), false);
+      await invoke("finish", {
+        full_200: false,
+        slice_206: false,
+        stepped_playback: false,
+        fallback_200: false,
+        if_range_negotiation: false,
+        error: String(error),
+      }).catch(() => {});
+    }
+  }
+  main();
+</script>
+</body>
+</html>
