@@ -3284,7 +3284,7 @@ dependencies = [
 
 [[package]]
 name = "pytaurix-bindings"
-version = "0.1.0-alpha.1"
+version = "0.1.0-alpha.2"
 dependencies = [
  "glob",
  "muda",
@@ -3307,7 +3307,7 @@ dependencies = [
 
 [[package]]
 name = "pytaurix-bridge"
-version = "0.1.0-alpha.1"
+version = "0.1.0-alpha.2"
 dependencies = [
  "tauri",
  "tauri-utils",

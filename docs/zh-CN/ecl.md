@@ -13,7 +13,8 @@ from pytaurix.plugins.dialog import DialogExt, init as dialog_init
 ```
 
 ECL 的六处直接 Python 导入、依赖清单、打包清单、宿主保护名称和测试替身需要迁移。
-依赖使用 `pytaurix==0.1.0a1`，从本地 wheel 安装；本项目尚未发布到索引，不能直接假设公开安装可用。
+依赖使用 `pytaurix==0.1.0a1`，从本地 wheel 安装；自 0.1.0a2 起可改用 PyPI 发行版本
+（默认 wheel 已含 `plugin-window-state` 与 `plugin-single-instance`，无需本地重建 feature 组合）。
 当前 ECL 调试命令要求 wheel 构建显式开启开发者工具：
 
 ```powershell

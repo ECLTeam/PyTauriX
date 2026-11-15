@@ -1,7 +1,7 @@
 # 窗口状态插件
 
-`tauri-plugin-window-state` 2.4.0，构建时启用 `plugin-window-state`。默认 wheel 不包含该插件，
-未启用时 `init()` 报 `unsupported_capability`。
+`tauri-plugin-window-state` 2.4.0，构建时启用 `plugin-window-state`。自 0.1.0a2 起该插件
+进入默认 features，发行 wheel 默认包含；`--no-default-features` 精简组合未启用时 `init()` 报 `unsupported_capability`。
 
 这个插件补的是 Python 侧做不到的部分：窗口几何的保存与恢复挂在 Tauri 的窗口事件里，
 需要和窗口创建、关闭、最大化、全屏这些时机对齐，自己用 Python 轮询既不准也容易漏。

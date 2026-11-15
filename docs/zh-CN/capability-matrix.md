@@ -86,7 +86,8 @@ window-state 锁定 2.4.0，只暴露静态注册参数与运行期保存/恢复
 需要构建期 Python 回调，未绑定；窗口几何跨会话恢复已通过桌面验收验证（两轮进程，尺寸一致）。
 
 single-instance 锁定 2.3.2、global-shortcut 2.3.0、notification 2.3.0、opener 2.5.0，
-均以独立 feature 提供、默认 wheel 不包含；第二实例唤醒已通过桌面验收验证（回调带回 argv 与 cwd）；热键冲突、通知显示与默认程序启动
+single-instance 与 window-state 自 0.1.0a2 起进入默认 features，global-shortcut、notification、opener
+仍以独立 feature 提供、默认 wheel 不包含；第二实例唤醒已通过桌面验收验证（回调带回 argv 与 cwd）；热键冲突、通知显示与默认程序启动
 仍需人工确认，Linux/macOS 另行验收。构建器已把用户插件排在桥接插件之前，
 满足 single-instance 尽早登记的要求。
 

@@ -42,7 +42,16 @@ tauri = { workspace = true, features = ["x11", "dbus"] }
 tauri-build = { version = "=2.7.1" }
 
 [features]
-default = ["wry", "dynamic-acl", "plugin-dialog", "dialog-gtk3", "image-png", "image-ico"]
+default = [
+    "wry",
+    "dynamic-acl",
+    "plugin-dialog",
+    "dialog-gtk3",
+    "image-png",
+    "image-ico",
+    "plugin-window-state",
+    "plugin-single-instance",
+]
 plugin-dialog = ["dep:tauri-plugin-dialog"]
 plugin-fs = ["dep:tauri-plugin-fs"]
 plugin-global-shortcut = ["dep:tauri-plugin-global-shortcut"]
